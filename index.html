@@ -7,57 +7,71 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ou-blue-dark:  #002F6C;
-    --ou-blue:       #0055A4;
-    --ou-blue-mid:   #1A73C1;
-    --ou-blue-light: #E8F1FA;
-    --ou-orange:     #E8521B;
-    --ou-orange-light: #FEF0EA;
-    --ou-teal:       #00788A;
-    --ou-teal-light: #E0F2F4;
-    --ou-purple:     #6B3FA0;
-    --ou-purple-light: #F0EAFA;
-    --ou-green:      #1A7A4A;
-    --ou-green-light:#E4F4EC;
-    --ou-gray-50:    #F7F9FC;
-    --ou-gray-100:   #EFF2F7;
-    --ou-gray-200:   #D9E2EF;
-    --ou-gray-400:   #8FA3BF;
-    --ou-gray-700:   #3D5170;
-    --ou-gray-900:   #1A2A42;
-    --radius-card:   16px;
-    --shadow-card:   0 2px 12px rgba(0,47,108,.08), 0 1px 3px rgba(0,47,108,.06);
-    --shadow-hover:  0 8px 32px rgba(0,47,108,.15), 0 2px 8px rgba(0,47,108,.10);
+    /* Brand colors from brand guide */
+    --brand-pink:        #C11E6B;
+    --brand-pink-light:  #F5D0E3;
+    --brand-pink-soft:   #FBF0F5;
+    --brand-teal:        #6CB79D;
+    --brand-teal-light:  #D4EDE5;
+    --brand-teal-soft:   #EEF8F4;
+    --brand-yellow:      #EBA521;
+    --brand-yellow-light:#F8E5B8;
+    --brand-yellow-soft: #FDF6E8;
+    --brand-dark:        #231F20;
+    --brand-white:       #FFFFFF;
+    --brand-pink-pale:   #E599B6;
+
+    --gray-50:    #F9F7F8;
+    --gray-100:   #F0ECEe;
+    --gray-200:   #DDD5DA;
+    --gray-400:   #A08898;
+    --gray-600:   #6B4F5E;
+    --gray-800:   #3A2230;
+    --gray-900:   #231F20;
+
+    --radius-card: 16px;
+    --shadow-card: 0 2px 14px rgba(193,30,107,.08), 0 1px 4px rgba(193,30,107,.05);
+    --shadow-hover: 0 8px 36px rgba(193,30,107,.16), 0 2px 10px rgba(193,30,107,.10);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'Heebo', sans-serif;
-    background: var(--ou-gray-50);
-    color: var(--ou-gray-900);
+    background: var(--gray-50);
+    color: var(--gray-900);
     min-height: 100vh;
     direction: rtl;
+    font-size: 16px;
   }
 
   /* ── Header ── */
   .header {
-    background: linear-gradient(135deg, var(--ou-blue-dark) 0%, var(--ou-blue) 60%, var(--ou-blue-mid) 100%);
+    background: var(--brand-dark);
     color: #fff;
     padding: 0;
     position: relative;
     overflow: hidden;
   }
+  /* decorative pink accent line at top */
   .header::before {
     content: '';
     position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--brand-pink), var(--brand-pink-pale), var(--brand-yellow), var(--brand-teal));
+  }
+  /* subtle pattern */
+  .header::after {
+    content: '';
+    position: absolute;
     inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C11E6B' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
   }
   .header-inner {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 40px 32px 32px;
+    padding: 44px 36px 36px;
     position: relative;
     z-index: 1;
   }
@@ -71,68 +85,68 @@
   .logo-area {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
   }
-  .logo-circle {
-    width: 56px; height: 56px;
-    background: rgba(255,255,255,.15);
-    border: 2px solid rgba(255,255,255,.3);
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 26px; font-weight: 800; letter-spacing: -1px;
-    color: #fff;
+  .logo-mark {
+    width: 52px; height: 52px;
     flex-shrink: 0;
+    position: relative;
   }
+  /* Simple brand-colors logo mark using CSS */
+  .logo-mark svg { width: 52px; height: 52px; }
+
   .header-titles h1 {
-    font-size: 22px; font-weight: 800; line-height: 1.2;
+    font-size: 24px; font-weight: 800; line-height: 1.2;
     letter-spacing: -.3px;
   }
   .header-titles p {
-    font-size: 13px; font-weight: 400; opacity: .75; margin-top: 2px;
+    font-size: 14px; font-weight: 400; opacity: .7; margin-top: 3px;
   }
   .header-badge {
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.25);
+    background: var(--brand-pink);
     border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 13px; font-weight: 500;
+    padding: 7px 18px;
+    font-size: 14px; font-weight: 700;
     white-space: nowrap;
+    letter-spacing: .2px;
   }
 
   .header-desc {
-    font-size: 15px; font-weight: 400; opacity: .85; line-height: 1.65;
+    font-size: 16px; font-weight: 400; opacity: .8; line-height: 1.7;
     max-width: 680px;
     margin-bottom: 28px;
   }
 
   /* Stats bar */
   .stats-bar {
-    display: flex; gap: 16px; flex-wrap: wrap;
+    display: flex; gap: 14px; flex-wrap: wrap;
   }
   .stat-pill {
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 12px;
-    padding: 10px 20px;
-    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 14px;
+    padding: 12px 22px;
+    display: flex; align-items: center; gap: 12px;
   }
   .stat-pill .num {
-    font-size: 22px; font-weight: 800; line-height: 1;
+    font-size: 26px; font-weight: 800; line-height: 1;
+    color: var(--brand-yellow);
   }
   .stat-pill .lbl {
-    font-size: 12px; font-weight: 400; opacity: .8; line-height: 1.3;
+    font-size: 13px; font-weight: 400; opacity: .75; line-height: 1.35;
   }
 
   /* ── Filter bar ── */
   .filter-wrap {
     background: #fff;
-    border-bottom: 1px solid var(--ou-gray-200);
+    border-bottom: 1px solid var(--gray-200);
     position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(193,30,107,.06);
   }
   .filter-inner {
     max-width: 1280px; margin: 0 auto;
-    padding: 0 32px;
-    display: flex; align-items: center; gap: 8px;
+    padding: 0 36px;
+    display: flex; align-items: center; gap: 4px;
     overflow-x: auto;
     scrollbar-width: none;
   }
@@ -140,38 +154,38 @@
   .filter-btn {
     border: none; background: none; cursor: pointer;
     font-family: 'Heebo', sans-serif;
-    font-size: 13px; font-weight: 500;
-    color: var(--ou-gray-700);
-    padding: 14px 16px;
+    font-size: 14px; font-weight: 500;
+    color: var(--gray-600);
+    padding: 15px 18px;
     white-space: nowrap;
-    border-bottom: 2.5px solid transparent;
+    border-bottom: 3px solid transparent;
     transition: all .2s;
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 7px;
   }
-  .filter-btn:hover { color: var(--ou-blue); }
-  .filter-btn.active { color: var(--ou-blue); border-bottom-color: var(--ou-blue); font-weight: 600; }
+  .filter-btn:hover { color: var(--brand-pink); }
+  .filter-btn.active { color: var(--brand-pink); border-bottom-color: var(--brand-pink); font-weight: 700; }
   .filter-count {
-    background: var(--ou-blue-light);
-    color: var(--ou-blue);
+    background: var(--brand-pink-soft);
+    color: var(--brand-pink);
     border-radius: 10px;
-    padding: 1px 7px;
-    font-size: 11px; font-weight: 600;
+    padding: 1px 8px;
+    font-size: 12px; font-weight: 700;
   }
-  .filter-btn.active .filter-count { background: var(--ou-blue); color: #fff; }
+  .filter-btn.active .filter-count { background: var(--brand-pink); color: #fff; }
 
   /* ── Main grid ── */
-  .main { max-width: 1280px; margin: 0 auto; padding: 32px; }
+  .main { max-width: 1280px; margin: 0 auto; padding: 36px; }
 
   .section-title {
-    font-size: 13px; font-weight: 600; color: var(--ou-gray-400);
-    letter-spacing: .5px; text-transform: uppercase;
-    margin-bottom: 20px;
+    font-size: 14px; font-weight: 600; color: var(--gray-400);
+    letter-spacing: .6px; text-transform: uppercase;
+    margin-bottom: 22px;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 22px;
   }
 
   /* ── Cards ── */
@@ -179,151 +193,147 @@
     background: #fff;
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
-    border: 1px solid var(--ou-gray-200);
+    border: 1px solid var(--gray-200);
     display: flex; flex-direction: column;
     transition: box-shadow .25s, transform .25s;
     overflow: hidden;
-    cursor: default;
   }
   .card:hover {
     box-shadow: var(--shadow-hover);
     transform: translateY(-3px);
   }
 
-  .card-stripe {
-    height: 5px;
-    flex-shrink: 0;
-  }
+  .card-stripe { height: 5px; flex-shrink: 0; }
 
-  .card-body { padding: 20px 20px 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .card-body { padding: 22px 22px 18px; flex: 1; display: flex; flex-direction: column; gap: 13px; }
 
-  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
 
   .card-icon {
-    width: 44px; height: 44px; border-radius: 12px;
+    width: 46px; height: 46px; border-radius: 13px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0;
+    font-size: 22px; flex-shrink: 0;
   }
 
   .tag-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; }
 
   .tag {
-    display: inline-flex; align-items: center; gap: 4px;
+    display: inline-flex; align-items: center; gap: 5px;
     border-radius: 20px;
-    padding: 3px 10px;
-    font-size: 11px; font-weight: 600;
+    padding: 4px 11px;
+    font-size: 12px; font-weight: 700;
     white-space: nowrap;
   }
   .tag-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-  /* tag colors by type */
-  .tag-info    { background: var(--ou-blue-light);   color: var(--ou-blue); }
-  .tag-dot-info    { background: var(--ou-blue); }
-  .tag-simple  { background: var(--ou-teal-light);   color: var(--ou-teal); }
-  .tag-dot-simple  { background: var(--ou-teal); }
-  .tag-scorm   { background: var(--ou-orange-light); color: var(--ou-orange); }
-  .tag-dot-scorm   { background: var(--ou-orange); }
-  .tag-db      { background: var(--ou-purple-light); color: var(--ou-purple); }
-  .tag-dot-db      { background: var(--ou-purple); }
-  .tag-sim     { background: var(--ou-green-light);  color: var(--ou-green); }
-  .tag-dot-sim     { background: var(--ou-green); }
+  /* tag type colors using brand palette */
+  .tag-info    { background: #EEF8F4; color: #3A8A70; }
+  .tag-dot-info    { background: var(--brand-teal); }
+
+  .tag-simple  { background: var(--brand-pink-soft); color: var(--brand-pink); }
+  .tag-dot-simple  { background: var(--brand-pink); }
+
+  .tag-scorm   { background: var(--brand-yellow-soft); color: #9A6B00; }
+  .tag-dot-scorm   { background: var(--brand-yellow); }
+
+  .tag-db      { background: #FDF0F5; color: #8B1450; }
+  .tag-dot-db      { background: #C11E6B; }
+
+  .tag-sim     { background: var(--brand-yellow-soft); color: #9A6B00; }
+  .tag-dot-sim     { background: var(--brand-yellow); }
 
   .card-title {
-    font-size: 16px; font-weight: 700; line-height: 1.35;
-    color: var(--ou-gray-900);
+    font-size: 17px; font-weight: 700; line-height: 1.35;
+    color: var(--gray-900);
   }
   .card-desc {
-    font-size: 13px; font-weight: 400; color: var(--ou-gray-700);
-    line-height: 1.55; flex: 1;
+    font-size: 14px; font-weight: 400; color: var(--gray-600);
+    line-height: 1.6; flex: 1;
   }
 
   .card-meta {
-    display: flex; align-items: center; gap: 8px;
-    padding-top: 12px;
-    border-top: 1px solid var(--ou-gray-100);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    padding-top: 13px;
+    border-top: 1px solid var(--gray-100);
     margin-top: auto;
   }
   .meta-badge {
-    font-size: 11px; font-weight: 500;
-    color: var(--ou-gray-400);
-    background: var(--ou-gray-100);
+    font-size: 12px; font-weight: 500;
+    color: var(--gray-400);
+    background: var(--gray-100);
     border-radius: 8px;
-    padding: 3px 8px;
+    padding: 3px 9px;
   }
-  .meta-badge.highlight { color: var(--ou-blue); background: var(--ou-blue-light); }
+  .meta-badge.highlight { color: var(--brand-teal); background: var(--brand-teal-soft); }
 
-  .card-footer { padding: 0 20px 18px; }
+  .card-footer { padding: 0 22px 20px; }
   .btn-open {
     display: block; width: 100%;
     text-align: center;
     border: none; cursor: pointer;
     font-family: 'Heebo', sans-serif;
-    font-size: 14px; font-weight: 600;
+    font-size: 15px; font-weight: 700;
     color: #fff;
-    background: var(--ou-blue);
-    border-radius: 10px;
-    padding: 10px;
+    background: var(--brand-pink);
+    border-radius: 11px;
+    padding: 11px;
     text-decoration: none;
     transition: background .2s, transform .15s;
+    letter-spacing: .2px;
   }
-  .btn-open:hover { background: var(--ou-blue-dark); transform: scale(1.01); }
+  .btn-open:hover { background: #9A1555; transform: scale(1.01); }
   .btn-open:active { transform: scale(.98); }
 
-  /* stripe color variants */
-  .stripe-blue   { background: linear-gradient(90deg, var(--ou-blue-dark), var(--ou-blue-mid)); }
-  .stripe-teal   { background: linear-gradient(90deg, var(--ou-teal), #00A3B8); }
-  .stripe-orange { background: linear-gradient(90deg, var(--ou-orange), #F07030); }
-  .stripe-purple { background: linear-gradient(90deg, var(--ou-purple), #9B6FD0); }
-  .stripe-green  { background: linear-gradient(90deg, var(--ou-green), #28A868); }
+  /* stripe variants */
+  .stripe-pink   { background: linear-gradient(90deg, var(--brand-pink), var(--brand-pink-pale)); }
+  .stripe-teal   { background: linear-gradient(90deg, var(--brand-teal), #9DD5C0); }
+  .stripe-yellow { background: linear-gradient(90deg, var(--brand-yellow), #F5C860); }
+  .stripe-dark   { background: linear-gradient(90deg, var(--brand-dark), #4A3545); }
 
-  /* icon bg variants */
-  .icon-blue   { background: var(--ou-blue-light); }
-  .icon-teal   { background: var(--ou-teal-light); }
-  .icon-orange { background: var(--ou-orange-light); }
-  .icon-purple { background: var(--ou-purple-light); }
-  .icon-green  { background: var(--ou-green-light); }
+  /* icon bg */
+  .icon-pink   { background: var(--brand-pink-soft); }
+  .icon-teal   { background: var(--brand-teal-soft); }
+  .icon-yellow { background: var(--brand-yellow-soft); }
+  .icon-dark   { background: #F0ECEe; }
 
-  /* btn color variants */
-  .btn-teal   { background: var(--ou-teal); }
-  .btn-teal:hover { background: #005F70; }
-  .btn-orange { background: var(--ou-orange); }
-  .btn-orange:hover { background: #C04010; }
-  .btn-purple { background: var(--ou-purple); }
-  .btn-purple:hover { background: #502D80; }
-  .btn-green  { background: var(--ou-green); }
-  .btn-green:hover { background: #135A35; }
+  /* btn variants */
+  .btn-teal   { background: var(--brand-teal); }
+  .btn-teal:hover { background: #4A967E; }
+  .btn-yellow { background: var(--brand-yellow); }
+  .btn-yellow:hover { background: #C08000; }
+  .btn-dark   { background: var(--brand-dark); }
+  .btn-dark:hover { background: #3D3035; }
 
-  /* hidden for filter */
   .card.hidden { display: none; }
 
   /* ── Legend ── */
   .legend {
-    margin-top: 40px;
+    margin-top: 44px;
     background: #fff;
-    border: 1px solid var(--ou-gray-200);
+    border: 1px solid var(--gray-200);
     border-radius: var(--radius-card);
-    padding: 20px 24px;
+    padding: 24px 28px;
   }
-  .legend h3 { font-size: 14px; font-weight: 700; margin-bottom: 14px; color: var(--ou-gray-700); }
-  .legend-items { display: flex; flex-wrap: wrap; gap: 10px; }
-  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ou-gray-700); }
-  .legend-swatch { width: 28px; height: 10px; border-radius: 5px; }
+  .legend h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--gray-800); }
+  .legend-items { display: flex; flex-wrap: wrap; gap: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--gray-600); }
+  .legend-swatch { width: 30px; height: 10px; border-radius: 5px; flex-shrink: 0; }
 
   /* ── Footer ── */
   .footer {
     text-align: center;
     padding: 28px;
-    color: var(--ou-gray-400);
-    font-size: 12px;
-    border-top: 1px solid var(--ou-gray-200);
+    color: var(--gray-400);
+    font-size: 13px;
+    border-top: 1px solid var(--gray-200);
     margin-top: 8px;
   }
 
   @media (max-width: 640px) {
-    .header-inner { padding: 24px 16px 20px; }
+    .header-inner { padding: 26px 18px 22px; }
     .header-top { flex-direction: column; align-items: flex-start; }
-    .main { padding: 20px 16px; }
-    .filter-inner { padding: 0 16px; }
+    .main { padding: 22px 18px; }
+    .filter-inner { padding: 0 18px; }
     .grid { grid-template-columns: 1fr; }
   }
 </style>
@@ -335,13 +345,22 @@
   <div class="header-inner">
     <div class="header-top">
       <div class="logo-area">
-        <div class="logo-circle">אפ"ת</div>
+        <!-- Logo mark using brand colors -->
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="52" height="52" rx="13" fill="#2D2428"/>
+          <!-- Pink diamond shape -->
+          <polygon points="26,8 34,20 26,26 18,20" fill="#C11E6B"/>
+          <!-- Teal shape -->
+          <polygon points="16,24 26,26 22,38 12,36" fill="#6CB79D"/>
+          <!-- Yellow shape -->
+          <polygon points="36,24 26,26 30,38 40,36" fill="#EBA521"/>
+        </svg>
         <div class="header-titles">
           <h1>מאגר פעילויות דיגיטליות</h1>
           <p>מחלקת פדגוגיה דיגיטלית | האוניברסיטה הפתוחה</p>
         </div>
       </div>
-      <div class="header-badge">2024–2025</div>
+      <div class="header-badge">2026</div>
     </div>
 
     <p class="header-desc">
@@ -398,10 +417,10 @@
 
     <!-- 1. AI Survey -->
     <div class="card" data-type="simple">
-      <div class="card-stripe stripe-teal"></div>
+      <div class="card-stripe stripe-pink"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-teal">📊</div>
+          <div class="card-icon icon-pink">📊</div>
           <div class="tag-group">
             <span class="tag tag-simple"><span class="tag-dot tag-dot-simple"></span>אינטראקטיבי פשוט</span>
           </div>
@@ -415,16 +434,16 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://natsty-prog.github.io/ai-survey/" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
+        <a href="https://natsty-prog.github.io/ai-survey/" target="_blank" class="btn-open">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 2. Word Drag Game -->
     <div class="card" data-type="simple">
-      <div class="card-stripe stripe-teal"></div>
+      <div class="card-stripe stripe-pink"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-teal">🎮</div>
+          <div class="card-icon icon-pink">🎮</div>
           <div class="tag-group">
             <span class="tag tag-simple"><span class="tag-dot tag-dot-simple"></span>אינטראקטיבי פשוט</span>
           </div>
@@ -437,16 +456,16 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://natsty-prog.github.io/game-ai/" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
+        <a href="https://natsty-prog.github.io/game-ai/" target="_blank" class="btn-open">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 3. Gallery AI -->
     <div class="card" data-type="info">
-      <div class="card-stripe stripe-blue"></div>
+      <div class="card-stripe stripe-teal"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-blue">🖼️</div>
+          <div class="card-icon icon-teal">🖼️</div>
           <div class="tag-group">
             <span class="tag tag-info"><span class="tag-dot tag-dot-info"></span>אינפורמטיבי</span>
           </div>
@@ -459,16 +478,16 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://digitallearningopenu.github.io/gallery-AI" target="_blank" class="btn-open">פתח פעילות ←</a>
+        <a href="https://digitallearningopenu.github.io/gallery-AI" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 4. Voting App -->
     <div class="card" data-type="simple">
-      <div class="card-stripe stripe-teal"></div>
+      <div class="card-stripe stripe-pink"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-teal">🗳️</div>
+          <div class="card-icon icon-pink">🗳️</div>
           <div class="tag-group">
             <span class="tag tag-simple"><span class="tag-dot tag-dot-simple"></span>אינטראקטיבי פשוט</span>
           </div>
@@ -481,16 +500,16 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://natsty-prog.github.io/voting-app/" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
+        <a href="https://natsty-prog.github.io/voting-app/" target="_blank" class="btn-open">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 5. Manifesto Voting with DB -->
     <div class="card" data-type="db">
-      <div class="card-stripe stripe-purple"></div>
+      <div class="card-stripe stripe-dark"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-purple">🌐</div>
+          <div class="card-icon icon-dark">🌐</div>
           <div class="tag-group">
             <span class="tag tag-db"><span class="tag-dot tag-dot-db"></span>שיתופי / דאטהבייס</span>
           </div>
@@ -503,16 +522,16 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://natsty-prog.github.io/voting-app/manifesto.html" target="_blank" class="btn-open btn-purple">פתח פעילות ←</a>
+        <a href="https://natsty-prog.github.io/voting-app/manifesto.html" target="_blank" class="btn-open btn-dark">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 6. AI Foundations Bricks -->
     <div class="card" data-type="info">
-      <div class="card-stripe stripe-blue"></div>
+      <div class="card-stripe stripe-teal"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-blue">🧱</div>
+          <div class="card-icon icon-teal">🧱</div>
           <div class="tag-group">
             <span class="tag tag-info"><span class="tag-dot tag-dot-info"></span>אינפורמטיבי</span>
           </div>
@@ -525,38 +544,38 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://digitallearningopenu.github.io/AI-Foundations-Bricks/" target="_blank" class="btn-open">פתח פעילות ←</a>
+        <a href="https://digitallearningopenu.github.io/AI-Foundations-Bricks/" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 7. NY Literary Map -->
     <div class="card" data-type="info">
-      <div class="card-stripe stripe-blue"></div>
+      <div class="card-stripe stripe-teal"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-blue">🗺️</div>
+          <div class="card-icon icon-teal">🗺️</div>
           <div class="tag-group">
             <span class="tag tag-info"><span class="tag-dot tag-dot-info"></span>אינפורמטיבי</span>
           </div>
         </div>
         <div class="card-title">מפה ספרותית של ניו יורק</div>
-        <div class="card-desc">חקירה ויזואלית-גיאוגרפית של יצירות ספרות דרך מפה אינטראקטיבית של ניו יורק. הצגת תוכן עשירה.</div>
+        <div class="card-desc">חקירה ויזואלית-גיאוגרפית של יצירות ספרות דרך מפה אינטראקטיבית של ניו יורק.</div>
         <div class="card-meta">
           <span class="meta-badge">אחסון סטטי</span>
           <span class="meta-badge highlight">iframe ידידותי</span>
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://natsty-prog.github.io/ny-literary-map/" target="_blank" class="btn-open">פתח פעילות ←</a>
+        <a href="https://natsty-prog.github.io/ny-literary-map/" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 8. Gemini Simulation -->
     <div class="card" data-type="sim">
-      <div class="card-stripe stripe-green"></div>
+      <div class="card-stripe stripe-yellow"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-green">🤖</div>
+          <div class="card-icon icon-yellow">🤖</div>
           <div class="tag-group">
             <span class="tag tag-sim"><span class="tag-dot tag-dot-sim"></span>סימולציה</span>
           </div>
@@ -569,61 +588,61 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://gemini.google.com/share/66961465be3f" target="_blank" class="btn-open btn-green">פתח פעילות ←</a>
+        <a href="https://gemini.google.com/share/66961465be3f" target="_blank" class="btn-open btn-yellow">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 9. Base44 Simulation -->
     <div class="card" data-type="sim">
-      <div class="card-stripe stripe-green"></div>
+      <div class="card-stripe stripe-yellow"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-green">⚡</div>
+          <div class="card-icon icon-yellow">⚡</div>
           <div class="tag-group">
             <span class="tag tag-sim"><span class="tag-dot tag-dot-sim"></span>סימולציה</span>
             <span class="tag tag-scorm"><span class="tag-dot tag-dot-scorm"></span>Base44</span>
           </div>
         </div>
         <div class="card-title">סימולציה – פותח ב-Base44</div>
-        <div class="card-desc">סימולציה אינטראקטיבית שפותחה בכלי No-Code מתקדם Base44. מדגימה יכולות פיתוח מהיר לפעילויות עשירות.</div>
+        <div class="card-desc">סימולציה אינטראקטיבית שפותחה בכלי No-Code מתקדם. מדגימה יכולות פיתוח מהיר לפעילויות עשירות.</div>
         <div class="card-meta">
           <span class="meta-badge">Base44</span>
           <span class="meta-badge">No-Code</span>
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://openu13047.base44.app/" target="_blank" class="btn-open btn-green">פתח פעילות ←</a>
+        <a href="https://openu13047.base44.app/" target="_blank" class="btn-open btn-yellow">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 10. Bouma's Law -->
     <div class="card" data-type="simple">
-      <div class="card-stripe stripe-orange"></div>
+      <div class="card-stripe stripe-pink"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-orange">👁️</div>
+          <div class="card-icon icon-pink">👁️</div>
           <div class="tag-group">
             <span class="tag tag-simple"><span class="tag-dot tag-dot-simple"></span>אינטראקטיבי פשוט</span>
           </div>
         </div>
         <div class="card-title">חוק בואמה – המחשת צפיפות</div>
-        <div class="card-desc">הדגמה אינטראקטיבית של חוק בואמה (Bouma's Law) על ידי שליטה בצפיפות אלמנטים ותצפית על השפעת הגדש החזותי.</div>
+        <div class="card-desc">הדגמה אינטראקטיבית של חוק בואמה על ידי שליטה בצפיפות אלמנטים ותצפית על השפעת הגדש החזותי.</div>
         <div class="card-meta">
           <span class="meta-badge">HTML/JS/CSS</span>
           <span class="meta-badge highlight">שרתי אפ"ת</span>
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://telem.openu.ac.il/multimedia/icw/c10966/book/boumas_law_interactive_crowding_illustration_html_js.html" target="_blank" class="btn-open btn-orange">פתח פעילות ←</a>
+        <a href="https://telem.openu.ac.il/multimedia/icw/c10966/book/boumas_law_interactive_crowding_illustration_html_js.html" target="_blank" class="btn-open">פתח פעילות ←</a>
       </div>
     </div>
 
     <!-- 11. Collaborative Group Work -->
     <div class="card" data-type="db">
-      <div class="card-stripe stripe-purple"></div>
+      <div class="card-stripe stripe-dark"></div>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-icon icon-purple">👥</div>
+          <div class="card-icon icon-dark">👥</div>
           <div class="tag-group">
             <span class="tag tag-db"><span class="tag-dot tag-dot-db"></span>שיתופי / דאטהבייס</span>
           </div>
@@ -635,7 +654,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="https://telem.openu.ac.il/Danit/61136/Lesson_2_6_Collaborative_Group_work.html" target="_blank" class="btn-open btn-purple">פתח פעילות ←</a>
+        <a href="https://telem.openu.ac.il/Danit/61136/Lesson_2_6_Collaborative_Group_work.html" target="_blank" class="btn-open btn-dark">פתח פעילות ←</a>
       </div>
     </div>
 
@@ -646,23 +665,19 @@
     <h3>מקרא סוגי פעילויות</h3>
     <div class="legend-items">
       <div class="legend-item">
-        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-blue-dark),var(--ou-blue-mid))"></div>
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--brand-teal),#9DD5C0)"></div>
         <span><strong>אינפורמטיבי</strong> – הצגת מידע ויזואלית, אחסון סטטי, iframe</span>
       </div>
       <div class="legend-item">
-        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-teal),#00A3B8)"></div>
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--brand-pink),var(--brand-pink-pale))"></div>
         <span><strong>אינטראקטיבי פשוט</strong> – תרגול, משוב מיידי בצד לקוח, אחסון סטטי</span>
       </div>
       <div class="legend-item">
-        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-green),#28A868)"></div>
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--brand-yellow),#F5C860)"></div>
         <span><strong>סימולציה</strong> – חוויה אינטראקטיבית עשירה, מבוסס AI / No-Code</span>
       </div>
       <div class="legend-item">
-        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-orange),#F07030)"></div>
-        <span><strong>אינטראקטיבי (HTML/JS)</strong> – קוד ידני על שרתי האוניברסיטה</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-purple),#9B6FD0)"></div>
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--brand-dark),#4A3545)"></div>
         <span><strong>שיתופי / דאטהבייס</strong> – נדרש שרת ובסיס נתונים מוסדי</span>
       </div>
     </div>
@@ -675,18 +690,16 @@
 </footer>
 
 <script>
-  // Count per type
   const cards = document.querySelectorAll('.card[data-type]');
   const counts = { all: 0, info: 0, simple: 0, sim: 0, db: 0 };
   cards.forEach(c => { counts.all++; counts[c.dataset.type]++; });
-  document.getElementById('fc-all').textContent   = counts.all;
-  document.getElementById('fc-info').textContent  = counts.info;
+  document.getElementById('fc-all').textContent    = counts.all;
+  document.getElementById('fc-info').textContent   = counts.info;
   document.getElementById('fc-simple').textContent = counts.simple;
-  document.getElementById('fc-sim').textContent   = counts.sim;
-  document.getElementById('fc-db').textContent    = counts.db;
+  document.getElementById('fc-sim').textContent    = counts.sim;
+  document.getElementById('fc-db').textContent     = counts.db;
   document.getElementById('count-all').textContent = counts.all;
 
-  // Filter
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
