@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מאגר פעילויות דיגיטליות | פדגוגיה דיגיטלית – האוניברסיטה הפתוחה</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ou-blue-dark:  #002F6C;
+    --ou-blue:       #0055A4;
+    --ou-blue-mid:   #1A73C1;
+    --ou-blue-light: #E8F1FA;
+    --ou-orange:     #E8521B;
+    --ou-orange-light: #FEF0EA;
+    --ou-teal:       #00788A;
+    --ou-teal-light: #E0F2F4;
+    --ou-purple:     #6B3FA0;
+    --ou-purple-light: #F0EAFA;
+    --ou-green:      #1A7A4A;
+    --ou-green-light:#E4F4EC;
+    --ou-gray-50:    #F7F9FC;
+    --ou-gray-100:   #EFF2F7;
+    --ou-gray-200:   #D9E2EF;
+    --ou-gray-400:   #8FA3BF;
+    --ou-gray-700:   #3D5170;
+    --ou-gray-900:   #1A2A42;
+    --radius-card:   16px;
+    --shadow-card:   0 2px 12px rgba(0,47,108,.08), 0 1px 3px rgba(0,47,108,.06);
+    --shadow-hover:  0 8px 32px rgba(0,47,108,.15), 0 2px 8px rgba(0,47,108,.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--ou-gray-50);
+    color: var(--ou-gray-900);
+    min-height: 100vh;
+    direction: rtl;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, var(--ou-blue-dark) 0%, var(--ou-blue) 60%, var(--ou-blue-mid) 100%);
+    color: #fff;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-circle {
+    width: 56px; height: 56px;
+    background: rgba(255,255,255,.15);
+    border: 2px solid rgba(255,255,255,.3);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 800; letter-spacing: -1px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .header-titles h1 {
+    font-size: 22px; font-weight: 800; line-height: 1.2;
+    letter-spacing: -.3px;
+  }
+  .header-titles p {
+    font-size: 13px; font-weight: 400; opacity: .75; margin-top: 2px;
+  }
+  .header-badge {
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px; font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .header-desc {
+    font-size: 15px; font-weight: 400; opacity: .85; line-height: 1.65;
+    max-width: 680px;
+    margin-bottom: 28px;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 12px;
+    padding: 10px 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .stat-pill .num {
+    font-size: 22px; font-weight: 800; line-height: 1;
+  }
+  .stat-pill .lbl {
+    font-size: 12px; font-weight: 400; opacity: .8; line-height: 1.3;
+  }
+
+  /* ── Filter bar ── */
+  .filter-wrap {
+    background: #fff;
+    border-bottom: 1px solid var(--ou-gray-200);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .filter-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 32px;
+    display: flex; align-items: center; gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filter-inner::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    border: none; background: none; cursor: pointer;
+    font-family: 'Heebo', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--ou-gray-700);
+    padding: 14px 16px;
+    white-space: nowrap;
+    border-bottom: 2.5px solid transparent;
+    transition: all .2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .filter-btn:hover { color: var(--ou-blue); }
+  .filter-btn.active { color: var(--ou-blue); border-bottom-color: var(--ou-blue); font-weight: 600; }
+  .filter-count {
+    background: var(--ou-blue-light);
+    color: var(--ou-blue);
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 11px; font-weight: 600;
+  }
+  .filter-btn.active .filter-count { background: var(--ou-blue); color: #fff; }
+
+  /* ── Main grid ── */
+  .main { max-width: 1280px; margin: 0 auto; padding: 32px; }
+
+  .section-title {
+    font-size: 13px; font-weight: 600; color: var(--ou-gray-400);
+    letter-spacing: .5px; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: #fff;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--ou-gray-200);
+    display: flex; flex-direction: column;
+    transition: box-shadow .25s, transform .25s;
+    overflow: hidden;
+    cursor: default;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+  }
+
+  .card-stripe {
+    height: 5px;
+    flex-shrink: 0;
+  }
+
+  .card-body { padding: 20px 20px 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+
+  .card-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+
+  .tag-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 11px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .tag-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  /* tag colors by type */
+  .tag-info    { background: var(--ou-blue-light);   color: var(--ou-blue); }
+  .tag-dot-info    { background: var(--ou-blue); }
+  .tag-simple  { background: var(--ou-teal-light);   color: var(--ou-teal); }
+  .tag-dot-simple  { background: var(--ou-teal); }
+  .tag-scorm   { background: var(--ou-orange-light); color: var(--ou-orange); }
+  .tag-dot-scorm   { background: var(--ou-orange); }
+  .tag-db      { background: var(--ou-purple-light); color: var(--ou-purple); }
+  .tag-dot-db      { background: var(--ou-purple); }
+  .tag-sim     { background: var(--ou-green-light);  color: var(--ou-green); }
+  .tag-dot-sim     { background: var(--ou-green); }
+
+  .card-title {
+    font-size: 16px; font-weight: 700; line-height: 1.35;
+    color: var(--ou-gray-900);
+  }
+  .card-desc {
+    font-size: 13px; font-weight: 400; color: var(--ou-gray-700);
+    line-height: 1.55; flex: 1;
+  }
+
+  .card-meta {
+    display: flex; align-items: center; gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--ou-gray-100);
+    margin-top: auto;
+  }
+  .meta-badge {
+    font-size: 11px; font-weight: 500;
+    color: var(--ou-gray-400);
+    background: var(--ou-gray-100);
+    border-radius: 8px;
+    padding: 3px 8px;
+  }
+  .meta-badge.highlight { color: var(--ou-blue); background: var(--ou-blue-light); }
+
+  .card-footer { padding: 0 20px 18px; }
+  .btn-open {
+    display: block; width: 100%;
+    text-align: center;
+    border: none; cursor: pointer;
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: #fff;
+    background: var(--ou-blue);
+    border-radius: 10px;
+    padding: 10px;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .btn-open:hover { background: var(--ou-blue-dark); transform: scale(1.01); }
+  .btn-open:active { transform: scale(.98); }
+
+  /* stripe color variants */
+  .stripe-blue   { background: linear-gradient(90deg, var(--ou-blue-dark), var(--ou-blue-mid)); }
+  .stripe-teal   { background: linear-gradient(90deg, var(--ou-teal), #00A3B8); }
+  .stripe-orange { background: linear-gradient(90deg, var(--ou-orange), #F07030); }
+  .stripe-purple { background: linear-gradient(90deg, var(--ou-purple), #9B6FD0); }
+  .stripe-green  { background: linear-gradient(90deg, var(--ou-green), #28A868); }
+
+  /* icon bg variants */
+  .icon-blue   { background: var(--ou-blue-light); }
+  .icon-teal   { background: var(--ou-teal-light); }
+  .icon-orange { background: var(--ou-orange-light); }
+  .icon-purple { background: var(--ou-purple-light); }
+  .icon-green  { background: var(--ou-green-light); }
+
+  /* btn color variants */
+  .btn-teal   { background: var(--ou-teal); }
+  .btn-teal:hover { background: #005F70; }
+  .btn-orange { background: var(--ou-orange); }
+  .btn-orange:hover { background: #C04010; }
+  .btn-purple { background: var(--ou-purple); }
+  .btn-purple:hover { background: #502D80; }
+  .btn-green  { background: var(--ou-green); }
+  .btn-green:hover { background: #135A35; }
+
+  /* hidden for filter */
+  .card.hidden { display: none; }
+
+  /* ── Legend ── */
+  .legend {
+    margin-top: 40px;
+    background: #fff;
+    border: 1px solid var(--ou-gray-200);
+    border-radius: var(--radius-card);
+    padding: 20px 24px;
+  }
+  .legend h3 { font-size: 14px; font-weight: 700; margin-bottom: 14px; color: var(--ou-gray-700); }
+  .legend-items { display: flex; flex-wrap: wrap; gap: 10px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ou-gray-700); }
+  .legend-swatch { width: 28px; height: 10px; border-radius: 5px; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 28px;
+    color: var(--ou-gray-400);
+    font-size: 12px;
+    border-top: 1px solid var(--ou-gray-200);
+    margin-top: 8px;
+  }
+
+  @media (max-width: 640px) {
+    .header-inner { padding: 24px 16px 20px; }
+    .header-top { flex-direction: column; align-items: flex-start; }
+    .main { padding: 20px 16px; }
+    .filter-inner { padding: 0 16px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="logo-area">
+        <div class="logo-circle">אפ"ת</div>
+        <div class="header-titles">
+          <h1>מאגר פעילויות דיגיטליות</h1>
+          <p>מחלקת פדגוגיה דיגיטלית | האוניברסיטה הפתוחה</p>
+        </div>
+      </div>
+      <div class="header-badge">2024–2025</div>
+    </div>
+
+    <p class="header-desc">
+      פעילויות לימודיות אינטראקטיביות שפותחו במחלקה לשילוב בקורסים. כל פעילות מסווגת לפי סוג הטכנולוגיה הנדרשת וסוג האינטראקציה עם הסטודנט.
+    </p>
+
+    <div class="stats-bar">
+      <div class="stat-pill">
+        <span class="num" id="count-all">11</span>
+        <span class="lbl">פעילויות<br>סה״כ</span>
+      </div>
+      <div class="stat-pill">
+        <span class="num">4</span>
+        <span class="lbl">סוגי<br>פעילות</span>
+      </div>
+      <div class="stat-pill">
+        <span class="num">100%</span>
+        <span class="lbl">ניתנות<br>להטמעה</span>
+      </div>
+      <div class="stat-pill">
+        <span class="num">∞</span>
+        <span class="lbl">שימושים<br>אפשריים</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── FILTERS ── -->
+<div class="filter-wrap">
+  <div class="filter-inner">
+    <button class="filter-btn active" data-filter="all">
+      הכל <span class="filter-count" id="fc-all">11</span>
+    </button>
+    <button class="filter-btn" data-filter="info">
+      אינפורמטיבי <span class="filter-count" id="fc-info">0</span>
+    </button>
+    <button class="filter-btn" data-filter="simple">
+      אינטראקטיבי פשוט <span class="filter-count" id="fc-simple">0</span>
+    </button>
+    <button class="filter-btn" data-filter="sim">
+      סימולציה <span class="filter-count" id="fc-sim">0</span>
+    </button>
+    <button class="filter-btn" data-filter="db">
+      שיתופי / דאטהבייס <span class="filter-count" id="fc-db">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<main class="main">
+  <p class="section-title">כל הפעילויות</p>
+
+  <div class="grid" id="grid">
+
+    <!-- 1. AI Survey -->
+    <div class="card" data-type="simple">
+      <div class="card-stripe stripe-teal"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-teal">📊</div>
+          <div class="tag-group">
+            <span class="tag tag-simple"><span class="tag-dot tag-dot-simple"></span>אינטראקטיבי פשוט</span>
+          </div>
+        </div>
+        <div class="card-title">סקר AI אינטראקטיבי</div>
+        <div class="card-desc">סקר דינמי המאפשר לסטודנטים לבטא עמדות ולקבל משוב מיידי בנושאי בינה מלאכותית.</div>
+        <div class="card-meta">
+          <span class="meta-badge">Client-Side בלבד</span>
+          <span class="meta-badge">אחסון סטטי</span>
+          <span class="meta-badge highlight">iframe ידידותי</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://natsty-prog.github.io/ai-survey/" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 2. Word Drag Game -->
+    <div class="card" data-type="simple">
+      <div class="card-stripe stripe-teal"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-teal">🎮</div>
+          <div class="tag-group">
+            <span class="tag tag-simple"><span class="tag-dot tag-dot-simple"></span>אינטראקטיבי פשוט</span>
+          </div>
+        </div>
+        <div class="card-title">משחק גרירת מילים – AI</div>
+        <div class="card-desc">פעילות גמיפיקציה לתרגול מושגי AI באמצעות גרירת מילים למיקום הנכון. מתאים לתרגול אוצר מילים.</div>
+        <div class="card-meta">
+          <span class="meta-badge">Client-Side בלבד</span>
+          <span class="meta-badge highlight">iframe ידידותי</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://natsty-prog.github.io/game-ai/" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 3. Gallery AI -->
+    <div class="card" data-type="info">
+      <div class="card-stripe stripe-blue"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-blue">🖼️</div>
+          <div class="tag-group">
+            <span class="tag tag-info"><span class="tag-dot tag-dot-info"></span>אינפורמטיבי</span>
+          </div>
+        </div>
+        <div class="card-title">גלריית AI</div>
+        <div class="card-desc">הצגה ויזואלית ועשירה של עולם הבינה המלאכותית – תמונות, מושגים ודוגמאות בפורמט גלריה אינטואיטיבי.</div>
+        <div class="card-meta">
+          <span class="meta-badge">אחסון סטטי</span>
+          <span class="meta-badge highlight">iframe ידידותי</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://digitallearningopenu.github.io/gallery-AI" target="_blank" class="btn-open">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 4. Voting App -->
+    <div class="card" data-type="simple">
+      <div class="card-stripe stripe-teal"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-teal">🗳️</div>
+          <div class="tag-group">
+            <span class="tag tag-simple"><span class="tag-dot tag-dot-simple"></span>אינטראקטיבי פשוט</span>
+          </div>
+        </div>
+        <div class="card-title">אפליקציית הצבעה</div>
+        <div class="card-desc">מצביעים ומקבלים משוב מיידי. פעילות מעורבות קלה לשאלות הצבעה ותגובות בזמן אמת.</div>
+        <div class="card-meta">
+          <span class="meta-badge">Client-Side בלבד</span>
+          <span class="meta-badge highlight">iframe ידידותי</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://natsty-prog.github.io/voting-app/" target="_blank" class="btn-open btn-teal">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 5. Manifesto Voting with DB -->
+    <div class="card" data-type="db">
+      <div class="card-stripe stripe-purple"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-purple">🌐</div>
+          <div class="tag-group">
+            <span class="tag tag-db"><span class="tag-dot tag-dot-db"></span>שיתופי / דאטהבייס</span>
+          </div>
+        </div>
+        <div class="card-title">הצבעה על מניפסט – עם בסיס נתונים</div>
+        <div class="card-desc">הצבעה קורסיאלית שמאפשרת לסטודנטים לראות תוצאות קבוצתיות בזמן אמת. מחובר לבסיס נתונים חיצוני.</div>
+        <div class="card-meta">
+          <span class="meta-badge">Server-Side</span>
+          <span class="meta-badge">בסיס נתונים</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://natsty-prog.github.io/voting-app/manifesto.html" target="_blank" class="btn-open btn-purple">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 6. AI Foundations Bricks -->
+    <div class="card" data-type="info">
+      <div class="card-stripe stripe-blue"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-blue">🧱</div>
+          <div class="tag-group">
+            <span class="tag tag-info"><span class="tag-dot tag-dot-info"></span>אינפורמטיבי</span>
+          </div>
+        </div>
+        <div class="card-title">אבני היסוד של ה-AI</div>
+        <div class="card-desc">מצגת אינפורמטיבית ויזואלית על יסודות הבינה המלאכותית – מושגי ליבה ממוינים כ"אבני בניין" ברורות.</div>
+        <div class="card-meta">
+          <span class="meta-badge">אחסון סטטי</span>
+          <span class="meta-badge highlight">iframe ידידותי</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://digitallearningopenu.github.io/AI-Foundations-Bricks/" target="_blank" class="btn-open">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 7. NY Literary Map -->
+    <div class="card" data-type="info">
+      <div class="card-stripe stripe-blue"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-blue">🗺️</div>
+          <div class="tag-group">
+            <span class="tag tag-info"><span class="tag-dot tag-dot-info"></span>אינפורמטיבי</span>
+          </div>
+        </div>
+        <div class="card-title">מפה ספרותית של ניו יורק</div>
+        <div class="card-desc">חקירה ויזואלית-גיאוגרפית של יצירות ספרות דרך מפה אינטראקטיבית של ניו יורק. הצגת תוכן עשירה.</div>
+        <div class="card-meta">
+          <span class="meta-badge">אחסון סטטי</span>
+          <span class="meta-badge highlight">iframe ידידותי</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://natsty-prog.github.io/ny-literary-map/" target="_blank" class="btn-open">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 8. Gemini Simulation -->
+    <div class="card" data-type="sim">
+      <div class="card-stripe stripe-green"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-green">🤖</div>
+          <div class="tag-group">
+            <span class="tag tag-sim"><span class="tag-dot tag-dot-sim"></span>סימולציה</span>
+          </div>
+        </div>
+        <div class="card-title">סימולציה – Gemini AI</div>
+        <div class="card-desc">סימולציה אינטראקטיבית המבוססת על Gemini. מאפשרת ניסויי שיחה ולמידה על יכולות מודלי שפה.</div>
+        <div class="card-meta">
+          <span class="meta-badge">שירות חיצוני</span>
+          <span class="meta-badge">Gemini AI</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://gemini.google.com/share/66961465be3f" target="_blank" class="btn-open btn-green">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 9. Base44 Simulation -->
+    <div class="card" data-type="sim">
+      <div class="card-stripe stripe-green"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-green">⚡</div>
+          <div class="tag-group">
+            <span class="tag tag-sim"><span class="tag-dot tag-dot-sim"></span>סימולציה</span>
+            <span class="tag tag-scorm"><span class="tag-dot tag-dot-scorm"></span>Base44</span>
+          </div>
+        </div>
+        <div class="card-title">סימולציה – פותח ב-Base44</div>
+        <div class="card-desc">סימולציה אינטראקטיבית שפותחה בכלי No-Code מתקדם Base44. מדגימה יכולות פיתוח מהיר לפעילויות עשירות.</div>
+        <div class="card-meta">
+          <span class="meta-badge">Base44</span>
+          <span class="meta-badge">No-Code</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://openu13047.base44.app/" target="_blank" class="btn-open btn-green">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 10. Bouma's Law -->
+    <div class="card" data-type="simple">
+      <div class="card-stripe stripe-orange"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-orange">👁️</div>
+          <div class="tag-group">
+            <span class="tag tag-simple"><span class="tag-dot tag-dot-simple"></span>אינטראקטיבי פשוט</span>
+          </div>
+        </div>
+        <div class="card-title">חוק בואמה – המחשת צפיפות</div>
+        <div class="card-desc">הדגמה אינטראקטיבית של חוק בואמה (Bouma's Law) על ידי שליטה בצפיפות אלמנטים ותצפית על השפעת הגדש החזותי.</div>
+        <div class="card-meta">
+          <span class="meta-badge">HTML/JS/CSS</span>
+          <span class="meta-badge highlight">שרתי אפ"ת</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://telem.openu.ac.il/multimedia/icw/c10966/book/boumas_law_interactive_crowding_illustration_html_js.html" target="_blank" class="btn-open btn-orange">פתח פעילות ←</a>
+      </div>
+    </div>
+
+    <!-- 11. Collaborative Group Work -->
+    <div class="card" data-type="db">
+      <div class="card-stripe stripe-purple"></div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-icon icon-purple">👥</div>
+          <div class="tag-group">
+            <span class="tag tag-db"><span class="tag-dot tag-dot-db"></span>שיתופי / דאטהבייס</span>
+          </div>
+        </div>
+        <div class="card-title">עבודה קבוצתית שיתופית</div>
+        <div class="card-desc">פעילות שיתופית המאפשרת לסטודנטים לעבוד יחד, לראות תרומות של חברי הקורס ולבנות ידע קולקטיבי.</div>
+        <div class="card-meta">
+          <span class="meta-badge highlight">שרתי אפ"ת</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://telem.openu.ac.il/Danit/61136/Lesson_2_6_Collaborative_Group_work.html" target="_blank" class="btn-open btn-purple">פתח פעילות ←</a>
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+
+  <!-- Legend -->
+  <div class="legend">
+    <h3>מקרא סוגי פעילויות</h3>
+    <div class="legend-items">
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-blue-dark),var(--ou-blue-mid))"></div>
+        <span><strong>אינפורמטיבי</strong> – הצגת מידע ויזואלית, אחסון סטטי, iframe</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-teal),#00A3B8)"></div>
+        <span><strong>אינטראקטיבי פשוט</strong> – תרגול, משוב מיידי בצד לקוח, אחסון סטטי</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-green),#28A868)"></div>
+        <span><strong>סימולציה</strong> – חוויה אינטראקטיבית עשירה, מבוסס AI / No-Code</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-orange),#F07030)"></div>
+        <span><strong>אינטראקטיבי (HTML/JS)</strong> – קוד ידני על שרתי האוניברסיטה</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: linear-gradient(90deg,var(--ou-purple),#9B6FD0)"></div>
+        <span><strong>שיתופי / דאטהבייס</strong> – נדרש שרת ובסיס נתונים מוסדי</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  מחלקת פדגוגיה דיגיטלית | האוניברסיטה הפתוחה | כל הפעילויות מיועדות להטמעה בקורסי מודל
+</footer>
+
+<script>
+  // Count per type
+  const cards = document.querySelectorAll('.card[data-type]');
+  const counts = { all: 0, info: 0, simple: 0, sim: 0, db: 0 };
+  cards.forEach(c => { counts.all++; counts[c.dataset.type]++; });
+  document.getElementById('fc-all').textContent   = counts.all;
+  document.getElementById('fc-info').textContent  = counts.info;
+  document.getElementById('fc-simple').textContent = counts.simple;
+  document.getElementById('fc-sim').textContent   = counts.sim;
+  document.getElementById('fc-db').textContent    = counts.db;
+  document.getElementById('count-all').textContent = counts.all;
+
+  // Filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(c => {
+        c.classList.toggle('hidden', f !== 'all' && c.dataset.type !== f);
+      });
+    });
+  });
+</script>
+</body>
+</html>
