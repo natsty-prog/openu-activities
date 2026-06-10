@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחשבון NPV ו-ROI | ניהול וכלכלה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+  :root { --bg:#F9F7F8; --s:#fff; --b:#DDD5DA; --pink:#C11E6B; --pink-light:#FBF0F5; --pink-mid:#F5D0E3; --teal:#6CB79D; --teal-light:#EEF8F4; --yellow:#EBA521; --yellow-light:#FDF6E8; --dark:#231F20; --muted:#A08898; --radius:14px; --green:#1a7f37; --red:#cf222e; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--dark); font-family:'Heebo',sans-serif; min-height:100vh; padding:24px 16px; }
+  header { text-align:center; margin-bottom:28px; }
+  header h1 { font-size:1.5rem; font-weight:800; color:var(--dark); margin-bottom:4px; }
+  header p { color:var(--muted); font-size:0.85rem; }
+  .tabs { display:flex; gap:0; max-width:800px; margin:0 auto 20px; background:var(--s); border:1px solid var(--b); border-radius:var(--radius); overflow:hidden; }
+  .tab { flex:1; padding:13px; text-align:center; font-size:0.85rem; font-weight:700; cursor:pointer; color:var(--muted); transition:all .18s; border-left:1px solid var(--b); }
+  .tab:first-child { border-left:none; }
+  .tab.active { background:var(--pink-light); color:var(--pink); }
+  .layout { max-width:800px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .panel { background:var(--s); border:1px solid var(--b); border-radius:var(--radius); padding:20px; }
+  .panel h3 { font-size:0.82rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--b); }
+  .field { margin-bottom:14px; }
+  .field label { font-size:0.8rem; font-weight:700; color:var(--dark); display:block; margin-bottom:5px; }
+  .field input { width:100%; padding:9px 12px; border:1.5px solid var(--b); border-radius:8px; font-family:'Heebo',sans-serif; font-size:0.9rem; color:var(--dark); outline:none; transition:border-color .18s; background:var(--bg); }
+  .field input:focus { border-color:var(--pink); }
+  .field .hint { font-size:0.7rem; color:var(--muted); margin-top:3px; }
+  .cashflow-rows { display:flex; flex-direction:column; gap:6px; max-height:200px; overflow-y:auto; }
+  .cf-row { display:flex; align-items:center; gap:8px; }
+  .cf-row .yr { font-size:0.72rem; font-weight:700; color:var(--muted); width:44px; flex-shrink:0; }
+  .cf-row input { flex:1; padding:7px 10px; border:1.5px solid var(--b); border-radius:8px; font-family:'Heebo',sans-serif; font-size:0.85rem; color:var(--dark); outline:none; background:var(--bg); }
+  .cf-row input:focus { border-color:var(--pink); }
+  .add-yr { width:100%; padding:8px; border-radius:8px; border:1.5px dashed var(--b); background:transparent; font-family:'Heebo',sans-serif; font-size:0.78rem; color:var(--muted); cursor:pointer; margin-top:8px; }
+  .add-yr:hover { border-color:var(--pink); color:var(--pink); }
+  .calc-btn { width:100%; padding:11px; border-radius:10px; border:none; background:var(--pink); color:#fff; font-family:'Heebo',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; margin-top:6px; }
+  /* Results */
+  .result-box { background:var(--bg); border-radius:10px; padding:14px; margin-bottom:10px; border:1.5px solid var(--b); text-align:center; }
+  .result-box .rval { font-size:1.8rem; font-weight:900; line-height:1; margin-bottom:4px; }
+  .result-box .rlbl { font-size:0.72rem; color:var(--muted); font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+  .result-box.positive .rval { color:var(--green); }
+  .result-box.negative .rval { color:var(--red); }
+  .result-box.neutral .rval { color:var(--pink); }
+  .verdict { border-radius:10px; padding:12px 14px; font-size:0.82rem; font-weight:700; line-height:1.5; }
+  .verdict.go { background:#dcfce7; color:#14532d; border:1px solid #86efac; }
+  .verdict.no { background:#fee2e2; color:#7f1d1d; border:1px solid #fca5a5; }
+  .verdict.neutral { background:var(--yellow-light); color:#713f12; border:1px solid #fde68a; }
+  /* Chart */
+  .cf-chart { margin-top:14px; }
+  .bar-row { display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+  .bar-row .bl { font-size:0.68rem; color:var(--muted); width:40px; flex-shrink:0; text-align:left; }
+  .bar-track { flex:1; height:18px; background:var(--b); border-radius:4px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:4px; transition:width .5s; }
+  .bar-row .bv { font-size:0.7rem; font-weight:700; width:55px; text-align:center; }
+  @media(max-width:580px){ .layout{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<header>
+  <h1>📈 מחשבון NPV, ROI ו-Payback Period</h1>
+  <p>ניהול וכלכלה | הערכת כדאיות פרויקט השקעה</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('npv',this)">NPV — ערך נוכחי נקי</div>
+  <div class="tab" onclick="showTab('roi',this)">ROI — תשואה על השקעה</div>
+  <div class="tab" onclick="showTab('payback',this)">Payback Period</div>
+</div>
+
+<div id="tab-npv" class="layout">
+  <div class="panel">
+    <h3>פרמטרים</h3>
+    <div class="field"><label>השקעה ראשונית (₪)</label><input type="number" id="npv-invest" value="100000" oninput="calcNPV()"><div class="hint">עלות הפרויקט בשנה 0</div></div>
+    <div class="field"><label>שיעור היוון (r) %</label><input type="number" id="npv-rate" value="10" step="0.5" min="0" max="50" oninput="calcNPV()"><div class="hint">עלות ההון / שיעור התשואה הנדרש</div></div>
+    <div class="field"><label>תזרימי מזומנים עתידיים (₪)</label>
+      <div class="cashflow-rows" id="cf-rows"></div>
+      <button class="add-yr" onclick="addYear()">+ הוסף שנה</button>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>תוצאות</h3>
+    <div class="result-box neutral" id="npv-box"><div class="rval" id="npv-val">—</div><div class="rlbl">NPV — ערך נוכחי נקי (₪)</div></div>
+    <div class="result-box neutral" id="irr-box"><div class="rval" id="irr-val">—</div><div class="rlbl">IRR — שיעור תשואה פנימי</div></div>
+    <div id="npv-verdict" class="verdict neutral" style="display:none"></div>
+    <div class="cf-chart" id="cf-chart"></div>
+  </div>
+</div>
+
+<div id="tab-roi" class="layout" style="display:none">
+  <div class="panel">
+    <h3>פרמטרים</h3>
+    <div class="field"><label>השקעה (₪)</label><input type="number" id="roi-invest" value="50000" oninput="calcROI()"></div>
+    <div class="field"><label>רווח נקי (₪)</label><input type="number" id="roi-profit" value="70000" oninput="calcROI()"></div>
+    <div class="field"><label>תקופה (שנים)</label><input type="number" id="roi-years" value="3" min="1" oninput="calcROI()"></div>
+  </div>
+  <div class="panel">
+    <h3>תוצאות</h3>
+    <div class="result-box neutral" id="roi-box"><div class="rval" id="roi-val">—</div><div class="rlbl">ROI — תשואה על ההשקעה</div></div>
+    <div class="result-box neutral" id="roi-annual-box"><div class="rval" id="roi-annual-val">—</div><div class="rlbl">ROI שנתי ממוצע</div></div>
+    <div id="roi-verdict" class="verdict neutral" style="margin-top:10px;display:none"></div>
+  </div>
+</div>
+
+<div id="tab-payback" class="layout" style="display:none">
+  <div class="panel">
+    <h3>פרמטרים</h3>
+    <div class="field"><label>השקעה ראשונית (₪)</label><input type="number" id="pb-invest" value="120000" oninput="calcPayback()"></div>
+    <div class="field"><label>תזרים שנתי (₪)</label><input type="number" id="pb-annual" value="30000" oninput="calcPayback()"></div>
+  </div>
+  <div class="panel">
+    <h3>תוצאות</h3>
+    <div class="result-box neutral" id="pb-box"><div class="rval" id="pb-val">—</div><div class="rlbl">Payback Period (שנים)</div></div>
+    <div id="pb-chart" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<script>
+// NPV
+let cfYears = [30000, 35000, 40000, 45000];
+function buildCFRows() {
+  document.getElementById('cf-rows').innerHTML = cfYears.map((v,i) =>
+    `<div class="cf-row"><span class="yr">שנה ${i+1}</span><input type="number" value="${v}" oninput="cfYears[${i}]=+this.value;calcNPV()"></div>`).join('');
+}
+function addYear() { cfYears.push(20000); buildCFRows(); calcNPV(); }
+function calcNPV() {
+  const inv = +document.getElementById('npv-invest').value || 0;
+  const r   = (+document.getElementById('npv-rate').value || 0)/100;
+  let npv = -inv;
+  cfYears.forEach((cf,i) => { npv += cf / Math.pow(1+r, i+1); });
+  const npvBox = document.getElementById('npv-box');
+  npvBox.className = 'result-box ' + (npv>0?'positive':npv<0?'negative':'neutral');
+  document.getElementById('npv-val').textContent = (npv>=0?'+':'')+Math.round(npv).toLocaleString('he-IL')+'₪';
+  // IRR (bisect)
+  let lo=-0.99,hi=5,irr=null;
+  for(let i=0;i<60;i++){const m=(lo+hi)/2;let v=-inv;cfYears.forEach((cf,j)=>v+=cf/Math.pow(1+m,j+1));v>0?lo=m:hi=m;}
+  irr=(lo+hi)/2;
+  const irrBox=document.getElementById('irr-box');
+  irrBox.className='result-box '+(irr>r?'positive':'negative');
+  document.getElementById('irr-val').textContent=Math.round(irr*1000)/10+'%';
+  const v=document.getElementById('npv-verdict');
+  if(npv>0){v.className='verdict go';v.innerHTML='✅ <strong>ההשקעה כדאית</strong> — NPV חיובי. שיעור התשואה הפנימי ('+Math.round(irr*1000)/10+'%) גבוה משיעור ההיוון.';v.style.display='block';}
+  else if(npv<0){v.className='verdict no';v.innerHTML='❌ <strong>ההשקעה אינה כדאית</strong> — NPV שלילי. ההשקעה מפסידה ערך.';v.style.display='block';}
+  else v.style.display='none';
+  renderCFChart(inv, r);
+}
+function renderCFChart(inv,r) {
+  const pvs = cfYears.map((cf,i) => cf/Math.pow(1+r,i+1));
+  const maxV = Math.max(inv,...cfYears,...pvs);
+  document.getElementById('cf-chart').innerHTML = `<div style="font-size:0.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">תזרים מזומנים לפי שנה</div>`+
+    cfYears.map((cf,i)=>`<div class="bar-row"><span class="bl">שנה ${i+1}</span><div class="bar-track"><div class="bar-fill" style="width:${cf/maxV*100}%;background:${cf>=0?'var(--teal)':'var(--red)'}"></div></div><span class="bv" style="color:${cf>=0?'var(--green)':'var(--red)'}">${cf>=0?'+':''}${(cf/1000).toFixed(0)}K</span></div>`).join('');
+}
+// ROI
+function calcROI() {
+  const inv=+document.getElementById('roi-invest').value||0;
+  const profit=+document.getElementById('roi-profit').value||0;
+  const yrs=+document.getElementById('roi-years').value||1;
+  const roi=(profit-inv)/inv*100;
+  const roiAnnual=roi/yrs;
+  const box=document.getElementById('roi-box');
+  box.className='result-box '+(roi>0?'positive':roi<0?'negative':'neutral');
+  document.getElementById('roi-val').textContent=(roi>=0?'+':'')+roi.toFixed(1)+'%';
+  document.getElementById('roi-annual-val').textContent=(roiAnnual>=0?'+':'')+roiAnnual.toFixed(1)+'%';
+  const v=document.getElementById('roi-verdict');
+  v.style.display='block';
+  if(roi>20){v.className='verdict go';v.innerHTML=`✅ <strong>תשואה גבוהה</strong> — ROI של ${roi.toFixed(1)}% ב-${yrs} שנים נחשב מעולה.`;}
+  else if(roi>0){v.className='verdict neutral';v.innerHTML=`⚠️ <strong>תשואה חיובית</strong> אך מתונה — כדאי להשוות לחלופות.`;}
+  else{v.className='verdict no';v.innerHTML=`❌ <strong>הפסד</strong> — ההשקעה הפסידה ${Math.abs(roi).toFixed(1)}%.`;}
+}
+// Payback
+function calcPayback() {
+  const inv=+document.getElementById('pb-invest').value||0;
+  const annual=+document.getElementById('pb-annual').value||1;
+  const pb=inv/annual;
+  const box=document.getElementById('pb-box');
+  box.className='result-box '+(pb<=3?'positive':pb<=5?'neutral':'negative');
+  document.getElementById('pb-val').textContent=pb.toFixed(1)+' שנים';
+  const maxY=Math.ceil(pb)+2;
+  let cum=0, bars='';
+  for(let y=1;y<=maxY;y++){cum+=annual;const pct=Math.min(cum/inv*100,100);bars+=`<div class="bar-row"><span class="bl">שנה ${y}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${cum>=inv?'var(--teal)':'var(--pink)'}"></div></div><span class="bv" style="font-size:0.68rem">${pct.toFixed(0)}%${cum>=inv?' ✓':''}</span></div>`;}
+  document.getElementById('pb-chart').innerHTML='<div style="font-size:0.7rem;font-weight:700;color:var(--muted);margin-bottom:8px">% החזר מצטבר לפי שנה</div>'+bars;
+}
+function showTab(tab, el) {
+  ['npv','roi','payback'].forEach(t=>document.getElementById('tab-'+t).style.display='none');
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).style.display='grid';
+  el.classList.add('active');
+}
+buildCFRows(); calcNPV(); calcROI(); calcPayback();
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סגנונות למידה VARK | חינוך ופסיכולוגיה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+  :root { --bg:#F9F7F8; --s:#fff; --b:#DDD5DA; --pink:#C11E6B; --pink-light:#FBF0F5; --pink-mid:#F5D0E3; --teal:#6CB79D; --teal-light:#EEF8F4; --yellow:#EBA521; --yellow-light:#FDF6E8; --dark:#231F20; --muted:#A08898; --radius:14px; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--dark); font-family:'Heebo',sans-serif; min-height:100vh; padding:24px 16px; }
+  header { text-align:center; margin-bottom:28px; }
+  header h1 { font-size:1.55rem; font-weight:800; color:var(--dark); margin-bottom:4px; }
+  header p { color:var(--muted); font-size:0.85rem; }
+  .progress-wrap { max-width:580px; margin:0 auto 24px; }
+  .prog-meta { display:flex; justify-content:space-between; font-size:0.78rem; color:var(--muted); margin-bottom:6px; font-weight:600; }
+  .prog-bg { height:7px; background:var(--b); border-radius:20px; overflow:hidden; }
+  .prog-fill { height:100%; background:var(--pink); border-radius:20px; transition:width .4s; }
+  .quiz-box { max-width:580px; margin:0 auto; background:var(--s); border:1.5px solid var(--b); border-radius:var(--radius); padding:26px; }
+  .q-num { font-size:0.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:20px; line-height:1.5; }
+  .options { display:flex; flex-direction:column; gap:9px; }
+  .opt { padding:13px 16px; border-radius:10px; border:1.5px solid var(--b); background:var(--bg); font-size:0.88rem; font-family:'Heebo',sans-serif; font-weight:500; color:var(--dark); cursor:pointer; text-align:right; transition:all .18s; }
+  .opt:hover { border-color:var(--pink); background:var(--pink-light); color:var(--pink); }
+  .opt.chosen { border-color:var(--pink); background:var(--pink-light); color:var(--pink); font-weight:700; }
+  .next-btn { display:block; width:100%; margin-top:16px; padding:12px; border-radius:10px; border:none; background:var(--pink); color:#fff; font-family:'Heebo',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; transition:background .15s; }
+  .next-btn:hover { background:#9A1555; }
+  /* Results */
+  .results { max-width:580px; margin:0 auto; }
+  .results h2 { font-size:1.3rem; font-weight:800; text-align:center; margin-bottom:6px; }
+  .results .sub { text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:24px; }
+  .vark-bars { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
+  .vbar { display:flex; align-items:center; gap:12px; }
+  .vbar-label { font-size:0.82rem; font-weight:700; width:110px; flex-shrink:0; }
+  .vbar-track { flex:1; height:18px; background:var(--b); border-radius:20px; overflow:hidden; }
+  .vbar-fill { height:100%; border-radius:20px; transition:width .8s; }
+  .vbar-num { font-size:0.82rem; font-weight:800; width:28px; text-align:center; }
+  .profile-cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .profile-card { background:var(--s); border:1.5px solid var(--b); border-radius:var(--radius); padding:16px; }
+  .profile-card h4 { font-size:0.88rem; font-weight:800; margin-bottom:6px; }
+  .profile-card p { font-size:0.75rem; color:var(--muted); line-height:1.6; }
+  .winner-badge { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; background:var(--pink-light); color:var(--pink); border:1px solid var(--pink-mid); border-radius:20px; padding:3px 10px; margin-bottom:8px; }
+  .restart-btn { display:block; width:100%; padding:12px; border-radius:10px; border:none; background:var(--pink); color:#fff; font-family:'Heebo',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; margin-top:20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 סגנונות למידה — מודל VARK</h1>
+  <p>חינוך ופסיכולוגיה | גלה את סגנון הלמידה המועדף עליך</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="prog-meta"><span id="q-prog">שאלה 1 מתוך 12</span><span id="q-score"></span></div>
+  <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:8%"></div></div>
+</div>
+
+<div id="quiz-area"></div>
+
+<script>
+const qs = [
+  { text:'כשאתה/ת לומד/ת חומר חדש, מה עוזר לך יותר?', opts:[{t:'צפייה בסרטון הסבר',v:'V'},{t:'קריאת מאמר מפורט',v:'R'},{t:'האזנה להרצאה',v:'A'},{t:'ניסוי עצמאי',v:'K'}] },
+  { text:'כשאתה/ת מנסה לזכור מידע, איך הוא מופיע בזיכרון שלך?', opts:[{t:'תמונות ותרשימים',v:'V'},{t:'מילים ומשפטים',v:'R'},{t:'מוזיקה / קצב מסוים',v:'A'},{t:'תחושה גופנית',v:'K'}] },
+  { text:'כשאתה/ת מגיע/ה לעיר חדשה, איך אתה/ת מתמצא/ת?', opts:[{t:'מסתכל/ת על מפה',v:'V'},{t:'קורא/ת הוראות כתובות',v:'R'},{t:'שואל/ת מישהו',v:'A'},{t:'הולך/ת ולומד/ת תוך כדי',v:'K'}] },
+  { text:'כיצד הכי נוח לך לקבל הוראות?', opts:[{t:'צייר לי תרשים',v:'V'},{t:'כתוב לי אותן',v:'R'},{t:'הסבר לי בעל-פה',v:'A'},{t:'תראה לי בפועל',v:'K'}] },
+  { text:'מה אתה/ת עושה/ה בזמן שיעור משעמם?', opts:[{t:'מצייר/ת ומשרטט/ת',v:'V'},{t:'כותב/ת הערות',v:'R'},{t:'מדמיין/ת סיפורים',v:'A'},{t:'זז/ה על הכיסא',v:'K'}] },
+  { text:'כשאתה/ת מסביר/ה לחבר/ה, אתה/ת...', opts:[{t:'מציין/ת תמונות ותרשימים',v:'V'},{t:'מדפיס/ה להם חומר',v:'R'},{t:'מסביר/ה בעל-פה',v:'A'},{t:'מדגים/ה בפועל',v:'K'}] },
+  { text:'מה הטקסט שקל לך יותר לקרוא?', opts:[{t:'טקסט עם הרבה תמונות',v:'V'},{t:'מאמר מדעי מפורט',v:'R'},{t:'תוכן עם קצב / ריתמוס',v:'A'},{t:'הוראות להרכבה',v:'K'}] },
+  { text:'מה אתה/ת זוכר/ת יותר מהנסיעה האחרונה?', opts:[{t:'נופים ומראות',v:'V'},{t:'שלטים ושמות',v:'R'},{t:'שיחות ורדיו',v:'A'},{t:'תחושת הנהיגה',v:'K'}] },
+  { text:'כשאתה/ת לומד/ת שפה חדשה, מה עוזר?', opts:[{t:'כרטיסיות עם ציורים',v:'V'},{t:'דקדוק ורשימות מילים',v:'R'},{t:'האזנה ודיבור',v:'A'},{t:'בישיבה בארץ הדוברת',v:'K'}] },
+  { text:'הפרסומת הטובה ביותר בעיניך היא...', opts:[{t:'אנימציה יפה',v:'V'},{t:'טקסט מפורט',v:'R'},{t:'שיר קליט',v:'A'},{t:'מוצר שתוכל לגעת בו',v:'K'}] },
+  { text:'כשמכשיר מתקלקל, אתה/ת...', opts:[{t:'מסתכל/ת בסרטון יוטיוב',v:'V'},{t:'קורא/ת את המדריך',v:'R'},{t:'מתקשר/ת לתמיכה',v:'A'},{t:'פורק/ת ובונה/ת מחדש',v:'K'}] },
+  { text:'מה אתה/ת מעדיף/ה בבחינה?', opts:[{t:'שאלות עם תרשימים',v:'V'},{t:'חיבור / מאמר',v:'R'},{t:'הגשה בעל-פה',v:'A'},{t:'פרויקט מעשי',v:'K'}] },
+];
+
+const VARK = {
+  V: { label:'ויזואלי (V)', color:'#C11E6B', desc:'לומד דרך תמונות, גרפים ותרשימים. טבלאות ומפות מושגים מאוד עוזרות לך.' },
+  A: { label:'שמיעתי (A)', color:'#6CB79D', desc:'לומד דרך האזנה, דיון ועל-פה. הרצאות ופודקאסטים מתאימים לך.' },
+  R: { label:'קריאה/כתיבה (R)', color:'#EBA521', desc:'לומד דרך טקסטים. קריאת מאמרים וכתיבת סיכומים עוזרים לך מאוד.' },
+  K: { label:'קינסתטי (K)', color:'#8957e5', desc:'לומד דרך עשייה. ניסויים, פרויקטים וסימולציות מתאימים לך.' },
+};
+
+let cur = 0, scores = {V:0,A:0,R:0,K:0}, chosen = null;
+
+function render() {
+  if (cur >= qs.length) { showResults(); return; }
+  const q = qs[cur];
+  document.getElementById('q-prog').textContent = `שאלה ${cur+1} מתוך ${qs.length}`;
+  document.getElementById('prog-fill').style.width = ((cur+1)/qs.length*100)+'%';
+  chosen = null;
+  document.getElementById('quiz-area').innerHTML = `
+    <div class="quiz-box">
+      <div class="q-num">שאלה ${cur+1} מתוך ${qs.length}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="options">
+        ${q.opts.map((o,i) => `<button class="opt" data-i="${i}" data-v="${o.v}" onclick="choose(this)">${o.t}</button>`).join('')}
+      </div>
+      <button class="next-btn" id="next-btn" onclick="next()" disabled style="opacity:.4">המשך ←</button>
+    </div>`;
+}
+
+function choose(el) {
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('chosen'));
+  el.classList.add('chosen');
+  chosen = el.dataset.v;
+  document.getElementById('next-btn').disabled = false;
+  document.getElementById('next-btn').style.opacity = '1';
+}
+
+function next() {
+  if (!chosen) return;
+  scores[chosen]++;
+  cur++;
+  render();
+}
+
+function showResults() {
+  const max = Math.max(...Object.values(scores));
+  const winner = Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+  document.getElementById('quiz-area').innerHTML = `
+    <div class="results">
+      <h2>🎯 סגנון הלמידה שלך</h2>
+      <p class="sub">על בסיס ${qs.length} שאלות — מודל VARK של Neil Fleming</p>
+      <div class="vark-bars">
+        ${Object.entries(scores).sort((a,b)=>b[1]-a[1]).map(([k,v]) => `
+        <div class="vbar">
+          <div class="vbar-label" style="color:${VARK[k].color}">${VARK[k].label}</div>
+          <div class="vbar-track"><div class="vbar-fill" style="width:${Math.round(v/qs.length*100)}%;background:${VARK[k].color}"></div></div>
+          <div class="vbar-num" style="color:${VARK[k].color}">${v}</div>
+        </div>`).join('')}
+      </div>
+      <div class="profile-cards">
+        ${Object.entries(VARK).map(([k,v]) => `
+        <div class="profile-card" style="border-color:${k===winner?v.color:''};background:${k===winner?v.color+'11':''}">
+          ${k===winner?`<div class="winner-badge">★ הסגנון הדומיננטי שלך</div>`:''}
+          <h4 style="color:${v.color}">${v.label}</h4>
+          <p>${v.desc}</p>
+        </div>`).join('')}
+      </div>
+      <button class="restart-btn" onclick="restart()">↺ התחל מחדש</button>
+    </div>`;
+  document.getElementById('prog-fill').style.width = '100%';
+  setTimeout(() => document.querySelectorAll('.vbar-fill').forEach(b => { const w=b.style.width; b.style.width='0'; setTimeout(()=>b.style.width=w,50); }), 100);
+}
+
+function restart() { cur=0; scores={V:0,A:0,R:0,K:0}; chosen=null; render(); }
+render();
+</script>
+</body>
+</html>

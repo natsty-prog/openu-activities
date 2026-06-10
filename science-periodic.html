@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחזור היסודות האינטראקטיבי | מדעי הטבע</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+  :root { --bg:#0d1117; --s:#161b22; --s2:#21262d; --b:#30363d; --text:#e6edf3; --muted:#7d8590;
+    --nonmetal:#238636; --metal:#1f6feb; --metalloid:#9e6a03; --noble:#8957e5;
+    --halogen:#bf4b8a; --alkali:#cf222e; --alkali-earth:#fb8f44; --transition:#0969da; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:'Heebo',sans-serif; min-height:100vh; padding:16px; }
+  header { text-align:center; margin-bottom:18px; }
+  header h1 { font-size:1.4rem; font-weight:800; color:#ffa657; margin-bottom:4px; }
+  header p { color:var(--muted); font-size:0.82rem; }
+
+  .legend { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:16px; }
+  .leg { display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--muted); cursor:pointer; padding:4px 10px; border-radius:20px; border:1px solid var(--b); transition:all .15s; }
+  .leg:hover, .leg.active { color:var(--text); border-color:currentColor; }
+  .leg .swatch { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+
+  .table-wrap { overflow-x:auto; margin-bottom:16px; }
+  .ptable { display:inline-grid; grid-template-columns:repeat(18,42px); grid-template-rows:repeat(10,42px); gap:2px; }
+  .cell { border-radius:5px; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2px; transition:transform .12s,box-shadow .12s; border:1px solid transparent; }
+  .cell:hover { transform:scale(1.18); z-index:10; box-shadow:0 0 12px rgba(255,255,255,.25); border-color:rgba(255,255,255,.4); }
+  .cell.dim { opacity:.18; }
+  .cell .num { font-size:0.48rem; color:rgba(255,255,255,.6); line-height:1; }
+  .cell .sym { font-size:0.88rem; font-weight:800; line-height:1.1; }
+  .cell .name { font-size:0.38rem; color:rgba(255,255,255,.7); text-align:center; line-height:1; }
+
+  .info-panel { background:var(--s); border:1px solid var(--b); border-radius:12px; padding:18px 20px; max-width:700px; margin:0 auto; }
+  .info-empty { text-align:center; color:var(--muted); font-size:0.85rem; padding:16px 0; }
+  .el-header { display:flex; align-items:center; gap:16px; margin-bottom:14px; }
+  .el-box { width:72px; height:72px; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .el-box .big { font-size:1.8rem; font-weight:900; }
+  .el-box .small { font-size:0.65rem; color:rgba(255,255,255,.8); }
+  .el-name { font-size:1.3rem; font-weight:800; }
+  .el-cat { font-size:0.72rem; border-radius:20px; padding:3px 10px; display:inline-block; margin-top:4px; font-weight:600; }
+  .props { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .prop { background:var(--s2); border-radius:8px; padding:8px 12px; }
+  .prop .pk { font-size:0.65rem; color:var(--muted); margin-bottom:3px; font-weight:600; letter-spacing:.04em; }
+  .prop .pv { font-size:0.9rem; font-weight:700; }
+
+  .cat-nonmetal   { background:rgba(35,134,54,.25); }
+  .cat-metal      { background:rgba(31,111,235,.25); }
+  .cat-metalloid  { background:rgba(158,106,3,.25); }
+  .cat-noble      { background:rgba(137,87,229,.25); }
+  .cat-halogen    { background:rgba(191,75,138,.25); }
+  .cat-alkali     { background:rgba(207,34,46,.25); }
+  .cat-alkali-earth{ background:rgba(251,143,68,.25); }
+  .cat-transition { background:rgba(9,105,218,.25); }
+  .cat-lanthanide { background:rgba(100,80,200,.2); }
+  .cat-actinide   { background:rgba(150,50,50,.2); }
+</style>
+</head>
+<body>
+<header>
+  <h1>⚗️ מחזור היסודות האינטראקטיבי</h1>
+  <p>מדעי הטבע | לחץ על יסוד כדי לראות פרטים | סנן לפי קטגוריה</p>
+</header>
+
+<div class="legend" id="legend"></div>
+<div class="table-wrap"><div class="ptable" id="ptable"></div></div>
+<div class="info-panel" id="info-panel">
+  <div class="info-empty">לחץ על יסוד במחזור כדי לראות מידע מפורט</div>
+</div>
+
+<script>
+const cats = {
+  'alkali':      { label:'מתכות אלקלי',      color:'#cf222e' },
+  'alkali-earth':{ label:'מתכות אדמה אלקלית',color:'#fb8f44' },
+  'transition':  { label:'מתכות מעבר',        color:'#0969da' },
+  'metal':       { label:'מתכות אחרות',       color:'#1f6feb' },
+  'metalloid':   { label:'מטלואידים',         color:'#9e6a03' },
+  'nonmetal':    { label:'לא מתכות',          color:'#238636' },
+  'halogen':     { label:'הלוגנים',           color:'#bf4b8a' },
+  'noble':       { label:'גזים אצילים',       color:'#8957e5' },
+  'lanthanide':  { label:'לנתנידים',          color:'#6450c8' },
+  'actinide':    { label:'אקטינידים',         color:'#963232' },
+};
+
+// [num, symbol, name_he, col, row, cat, mass, config, boil, melt]
+const elements = [
+  [1,'H','מימן',1,1,'nonmetal',1.008,'1s¹','−253°C','−259°C'],
+  [2,'He','הליום',18,1,'noble',4.003,'1s²','−269°C','−272°C'],
+  [3,'Li','ליתיום',1,2,'alkali',6.941,'[He]2s¹','1342°C','181°C'],
+  [4,'Be','בריליום',2,2,'alkali-earth',9.012,'[He]2s²','2470°C','1287°C'],
+  [5,'B','בורון',13,2,'metalloid',10.81,'[He]2s²2p¹','2077°C','2075°C'],
+  [6,'C','פחמן',14,2,'nonmetal',12.011,'[He]2s²2p²','3642°C','3550°C'],
+  [7,'N','חנקן',15,2,'nonmetal',14.007,'[He]2s²2p³','−196°C','−210°C'],
+  [8,'O','חמצן',16,2,'nonmetal',15.999,'[He]2s²2p⁴','−183°C','−219°C'],
+  [9,'F','פלואור',17,2,'halogen',18.998,'[He]2s²2p⁵','−188°C','−220°C'],
+  [10,'Ne','ניאון',18,2,'noble',20.18,'[He]2s²2p⁶','−246°C','−249°C'],
+  [11,'Na','נתרן',1,3,'alkali',22.99,'[Ne]3s¹','883°C','98°C'],
+  [12,'Mg','מגנזיום',2,3,'alkali-earth',24.305,'[Ne]3s²','1091°C','650°C'],
+  [13,'Al','אלומיניום',13,3,'metal',26.982,'[Ne]3s²3p¹','2519°C','660°C'],
+  [14,'Si','סיליקון',14,3,'metalloid',28.085,'[Ne]3s²3p²','3265°C','1414°C'],
+  [15,'P','זרחן',15,3,'nonmetal',30.974,'[Ne]3s²3p³','280°C','44°C'],
+  [16,'S','גופרית',16,3,'nonmetal',32.06,'[Ne]3s²3p⁴','445°C','113°C'],
+  [17,'Cl','כלור',17,3,'halogen',35.45,'[Ne]3s²3p⁵','−34°C','−101°C'],
+  [18,'Ar','ארגון',18,3,'noble',39.948,'[Ne]3s²3p⁶','−186°C','−189°C'],
+  [19,'K','אשלגן',1,4,'alkali',39.098,'[Ar]4s¹','759°C','63°C'],
+  [20,'Ca','סידן',2,4,'alkali-earth',40.078,'[Ar]4s²','1484°C','842°C'],
+  [26,'Fe','ברזל',8,4,'transition',55.845,'[Ar]3d⁶4s²','2861°C','1538°C'],
+  [29,'Cu','נחושת',11,4,'transition',63.546,'[Ar]3d¹⁰4s¹','2562°C','1085°C'],
+  [30,'Zn','אבץ',12,4,'transition',65.38,'[Ar]3d¹⁰4s²','907°C','420°C'],
+  [35,'Br','ברום',17,4,'halogen',79.904,'[Ar]3d¹⁰4s²4p⁵','59°C','−7°C'],
+  [36,'Kr','קריפטון',18,4,'noble',83.798,'[Ar]3d¹⁰4s²4p⁶','−153°C','−157°C'],
+  [47,'Ag','כסף',11,5,'transition',107.868,'[Kr]4d¹⁰5s¹','2162°C','962°C'],
+  [50,'Sn','בדיל',14,5,'metal',118.71,'[Kr]4d¹⁰5s²5p²','2602°C','232°C'],
+  [53,'I','יוד',17,5,'halogen',126.904,'[Kr]4d¹⁰5s²5p⁵','184°C','114°C'],
+  [54,'Xe','קסנון',18,5,'noble',131.293,'[Kr]4d¹⁰5s²5p⁶','−108°C','−112°C'],
+  [79,'Au','זהב',11,6,'transition',196.967,'[Xe]4f¹⁴5d¹⁰6s¹','2856°C','1064°C'],
+  [80,'Hg','כספית',12,6,'transition',200.592,'[Xe]4f¹⁴5d¹⁰6s²','357°C','−39°C'],
+  [82,'Pb','עופרת',14,6,'metal',207.2,'[Xe]4f¹⁴5d¹⁰6s²6p²','1749°C','327°C'],
+  [86,'Rn','ראדון',18,6,'noble',222,'[Xe]4f¹⁴5d¹⁰6s²6p⁶','−62°C','−71°C'],
+  [92,'U','אורניום',6,7,'actinide',238.029,'[Rn]5f³6d¹7s²','4131°C','1132°C'],
+];
+
+let activeCat = 'all';
+
+function renderLegend() {
+  document.getElementById('legend').innerHTML =
+    `<div class="leg${activeCat==='all'?' active':''}" style="color:#e6edf3" onclick="filterCat('all')"><span class="swatch" style="background:#555"></span>הכל</div>` +
+    Object.entries(cats).map(([k,v]) =>
+      `<div class="leg${activeCat===k?' active':''}" style="color:${v.color}" onclick="filterCat('${k}')"><span class="swatch" style="background:${v.color}"></span>${v.label}</div>`
+    ).join('');
+}
+
+function filterCat(cat) {
+  activeCat = cat;
+  renderLegend();
+  document.querySelectorAll('.cell').forEach(el => {
+    if (cat === 'all') el.classList.remove('dim');
+    else el.classList.toggle('dim', el.dataset.cat !== cat);
+  });
+}
+
+function renderTable() {
+  const grid = document.getElementById('ptable');
+  const map = {};
+  elements.forEach(e => { map[`${e[4]}-${e[3]}`] = e; });
+  let html = '';
+  for (let row = 1; row <= 7; row++) {
+    for (let col = 1; col <= 18; col++) {
+      const e = map[`${row}-${col}`];
+      if (e) {
+        const color = cats[e[5]]?.color || '#555';
+        html += `<div class="cell cat-${e[5]}" data-cat="${e[5]}" data-num="${e[0]}" style="background:${color}22;border-color:${color}44;grid-column:${col};grid-row:${row}" onclick="showEl(${e[0]})">
+          <span class="num">${e[0]}</span>
+          <span class="sym">${e[1]}</span>
+          <span class="name">${e[2]}</span>
+        </div>`;
+      } else {
+        html += `<div style="grid-column:${col};grid-row:${row}"></div>`;
+      }
+    }
+  }
+  grid.innerHTML = html;
+}
+
+function showEl(num) {
+  const e = elements.find(x => x[0] === num);
+  if (!e) return;
+  const color = cats[e[5]]?.color || '#555';
+  document.getElementById('info-panel').innerHTML = `
+    <div class="el-header">
+      <div class="el-box cat-${e[5]}" style="background:${color}33;border:2px solid ${color}66">
+        <span class="big">${e[1]}</span>
+        <span class="small">${e[0]}</span>
+      </div>
+      <div>
+        <div class="el-name">${e[2]} &nbsp;<span style="color:var(--muted);font-size:0.8rem;font-weight:400">${e[1]}</span></div>
+        <div class="el-cat" style="background:${color}22;color:${color}">${cats[e[5]]?.label || e[5]}</div>
+      </div>
+    </div>
+    <div class="props">
+      <div class="prop"><div class="pk">מספר אטומי</div><div class="pv">${e[0]}</div></div>
+      <div class="prop"><div class="pk">מסה אטומית</div><div class="pv">${e[6]} u</div></div>
+      <div class="prop"><div class="pk">קונפיגורציה</div><div class="pv" style="font-size:0.78rem">${e[7]}</div></div>
+      <div class="prop"><div class="pk">קטגוריה</div><div class="pv" style="font-size:0.78rem">${cats[e[5]]?.label || e[5]}</div></div>
+      <div class="prop"><div class="pk">נקודת רתיחה</div><div class="pv">${e[8]}</div></div>
+      <div class="prop"><div class="pk">נקודת התכה</div><div class="pv">${e[9]}</div></div>
+    </div>`;
+}
+
+renderLegend(); renderTable();
+</script>
+</body>
+</html>

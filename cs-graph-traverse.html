@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>חציית גרפים BFS / DFS | מדעי המחשב</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+  :root { --bg:#0d1117; --s:#161b22; --s2:#21262d; --b:#30363d; --text:#e6edf3; --muted:#7d8590; --pink:#f85149; --blue:#79c0ff; --green:#56d364; --yellow:#e3b341; --orange:#f0883e; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:'Heebo',sans-serif; min-height:100vh; padding:20px 16px; }
+  header { text-align:center; margin-bottom:20px; }
+  header h1 { font-size:1.4rem; font-weight:800; color:var(--orange); margin-bottom:4px; }
+  header p { color:var(--muted); font-size:0.82rem; }
+  .controls { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:18px; }
+  .ctrl-btn { padding:9px 20px; border-radius:8px; border:1.5px solid var(--b); background:var(--s); color:var(--muted); font-family:'Heebo',sans-serif; font-size:0.82rem; font-weight:700; cursor:pointer; transition:all .18s; }
+  .ctrl-btn:hover { border-color:var(--orange); color:var(--orange); }
+  .ctrl-btn.bfs { border-color:var(--blue); color:var(--blue); background:rgba(121,192,255,.1); }
+  .ctrl-btn.dfs { border-color:var(--green); color:var(--green); background:rgba(86,211,100,.1); }
+  .ctrl-btn.reset { border-color:var(--muted); }
+  .layout { display:grid; grid-template-columns:1fr 280px; gap:16px; max-width:960px; margin:0 auto; }
+  .panel { background:var(--s); border:1px solid var(--b); border-radius:12px; padding:16px; }
+  canvas { display:block; border-radius:8px; }
+  .speed-row { display:flex; align-items:center; gap:10px; margin-top:12px; }
+  .speed-row label { font-size:0.72rem; color:var(--muted); white-space:nowrap; }
+  input[type=range] { flex:1; accent-color:var(--orange); }
+  .log { font-family:monospace; font-size:0.72rem; max-height:280px; overflow-y:auto; display:flex; flex-direction:column; gap:4px; }
+  .log-item { padding:5px 10px; border-radius:6px; border-right:3px solid var(--b); color:var(--muted); background:var(--s2); }
+  .log-item.bfs-item { border-color:var(--blue); color:var(--blue); background:rgba(121,192,255,.07); }
+  .log-item.dfs-item { border-color:var(--green); color:var(--green); background:rgba(86,211,100,.07); }
+  .log-item.done { border-color:var(--yellow); color:var(--yellow); background:rgba(227,179,65,.07); }
+  .info-box { background:var(--s2); border:1px solid var(--b); border-radius:8px; padding:12px; margin-bottom:12px; font-size:0.75rem; color:var(--muted); line-height:1.7; }
+  .info-box strong { color:var(--text); }
+  .legend { display:flex; gap:12px; flex-wrap:wrap; margin-top:10px; }
+  .leg-item { display:flex; align-items:center; gap:6px; font-size:0.7rem; color:var(--muted); }
+  .leg-dot { width:12px; height:12px; border-radius:50%; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🕸️ חציית גרפים — BFS ו-DFS</h1>
+  <p>מדעי המחשב | ויזואליזציה צעד-צעד | Breadth-First Search & Depth-First Search</p>
+</header>
+
+<div class="controls">
+  <button class="ctrl-btn bfs" onclick="startBFS()">▶ BFS — רוחב ראשון</button>
+  <button class="ctrl-btn dfs" onclick="startDFS()">▶ DFS — עומק ראשון</button>
+  <button class="ctrl-btn reset" onclick="reset()">↺ אפס</button>
+  <button class="ctrl-btn" onclick="randomGraph()">🎲 גרף אקראי</button>
+</div>
+
+<div class="layout">
+  <div class="panel">
+    <canvas id="graph-canvas" height="380"></canvas>
+    <div class="speed-row">
+      <label>מהירות:</label>
+      <input type="range" id="speed" min="100" max="1500" value="700" step="100">
+      <label id="speed-lbl">700ms</label>
+    </div>
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#555"></div>לא נבדק</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--yellow)"></div>בתור/סטק</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--blue)"></div>נוכחי (BFS)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>נוכחי (DFS)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#888"></div>הושלם</div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="info-box" id="info-box">
+      <strong>BFS — Breadth-First Search:</strong> חוצה את הגרף לפי רמות — כל השכנים של הצומת הנוכחי נבדקים לפני הצאצאים. משתמש ב<strong>תור (Queue)</strong>.<br><br>
+      <strong>DFS — Depth-First Search:</strong> הולך לעומק ככל האפשר לפני חזרה. משתמש ב<strong>סטק (Stack)</strong> או רקורסיה.
+    </div>
+    <div style="font-size:0.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">יומן פעולות</div>
+    <div class="log" id="log"><div class="log-item">לחץ BFS או DFS כדי להתחיל</div></div>
+  </div>
+</div>
+
+<script>
+const nodes = [
+  {id:0,x:.5,y:.08,label:'A'},{id:1,x:.18,y:.28,label:'B'},{id:2,x:.82,y:.28,label:'C'},
+  {id:3,x:.1,y:.6,label:'D'},{id:4,x:.38,y:.6,label:'E'},{id:5,x:.62,y:.6,label:'F'},
+  {id:6,x:.9,y:.6,label:'G'},{id:7,x:.25,y:.88,label:'H'},{id:8,x:.75,y:.88,label:'I'}
+];
+const edges = [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6],[3,7],[4,7],[5,8],[6,8]];
+
+let nodeState = {}; // 'unvisited','queued','current','visited'
+let running = false;
+let animSpeed = 700;
+const adj = {};
+nodes.forEach(n => { adj[n.id]=[]; });
+edges.forEach(([a,b]) => { adj[a].push(b); adj[b].push(a); });
+
+document.getElementById('speed').oninput = function(){ animSpeed=+this.value; document.getElementById('speed-lbl').textContent=this.value+'ms'; };
+
+function reset() {
+  running=false;
+  nodeState={};
+  nodes.forEach(n=>nodeState[n.id]='unvisited');
+  document.getElementById('log').innerHTML='<div class="log-item">לחץ BFS או DFS כדי להתחיל</div>';
+  document.getElementById('info-box').innerHTML=`<strong>BFS:</strong> תור (Queue) — לפי רמות.<br><strong>DFS:</strong> סטק (Stack) — לעומק.`;
+  draw();
+}
+
+function draw() {
+  const canvas = document.getElementById('graph-canvas');
+  const W = canvas.width = canvas.offsetWidth;
+  const H = canvas.height;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle='#0d1117'; ctx.fillRect(0,0,W,H);
+  const getPos = n => ({x:n.x*W, y:n.y*H});
+
+  // edges
+  edges.forEach(([a,b]) => {
+    const pa=getPos(nodes[a]), pb=getPos(nodes[b]);
+    ctx.strokeStyle='#30363d'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke();
+  });
+
+  // nodes
+  nodes.forEach(n => {
+    const {x,y}=getPos(n);
+    const s = nodeState[n.id]||'unvisited';
+    const colors = {unvisited:'#444',queued:'#e3b341',current_bfs:'#79c0ff',current_dfs:'#56d364',visited:'#555'};
+    const c = colors[s]||'#444';
+    ctx.shadowColor=c; ctx.shadowBlur=s!=='unvisited'&&s!=='visited'?16:0;
+    ctx.fillStyle=c; ctx.beginPath(); ctx.arc(x,y,20,0,Math.PI*2); ctx.fill();
+    ctx.shadowBlur=0;
+    ctx.strokeStyle=s==='current_bfs'?'#79c0ff':s==='current_dfs'?'#56d364':'#555';
+    ctx.lineWidth=2; ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font='bold 14px Heebo'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(n.label,x,y);
+  });
+}
+
+function log(msg, cls='') {
+  const el=document.getElementById('log');
+  const d=document.createElement('div');
+  d.className='log-item '+(cls||'');
+  d.textContent=msg;
+  el.appendChild(d); el.scrollTop=el.scrollHeight;
+}
+
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+async function startBFS() {
+  if(running) return; running=true;
+  reset(); running=true;
+  document.getElementById('log').innerHTML='';
+  document.getElementById('info-box').innerHTML='<strong style="color:#79c0ff">BFS פעיל</strong> — חוצה לפי רמות, משתמש ב-Queue.<br>צומת התחלה: <strong>A</strong>';
+  const visited=new Set();
+  const queue=[0];
+  visited.add(0); nodeState[0]='queued'; draw();
+  log('התחלה מצומת A — הוסף לתור','bfs-item');
+  while(queue.length && running){
+    const curr=queue.shift();
+    nodeState[curr]='current_bfs'; draw();
+    log(`🔵 מבקר ב-${nodes[curr].label} | תור: [${queue.map(i=>nodes[i].label).join(',')||'ריק'}]`,'bfs-item');
+    await sleep(animSpeed);
+    for(const nb of adj[curr].sort()){
+      if(!visited.has(nb)){
+        visited.add(nb); queue.push(nb); nodeState[nb]='queued'; draw();
+        log(`   הוסף ${nodes[nb].label} לתור`,'bfs-item');
+        await sleep(animSpeed/3);
+      }
+    }
+    nodeState[curr]='visited'; draw();
+  }
+  if(running){ log('✅ BFS הושלם — כל הצמתים נבקרו','done'); }
+  running=false;
+}
+
+async function startDFS() {
+  if(running) return; running=true;
+  reset(); running=true;
+  document.getElementById('log').innerHTML='';
+  document.getElementById('info-box').innerHTML='<strong style="color:#56d364">DFS פעיל</strong> — חוצה לעומק, משתמש ב-Stack.<br>צומת התחלה: <strong>A</strong>';
+  const visited=new Set();
+  async function dfs(node) {
+    if(!running||visited.has(node)) return;
+    visited.add(node); nodeState[node]='current_dfs'; draw();
+    log(`🟢 מבקר ב-${nodes[node].label} | עומק: ${visited.size}`,'dfs-item');
+    await sleep(animSpeed);
+    for(const nb of adj[node].sort()){
+      if(!visited.has(nb)){
+        log(`   צולל לתוך ${nodes[nb].label}`,'dfs-item');
+        await dfs(nb);
+      }
+    }
+    nodeState[node]='visited'; draw();
+  }
+  await dfs(0);
+  if(running){ log('✅ DFS הושלם — כל הצמתים נבקרו','done'); }
+  running=false;
+}
+
+function randomGraph() {
+  running=false;
+  reset();
+}
+
+reset();
+window.addEventListener('resize',draw);
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ניתוח שירה אינטראקטיבי | ספרות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+  :root { --pink:#C11E6B; --pink-light:#FBF0F5; --pink-mid:#F5D0E3; --teal:#6CB79D; --teal-light:#EEF8F4; --bg:#F9F7F8; --surface:#fff; --border:#DDD5DA; --dark:#231F20; --muted:#A08898; --radius:12px; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--dark); font-family:'Heebo',sans-serif; min-height:100vh; padding:24px 16px; }
+  header { text-align:center; margin-bottom:28px; }
+  header h1 { font-size:1.6rem; font-weight:800; color:var(--dark); margin-bottom:4px; }
+  header p { color:var(--muted); font-size:0.88rem; }
+  .poem-select { max-width:700px; margin:0 auto 20px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .poem-btn { padding:8px 18px; border-radius:20px; border:1.5px solid var(--border); background:var(--surface); font-family:'Heebo',sans-serif; font-size:0.82rem; font-weight:600; color:var(--muted); cursor:pointer; transition:all .18s; }
+  .poem-btn.active { background:var(--pink-light); border-color:var(--pink); color:var(--pink); }
+  .layout { display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:900px; margin:0 auto; }
+  .panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+  .panel h3 { font-size:0.82rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+  .poem-text { font-size:1.05rem; line-height:2.2; color:var(--dark); font-family:'Georgia',serif; white-space:pre-line; }
+  .poem-line { display:block; padding:3px 6px; border-radius:6px; cursor:pointer; transition:background .15s; user-select:none; }
+  .poem-line:hover { background:var(--pink-light); }
+  .poem-line.selected { background:var(--pink-light); border-right:3px solid var(--pink); }
+  .devices-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px; }
+  .device-btn { padding:8px 10px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); font-family:'Heebo',sans-serif; font-size:0.78rem; font-weight:700; color:var(--dark); cursor:pointer; text-align:center; transition:all .18s; }
+  .device-btn:hover { border-color:var(--pink); color:var(--pink); background:var(--pink-light); }
+  .device-btn.active { background:var(--pink); color:#fff; border-color:var(--pink); }
+  .annotations { display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto; }
+  .annotation { display:flex; align-items:flex-start; gap:8px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-size:0.78rem; }
+  .ann-badge { background:var(--pink); color:#fff; border-radius:6px; padding:2px 8px; font-size:0.7rem; font-weight:700; white-space:nowrap; flex-shrink:0; }
+  .ann-text { color:var(--dark); font-family:'Georgia',serif; font-style:italic; line-height:1.5; }
+  .add-btn { width:100%; padding:10px; border-radius:8px; border:none; background:var(--pink); color:#fff; font-family:'Heebo',sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; margin-top:10px; transition:background .15s; }
+  .add-btn:hover { background:#9A1555; }
+  .summary { max-width:900px; margin:16px auto 0; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; }
+  .summary h3 { font-size:0.85rem; font-weight:700; margin-bottom:12px; color:var(--dark); }
+  .device-counts { display:flex; gap:10px; flex-wrap:wrap; }
+  .dc { background:var(--pink-light); border:1px solid var(--pink-mid); border-radius:8px; padding:6px 14px; font-size:0.78rem; font-weight:700; color:var(--pink); }
+  .clear-btn { float:left; padding:6px 14px; border-radius:20px; border:1px solid var(--border); background:var(--bg); font-family:'Heebo',sans-serif; font-size:0.72rem; color:var(--muted); cursor:pointer; }
+  @media(max-width:640px){ .layout{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<header>
+  <h1>📖 ניתוח שירה אינטראקטיבי</h1>
+  <p>ספרות עברית | זיהוי אמצעים ספרותיים | בחר שורה + סמן אמצעי</p>
+</header>
+
+<div class="poem-select" id="poem-select"></div>
+
+<div class="layout">
+  <div class="panel">
+    <h3>הטקסט — לחץ על שורה לבחירה</h3>
+    <div class="poem-text" id="poem-text"></div>
+  </div>
+  <div class="panel">
+    <h3>אמצעים ספרותיים</h3>
+    <div class="devices-grid" id="devices-grid"></div>
+    <button class="add-btn" onclick="addAnnotation()">+ הוסף סימון לשורה הנבחרת</button>
+    <div style="margin-top:16px">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">הסימונים שלי</div>
+      <div class="annotations" id="annotations"><div style="color:var(--muted);font-size:0.78rem;padding:8px">בחר שורה ואמצעי ספרותי ולחץ "הוסף"</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="summary">
+  <button class="clear-btn" onclick="clearAll()">נקה הכל</button>
+  <h3>סיכום — אמצעים שזוהו</h3>
+  <div class="device-counts" id="device-counts"><span style="color:var(--muted);font-size:0.82rem">עדיין לא סומנו אמצעים</span></div>
+</div>
+
+<script>
+const poems = [
+  { title:'ביאליק — לא זכיתי באור', lines:['לֹא זָכִיתִי בָאוֹר מִן הַהֶפְקֵר','שָׁמְשִׁי עֲלָה — שָׁקָע','רֵיקָם בָּאתִי, רֵיקָם אֵלֵךְ','כַּאֲשֶׁר שָׂב אָב כִּי נִתְיָאֵשׁ'] },
+  { title:'רחל — עקרה', lines:['לֹא שָׁרַתִי לְךָ אֶרֶץ, לֹא פֵּאַרְתִּיךְ בִּגְדֻלָּה','לֹא נָטַעְתִּי עֵץ לְצֵל בְּדֶרֶךְ עָיֵף','רַק שִׁיר פָּשׁוּט הֵקַמְתִּי, כַּמּוֹ אֹהֶל בַּמִּדְבָּר','עָלַי לְצֵאת עַתָּה וְאֵין לִי מָה לָקַחַת'] },
+  { title:'לאה גולדברג — אהבתה של תרזה מן', lines:['אֹמַר לְךָ: אֲנִי אֲהַבְתִּיךָ','בְּכָל הַדְּרָכִים בְּכָל הַלֵּילוֹת','וּבְצֵל חַלּוֹן שֶׁל שָׁמַיִם אֲחֵרִים','שָׁכַחְתִּי שָׁכַחְתִּי שָׁכַחְתִּי'] },
+];
+
+const devices = [
+  'אנפורה (חזרה)','ניגוד (אנטיתזה)','מטאפורה','דימוי','אלגוריה','הקבלה','פנייה ישירה','שאלה רטורית','אירוניה','ריתמוס'
+];
+
+let selectedPoem = 0, selectedLine = -1, selectedDevice = '', annotations = [];
+
+function renderPoems() {
+  document.getElementById('poem-select').innerHTML = poems.map((p,i) =>
+    `<button class="poem-btn${i===selectedPoem?' active':''}" onclick="selectPoem(${i})">${p.title}</button>`).join('');
+}
+function renderText() {
+  document.getElementById('poem-text').innerHTML = poems[selectedPoem].lines.map((l,i) =>
+    `<span class="poem-line${i===selectedLine?' selected':''}" onclick="selectLine(${i})">${l}</span>`).join('');
+}
+function renderDevices() {
+  document.getElementById('devices-grid').innerHTML = devices.map(d =>
+    `<button class="device-btn${d===selectedDevice?' active':''}" onclick="selectDevice('${d}')">${d}</button>`).join('');
+}
+function selectPoem(i) { selectedPoem=i; selectedLine=-1; selectedDevice=''; renderPoems(); renderText(); renderDevices(); }
+function selectLine(i) { selectedLine=i; renderText(); }
+function selectDevice(d) { selectedDevice=d; renderDevices(); }
+function addAnnotation() {
+  if (selectedLine<0) { alert('בחר שורה תחילה'); return; }
+  if (!selectedDevice) { alert('בחר אמצעי ספרותי'); return; }
+  annotations.push({ line: poems[selectedPoem].lines[selectedLine], device: selectedDevice });
+  renderAnnotations(); renderSummary();
+}
+function renderAnnotations() {
+  const el = document.getElementById('annotations');
+  if (!annotations.length) { el.innerHTML = '<div style="color:var(--muted);font-size:0.78rem;padding:8px">בחר שורה ואמצעי ספרותי ולחץ "הוסף"</div>'; return; }
+  el.innerHTML = annotations.map((a,i) => `<div class="annotation"><span class="ann-badge">${a.device}</span><span class="ann-text">"${a.line}"</span><span style="cursor:pointer;color:var(--muted);font-size:0.8rem;margin-right:auto" onclick="removeAnn(${i})">✕</span></div>`).join('');
+}
+function removeAnn(i) { annotations.splice(i,1); renderAnnotations(); renderSummary(); }
+function renderSummary() {
+  const counts = {};
+  annotations.forEach(a => { counts[a.device] = (counts[a.device]||0)+1; });
+  const el = document.getElementById('device-counts');
+  if (!Object.keys(counts).length) { el.innerHTML = '<span style="color:var(--muted);font-size:0.82rem">עדיין לא סומנו אמצעים</span>'; return; }
+  el.innerHTML = Object.entries(counts).map(([d,n]) => `<div class="dc">${d} × ${n}</div>`).join('');
+}
+function clearAll() { annotations=[]; selectedLine=-1; selectedDevice=''; renderText(); renderDevices(); renderAnnotations(); renderSummary(); }
+
+renderPoems(); renderText(); renderDevices();
+</script>
+</body>
+</html>

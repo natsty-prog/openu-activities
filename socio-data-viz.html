@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ויזואליזציה נתונים חברתיים | סוציולוגיה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+  :root { --bg:#F9F7F8; --s:#fff; --b:#DDD5DA; --pink:#C11E6B; --pink-light:#FBF0F5; --pink-mid:#F5D0E3; --teal:#6CB79D; --teal-light:#EEF8F4; --yellow:#EBA521; --dark:#231F20; --muted:#A08898; --radius:14px; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--dark); font-family:'Heebo',sans-serif; min-height:100vh; padding:24px 16px; }
+  header { text-align:center; margin-bottom:24px; }
+  header h1 { font-size:1.5rem; font-weight:800; color:var(--dark); margin-bottom:4px; }
+  header p { color:var(--muted); font-size:0.85rem; }
+  .dataset-tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:20px; }
+  .ds-btn { padding:8px 16px; border-radius:20px; border:1.5px solid var(--b); background:var(--s); font-family:'Heebo',sans-serif; font-size:0.8rem; font-weight:700; color:var(--muted); cursor:pointer; transition:all .18s; }
+  .ds-btn.active { background:var(--pink-light); border-color:var(--pink); color:var(--pink); }
+  .layout { max-width:900px; margin:0 auto; display:grid; grid-template-columns:1fr 280px; gap:18px; }
+  .panel { background:var(--s); border:1px solid var(--b); border-radius:var(--radius); padding:20px; }
+  .panel h3 { font-size:0.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--b); }
+  canvas { display:block; max-width:100%; }
+  .insight-box { background:var(--pink-light); border:1px solid var(--pink-mid); border-radius:10px; padding:14px; margin-bottom:14px; font-size:0.8rem; color:#6B0F35; line-height:1.6; }
+  .insight-box strong { font-weight:800; }
+  .stat-list { display:flex; flex-direction:column; gap:8px; }
+  .stat-item { background:var(--bg); border:1px solid var(--b); border-radius:8px; padding:10px 12px; }
+  .stat-item .sv { font-size:1.1rem; font-weight:900; color:var(--pink); }
+  .stat-item .sl { font-size:0.7rem; color:var(--muted); margin-top:2px; }
+  .chart-type-row { display:flex; gap:6px; margin-bottom:14px; }
+  .ct-btn { padding:5px 12px; border-radius:8px; border:1.5px solid var(--b); background:var(--bg); font-family:'Heebo',sans-serif; font-size:0.72rem; font-weight:700; color:var(--muted); cursor:pointer; transition:all .18s; }
+  .ct-btn.active { background:var(--teal-light); border-color:var(--teal); color:var(--teal); }
+  @media(max-width:640px){ .layout{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<header>
+  <h1>📊 ויזואליזציה נתונים חברתיים</h1>
+  <p>סוציולוגיה | נתוני אוכלוסייה, חינוך ואי-שוויון | החלף סט נתונים וסוג תרשים</p>
+</header>
+
+<div class="dataset-tabs" id="ds-tabs"></div>
+
+<div class="layout">
+  <div class="panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <h3 style="margin-bottom:0;border-bottom:none;padding-bottom:0" id="chart-title">תרשים</h3>
+      <div class="chart-type-row">
+        <button class="ct-btn active" onclick="setChartType('bar',this)">עמודות</button>
+        <button class="ct-btn" onclick="setChartType('line',this)">קו</button>
+        <button class="ct-btn" onclick="setChartType('pie',this)">עוגה</button>
+      </div>
+    </div>
+    <canvas id="chart" height="280"></canvas>
+  </div>
+  <div class="panel">
+    <h3>תובנות ומסקנות</h3>
+    <div id="insight-box" class="insight-box"></div>
+    <div class="stat-list" id="stat-list"></div>
+  </div>
+</div>
+
+<script>
+const datasets = [
+  {
+    id:'edu', label:'השכלה ותעסוקה', icon:'🎓',
+    labels:['ללא תעודת בגרות','בגרות','תעודת הנדסאי','תואר ראשון','תואר שני','דוקטורט'],
+    values:[3.8, 4.2, 5.1, 6.8, 8.4, 12.2],
+    unit:'₪ אלפים לחודש',
+    insight:'<strong>מסקנה מרכזית:</strong> קיים קשר ישיר בין רמת ההשכלה לגובה השכר. בין ללא בגרות לדוקטורט — פער של פי 3.2 בשכר החציוני.',
+    stats:[{v:'3.2x',l:'פער שכר: ללא בגרות → דוקטורט'},{v:'6.8K',l:'שכר ממוצע לבעלי תואר ראשון'},{v:'34%',l:'הגידול בשכר עם תואר שני'}]
+  },
+  {
+    id:'gini', label:'אי-שוויון הכנסות', icon:'⚖️',
+    labels:['2000','2005','2010','2015','2020','2023'],
+    values:[0.37, 0.39, 0.38, 0.36, 0.35, 0.34],
+    unit:'מקדם ג\'יני',
+    insight:'<strong>מגמה:</strong> אי-השוויון בהכנסות בישראל (לפי מקדם ג\'יני) הראה שיפור מתון בעשור האחרון, אך נשאר בין הגבוהים ב-OECD.',
+    stats:[{v:'0.34',l:'מקדם ג\'יני בישראל 2023'},{v:'0.31',l:'ממוצע OECD'},{v:'8.7%',l:'שיפור מ-2000 עד 2023'}]
+  },
+  {
+    id:'pop', label:'הרכב אוכלוסייה', icon:'👥',
+    labels:['0-14','15-24','25-44','45-64','65-74','75+'],
+    values:[28.1, 15.7, 27.3, 18.4, 5.9, 4.6],
+    unit:'% מהאוכלוסייה',
+    insight:'<strong>פירמידת גיל:</strong> ישראל נחשבת לחברה צעירה יחסית — 43.8% מתחת לגיל 25, לעומת ממוצע OECD של ~35%.',
+    stats:[{v:'43.8%',l:'מתחת לגיל 25'},{v:'10.5%',l:'מעל גיל 65'},{v:'3.1',l:'ילדים לאישה (פוריות)'}]
+  },
+  {
+    id:'trust', label:'אמון במוסדות', icon:'🏛️',
+    labels:['מערכת הבריאות','צבא','משטרה','כנסת','בתי משפט','ממשלה'],
+    values:[68, 80, 49, 22, 51, 26],
+    unit:'% אמון',
+    insight:'<strong>ממצא:</strong> הצבא ומערכת הבריאות נהנים מאמון ציבורי גבוה, בעוד הכנסת והממשלה נמצאות בשפל היסטורי. פער של 58 נקודות בין הצבא לכנסת.',
+    stats:[{v:'80%',l:'אמון בצבא — הגבוה ביותר'},{v:'22%',l:'אמון בכנסת — הנמוך ביותר'},{v:'49%',l:'ממוצע כולל'}]
+  },
+];
+
+let currentDS = datasets[0];
+let chartType = 'bar';
+let chartInstance = null;
+
+function renderTabs() {
+  document.getElementById('ds-tabs').innerHTML = datasets.map(d =>
+    `<button class="ds-btn${d.id===currentDS.id?' active':''}" onclick="setDS('${d.id}')">${d.icon} ${d.label}</button>`).join('');
+}
+
+function setDS(id) {
+  currentDS = datasets.find(d=>d.id===id);
+  renderTabs(); renderChart(); renderSidebar();
+}
+function setChartType(t, el) {
+  chartType = t;
+  document.querySelectorAll('.ct-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderChart();
+}
+
+function renderChart() {
+  const canvas = document.getElementById('chart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width = canvas.offsetWidth;
+  const H = canvas.height = 280;
+  ctx.clearRect(0,0,W,H);
+  document.getElementById('chart-title').textContent = currentDS.label + ' — ' + currentDS.unit;
+
+  const vals = currentDS.values;
+  const labels = currentDS.labels;
+  const max = Math.max(...vals)*1.15;
+  const colors = ['#C11E6B','#6CB79D','#EBA521','#8957e5','#0969da','#bf4b8a'];
+
+  if (chartType === 'pie') {
+    drawPie(ctx, W, H, vals, labels, colors);
+  } else if (chartType === 'line') {
+    drawLine(ctx, W, H, vals, labels, max);
+  } else {
+    drawBar(ctx, W, H, vals, labels, max, colors);
+  }
+}
+
+function drawBar(ctx, W, H, vals, labels, max, colors) {
+  const pad = {t:20,b:50,l:10,r:10};
+  const n = vals.length;
+  const bw = (W-pad.l-pad.r)/n*0.65;
+  const gap = (W-pad.l-pad.r)/n;
+  vals.forEach((v,i) => {
+    const bh = (v/max)*(H-pad.t-pad.b);
+    const x = pad.l + i*gap + gap*0.175;
+    const y = H - pad.b - bh;
+    ctx.fillStyle = colors[i%colors.length]+'cc';
+    ctx.beginPath(); ctx.roundRect(x, y, bw, bh, [4,4,0,0]); ctx.fill();
+    ctx.fillStyle = colors[i%colors.length];
+    ctx.font = 'bold 11px Heebo,sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(v, x+bw/2, y-6);
+    ctx.fillStyle = '#A08898';
+    ctx.font = '10px Heebo,sans-serif';
+    const words = labels[i].split('');
+    ctx.fillText(labels[i].length>8?labels[i].slice(0,8)+'…':labels[i], x+bw/2, H-pad.b+14);
+  });
+}
+
+function drawLine(ctx, W, H, vals, labels, max) {
+  const pad = {t:20,b:50,l:30,r:10};
+  const n = vals.length;
+  const step = (W-pad.l-pad.r)/(n-1);
+  ctx.strokeStyle='#C11E6B'; ctx.lineWidth=2.5;
+  ctx.beginPath();
+  vals.forEach((v,i) => {
+    const x=pad.l+i*step, y=H-pad.b-(v/max)*(H-pad.t-pad.b);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  vals.forEach((v,i) => {
+    const x=pad.l+i*step, y=H-pad.b-(v/max)*(H-pad.t-pad.b);
+    ctx.fillStyle='#C11E6B'; ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#231F20'; ctx.font='bold 10px Heebo'; ctx.textAlign='center'; ctx.fillText(v,x,y-10);
+    ctx.fillStyle='#A08898'; ctx.font='10px Heebo'; ctx.fillText(labels[i].slice(0,6),x,H-pad.b+14);
+  });
+}
+
+function drawPie(ctx, W, H, vals, labels, colors) {
+  const total = vals.reduce((a,b)=>a+b,0);
+  const cx=W/2-60, cy=H/2+10, r=Math.min(cx,cy)-20;
+  let angle=-Math.PI/2;
+  vals.forEach((v,i) => {
+    const slice=v/total*Math.PI*2;
+    ctx.fillStyle=colors[i%colors.length];
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,angle,angle+slice); ctx.closePath(); ctx.fill();
+    const ma=angle+slice/2;
+    ctx.fillStyle='#fff'; ctx.font='bold 10px Heebo'; ctx.textAlign='center';
+    if(slice>0.25) ctx.fillText((v/total*100).toFixed(0)+'%',cx+Math.cos(ma)*r*0.65,cy+Math.sin(ma)*r*0.65+4);
+    angle+=slice;
+  });
+  // Legend
+  const lx=W-115, ly=20;
+  vals.forEach((v,i) => {
+    ctx.fillStyle=colors[i%colors.length]; ctx.fillRect(lx,ly+i*20,12,12);
+    ctx.fillStyle='#231F20'; ctx.font='11px Heebo'; ctx.textAlign='right';
+    ctx.fillText(labels[i].slice(0,9),W-5,ly+i*20+10);
+  });
+}
+
+function renderSidebar() {
+  document.getElementById('insight-box').innerHTML = currentDS.insight;
+  document.getElementById('stat-list').innerHTML = currentDS.stats.map(s =>
+    `<div class="stat-item"><div class="sv">${s.v}</div><div class="sl">${s.l}</div></div>`).join('');
+}
+
+window.addEventListener('resize', renderChart);
+renderTabs(); renderChart(); renderSidebar();
+</script>
+</body>
+</html>
