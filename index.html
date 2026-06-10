@@ -197,10 +197,10 @@
   <div class="legend">
     <h3>מקרא סוגי פעילויות</h3>
     <div class="legend-items">
-      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-teal),#9DD5C0)"></div><span><strong>אינפורמטיבי</strong> – הצגת מידע ויזואלית, אחסון סטטי</span></div>
-      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-pink),var(--brand-pink-pale))"></div><span><strong>אינטראקטיבי פשוט</strong> – תרגול, משוב מיידי</span></div>
-      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-yellow),#F5C860)"></div><span><strong>סימולציה</strong> – חוויה אינטראקטיבית עשירה</span></div>
-      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-dark),#4A3545)"></div><span><strong>שיתופי / דאטהבייס</strong> – נדרש שרת</span></div>
+      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-teal),#9DD5C0)"></div><span><strong>אינפורמטיבי</strong> – הצגת מידע ויזואלית</span></div>
+      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-pink),var(--brand-pink-pale))"></div><span><strong>אינטראקטיבי פשוט</strong> – תרגול ומשוב מיידי</span></div>
+      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-yellow),#F5C860)"></div><span><strong>סימולציה</strong> – חקירה אינטראקטיבית עשירה</span></div>
+      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-dark),#4A3545)"></div><span><strong>שיתופי</strong> – עבודה קבוצתית בזמן אמת</span></div>
     </div>
   </div>
 </main>
@@ -227,7 +227,7 @@
 
 <script>
 const activities = [
-  { id:'ai-survey', icon:'📊', type:'simple', dept:'general', deptLabel:'תחום דעת',
+  { id:'ai-survey', icon:'📊', type:'simple', dept:'general', deptLabel:'בינה מלאכותית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
     title:'סקר AI אינטראקטיבי', desc:'סקר דינמי המאפשר לסטודנטים לבטא עמדות ולקבל משוב מיידי בנושאי בינה מלאכותית.',
     url:'https://natsty-prog.github.io/ai-survey/', meta:['Client-Side בלבד','אחסון סטטי','iframe ידידותי'],
@@ -244,7 +244,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לשימוש בכיתה:</strong> הפעל בתחילת קורס AI כדי לאסוף עמדות ראשוניות ולעורר דיון.' },
 
-  { id:'word-game', icon:'🎮', type:'simple', dept:'general', deptLabel:'תחום דעת',
+  { id:'word-game', icon:'🎮', type:'simple', dept:'general', deptLabel:'בינה מלאכותית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
     title:'משחק גרירת מילים – AI', desc:'פעילות גמיפיקציה לתרגול מושגי AI באמצעות גרירת מילים למיקום הנכון.',
     url:'https://natsty-prog.github.io/game-ai/', meta:['Client-Side בלבד','iframe ידידותי'],
@@ -261,7 +261,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>מתאים לשיעור:</strong> תרגול אחרי הסבר מושגים — עוזר לחיזוק זיכרון דרך משחק.' },
 
-  { id:'gallery-ai', icon:'🖼️', type:'info', dept:'general', deptLabel:'תחום דעת',
+  { id:'gallery-ai', icon:'🖼️', type:'info', dept:'general', deptLabel:'בינה מלאכותית',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
     title:'גלריית AI', desc:'הצגה ויזואלית ועשירה של עולם הבינה המלאכותית – תמונות, מושגים ודוגמאות.',
     url:'https://digitallearningopenu.github.io/gallery-AI', meta:['אחסון סטטי','iframe ידידותי'],
@@ -278,7 +278,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לשיעור מבוא:</strong> השתמש כנקודת פתיחה להכרת תחומי ה-AI.' },
 
-  { id:'voting', icon:'🗳️', type:'simple', dept:'general', deptLabel:'תחום דעת',
+  { id:'voting', icon:'🗳️', type:'simple', dept:'general', deptLabel:'פדגוגיה דיגיטלית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
     title:'אפליקציית הצבעה', desc:'מצביעים ומקבלים משוב מיידי. פעילות מעורבות לשאלות הצבעה.',
     url:'https://natsty-prog.github.io/voting-app/', meta:['Client-Side בלבד','iframe ידידותי'],
@@ -295,7 +295,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לפתיחת שיעור:</strong> הצג שאלה פרובוקטיבית ואסוף דעות לפני הדיון.' },
 
-  { id:'manifesto', icon:'🌐', type:'db', dept:'general', deptLabel:'תחום דעת',
+  { id:'manifesto', icon:'🌐', type:'db', dept:'general', deptLabel:'פדגוגיה דיגיטלית',
     stripe:'stripe-dark', iconBg:'icon-dark', btnClass:'btn-dark',
     title:'הצבעה על מניפסט – עם בסיס נתונים', desc:'הצבעה קורסיאלית שמאפשרת לסטודנטים לראות תוצאות קבוצתיות בזמן אמת.',
     url:'https://natsty-prog.github.io/voting-app/manifesto.html', meta:['Server-Side','בסיס נתונים'],
@@ -312,7 +312,7 @@ const activities = [
 שפה: עברית, HTML + Firebase.`,
     tip:'<strong>לדיון קבוצתי:</strong> מאפשר לראות פערי דעות בתוך הכיתה ולהנחות דיון.' },
 
-  { id:'ai-bricks', icon:'🧱', type:'info', dept:'general', deptLabel:'תחום דעת',
+  { id:'ai-bricks', icon:'🧱', type:'info', dept:'general', deptLabel:'בינה מלאכותית',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
     title:'אבני היסוד של ה-AI', desc:'מצגת אינפורמטיבית ויזואלית על יסודות הבינה המלאכותית.',
     url:'https://digitallearningopenu.github.io/AI-Foundations-Bricks/', meta:['אחסון סטטי','iframe ידידותי'],
@@ -347,7 +347,7 @@ const activities = [
 שפה: עברית, HTML עם Leaflet.js.`,
     tip:'<strong>לקורס ספרות:</strong> מתאים לניתוח מרחב ותרבות — "איפה מתרחשת העלילה ולמה?"' },
 
-  { id:'gemini', icon:'🤖', type:'sim', dept:'general', deptLabel:'תחום דעת',
+  { id:'gemini', icon:'🤖', type:'sim', dept:'general', deptLabel:'בינה מלאכותית',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
     title:'סימולציה – Gemini AI', desc:'סימולציה אינטראקטיבית המבוססת על Gemini. ניסויי שיחה ולמידה על מודלי שפה.',
     url:'https://gemini.google.com/share/66961465be3f', meta:['שירות חיצוני','Gemini AI'],
@@ -364,7 +364,7 @@ const activities = [
 שפה: עברית, שילוב עם Gemini API.`,
     tip:'<strong>לקורס על AI:</strong> מאפשר ניסוי ישיר עם מודל שפה — לצפות, לשאול ולהסיק מסקנות.' },
 
-  { id:'base44', icon:'⚡', type:'sim', dept:'general', deptLabel:'תחום דעת',
+  { id:'base44', icon:'⚡', type:'sim', dept:'general', deptLabel:'בינה מלאכותית',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
     title:'סימולציה – פותח ב-Base44', desc:'סימולציה אינטראקטיבית שפותחה בכלי No-Code מתקדם.',
     url:'https://openu13047.base44.app/', meta:['Base44','No-Code'],
@@ -398,7 +398,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס פסיכולוגיה קוגניטיבית:</strong> ממחיש כיצד ראיית הפריפריה מוגבלת בצפיפות.' },
 
-  { id:'collab', icon:'👥', type:'db', dept:'general', deptLabel:'תחום דעת',
+  { id:'collab', icon:'👥', type:'db', dept:'general', deptLabel:'פדגוגיה דיגיטלית',
     stripe:'stripe-dark', iconBg:'icon-dark', btnClass:'btn-dark',
     title:'עבודה קבוצתית שיתופית', desc:'פעילות שיתופית לבניית ידע קולקטיבי וראיית תרומות של חברי הקורס.',
     url:'https://telem.openu.ac.il/Danit/61136/Lesson_2_6_Collaborative_Group_work.html', meta:['שרתי אפ"ת'],
