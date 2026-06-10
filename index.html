@@ -167,7 +167,6 @@
     <button class="filter-btn" data-filter="type" data-val="info">אינפורמטיבי <span class="filter-count" id="fc-info">0</span></button>
     <button class="filter-btn" data-filter="type" data-val="simple">אינטראקטיבי פשוט <span class="filter-count" id="fc-simple">0</span></button>
     <button class="filter-btn" data-filter="type" data-val="sim">סימולציה <span class="filter-count" id="fc-sim">0</span></button>
-    <button class="filter-btn" data-filter="type" data-val="db">שיתופי <span class="filter-count" id="fc-db">0</span></button>
     <div class="filter-sep"></div>
     <button class="filter-btn" data-filter="dept" data-val="lit">📚 ספרות ולשון</button>
     <button class="filter-btn" data-filter="dept" data-val="sci">🔬 מדעי הטבע</button>
@@ -194,15 +193,6 @@
     <div>נסי לשנות פילטר או למחוק את החיפוש</div>
   </div>
 
-  <div class="legend">
-    <h3>מקרא סוגי פעילויות</h3>
-    <div class="legend-items">
-      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-teal),#9DD5C0)"></div><span><strong>אינפורמטיבי</strong> – הצגת מידע ויזואלית</span></div>
-      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-pink),var(--brand-pink-pale))"></div><span><strong>אינטראקטיבי פשוט</strong> – תרגול ומשוב מיידי</span></div>
-      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-yellow),#F5C860)"></div><span><strong>סימולציה</strong> – חקירה אינטראקטיבית עשירה</span></div>
-      <div class="legend-item"><div class="legend-swatch" style="background:linear-gradient(90deg,var(--brand-dark),#4A3545)"></div><span><strong>שיתופי</strong> – עבודה קבוצתית בזמן אמת</span></div>
-    </div>
-  </div>
 </main>
 
 <footer class="footer">מחלקת פדגוגיה דיגיטלית | האוניברסיטה הפתוחה | כל הפעילויות מיועדות להטמעה בקורסי מודל</footer>
@@ -227,10 +217,10 @@
 
 <script>
 const activities = [
-  { id:'ai-survey', icon:'📊', type:'simple', dept:'general', deptLabel:'בינה מלאכותית',
+  { id:'ai-survey', icon:'📊', type:'simple', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'סקר AI אינטראקטיבי', desc:'סקר דינמי המאפשר לסטודנטים לבטא עמדות ולקבל משוב מיידי בנושאי בינה מלאכותית.',
-    url:'https://natsty-prog.github.io/ai-survey/', meta:['Client-Side בלבד','אחסון סטטי','iframe ידידותי'],
+    title:'עמדות סטודנטים כלפי בינה מלאכותית', desc:'סקר אינטראקטיבי לגילוי עמדות, חששות ותקוות בנוגע ל-AI — עם פידבק ויזואלי מיידי ופרופיל אישי.',
+    url:'https://natsty-prog.github.io/ai-survey/', meta:[],
     tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
     prompt:`צור סקר אינטראקטיבי על נושא הבינה המלאכותית לסטודנטים.
 
@@ -244,10 +234,10 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לשימוש בכיתה:</strong> הפעל בתחילת קורס AI כדי לאסוף עמדות ראשוניות ולעורר דיון.' },
 
-  { id:'word-game', icon:'🎮', type:'simple', dept:'general', deptLabel:'בינה מלאכותית',
+  { id:'word-game', icon:'🎮', type:'simple', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'משחק גרירת מילים – AI', desc:'פעילות גמיפיקציה לתרגול מושגי AI באמצעות גרירת מילים למיקום הנכון.',
-    url:'https://natsty-prog.github.io/game-ai/', meta:['Client-Side בלבד','iframe ידידותי'],
+    title:'גרירת מושגים: מילון עולם ה-AI', desc:'משחק גמיפיקציה לשינון מושגי ליבה בבינה מלאכותית — גרור כל מושג להגדרה הנכונה שלו.',
+    url:'https://natsty-prog.github.io/game-ai/', meta:[],
     tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
     prompt:`צור משחק גרירת מילים (Drag & Drop) לתרגול מושגי בינה מלאכותית.
 
@@ -261,10 +251,10 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>מתאים לשיעור:</strong> תרגול אחרי הסבר מושגים — עוזר לחיזוק זיכרון דרך משחק.' },
 
-  { id:'gallery-ai', icon:'🖼️', type:'info', dept:'general', deptLabel:'בינה מלאכותית',
+  { id:'gallery-ai', icon:'🖼️', type:'info', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'גלריית AI', desc:'הצגה ויזואלית ועשירה של עולם הבינה המלאכותית – תמונות, מושגים ודוגמאות.',
-    url:'https://digitallearningopenu.github.io/gallery-AI', meta:['אחסון סטטי','iframe ידידותי'],
+    title:'גלריה ויזואלית: תחומי הבינה המלאכותית', desc:'מסע ויזואלי בתחומי ה-AI — Computer Vision, NLP, Robotics, Generative AI — עם תמונות והסברים לכל תחום.',
+    url:'https://digitallearningopenu.github.io/gallery-AI', meta:[],
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
     prompt:`צור גלריה ויזואלית אינטראקטיבית לעולם הבינה המלאכותית.
 
@@ -280,8 +270,8 @@ const activities = [
 
   { id:'voting', icon:'🗳️', type:'simple', dept:'general', deptLabel:'פדגוגיה דיגיטלית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'אפליקציית הצבעה', desc:'מצביעים ומקבלים משוב מיידי. פעילות מעורבות לשאלות הצבעה.',
-    url:'https://natsty-prog.github.io/voting-app/', meta:['Client-Side בלבד','iframe ידידותי'],
+    title:'הצבעה כיתתית: שאלה לפתיחת דיון', desc:'כלי מעורבות להצגת שאלה פרובוקטיבית — הסטודנטים מצביעים ורואים את תוצאות הכיתה בזמן אמת.',
+    url:'https://natsty-prog.github.io/voting-app/', meta:[],
     tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
     prompt:`צור אפליקציית הצבעה אינטראקטיבית לשימוש בכיתה.
 
@@ -295,27 +285,11 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לפתיחת שיעור:</strong> הצג שאלה פרובוקטיבית ואסוף דעות לפני הדיון.' },
 
-  { id:'manifesto', icon:'🌐', type:'db', dept:'general', deptLabel:'פדגוגיה דיגיטלית',
-    stripe:'stripe-dark', iconBg:'icon-dark', btnClass:'btn-dark',
-    title:'הצבעה על מניפסט – עם בסיס נתונים', desc:'הצבעה קורסיאלית שמאפשרת לסטודנטים לראות תוצאות קבוצתיות בזמן אמת.',
-    url:'https://natsty-prog.github.io/voting-app/manifesto.html', meta:['Server-Side','בסיס נתונים'],
-    tags:[{cls:'tag-db',txt:'שיתופי / דאטהבייס'}],
-    prompt:`צור מערכת הצבעה שיתופית על מניפסט עם שמירת תוצאות.
 
-המערכת תכלול:
-- 10 סעיפים במניפסט (לדוגמה: זכויות דיגיטליות)
-- לכל סעיף: בעד / נגד / נמנע
-- שמירת תוצאות ב-Firebase
-- תצוגה חיה של תוצאות כל הכיתה
-- גרף השוואה לאורך זמן
-
-שפה: עברית, HTML + Firebase.`,
-    tip:'<strong>לדיון קבוצתי:</strong> מאפשר לראות פערי דעות בתוך הכיתה ולהנחות דיון.' },
-
-  { id:'ai-bricks', icon:'🧱', type:'info', dept:'general', deptLabel:'בינה מלאכותית',
+  { id:'ai-bricks', icon:'🧱', type:'info', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'אבני היסוד של ה-AI', desc:'מצגת אינפורמטיבית ויזואלית על יסודות הבינה המלאכותית.',
-    url:'https://digitallearningopenu.github.io/AI-Foundations-Bricks/', meta:['אחסון סטטי','iframe ידידותי'],
+    title:'מושגי יסוד בבינה המלאכותית', desc:'8 מושגי ליבה של AI — Data, Model, Training, Bias ועוד — מוצגים כ"אבני בניין" שאפשר ללחוץ עליהן ולחקור.',
+    url:'https://digitallearningopenu.github.io/AI-Foundations-Bricks/', meta:[],
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
     prompt:`צור מצגת ויזואלית אינטראקטיבית על יסודות ה-AI כ"אבני בניין".
 
@@ -329,10 +303,10 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס מבוא:</strong> מתאים כרצף לימוד מובנה — מהמושגים הבסיסיים לתמונה המלאה.' },
 
-  { id:'ny-map', icon:'🗺️', type:'info', dept:'lit', deptLabel:'ספרות ולשון',
+  { id:'ny-map', icon:'🗺️', type:'info', dept:'lit', deptLabel:'ספרות עברית',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'מפה ספרותית של ניו יורק', desc:'חקירה ויזואלית-גיאוגרפית של יצירות ספרות דרך מפה אינטראקטיבית.',
-    url:'https://natsty-prog.github.io/ny-literary-map/', meta:['אחסון סטטי','iframe ידידותי'],
+    title:'מרחב עירוני ונרטיב: ניו יורק ברומן העברי', desc:'מפה אינטראקטיבית של ניו יורק עם מסלולי דמויות ספרותיות — לחקור את הקשר בין מקום, נרטיב וזהות.',
+    url:'https://natsty-prog.github.io/ny-literary-map/', meta:[],
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
     prompt:`צור מפה ספרותית אינטראקטיבית של ניו יורק.
 
@@ -347,10 +321,10 @@ const activities = [
 שפה: עברית, HTML עם Leaflet.js.`,
     tip:'<strong>לקורס ספרות:</strong> מתאים לניתוח מרחב ותרבות — "איפה מתרחשת העלילה ולמה?"' },
 
-  { id:'gemini', icon:'🤖', type:'sim', dept:'general', deptLabel:'בינה מלאכותית',
+  { id:'gemini', icon:'🤖', type:'sim', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
-    title:'סימולציה – Gemini AI', desc:'סימולציה אינטראקטיבית המבוססת על Gemini. ניסויי שיחה ולמידה על מודלי שפה.',
-    url:'https://gemini.google.com/share/66961465be3f', meta:['שירות חיצוני','Gemini AI'],
+    title:'שיחה עם מודל שפה: ניסוי ב-AI גנרטיבי', desc:'סביבת ניסוי עם Gemini — שואלים, בוחנים תשובות, מזהים הטיות ומלמדים ניסוח פרומפטים יעילים.',
+    url:'https://gemini.google.com/share/66961465be3f', meta:[],
     tags:[{cls:'tag-sim',txt:'סימולציה'}],
     prompt:`צור סביבת ניסוי אינטראקטיבית ל-Gemini AI בהקשר לימודי.
 
@@ -364,11 +338,11 @@ const activities = [
 שפה: עברית, שילוב עם Gemini API.`,
     tip:'<strong>לקורס על AI:</strong> מאפשר ניסוי ישיר עם מודל שפה — לצפות, לשאול ולהסיק מסקנות.' },
 
-  { id:'base44', icon:'⚡', type:'sim', dept:'general', deptLabel:'בינה מלאכותית',
+  { id:'base44', icon:'⚡', type:'sim', dept:'general', deptLabel:'פדגוגיה דיגיטלית',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
-    title:'סימולציה – פותח ב-Base44', desc:'סימולציה אינטראקטיבית שפותחה בכלי No-Code מתקדם.',
-    url:'https://openu13047.base44.app/', meta:['Base44','No-Code'],
-    tags:[{cls:'tag-sim',txt:'סימולציה'},{cls:'tag-sim',txt:'Base44'}],
+    title:'פיתוח אפליקציה לימודית ב-No-Code', desc:'דוגמה לאפליקציה לימודית שפותחה בכלי No-Code (Base44) — ללא צורך בידע תכנות, עם ממשק מלא לניהול תוכן.',
+    url:'https://openu13047.base44.app/', meta:[],
+    tags:[{cls:'tag-sim',txt:'סימולציה'}],
     prompt:`צור אפליקציה לימודית אינטראקטיבית ב-Base44 (No-Code).
 
 האפליקציה תכלול:
@@ -383,8 +357,8 @@ const activities = [
 
   { id:'bouma', icon:'👁️', type:'simple', dept:'edu', deptLabel:'חינוך ופסיכולוגיה',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'חוק בואמה – המחשת צפיפות', desc:'הדגמה אינטראקטיבית של חוק בואמה — שליטה בצפיפות אלמנטים.',
-    url:'https://telem.openu.ac.il/multimedia/icw/c10966/book/boumas_law_interactive_crowding_illustration_html_js.html', meta:['HTML/JS/CSS','שרתי אפ"ת'],
+    title:'אפקט הצפיפות החזותית: חוק בואמה', desc:'הדגמה אינטראקטיבית של מגבלות הראייה הפריפראלית — שנה צפיפות וגלה כיצד המוח מתקשה לזהות אלמנטים צמודים.',
+    url:'https://telem.openu.ac.il/multimedia/icw/c10966/book/boumas_law_interactive_crowding_illustration_html_js.html', meta:[],
     tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
     prompt:`צור הדגמה אינטראקטיבית של חוק בואמה (Bouma's Law) לפסיכולוגיה קוגניטיבית.
 
@@ -398,27 +372,10 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס פסיכולוגיה קוגניטיבית:</strong> ממחיש כיצד ראיית הפריפריה מוגבלת בצפיפות.' },
 
-  { id:'collab', icon:'👥', type:'db', dept:'general', deptLabel:'פדגוגיה דיגיטלית',
-    stripe:'stripe-dark', iconBg:'icon-dark', btnClass:'btn-dark',
-    title:'עבודה קבוצתית שיתופית', desc:'פעילות שיתופית לבניית ידע קולקטיבי וראיית תרומות של חברי הקורס.',
-    url:'https://telem.openu.ac.il/Danit/61136/Lesson_2_6_Collaborative_Group_work.html', meta:['שרתי אפ"ת'],
-    tags:[{cls:'tag-db',txt:'שיתופי / דאטהבייס'}],
-    prompt:`צור פעילות שיתופית לבניית ידע קבוצתי.
 
-הפעילות תכלול:
-- לוח תרומות קבוצתי (Wiki-style)
-- כל סטודנט מוסיף רשומה לנושא משותף
-- תצוגה חיה של כל התרומות
-- הצבעה על תרומות (לייק)
-- סיכום אוטומטי של הידע המצטבר
-
-שפה: עברית, HTML + בסיס נתונים.`,
-    tip:'<strong>ללמידה קבוצתית:</strong> מתאים לפעילות "הכנת מאגר ידע" בתחילת קורס.' },
-
-  // 5 new activities
-  { id:'lit-poem', icon:'📖', type:'simple', dept:'lit', deptLabel:'ספרות ולשון',
+  { id:'lit-poem', icon:'📖', type:'simple', dept:'lit', deptLabel:'ספרות עברית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'ניתוח שירה אינטראקטיבי', desc:'בחר שורה משיר, סמן אמצעים ספרותיים וצבור סיכום אישי. שלושה שירים קנוניים.',
+    title:'זיהוי אמצעים ספרותיים בשירה העברית', desc:'בחר שורה מביאליק, רחל או לאה גולדברג, סמן אמצעים ספרותיים וקבל סיכום אישי של מה שגילית.',
     url:'lit-poem-analysis.html', meta:['HTML עצמאי','iframe ידידותי'],
     tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
     prompt:`צור פעילות ניתוח שירה אינטראקטיבית לספרות עברית.
@@ -434,9 +391,9 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס ספרות:</strong> מוביל הכרה עצמאית של אמצעים ספרותיים לפני הדיון בכיתה.' },
 
-  { id:'science-periodic', icon:'⚗️', type:'info', dept:'sci', deptLabel:'מדעי הטבע',
+  { id:'science-periodic', icon:'⚗️', type:'info', dept:'sci', deptLabel:'כימיה',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'מחזור היסודות האינטראקטיבי', desc:'לחץ על יסוד לפרטים מלאים: מסה אטומית, קונפיגורציה, נקודות רתיחה. סינון לפי קטגוריה.',
+    title:'חקירת היסודות הכימיים: מחזור אינטראקטיבי', desc:'לחץ על כל יסוד לגילוי מסה אטומית, קונפיגורציה אלקטרונית ונקודות רתיחה/התכה. סינון לפי קטגוריה.',
     url:'science-periodic.html', meta:['HTML עצמאי','Canvas + SVG'],
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
     prompt:`צור מחזור יסודות אינטראקטיבי לכימיה.
@@ -451,9 +408,9 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס כימיה:</strong> מחליף גיליון נייר — מאפשר חיפוש, סינון ולמידה עצמאית.' },
 
-  { id:'psych-vark', icon:'🧠', type:'simple', dept:'edu', deptLabel:'חינוך ופסיכולוגיה',
+  { id:'psych-vark', icon:'🧠', type:'simple', dept:'edu', deptLabel:'פסיכולוגיה חינוכית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'חידון סגנונות למידה VARK', desc:'12 שאלות לזיהוי סגנון הלמידה האישי: ויזואלי, שמיעתי, קריאה/כתיבה, קינסתטי.',
+    title:'גילוי סגנון הלמידה האישי: מודל VARK', desc:'12 שאלות לגילוי אם אתה לומד ויזואלי, שמיעתי, קורא/כותב או קינסתטי — עם פרופיל למידה מפורט.',
     url:'psych-learning-styles.html', meta:['HTML עצמאי','iframe ידידותי'],
     tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
     prompt:`צור חידון סגנונות למידה על בסיס מודל VARK.
@@ -468,9 +425,9 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס פסיכולוגיה חינוכית:</strong> נקודת פתיחה לדיון על למידה מותאמת אישית.' },
 
-  { id:'econ-npv', icon:'📈', type:'simple', dept:'econ', deptLabel:'ניהול וכלכלה',
+  { id:'econ-npv', icon:'📈', type:'simple', dept:'econ', deptLabel:'כלכלה וניהול',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
-    title:'מחשבון NPV, ROI ו-Payback', desc:'הזן השקעה ותזרימי מזומנים — קבל ערך נוכחי נקי, תשואה על השקעה ותקופת החזר.',
+    title:'הערכת כדאיות השקעה: NPV, ROI ו-Payback', desc:'הזן השקעה ותזרימי מזומנים — קבל ערך נוכחי נקי, תשואה על השקעה ותקופת החזר עם גרף ומסקנה.',
     url:'econ-npv.html', meta:['HTML עצמאי','חישוב חי'],
     tags:[{cls:'tag-sim',txt:'סימולציה'}],
     prompt:`צור מחשבון פיננסי אינטראקטיבי להערכת כדאיות השקעה.
@@ -488,7 +445,7 @@ const activities = [
 
   { id:'socio-data', icon:'📊', type:'info', dept:'socio', deptLabel:'סוציולוגיה',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'ויזואליזציה נתונים חברתיים', desc:'4 מערכי נתונים: השכלה ושכר, אי-שוויון (ג\'יני), הרכב אוכלוסייה, אמון במוסדות.',
+    title:'נתונים חברתיים בישראל: אי-שוויון, אמון ואוכלוסייה', desc:'ויזואליזציה של 4 מערכי נתונים — השכלה↔שכר, מקדם ג\'יני, פירמידת גיל, ואמון ציבורי במוסדות.',
     url:'socio-data-viz.html', meta:['HTML עצמאי','Canvas'],
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
     prompt:`צור ויזואליזציה של נתונים חברתיים לסוציולוגיה.
@@ -503,9 +460,9 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס סוציולוגיה:</strong> מאפשר קריאת נתונים, הסקת מסקנות ודיון בגורמים.' },
 
-  { id:'cs-graph', icon:'🕸️', type:'sim', dept:'cs', deptLabel:'מתמטיקה ומחשב',
+  { id:'cs-graph', icon:'🕸️', type:'sim', dept:'cs', deptLabel:'מדעי המחשב',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
-    title:'חציית גרפים BFS / DFS', desc:'ויזואליזציה צעד-צעד של BFS ו-DFS. בחר אלגוריתם, ראה הסבר ויומן פעולות בזמן אמת.',
+    title:'חציית גרפים בפעולה: BFS ו-DFS', desc:'אנימציה צעד-צעד של שני אלגוריתמי חציית גרפים — ראה בדיוק כיצד Queue מנחה BFS ו-Stack מנחה DFS.',
     url:'cs-graph-traverse.html', meta:['HTML עצמאי','Canvas'],
     tags:[{cls:'tag-sim',txt:'סימולציה'}],
     prompt:`צור ויזואליזציה אינטראקטיבית של אלגוריתמי חציית גרפים.
