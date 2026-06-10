@@ -3,126 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NotebookLM בהוראה אקדמית</title>
+<title>NotebookLM בהוראה אקדמית — פדגוגיה דיגיטלית</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0b0f1a;
-  --surface: #131929;
-  --surface2: #1a2236;
-  --border: rgba(255,255,255,.07);
-  --border-bright: rgba(255,255,255,.14);
-  --text: #eef2ff;
-  --muted: #7986ab;
-  --chat-c: #38bdf8;
-  --studio-c: #a78bfa;
-  --students-c: #34d399;
-  --chat-glow: rgba(56,189,248,.18);
-  --studio-glow: rgba(167,139,250,.18);
-  --students-glow: rgba(52,211,153,.18);
-  --radius: 16px;
+  /* Brand colors — מיתוג מחלקתי */
+  --pink:        #C11E6B;
+  --pink-light:  #E599B6;
+  --pink-soft:   #FBF0F5;
+  --pink-mid:    #F5D0E3;
+  --teal:        #6CB79D;
+  --teal-soft:   #EEF8F4;
+  --teal-mid:    #C2E5D8;
+  --yellow:      #EBA521;
+  --yellow-soft: #FDF6E8;
+  --yellow-mid:  #F8E0A0;
+  --dark:        #231F20;
+  --white:       #FFFFFF;
+  --gray-50:     #F9F7F8;
+  --gray-100:    #F2EDF0;
+  --gray-200:    #E4D8DF;
+  --gray-400:    #A08898;
+  --gray-600:    #6B4F5E;
+  --radius:      14px;
+  --shadow:      0 2px 12px rgba(193,30,107,.08), 0 1px 4px rgba(193,30,107,.04);
+  --shadow-hover:0 8px 32px rgba(193,30,107,.15), 0 2px 8px rgba(193,30,107,.08);
 }
 
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Heebo', sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--white);
+  color: var(--dark);
   min-height: 100vh;
   direction: rtl;
 }
 
 /* ─── HERO ─── */
 .hero {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 60px 24px 52px;
+  text-align: center;
   position: relative;
   overflow: hidden;
-  padding: 72px 24px 56px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
 }
-.hero::before {
+.hero::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 30% -10%, rgba(56,189,248,.12) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 75% 110%, rgba(167,139,250,.10) 0%, transparent 55%);
-  pointer-events: none;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--pink), var(--pink-light), var(--yellow), var(--teal));
 }
-.hero-eyebrow {
+.hero-logo-mark {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(56,189,248,.1);
-  border: 1px solid rgba(56,189,248,.25);
-  color: var(--chat-c);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  padding: 6px 18px;
+  gap: 10px;
+  margin-bottom: 28px;
+  background: var(--pink-soft);
+  border: 1.5px solid var(--pink-mid);
   border-radius: 40px;
-  margin-bottom: 24px;
+  padding: 7px 20px 7px 16px;
 }
+.logo-shapes {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+.shape-sq { width: 10px; height: 10px; background: var(--yellow); border-radius: 2px; }
+.shape-tri {
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid var(--pink);
+}
+.shape-hex {
+  width: 10px; height: 10px;
+  background: var(--teal);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.hero-logo-text {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pink);
+  letter-spacing: .04em;
+}
+
 .hero h1 {
-  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 900;
   line-height: 1.2;
-  letter-spacing: -.5px;
-  margin-bottom: 16px;
+  letter-spacing: -.4px;
+  color: var(--dark);
+  margin-bottom: 14px;
 }
-.hero h1 span {
-  background: linear-gradient(135deg, var(--chat-c), var(--studio-c));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.hero h1 em {
+  font-style: normal;
+  color: var(--pink);
 }
 .hero p {
   font-size: 1.05rem;
-  color: var(--muted);
-  max-width: 600px;
-  margin: 0 auto 36px;
+  color: var(--gray-600);
+  max-width: 580px;
+  margin: 0 auto 32px;
   line-height: 1.75;
+  font-weight: 400;
 }
-.hero-pills {
+.hero-stats {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
 }
-.hero-pill {
-  background: var(--surface);
-  border: 1px solid var(--border-bright);
+.hero-stat {
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
   border-radius: 40px;
-  padding: 8px 20px;
+  padding: 9px 22px;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: 700;
+  color: var(--gray-600);
   display: flex;
   align-items: center;
   gap: 7px;
 }
-.hero-pill span { font-size: 16px; }
+.hero-stat .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
-/* ─── NAV TABS ─── */
+/* ─── NAV ─── */
 .nav-wrap {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
   position: sticky;
   top: 0;
   z-index: 50;
+  box-shadow: 0 2px 8px rgba(193,30,107,.05);
 }
 .nav-inner {
-  max-width: 1100px;
+  max-width: 1080px;
   margin: 0 auto;
   display: flex;
-  gap: 0;
   padding: 0 24px;
   overflow-x: auto;
   scrollbar-width: none;
+  gap: 0;
 }
 .nav-inner::-webkit-scrollbar { display: none; }
 .nav-tab {
@@ -132,157 +161,140 @@ body {
   font-family: 'Heebo', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: var(--muted);
-  padding: 16px 22px;
+  color: var(--gray-400);
+  padding: 15px 22px;
   white-space: nowrap;
-  border-bottom: 2.5px solid transparent;
+  border-bottom: 3px solid transparent;
   transition: all .2s;
   display: flex;
   align-items: center;
   gap: 8px;
+  letter-spacing: .01em;
 }
-.nav-tab:hover { color: var(--text); }
-.nav-tab.active { color: var(--text); }
-.nav-tab[data-section="chat"].active    { border-bottom-color: var(--chat-c);     color: var(--chat-c); }
-.nav-tab[data-section="studio"].active  { border-bottom-color: var(--studio-c);   color: var(--studio-c); }
-.nav-tab[data-section="students"].active{ border-bottom-color: var(--students-c); color: var(--students-c); }
-.tab-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.tab-dot-chat     { background: var(--chat-c); }
-.tab-dot-studio   { background: var(--studio-c); }
-.tab-dot-students { background: var(--students-c); }
-.tab-count {
-  background: var(--surface2);
-  border-radius: 20px;
+.nav-tab:hover { color: var(--dark); }
+.nav-tab[data-s="chat"].active    { color: var(--pink);   border-bottom-color: var(--pink); }
+.nav-tab[data-s="studio"].active  { color: var(--teal);   border-bottom-color: var(--teal); }
+.nav-tab[data-s="students"].active{ color: var(--yellow); border-bottom-color: var(--yellow); }
+.tab-badge {
   font-size: 11px;
   font-weight: 800;
-  padding: 1px 8px;
-  color: var(--muted);
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: var(--gray-100);
+  color: var(--gray-400);
 }
+.nav-tab[data-s="chat"].active .tab-badge    { background: var(--pink-soft);   color: var(--pink); }
+.nav-tab[data-s="studio"].active .tab-badge  { background: var(--teal-soft);   color: var(--teal); }
+.nav-tab[data-s="students"].active .tab-badge{ background: var(--yellow-soft); color: var(--yellow); }
 
-/* ─── SECTIONS ─── */
-.main { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
-.section { margin-bottom: 64px; }
+/* ─── MAIN ─── */
+.main { max-width: 1080px; margin: 0 auto; padding: 52px 24px 80px; }
+.section { margin-bottom: 68px; }
+
 .section-head {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  gap: 18px;
+  margin-bottom: 26px;
+  padding-bottom: 22px;
+  border-bottom: 1.5px solid var(--gray-100);
 }
-.section-icon {
-  width: 48px; height: 48px;
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
+.section-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 40px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .03em;
   flex-shrink: 0;
 }
-.section-icon-chat    { background: var(--chat-glow);    box-shadow: 0 0 0 1px rgba(56,189,248,.2); }
-.section-icon-studio  { background: var(--studio-glow);  box-shadow: 0 0 0 1px rgba(167,139,250,.2); }
-.section-icon-students{ background: var(--students-glow);box-shadow: 0 0 0 1px rgba(52,211,153,.2); }
-.section-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  margin-bottom: 3px;
-}
-.section-label-chat     { color: var(--chat-c); }
-.section-label-studio   { color: var(--studio-c); }
-.section-label-students { color: var(--students-c); }
+.chip-chat     { background: var(--pink-soft);   color: var(--pink);   border: 1.5px solid var(--pink-mid); }
+.chip-studio   { background: var(--teal-soft);   color: var(--teal);   border: 1.5px solid var(--teal-mid); }
+.chip-students { background: var(--yellow-soft); color: var(--yellow); border: 1.5px solid var(--yellow-mid); }
+
 .section-title {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  line-height: 1.2;
+  color: var(--dark);
+  line-height: 1.3;
+}
+.section-sub {
+  font-size: 13px;
+  color: var(--gray-400);
+  font-weight: 400;
+  margin-top: 3px;
 }
 
-/* ─── CARDS GRID ─── */
+/* ─── CARDS ─── */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
 
 .cap-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
   border-radius: var(--radius);
-  padding: 18px 20px;
+  padding: 16px 18px;
   cursor: pointer;
   text-align: right;
   font-family: 'Heebo', sans-serif;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   transition: all .22s ease;
-  position: relative;
-  overflow: hidden;
+  box-shadow: var(--shadow);
 }
-.cap-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity .22s;
-  pointer-events: none;
+.cap-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
 }
-.cap-card:hover { transform: translateY(-2px); border-color: var(--border-bright); }
+.cap-card-chat:hover    { border-color: var(--pink-light);  background: var(--pink-soft); }
+.cap-card-studio:hover  { border-color: var(--teal-mid);    background: var(--teal-soft); }
+.cap-card-students:hover{ border-color: var(--yellow-mid);  background: var(--yellow-soft); }
 
-.cap-card-chat::before    { background: var(--chat-glow); }
-.cap-card-studio::before  { background: var(--studio-glow); }
-.cap-card-students::before{ background: var(--students-glow); }
-.cap-card:hover::before   { opacity: 1; }
-
-.cap-card-chat:hover    { box-shadow: 0 0 0 1px rgba(56,189,248,.3); }
-.cap-card-studio:hover  { box-shadow: 0 0 0 1px rgba(167,139,250,.3); }
-.cap-card-students:hover{ box-shadow: 0 0 0 1px rgba(52,211,153,.3); }
-
-.card-emoji-wrap {
+.card-icon-wrap {
   width: 44px; height: 44px;
   border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
   font-size: 20px;
   flex-shrink: 0;
 }
-.emoji-chat     { background: var(--chat-glow); }
-.emoji-studio   { background: var(--studio-glow); }
-.emoji-students { background: var(--students-glow); }
+.icon-chat     { background: var(--pink-soft);   border: 1px solid var(--pink-mid); }
+.icon-studio   { background: var(--teal-soft);   border: 1px solid var(--teal-mid); }
+.icon-students { background: var(--yellow-soft); border: 1px solid var(--yellow-mid); }
 
 .card-text { flex: 1; }
-.card-title {
-  font-size: 15px;
+.card-title-txt {
+  font-size: 14.5px;
   font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 3px;
+  color: var(--dark);
+  line-height: 1.35;
+  margin-bottom: 2px;
 }
-.card-sub {
+.card-sub-txt {
   font-size: 12px;
-  color: var(--muted);
-  font-weight: 400;
+  color: var(--gray-400);
 }
-
 .card-arrow {
-  flex-shrink: 0;
-  color: var(--muted);
+  color: var(--gray-400);
   transition: color .2s, transform .2s;
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
+  flex-shrink: 0;
 }
-.cap-card:hover .card-arrow { transform: translateX(-4px); }
-.cap-card-chat:hover .card-arrow    { color: var(--chat-c); }
-.cap-card-studio:hover .card-arrow  { color: var(--studio-c); }
-.cap-card-students:hover .card-arrow{ color: var(--students-c); }
+.cap-card-chat:hover .card-arrow    { color: var(--pink);   transform: translateX(-4px); }
+.cap-card-studio:hover .card-arrow  { color: var(--teal);   transform: translateX(-4px); }
+.cap-card-students:hover .card-arrow{ color: var(--yellow); transform: translateX(-4px); }
 
 /* ─── MODAL ─── */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.75);
-  backdrop-filter: blur(6px);
+  background: rgba(35,31,32,.55);
+  backdrop-filter: blur(5px);
   z-index: 200;
   display: flex;
   align-items: center;
@@ -297,78 +309,81 @@ body {
   pointer-events: all;
 }
 .modal-box {
-  background: var(--surface);
-  border: 1px solid var(--border-bright);
-  border-radius: 22px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 20px;
   width: 100%;
   max-width: 560px;
   overflow: hidden;
-  transform: translateY(16px) scale(.97);
-  transition: transform .28s cubic-bezier(.34,1.56,.64,1);
-  box-shadow: 0 40px 80px rgba(0,0,0,.6);
+  box-shadow: 0 32px 72px rgba(35,31,32,.18), 0 4px 16px rgba(35,31,32,.08);
+  transform: translateY(14px) scale(.97);
+  transition: transform .28s cubic-bezier(.34,1.45,.64,1);
 }
-.modal-backdrop.open .modal-box {
-  transform: translateY(0) scale(1);
-}
+.modal-backdrop.open .modal-box { transform: translateY(0) scale(1); }
 
-.modal-top {
-  padding: 24px 26px 20px;
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  border-bottom: 1px solid var(--border);
+.modal-top-bar {
+  height: 5px;
+  width: 100%;
 }
-.modal-top-icon {
-  width: 50px; height: 50px;
-  border-radius: 14px;
+.modal-top {
+  padding: 22px 26px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--gray-100);
+}
+.modal-icon-box {
+  width: 48px; height: 48px;
+  border-radius: 13px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
+  font-size: 22px;
   flex-shrink: 0;
 }
-.modal-top-meta { flex: 1; }
-.modal-category {
+.modal-meta { flex: 1; }
+.modal-cat-label {
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-}
-.modal-title-text {
-  font-size: 1.25rem;
   font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.modal-title-main {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--dark);
   line-height: 1.3;
 }
-.modal-close {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--muted);
-  width: 34px; height: 34px;
+.modal-x {
+  width: 32px; height: 32px;
   border-radius: 50%;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  color: var(--gray-400);
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
   transition: all .15s;
 }
-.modal-close:hover { background: var(--border-bright); color: var(--text); }
+.modal-x:hover { background: var(--gray-200); color: var(--dark); }
 
 .modal-body {
   padding: 24px 26px 26px;
-  max-height: 68vh;
+  max-height: 66vh;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--border-bright) transparent;
+  scrollbar-color: var(--gray-200) transparent;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 20px;
 }
 
-.modal-block-label {
+.block-label {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .09em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--gray-400);
   margin-bottom: 10px;
 }
 
@@ -376,40 +391,52 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 .received-list li {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   font-size: 14px;
-  line-height: 1.55;
-  color: #c8d4f0;
+  line-height: 1.6;
+  color: var(--gray-600);
 }
-.received-list li::before {
-  content: '✓';
-  font-weight: 800;
-  font-size: 13px;
+.check-icon {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  font-weight: 900;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
+  color: var(--white);
 }
 
-.modal-pedagogy {
-  background: var(--surface2);
-  border-right: 3px solid var(--studio-c);
+.pedagogy-box {
   border-radius: 10px;
   padding: 14px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.pedagogy-line {
+  width: 3px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+.pedagogy-text {
   font-size: 14px;
-  color: #c8d4f0;
   line-height: 1.65;
+  color: var(--gray-600);
   font-style: italic;
 }
 
-.modal-usage-box {
+.usage-box {
   border-radius: 12px;
   padding: 16px 18px;
 }
-.modal-usage-title {
+.usage-title {
   font-size: 13px;
   font-weight: 800;
   margin-bottom: 7px;
@@ -417,116 +444,117 @@ body {
   align-items: center;
   gap: 7px;
 }
-.modal-usage-text {
+.usage-text {
   font-size: 14px;
   line-height: 1.65;
+  color: var(--gray-600);
 }
 
-.modal-tags {
+.modal-tags-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  padding-top: 4px;
-  border-top: 1px solid var(--border);
+  gap: 7px;
+  padding-top: 6px;
+  border-top: 1px solid var(--gray-100);
 }
-.modal-tag {
+.m-tag {
   font-size: 12px;
-  font-weight: 700;
-  padding: 5px 13px;
+  font-weight: 600;
+  padding: 4px 13px;
   border-radius: 40px;
-  border: 1px solid var(--border-bright);
-  color: var(--muted);
-  background: var(--surface2);
+  background: var(--gray-100);
+  color: var(--gray-600);
+  border: 1px solid var(--gray-200);
 }
 
-/* ─── FOOTER NOTE ─── */
-.footer-note {
+/* ─── FOOTER ─── */
+.footer {
+  background: var(--dark);
+  color: rgba(255,255,255,.5);
   text-align: center;
   font-size: 12px;
-  color: var(--muted);
-  padding: 20px 24px 40px;
-  border-top: 1px solid var(--border);
+  padding: 18px 24px;
+  letter-spacing: .02em;
 }
+.footer strong { color: rgba(255,255,255,.8); }
 
 /* ─── Responsive ─── */
-@media (max-width: 600px) {
-  .hero { padding: 48px 20px 40px; }
+@media (max-width: 580px) {
   .cards-grid { grid-template-columns: 1fr; }
-  .modal-box { border-radius: 18px; }
+  .modal-box { border-radius: 16px; }
+  .hero { padding: 44px 20px 40px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ── HERO ── -->
-<div class="hero">
-  <div class="hero-eyebrow">
-    <span>🤖</span> מדריך שימוש
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-logo-mark">
+    <div class="logo-shapes">
+      <div class="shape-tri"></div>
+      <div class="shape-sq"></div>
+      <div class="shape-hex"></div>
+    </div>
+    <span class="hero-logo-text">פדגוגיה דיגיטלית | האוניברסיטה הפתוחה</span>
   </div>
-  <h1>מה אפשר לעשות עם<br><span>NotebookLM</span> בהוראה?</h1>
-  <p>בחרו כרטיסייה, גלו יכולת, וצאו עם רעיון ישיר לשיעור. כל יכולת כוללת הסבר פדגוגי ודוגמה מיידית לשימוש.</p>
-  <div class="hero-pills">
-    <div class="hero-pill"><span>💬</span> 5 יכולות צ'אט</div>
-    <div class="hero-pill"><span>✨</span> 9 יכולות סטודיו</div>
-    <div class="hero-pill"><span>🎓</span> 4 אפשרויות שיתוף</div>
-  </div>
-</div>
 
-<!-- ── NAV TABS ── -->
+  <h1>מה אפשר לעשות עם<br><em>NotebookLM</em> בהוראה?</h1>
+  <p>בחרו יכולת, גלו את הערך הפדגוגי, וצאו עם רעיון מוכן לשיעור. כל כרטיסייה כוללת הסבר ודוגמה מיידית.</p>
+
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="dot" style="background:var(--pink)"></div>5 יכולות צ'אט</div>
+    <div class="hero-stat"><div class="dot" style="background:var(--teal)"></div>9 יכולות סטודיו</div>
+    <div class="hero-stat"><div class="dot" style="background:var(--yellow)"></div>4 אפשרויות שיתוף</div>
+  </div>
+</header>
+
+<!-- ─── NAV ─── -->
 <nav class="nav-wrap">
   <div class="nav-inner">
-    <button class="nav-tab active" data-section="chat" onclick="scrollTo('chat', this)">
-      <span class="tab-dot tab-dot-chat"></span>
-      יכולות צ'אט
-      <span class="tab-count">5</span>
+    <button class="nav-tab active" data-s="chat" onclick="navClick('chat', this)">
+      💬 יכולות צ'אט <span class="tab-badge">5</span>
     </button>
-    <button class="nav-tab" data-section="studio" onclick="scrollTo('studio', this)">
-      <span class="tab-dot tab-dot-studio"></span>
-      יכולות סטודיו
-      <span class="tab-count">9</span>
+    <button class="nav-tab" data-s="studio" onclick="navClick('studio', this)">
+      ✨ יכולות סטודיו <span class="tab-badge">9</span>
     </button>
-    <button class="nav-tab" data-section="students" onclick="scrollTo('students', this)">
-      <span class="tab-dot tab-dot-students"></span>
-      שיתוף עם סטודנטים
-      <span class="tab-count">4</span>
+    <button class="nav-tab" data-s="students" onclick="navClick('students', this)">
+      🎓 שיתוף עם סטודנטים <span class="tab-badge">4</span>
     </button>
   </div>
 </nav>
 
-<!-- ── MAIN ── -->
+<!-- ─── MAIN ─── -->
 <main class="main">
 
-  <!-- CHAT -->
   <section class="section" id="chat">
     <div class="section-head">
-      <div class="section-icon section-icon-chat">💬</div>
+      <div class="section-chip chip-chat">💬 Chat</div>
       <div>
-        <div class="section-label section-label-chat">Chat Capabilities</div>
-        <h2 class="section-title">יכולות צ'אט — שיחה עם החומר</h2>
+        <div class="section-title">יכולות צ'אט — שיחה עם החומר</div>
+        <div class="section-sub">שאלו, הסבירו, השוו — ישירות מתוך המקורות שלכם</div>
       </div>
     </div>
     <div class="cards-grid" id="grid-chat"></div>
   </section>
 
-  <!-- STUDIO -->
   <section class="section" id="studio">
     <div class="section-head">
-      <div class="section-icon section-icon-studio">✨</div>
+      <div class="section-chip chip-studio">✨ Studio</div>
       <div>
-        <div class="section-label section-label-studio">Studio Outputs</div>
-        <h2 class="section-title">יכולות סטודיו — יצירת תוצרים</h2>
+        <div class="section-title">יכולות סטודיו — יצירת תוצרים</div>
+        <div class="section-sub">הפיקו פודקאסטים, בוחנים, מפות, אינפוגרפיקות ועוד</div>
       </div>
     </div>
     <div class="cards-grid" id="grid-studio"></div>
   </section>
 
-  <!-- STUDENTS -->
   <section class="section" id="students">
     <div class="section-head">
-      <div class="section-icon section-icon-students">🎓</div>
+      <div class="section-chip chip-students">🎓 Students</div>
       <div>
-        <div class="section-label section-label-students">Student Sharing</div>
-        <h2 class="section-title">שיתוף עם סטודנטים</h2>
+        <div class="section-title">שיתוף עם סטודנטים</div>
+        <div class="section-sub">שלבו את הכלי כחלק אינטגרלי מחוויית הלמידה</div>
       </div>
     </div>
     <div class="cards-grid" id="grid-students"></div>
@@ -534,256 +562,271 @@ body {
 
 </main>
 
-<!-- FOOTER NOTE -->
-<div class="footer-note">* NotebookLM מתעדכן בתדירות גבוהה — היכולות עשויות להשתנות</div>
+<footer class="footer">
+  <strong>פדגוגיה דיגיטלית | האוניברסיטה הפתוחה</strong> &nbsp;·&nbsp; * NotebookLM מתעדכן בתדירות גבוהה — היכולות עשויות להשתנות
+</footer>
 
-<!-- ── MODAL ── -->
-<div class="modal-backdrop" id="modal" onclick="handleBackdropClick(event)">
+<!-- ─── MODAL ─── -->
+<div class="modal-backdrop" id="modal" onclick="handleBackdrop(event)">
   <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-top-bar" id="m-bar"></div>
     <div class="modal-top">
-      <div class="modal-top-icon" id="m-icon-wrap">
-        <span id="m-icon"></span>
+      <div class="modal-icon-box" id="m-icon-box"><span id="m-icon"></span></div>
+      <div class="modal-meta">
+        <div class="modal-cat-label" id="m-cat"></div>
+        <div class="modal-title-main" id="m-title"></div>
       </div>
-      <div class="modal-top-meta">
-        <div class="modal-category" id="m-cat"></div>
-        <div class="modal-title-text" id="m-title"></div>
-      </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-x" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
+
       <div>
-        <div class="modal-block-label">מה מתקבל בפועל</div>
+        <div class="block-label">מה מתקבל בפועל</div>
         <ul class="received-list" id="m-received"></ul>
       </div>
+
       <div>
-        <div class="modal-block-label">הערך הפדגוגי</div>
-        <div class="modal-pedagogy" id="m-pedagogy"></div>
-      </div>
-      <div>
-        <div class="modal-block-label">איך משתמשים בזה עכשיו</div>
-        <div class="modal-usage-box" id="m-usage-box">
-          <div class="modal-usage-title" id="m-usage-title"></div>
-          <div class="modal-usage-text" id="m-usage-text"></div>
+        <div class="block-label">הערך הפדגוגי</div>
+        <div class="pedagogy-box" id="m-ped-box">
+          <div class="pedagogy-line" id="m-ped-line"></div>
+          <div class="pedagogy-text" id="m-pedagogy"></div>
         </div>
       </div>
-      <div class="modal-tags" id="m-tags"></div>
+
+      <div>
+        <div class="block-label">שימוש מיידי בפועל</div>
+        <div class="usage-box" id="m-usage-box">
+          <div class="usage-title" id="m-usage-title"></div>
+          <div class="usage-text" id="m-usage-text"></div>
+        </div>
+      </div>
+
+      <div class="modal-tags-row" id="m-tags"></div>
     </div>
   </div>
 </div>
 
 <script>
 /* ─── DATA ─── */
-const data = {
+const SEC = {
   chat: {
-    color: '#38bdf8', glow: 'rgba(56,189,248,.18)', label: 'יכולות צ\'אט',
+    color: '#C11E6B',
+    softBg: '#FBF0F5',
+    softBorder: '#F5D0E3',
+    barGrad: 'linear-gradient(90deg,#C11E6B,#E599B6)',
+    label: 'יכולות צ\'אט',
     items: [
       { id:'c1', emoji:'📝', title:'סיכום לשיעור', sub:'Lesson Summary',
-        received:['סיכום מובנה של כל המקורות שהועלו','חלוקה לנושאים ומושגי מפתח','מתאים לחלוקה כ"דף מסכם" לסטודנטים'],
-        pedagogy:'ארגון ידע מפחית עומס קוגניטיבי ומאפשר לסטודנטים להתמקד בהבנה — לא בתיעוד.',
-        usage:'🚀 להכין בפועל', usageText:'מעלים את שקופיות ההרצאה ומבקשים "סכם את הנקודות המרכזיות" — מוכן לחלוקה בסיום השיעור.',
+        received:['סיכום מובנה של כל המקורות שהועלו','חלוקה ברורה לנושאים ומושגי מפתח','מתאים לחלוקה כ"דף מסכם" בסיום השיעור'],
+        pedagogy:'ארגון ידע מפחית עומס קוגניטיבי — הסטודנטים מתמקדים בהבנה ולא בתיעוד.',
+        usageTitle:'🚀 איך עושים את זה',
+        usageText:'מעלים את שקופיות ההרצאה ומבקשים "סכם את הנקודות המרכזיות" — מוכן לחלוקה בסיום השיעור.',
         tags:['חוסך זמן','ארגון ידע','הכנת שיעור'] },
       { id:'c2', emoji:'❓', title:'בנק שאלות לכיתה', sub:'Question Generation',
-        received:['שאלות לפי רמות חשיבה (בלום)','הצעות לקליקרים ודיונים פתוחים','תשובות ומפתח לכל שאלה'],
-        pedagogy:'שאלות ממקדות תשומת לב, מגרות חשיבה פעילה ומספקות משוב מיידי למרצה על רמת ההבנה.',
-        usage:'🚀 להכין בפועל', usageText:'מבקשים 5 שאלות רב-ברירה מהחומר — מעלים ל-Mentimeter או Moodle לפתיחת השיעור הבא.',
+        received:['שאלות לפי רמות חשיבה (בלום)','הצעות לקליקרים ולדיונים פתוחים','תשובות ומפתח לכל שאלה'],
+        pedagogy:'שאלות ממקדות תשומת לב ומגרות חשיבה פעילה — מספקות למרצה משוב מיידי על רמת ההבנה.',
+        usageTitle:'🚀 איך עושים את זה',
+        usageText:'מבקשים 5 שאלות רב-ברירה מהחומר — מעלים ל-Mentimeter או Moodle לפתיחת השיעור הבא.',
         tags:['הערכה','מעורבות','חוסך זמן'] },
       { id:'c3', emoji:'💡', title:'פישוט מושגים מורכבים', sub:'Concept Simplification',
         received:['הסבר מונגש ברמה ומינוח מותאם','אנלוגיות ודוגמאות מהחיים','קישור לחומרים אחרים במחברת'],
-        pedagogy:'גישור על פערי ידע קודם: הכלי מתאים את ההסבר לרמה שמבקשים ממנו — כולל "הסבר כאילו אני שנה א".',
-        usage:'🚀 להכין בפועל', usageText:'שולחים הגדרה טכנית ומבקשים "הסבר זאת בדוגמה יומיומית" — מוסיפים לשקף ההקדמה.',
-        tags:['הנגשה','ידע מקדים','חשיבה ביקורתית'] },
+        pedagogy:'גישור על פערי ידע קודם — הכלי מתאים את ההסבר לרמה שמבקשים ממנו.',
+        usageTitle:'🚀 איך עושים את זה',
+        usageText:'שולחים הגדרה טכנית ומבקשים "הסבר זאת בדוגמה יומיומית" — מוסיפים לשקף ההקדמה.',
+        tags:['הנגשה','ידע מקדים','שנה א'] },
       { id:'c4', emoji:'⚖️', title:'השוואה בין מקורות', sub:'Source Comparison',
-        received:['טבלה או רשימת הבדלים בין גישות','זיהוי סתירות וחפיפות','סינתזה של טיעונים משותפים'],
-        pedagogy:'חשיבה ביקורתית ומיומנויות ניתוח: הסטודנט לומד שאין "תשובה נכונה אחת" — אלא שיח בין מחברים.',
-        usage:'🚀 להכין בפועל', usageText:'מעלים שני מאמרים בנושא ומבקשים "הצג נקודות מחלוקת" — בסיס מצוין לדיון בכיתה.',
+        received:['טבלה או רשימת הבדלים בין גישות','זיהוי סתירות וחפיפות בין מחברים','סינתזה של טיעונים משותפים'],
+        pedagogy:'חשיבה ביקורתית: הסטודנט לומד שאין "תשובה נכונה אחת" — אלא שיח בין מחברים.',
+        usageTitle:'🚀 איך עושים את זה',
+        usageText:'מעלים שני מאמרים בנושא ומבקשים "הצג נקודות מחלוקת" — בסיס מצוין לדיון בכיתה.',
         tags:['חשיבה ביקורתית','ניתוח','אקדמי'] },
       { id:'c5', emoji:'🎯', title:'תשובות מבוססות מקור', sub:'Grounded Q&A',
-        received:['תשובה מדויקת עם הפנייה לדף ומקור','אין המצאות — רק מה שנמצא בחומר','שקיפות מלאה על מקור המידע'],
-        pedagogy:'אמינות אקדמית: הכלי "לא ממציא" — הוא מסמן מקורות, מה שמלמד דוגמנות של כתיבה אקדמית.',
-        usage:'🚀 להכין בפועל', usageText:'משתמשים כ"עוזר TA" — שולחים שאלת סטודנט, מקבלים תשובה מנומקת עם מקור תוך שניות.',
+        received:['תשובה מדויקת עם הפנייה לדף ולמקור','ללא המצאות — רק מה שנמצא בחומר','שקיפות מלאה על מקור המידע'],
+        pedagogy:'אמינות אקדמית: הכלי מסמן מקורות — מה שמלמד דוגמנות של כתיבה אקדמית.',
+        usageTitle:'🚀 איך עושים את זה',
+        usageText:'משתמשים כ"עוזר TA" — שולחים שאלת סטודנט, מקבלים תשובה מנומקת עם מקור תוך שניות.',
         tags:['דיוק','אמינות','חוסך זמן'] },
     ]
   },
   studio: {
-    color: '#a78bfa', glow: 'rgba(167,139,250,.18)', label: 'יכולות סטודיו',
+    color: '#6CB79D',
+    softBg: '#EEF8F4',
+    softBorder: '#C2E5D8',
+    barGrad: 'linear-gradient(90deg,#6CB79D,#a8d8c8)',
+    label: 'יכולות סטודיו',
     items: [
       { id:'s1', emoji:'🎧', title:'סיכום קולי', sub:'Audio Overview',
-        received:['שיחה קולית זורמת בין שתי דמויות','הדגשת הרעיונות המרכזיים בחומר','מתאים להאזנה בנייד — "פודקאסט" מהחומר שלכם'],
-        pedagogy:'מולטי-מודליות: לומדים שמיעתיים קולטים חומר בהרבה יותר יעילות דרך האזנה מאשר קריאה.',
-        usage:'✨ לנסות עכשיו', usageText:'מעלים מאמר וקובעים Audio Overview — שולחים לסטודנטים כהכנה לשיעור "תקשיבו ב-10 דקות בדרך".',
+        received:['שיחה קולית זורמת בין שתי דמויות','הדגשת הרעיונות המרכזיים בחומר','"פודקאסט" מוכן מהחומרים שלכם'],
+        pedagogy:'מולטי-מודליות: לומדים שמיעתיים קולטים חומר בהרבה יותר יעילות דרך האזנה.',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'מעלים מאמר ומייצרים Audio Overview — שולחים לסטודנטים כהכנה: "תקשיבו 10 דקות בדרך".',
         tags:['נגישות','שמיעתי','לסטודנטים'] },
       { id:'s2', emoji:'🔀', title:'מפת חשיבה', sub:'Mind Map',
         received:['ייצוג ויזואלי של הקשרים בין מושגים','היררכיה ברורה ואשכולות נושאים','ניתן לייצוא ולעריכה'],
-        pedagogy:'תמונה גדולה לפני פרטים קטנים: ויזואליזציה מאפשרת לסטודנטים "לראות את הגינה לפני הפרחים".',
-        usage:'✨ לנסות עכשיו', usageText:'מציגים את מפת החשיבה בתחילת הקורס — "כך ייראה הסמסטר כולו" — ומחזירים אליה בסיום.',
+        pedagogy:'תמונה גדולה לפני פרטים: ויזואליזציה מאפשרת לסטודנטים "לראות את הגינה לפני הפרחים".',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'מציגים את מפת החשיבה בתחילת הקורס — "כך ייראה הסמסטר" — ומחזירים אליה בסיום.',
         tags:['ויזואלי','ארגון','הקשרה'] },
       { id:'s3', emoji:'📄', title:'דוח מורחב', sub:'Full Report',
-        received:['מסמך טקסטואלי ארוך ומאורגן','מידע משולב ממספר מקורות','חלוקה לפרקים עם כותרות'],
-        pedagogy:'אינטגרציה של ידע: הכלי אורג את כל המקורות לנרטיב אחד עקבי — בדיוק מה שכתיבה אקדמית דורשת.',
-        usage:'✨ לנסות עכשיו', usageText:'מייצרים "דף רקע" לנושא חדש מתוך 3-4 מאמרים — חוסך שעות של הכנת חומר מקדים.',
+        received:['מסמך ארוך ומאורגן עם כותרות פרקים','אינטגרציה ממספר מקורות בו-זמנית','מוכן להעתקה ל-Word'],
+        pedagogy:'אינטגרציה של ידע: הכלי אורג את כל המקורות לנרטיב אחד עקבי.',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'מייצרים "דף רקע" לנושא חדש מתוך 3–4 מאמרים — חוסך שעות של הכנת חומר מקדים.',
         tags:['סיכום','כתיבה אקדמית','חוסך זמן'] },
       { id:'s4', emoji:'🗂️', title:'כרטיסיות שינון', sub:'Flashcards',
-        received:['כרטיסיות עם שאלה מצד אחד ותשובה מצד שני','מיקוד במונחים, תאריכים ומושגי ליבה','ממשק אינטראקטיבי לתרגול'],
-        pedagogy:'שליפה פעילה (Active Recall): מחקרים מוכיחים שזו השיטה האפקטיבית ביותר לשינון לטווח ארוך.',
-        usage:'✨ לנסות עכשיו', usageText:'יוצרים כרטיסיות לפני הבחינה ומשתפים עם הסטודנטים — "שעה של חזרה עם הכרטיסיות".',
+        received:['כרטיסיות: שאלה מצד אחד, תשובה מצד שני','מיקוד במונחים, תאריכים ומושגי ליבה','ממשק אינטראקטיבי לתרגול עצמי'],
+        pedagogy:'שליפה פעילה (Active Recall): השיטה האפקטיבית ביותר מחקרית לשינון לטווח ארוך.',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'יוצרים כרטיסיות לפני הבחינה ומשתפים עם הסטודנטים — "שעה של חזרה עם הכרטיסיות".',
         tags:['שינון','לסטודנטים','הכנה לבחינה'] },
       { id:'s5', emoji:'📝', title:'בוחן מובנה', sub:'Quiz',
-        received:['שאלות אמריקאיות עם מסיחים איכותיים','הסבר ומשוב לכל תשובה נכונה','מוכן לייבוא ל-Moodle'],
-        pedagogy:'הערכה מעצבת בזמן אמת: הסטודנט מגלה פערים בלמידה עוד לפני הבחינה — לא רק לאחריה.',
-        usage:'✨ לנסות עכשיו', usageText:'יוצרים בוחן 5 שאלות מהשיעור ומציגים בסיומו כ"כרטיס יציאה" — מי שעונה נכון יוצא ראשון.',
+        received:['שאלות אמריקאיות עם מסיחים איכותיים','הסבר ומשוב לכל תשובה','מוכן לייבוא ל-Moodle'],
+        pedagogy:'הערכה מעצבת: הסטודנט מגלה פערים בלמידה עוד לפני הבחינה — לא רק לאחריה.',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'יוצרים בוחן 5 שאלות מהשיעור ומציגים בסיומו כ"כרטיס יציאה".',
         tags:['הערכה','מעורבות','מעצב'] },
       { id:'s6', emoji:'🎞️', title:'שלד מצגת', sub:'Slide Deck Outline',
         received:['מבנה מצגת עם כותרות ותתי-כותרות','טקסט מוצע לכל שקף','הערות קריינות למרצה'],
-        pedagogy:'הפרדת "מה לומר" מ"איך לעצב": הכלי דואג לתוכן — אתם מתמקדים בעיצוב ובמסירה.',
-        usage:'✨ לנסות עכשיו', usageText:'מבקשים שלד ל-15 שקפים מהפרק — מדביקים ב-PowerPoint ומעצבים בחצי הזמן הרגיל.',
+        pedagogy:'הפרדת "מה לומר" מ"איך לעצב" — הכלי דואג לתוכן, אתם מתמקדים במסירה.',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'מבקשים שלד ל-15 שקפים מהפרק — מדביקים ב-PowerPoint ומעצבים בחצי הזמן.',
         tags:['תכנון שיעור','חוסך זמן','הכנת הרצאה'] },
       { id:'s7', emoji:'🎥', title:'סרטון תמצות', sub:'Video Overview',
         received:['סרטון קצר עם ויזואליה אוטומטית','קריינות המסכמת את הנושא','מתאים כ"טיזר" לתחילת שיעור'],
         pedagogy:'כניסה לנושא חדש: 90 שניות של ויזואליה מציתות סקרנות ומפעילות עיבוד רגשי לפני הקוגניטיבי.',
-        usage:'✨ לנסות עכשיו', usageText:'מקרינים את הסרטון כ-2 דקות הפתיחה — "לפני שנתחיל, בואו נראה על מה אנחנו מדברים".',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'מקרינים בתחילת שיעור — "לפני שנתחיל, בואו נראה על מה אנחנו מדברים".',
         tags:['פתיחת שיעור','מעורבות','ויזואלי'] },
       { id:'s8', emoji:'📊', title:'אינפוגרפיקה', sub:'Infographic',
         received:['תמונה ויזואלית עם נתונים ועיצוב','תרשים זרימה או השוואה חזותית','ניתן להדפסה ולשיתוף'],
-        pedagogy:'עיבוד ויזואלי: המוח מעבד תמונה 60,000 פעמים מהר יותר מטקסט — אינפוגרפיקה היא ידע מוכן.',
-        usage:'✨ לנסות עכשיו', usageText:'מפיקים "פוסטר מושגים" ומדפיסים לתלייה בכיתה — או שולחים לווטסאפ הקורס ערב לפני הבחינה.',
+        pedagogy:'המוח מעבד תמונה 60,000 פעמים מהר יותר מטקסט — אינפוגרפיקה היא ידע מוכן לצריכה.',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'מפיקים "פוסטר מושגים" ושולחים לווטסאפ הקורס ערב לפני הבחינה.',
         tags:['ויזואלי','נגישות','לסטודנטים'] },
       { id:'s9', emoji:'📈', title:'טבלת נתונים', sub:'Data Table',
-        received:['טבלה מובנית עם עמודות ושורות','השוואה נקודתית בין גישות / תיאוריות','מוכנה להעתקה ל-Excel / Word'],
-        pedagogy:'ארגון מצמצם חרדה: כשהחומר הרב נהפך לטבלה נקייה — הסטודנטים מרגישים ש"יש להם ידית על הנושא".',
-        usage:'✨ לנסות עכשיו', usageText:'מייצרים "טבלת השוואה סופית" של הנושאים בקורס — מחלקים שבוע לפני הבחינה.',
+        received:['טבלה מובנית עם עמודות ושורות רלוונטיות','השוואה נקודתית בין גישות ותיאוריות','מוכנה להעתקה ל-Excel / Word'],
+        pedagogy:'ארגון מצמצם חרדה: כשהחומר הרב הופך לטבלה נקייה — הסטודנטים מרגישים שיש להם "ידית" על הנושא.',
+        usageTitle:'✨ איך מפיקים',
+        usageText:'מייצרים "טבלת השוואה סופית" של נושאי הקורס ומחלקים שבוע לפני הבחינה.',
         tags:['ארגון','הכנה לבחינה','חוסך זמן'] },
     ]
   },
   students: {
-    color: '#34d399', glow: 'rgba(52,211,153,.18)', label: 'שיתוף עם סטודנטים',
+    color: '#EBA521',
+    softBg: '#FDF6E8',
+    softBorder: '#F8E0A0',
+    barGrad: 'linear-gradient(90deg,#EBA521,#f5c96a)',
+    label: 'שיתוף עם סטודנטים',
     items: [
       { id:'st1', emoji:'🔗', title:'שיתוף שיחה בלבד', sub:'Share Chat Link',
-        received:['קישור לשיחה ספציפית עם הכלי','המקורות נסתרים — רק הדיאלוג גלוי','מדגים "כך שואלים את ה-AI נכון"'],
+        received:['קישור לשיחה ספציפית עם הכלי','המקורות נסתרים — רק הדיאלוג גלוי','מדגים "כך שואלים AI נכון"'],
         pedagogy:'מידול (Modeling) של חשיבה: המרצה מראה בפומבי את תהליך השאלה — לא רק את התוצאה הסופית.',
-        usage:'🔗 לשתף', usageText:'משתפים שיחה שבה "אתגרתם" את הטקסט ושאלתם שאלות קשות — "ראו איך אני שואל, עכשיו תנסו בעצמכם".',
+        usageTitle:'🔗 איך משתפים',
+        usageText:'משתפים שיחה שבה "אתגרתם" את הטקסט — "ראו איך אני שואל, עכשיו תנסו בעצמכם".',
         tags:['מידול','חשיבה ביקורתית','דוגמה'] },
       { id:'st2', emoji:'💬', title:'סטודנטים שוחחים עם החומר', sub:'Student Interaction',
         received:['כל סטודנט שואל בקצב שלו','תשובות מבוססות על המקורות שאישרתם','ללא חשש מ"שאלות טיפשיות" בכיתה'],
-        pedagogy:'למידה מותאמת אישית: כל סטודנט מקבל הסבר בשפה שלו, בקצב שלו — בלי להעמיס על שעות הקבלה.',
-        usage:'🔗 לשתף', usageText:'מייצרים מחברת קורס ומשתפים עם הכיתה — "כנסו לפני הבחינה ושאלו כל שאלה שרציתם לשאול אבל לא שאלתם".',
+        pedagogy:'למידה מותאמת אישית: כל סטודנט מקבל הסבר בשפה שלו, בקצב שלו.',
+        usageTitle:'🔗 איך משתפים',
+        usageText:'יוצרים מחברת קורס ומשתפים עם הכיתה — "כנסו לפני הבחינה ושאלו כל שאלה שרציתם".',
         tags:['למידה אישית','שעות קבלה','לסטודנטים'] },
       { id:'st3', emoji:'🧭', title:'עצמאות בקריאת מאמרים', sub:'Independent Learning',
         received:['סטודנטים מסכמים בעצמם בסיוע הכלי','הכלי מפנה למקורות — לא "נותן תשובות"','בניית יכולת התמודדות עם טקסטים עמוסים'],
         pedagogy:'פיתוח אוריינות אקדמית: הסטודנט לומד לדבר עם מאמר — מיומנות חיונית לכל התואר.',
-        usage:'🔗 לשתף', usageText:'נותנים מטלה: "קראו מאמר, השתמשו בכלי להבין אותו, הגישו רפלקציה — מה הכלי עזר? מה פספס?".',
+        usageTitle:'🔗 איך משתפים',
+        usageText:'מטלה: "קראו מאמר, השתמשו בכלי להבין אותו, הגישו רפלקציה — מה הכלי עזר? מה פספס?".',
         tags:['למידה עצמאית','אוריינות','מטלה'] },
       { id:'st4', emoji:'📝', title:'NotebookLM כחלק ממטלה', sub:'AI Assignment',
         received:['הפקת תוצר בסיוע הכלי + ביקורת עצמית','השוואת תשובת AI לתשובה אנושית','הגשת "יומן שימוש" בכלי'],
-        pedagogy:'אוריינות בינה מלאכותית: הכנה לשוק עבודה שבו AI הוא כלי יומיומי — לא כלי הרמאות אלא כלי עבודה.',
-        usage:'🔗 לשתף', usageText:'מטלה: "בקשו מהכלי לסכם פרק — ואז כתבו פסקה על מה הוא פספס, מה הוא טעה, ומה הייתם מוסיפים".',
-        tags:['אוריינות AI','הערכה','מחשבה ביקורתית'] },
+        pedagogy:'אוריינות AI: הכנה לשוק עבודה שבו AI הוא כלי יומיומי — לא כלי הרמאות אלא שותף לעבודה.',
+        usageTitle:'🔗 איך משתפים',
+        usageText:'מטלה: "בקשו מהכלי לסכם פרק — כתבו פסקה על מה הוא פספס, מה טעה, ומה הייתם מוסיפים".',
+        tags:['אוריינות AI','הערכה','חשיבה ביקורתית'] },
     ]
   }
 };
 
-/* ─── RENDER CARDS ─── */
-function renderCards() {
-  Object.entries(data).forEach(([section, sec]) => {
-    const grid = document.getElementById('grid-' + section);
-    grid.innerHTML = sec.items.map(item => `
-      <button class="cap-card cap-card-${section}"
-              onclick="openModal('${section}','${item.id}')"
-              style="--accent:${sec.color}">
-        <div class="card-emoji-wrap emoji-${section}">${item.emoji}</div>
+/* ─── RENDER ─── */
+function render() {
+  Object.entries(SEC).forEach(([sec, d]) => {
+    document.getElementById('grid-' + sec).innerHTML = d.items.map(item => `
+      <button class="cap-card cap-card-${sec}" onclick="openModal('${sec}','${item.id}')">
+        <div class="card-icon-wrap icon-${sec}">${item.emoji}</div>
         <div class="card-text">
-          <div class="card-title">${item.title}</div>
-          <div class="card-sub">${item.sub}</div>
+          <div class="card-title-txt">${item.title}</div>
+          <div class="card-sub-txt">${item.sub}</div>
         </div>
         <div class="card-arrow">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </div>
-      </button>
-    `).join('');
+      </button>`).join('');
   });
 }
 
 /* ─── MODAL ─── */
-function openModal(section, id) {
-  const sec  = data[section];
-  const item = sec.items.find(i => i.id === id);
+function openModal(sec, id) {
+  const d    = SEC[sec];
+  const item = d.items.find(i => i.id === id);
   if (!item) return;
 
-  // icon wrap
-  document.getElementById('m-icon').textContent = item.emoji;
-  document.getElementById('m-icon-wrap').style.background = sec.glow;
-  document.getElementById('m-icon-wrap').style.boxShadow = `0 0 0 1px ${sec.color}33`;
+  document.getElementById('m-bar').style.background      = d.barGrad;
+  document.getElementById('m-icon-box').style.background = d.softBg;
+  document.getElementById('m-icon-box').style.border     = `1px solid ${d.softBorder}`;
+  document.getElementById('m-icon').textContent           = item.emoji;
+  document.getElementById('m-cat').textContent            = d.label;
+  document.getElementById('m-cat').style.color            = d.color;
+  document.getElementById('m-title').textContent          = item.title;
 
-  // category + title
-  document.getElementById('m-cat').textContent  = sec.label;
-  document.getElementById('m-cat').style.color  = sec.color;
-  document.getElementById('m-title').textContent = item.title;
+  document.getElementById('m-received').innerHTML = item.received.map(r => `
+    <li>
+      <span class="check-icon" style="background:${d.color}">✓</span>
+      ${r}
+    </li>`).join('');
 
-  // received
-  document.getElementById('m-received').innerHTML = item.received
-    .map(r => `<li style="--c:${sec.color}"><style>
-      #m-received li::before{color:${sec.color}}</style>${r}</li>`)
-    .join('');
+  document.getElementById('m-ped-box').style.background  = d.softBg;
+  document.getElementById('m-ped-line').style.background = d.color;
+  document.getElementById('m-pedagogy').textContent       = item.pedagogy;
 
-  // pedagogy border
-  document.getElementById('m-pedagogy').style.borderRightColor = sec.color;
-  document.getElementById('m-pedagogy').textContent = item.pedagogy;
+  document.getElementById('m-usage-box').style.background   = d.softBg;
+  document.getElementById('m-usage-box').style.border       = `1px solid ${d.softBorder}`;
+  document.getElementById('m-usage-title').style.color      = d.color;
+  document.getElementById('m-usage-title').textContent      = item.usageTitle;
+  document.getElementById('m-usage-text').textContent       = item.usageText;
 
-  // usage box
-  document.getElementById('m-usage-box').style.background = sec.glow;
-  document.getElementById('m-usage-box').style.border = `1px solid ${sec.color}33`;
-  document.getElementById('m-usage-title').style.color = sec.color;
-  document.getElementById('m-usage-title').textContent = item.usage;
-  document.getElementById('m-usage-text').textContent = item.usageText;
-
-  // tags
-  document.getElementById('m-tags').innerHTML = item.tags
-    .map(t => `<span class="modal-tag"># ${t}</span>`)
-    .join('');
+  document.getElementById('m-tags').innerHTML = item.tags.map(t =>
+    `<span class="m-tag"># ${t}</span>`).join('');
 
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow = '';
 }
-
-function handleBackdropClick(e) {
-  if (e.target === e.currentTarget) closeModal();
-}
-
+function handleBackdrop(e) { if (e.target === e.currentTarget) closeModal(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-/* ─── NAV SCROLL ─── */
-function scrollTo(id, btn) {
+/* ─── NAV ─── */
+function navClick(id, btn) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById(id).scrollIntoView({ behavior:'smooth', block:'start' });
 }
-
-// Update active nav on scroll
-const observer = new IntersectionObserver(entries => {
+const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       const id = e.target.id;
-      document.querySelectorAll('.nav-tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.section === id);
-      });
+      document.querySelectorAll('.nav-tab').forEach(t =>
+        t.classList.toggle('active', t.dataset.s === id));
     }
   });
-}, { rootMargin: '-40% 0px -55% 0px' });
-
+}, { rootMargin:'-40% 0px -55% 0px' });
 ['chat','studio','students'].forEach(id => {
   const el = document.getElementById(id);
-  if (el) observer.observe(el);
+  if (el) io.observe(el);
 });
 
-renderCards();
+render();
 </script>
 </body>
 </html>
