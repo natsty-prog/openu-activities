@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אקומודציה — מנגנון המיקוד האוטומטי של העין</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+  :root {
+    --bg:#F9F7F8; --s:#fff; --b:#DDD5DA;
+    --pink:#C11E6B; --pink-light:#FBF0F5; --pink-mid:#F5D0E3;
+    --teal:#6CB79D; --teal-light:#EEF8F4;
+    --yellow:#EBA521; --yellow-light:#FDF6E8;
+    --dark:#231F20; --muted:#A08898; --radius:14px;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--dark); font-family:'Heebo',sans-serif; min-height:100vh; padding:20px 16px; }
+  header { text-align:center; margin-bottom:20px; }
+  header h1 { font-size:1.45rem; font-weight:800; color:var(--dark); margin-bottom:4px; }
+  header p { color:var(--muted); font-size:0.83rem; }
+
+  .main-layout { display:grid; grid-template-columns:1fr 300px; gap:18px; max-width:980px; margin:0 auto; }
+  .panel { background:var(--s); border:1px solid var(--b); border-radius:var(--radius); padding:18px; }
+
+  /* Eye canvas */
+  #eye-canvas { display:block; width:100%; border-radius:10px; background:#0a0a14; }
+
+  /* Controls */
+  .ctrl-section { margin-bottom:16px; }
+  .ctrl-label { font-size:0.72rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
+  .ctrl-label span { font-size:0.82rem; font-weight:800; color:var(--pink); letter-spacing:0; }
+  input[type=range] { width:100%; accent-color:var(--pink); cursor:pointer; }
+
+  .toggle-row { display:flex; gap:10px; margin-bottom:16px; }
+  .tog-btn { flex:1; padding:10px; border-radius:10px; border:1.5px solid var(--b); background:var(--bg); font-family:'Heebo',sans-serif; font-size:0.82rem; font-weight:700; color:var(--muted); cursor:pointer; transition:all .18s; }
+  .tog-btn.active { border-color:var(--teal); background:var(--teal-light); color:#2a7a60; }
+
+  /* Info box */
+  .info-box { background:var(--pink-light); border:1px solid var(--pink-mid); border-radius:10px; padding:14px; font-size:0.78rem; line-height:1.7; color:#5a0f2a; margin-bottom:14px; }
+  .info-box .row { display:flex; justify-content:space-between; margin-bottom:3px; }
+  .info-box .val { font-weight:800; color:var(--pink); }
+  .info-box .lbl { color:var(--muted); }
+
+  /* Blur preview */
+  .preview-wrap { background:#111; border-radius:10px; overflow:hidden; position:relative; }
+  .preview-wrap canvas { display:block; width:100%; }
+  .preview-label { position:absolute; top:8px; right:10px; font-size:0.66rem; font-weight:700; background:rgba(0,0,0,.6); color:#fff; padding:3px 8px; border-radius:20px; }
+
+  /* Focus bar */
+  .focus-bar-wrap { margin-bottom:16px; }
+  .focus-bar-label { font-size:0.72rem; font-weight:700; color:var(--muted); margin-bottom:5px; display:flex; justify-content:space-between; }
+  .focus-bar-track { height:12px; background:var(--b); border-radius:20px; overflow:hidden; }
+  .focus-bar-fill { height:100%; border-radius:20px; transition:width .2s, background .2s; }
+
+  /* Anatomy labels */
+  .anatomy-note { font-size:0.7rem; color:var(--muted); line-height:1.6; margin-top:10px; }
+  .anatomy-note span { display:inline-block; width:10px; height:10px; border-radius:2px; margin-left:4px; vertical-align:middle; }
+
+  @media(max-width:680px){ .main-layout{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<header>
+  <h1>👁️ אקומודציה — מנגנון המיקוד האוטומטי של העין</h1>
+  <p>ביולוגיה ואופטיקה | הזז את הסליידר לשינוי מרחק העצם וצפה כיצד העין מתמקדת</p>
+</header>
+
+<div class="main-layout">
+  <!-- Left: eye diagram -->
+  <div class="panel">
+    <canvas id="eye-canvas" height="320"></canvas>
+    <div class="anatomy-note">
+      <span style="background:#aaf0d1"></span>קרנית &nbsp;
+      <span style="background:#7dd3fc"></span>עדשה &nbsp;
+      <span style="background:#fb923c"></span>שריר ריסני &nbsp;
+      <span style="background:#a78bfa"></span>סיבי תלייה &nbsp;
+      <span style="background:#f9a8d4"></span>רשתית &nbsp;
+      <span style="background:#fde68a"></span>פוביאה
+    </div>
+  </div>
+
+  <!-- Right: controls + info -->
+  <div>
+    <!-- Distance slider -->
+    <div class="panel" style="margin-bottom:14px">
+      <div class="ctrl-section">
+        <div class="ctrl-label">מרחק העצם <span id="dist-val">50 ס"מ</span></div>
+        <input type="range" id="dist-slider" min="10" max="600" value="50" step="5">
+        <div style="display:flex;justify-content:space-between;font-size:0.66rem;color:var(--muted);margin-top:3px">
+          <span>קרוב מאוד (10 ס"מ)</span><span>רחוק (600 ס"מ)</span>
+        </div>
+      </div>
+
+      <!-- Auto-focus toggle -->
+      <div class="toggle-row">
+        <button class="tog-btn active" id="btn-auto" onclick="setAutoFocus(true)">⚡ מיקוד אוטומטי</button>
+        <button class="tog-btn" id="btn-manual" onclick="setAutoFocus(false)">🖐 שליטה ידנית</button>
+      </div>
+
+      <!-- Manual muscle slider (hidden when auto) -->
+      <div id="manual-ctrl" style="display:none">
+        <div class="ctrl-label">כיווץ השריר הריסני <span id="muscle-val">0%</span></div>
+        <input type="range" id="muscle-slider" min="0" max="100" value="0" step="1">
+        <div style="display:flex;justify-content:space-between;font-size:0.66rem;color:var(--muted);margin-top:3px">
+          <span>רפוי (ראייה רחוקה)</span><span>כווץ (ראייה קרובה)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info box -->
+    <div class="panel" style="margin-bottom:14px">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">מצב העין כעת</div>
+      <div class="info-box" id="info-box"></div>
+
+      <!-- Focus quality bar -->
+      <div class="focus-bar-wrap">
+        <div class="focus-bar-label"><span>איכות המיקוד</span><span id="focus-pct">—</span></div>
+        <div class="focus-bar-track"><div class="focus-bar-fill" id="focus-bar" style="width:0%;background:var(--teal)"></div></div>
+      </div>
+    </div>
+
+    <!-- Blur preview -->
+    <div class="panel">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">מה העין רואה</div>
+      <div class="preview-wrap">
+        <canvas id="preview-canvas" height="90"></canvas>
+        <div class="preview-label" id="preview-label">ממוקד</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Physics constants ─────────────────────────────────────── */
+const SCALE = 10;          // px per mm
+const RETINA_D = 170;      // px  (17 mm, lens→retina)
+const F_FAR  = 170;        // px  focal length when relaxed  (17 mm)
+const F_NEAR = 145;        // px  focal length when fully contracted (14.5 mm)
+
+/* ── State ─────────────────────────────────────────────────── */
+let distCm   = 50;
+let autoFocus = true;
+let muscleContraction = 0;   // 0–1
+
+/* ── Derived optics ─────────────────────────────────────────── */
+function getOptics() {
+  const Do = distCm * 10 * SCALE;   // object distance in px
+  let accom, focalLen;
+
+  if (autoFocus) {
+    const fReq = Do * RETINA_D / (Do + RETINA_D);
+    accom = Math.max(0, Math.min(1, (F_FAR - fReq) / (F_FAR - F_NEAR)));
+    focalLen = fReq;
+  } else {
+    accom = muscleContraction / 100;
+    focalLen = F_FAR - accom * (F_FAR - F_NEAR);
+  }
+
+  const Di = focalLen * Do / (Do - focalLen);
+  const blur = Math.abs(Di - RETINA_D);          // px of defocus
+  const focusPct = Math.max(0, 100 - blur * 3);  // quality 0-100
+
+  return { Do, accom, focalLen, Di, blur, focusPct };
+}
+
+/* ── Eye SVG drawing on canvas ──────────────────────────────── */
+const eyeCanvas = document.getElementById('eye-canvas');
+const eyeCtx    = eyeCanvas.getContext('2d');
+
+function drawEye() {
+  const W = eyeCanvas.width  = eyeCanvas.offsetWidth;
+  const H = eyeCanvas.height = 320;
+  const ctx = eyeCtx;
+
+  ctx.fillStyle = '#0a0a14';
+  ctx.fillRect(0, 0, W, H);
+
+  const { accom, focalLen, Di, blur } = getOptics();
+
+  /* Eye geometry */
+  const EYE_R  = H * 0.38;
+  const CX     = W * 0.52;
+  const CY     = H * 0.5;
+  const LENS_X = CX - EYE_R * 0.12;
+
+  /* ── Sclera / vitreous ── */
+  ctx.save();
+  ctx.beginPath();
+  ctx.ellipse(CX, CY, EYE_R * 1.05, EYE_R, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fill();
+  ctx.strokeStyle = '#334';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.restore();
+
+  /* ── Retina arc (right wall) ── */
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(CX, CY, EYE_R * 0.98, -Math.PI * 0.55, Math.PI * 0.55);
+  ctx.strokeStyle = '#f9a8d4';
+  ctx.lineWidth = 5;
+  ctx.stroke();
+  ctx.restore();
+
+  /* ── Fovea (small bright spot) ── */
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(CX + EYE_R * 0.9, CY, 5, 0, Math.PI * 2);
+  ctx.fillStyle = '#fde68a';
+  ctx.fill();
+  ctx.restore();
+
+  /* ── Optic nerve ── */
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(CX + EYE_R * 0.9, CY + 22);
+  ctx.lineTo(CX + EYE_R * 0.9, CY + 55);
+  ctx.strokeStyle = '#fde68a88';
+  ctx.lineWidth = 8;
+  ctx.stroke();
+  ctx.restore();
+
+  /* ── Cornea (left arc) ── */
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(CX - EYE_R + 6, CY, EYE_R * 0.28, -Math.PI * 0.5, Math.PI * 0.5);
+  ctx.strokeStyle = '#aaf0d1';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+  ctx.restore();
+
+  /* ── Ciliary muscle (ring around lens) ── */
+  const muscleW = 14 + accom * 10;   // contracts → thicker radially
+  const muscleR = 34 - accom * 8;    // contracts → smaller ring radius
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(LENS_X, CY, muscleR + muscleW / 2, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(251,146,60,${0.55 + accom * 0.4})`;
+  ctx.lineWidth = muscleW;
+  ctx.stroke();
+  ctx.restore();
+
+  /* ── Zonule fibers (4 per side) ── */
+  const lensHalfH = 18 + accom * 10;  // lens half-height when contracted
+  for (let s = -1; s <= 1; s += 2) {
+    for (let i = 0; i < 4; i++) {
+      const angle = (i / 3 - 0.5) * Math.PI * 0.7;
+      const mx = LENS_X + Math.cos(angle) * (muscleR - 2) * s * 0;
+      const zx0 = LENS_X + Math.cos(angle) * muscleR * (s < 0 ? -1 : 1);
+      const zy0 = CY    + Math.sin(angle) * muscleR;
+      const zx1 = LENS_X;
+      const zy1 = CY + s * lensHalfH * (i / 3 - 0.5 + 0.5);
+      // simplified: radial fibers from muscle ring to lens edge
+      const frac = i / 3;
+      const fy = CY + s * lensHalfH * (frac - 0.5) * 1.5;
+      const fx = LENS_X + (s < 0 ? -2 : 2);
+      const tx = LENS_X + s * (muscleR - 4) * 0; // same x, different y source
+
+      // just draw short radial line from lens edge to muscle
+      const ang2 = (frac - 0.5) * 1.2;
+      const lx_edge = LENS_X + Math.sin(ang2) * 0;
+      const ly_edge = CY + s * lensHalfH * frac;
+      const mRad = muscleR - muscleW / 2 + 3;
+      const mx2 = LENS_X + Math.cos(ang2 + (s > 0 ? 0.8 : -0.8)) * mRad * 0.7;
+      const my2 = CY    + Math.sin(ang2 + (s > 0 ? 0.8 : -0.8)) * mRad;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(LENS_X + Math.sin(ang2) * 4, CY + s * lensHalfH * frac);
+      ctx.lineTo(LENS_X + Math.sin(ang2) * (mRad * 0.5), CY + s * mRad * 0.55 * frac);
+      ctx.strokeStyle = `rgba(167,139,250,${0.5 + accom * 0.2})`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  /* ── Lens (biconvex, thicker when contracted) ── */
+  const lensW = 8 + accom * 10;   // half-width
+  const lensH = lensHalfH;
+  ctx.save();
+  ctx.beginPath();
+  // biconvex using bezier
+  ctx.moveTo(LENS_X, CY - lensH);
+  ctx.bezierCurveTo(LENS_X + lensW * 1.5, CY - lensH * 0.5, LENS_X + lensW * 1.5, CY + lensH * 0.5, LENS_X, CY + lensH);
+  ctx.bezierCurveTo(LENS_X - lensW * 1.5, CY + lensH * 0.5, LENS_X - lensW * 1.5, CY - lensH * 0.5, LENS_X, CY - lensH);
+  const lGrad = ctx.createLinearGradient(LENS_X - lensW, 0, LENS_X + lensW, 0);
+  lGrad.addColorStop(0, 'rgba(125,211,252,0.15)');
+  lGrad.addColorStop(0.5, 'rgba(125,211,252,0.55)');
+  lGrad.addColorStop(1, 'rgba(125,211,252,0.15)');
+  ctx.fillStyle = lGrad;
+  ctx.fill();
+  ctx.strokeStyle = '#7dd3fc';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.restore();
+
+  /* ── Ray tracing ── */
+  const Do = distCm * 10 * SCALE;   // huge, so we show incoming as parallel-ish
+  const imgX = LENS_X + Di;
+
+  // Object position (left of canvas)
+  const objX = 30;
+  const objY = CY;
+
+  // 3 rays: through optical axis (center), through top of lens, through bottom
+  const rayOffsets = [0, lensH * 0.6, -lensH * 0.6];
+  const rayColors  = ['#fbbf24', '#f472b6', '#34d399'];
+
+  rayOffsets.forEach((off, ri) => {
+    const r1x = objX, r1y = CY;  // all rays start from object tip at CY (simplify)
+    const r2x = LENS_X, r2y = CY + off;  // hits lens at offset
+    const r3x = imgX,   r3y = CY;  // converge at image (or would)
+
+    // Incoming ray
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(r1x, r1y);
+    ctx.lineTo(r2x, r2y);
+    ctx.strokeStyle = rayColors[ri] + 'cc';
+    ctx.lineWidth = 1.3;
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    ctx.restore();
+
+    // Refracted ray (through image point, then to retina)
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(r2x, r2y);
+    // ray goes toward image point
+    if (imgX < CX + EYE_R * 0.92) {
+      ctx.lineTo(r3x, r3y);
+    } else {
+      // image beyond retina — ray diverges before retina
+      const frac = (CX + EYE_R * 0.9 - r2x) / (r3x - r2x + 0.001);
+      ctx.lineTo(r2x + (r3x - r2x) * frac, r2y + (r3y - r2y) * frac);
+    }
+    ctx.strokeStyle = rayColors[ri];
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([]);
+    ctx.stroke();
+    ctx.restore();
+  });
+
+  /* ── Image point marker ── */
+  const retX = CX + EYE_R * 0.9;
+  const clampedImgX = Math.min(imgX, retX + 30);
+  const onRetina = Math.abs(imgX - retX) < 6;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(Math.min(imgX, retX), CY, 5, 0, Math.PI * 2);
+  ctx.fillStyle = onRetina ? '#4ade80' : '#f87171';
+  ctx.fill();
+  ctx.restore();
+
+  /* ── Object arrow ── */
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(30, CY + 18);
+  ctx.lineTo(30, CY - 18);
+  ctx.strokeStyle = '#fbbf24';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+  ctx.fillStyle = '#fbbf24';
+  ctx.beginPath();
+  ctx.moveTo(30, CY - 18);
+  ctx.lineTo(27, CY - 10);
+  ctx.lineTo(33, CY - 10);
+  ctx.fill();
+  ctx.restore();
+
+  /* ── Labels ── */
+  ctx.font = '11px Heebo,sans-serif';
+  ctx.fillStyle = '#fde68a88';
+  ctx.textAlign = 'left';
+  ctx.fillText('רשתית', retX + 6, CY - EYE_R * 0.3);
+  ctx.fillStyle = '#aaf0d188';
+  ctx.fillText('קרנית', CX - EYE_R + 10, CY - EYE_R * 0.4);
+  ctx.fillStyle = '#7dd3fc88';
+  ctx.fillText('עדשה', LENS_X + 14, CY - lensH - 6);
+}
+
+/* ── Preview canvas (blur simulation) ──────────────────────── */
+const prevCanvas = document.getElementById('preview-canvas');
+const prevCtx    = prevCanvas.getContext('2d');
+
+function drawPreview() {
+  const { blur, focusPct } = getOptics();
+  const W = prevCanvas.width  = prevCanvas.offsetWidth;
+  const H = prevCanvas.height = 90;
+  const ctx = prevCtx;
+
+  ctx.fillStyle = '#111';
+  ctx.fillRect(0, 0, W, H);
+
+  const blurPx = Math.min(blur * 0.18, 16);
+
+  // Draw a simple scene: circle + text
+  ctx.save();
+  if (blurPx > 0.5) ctx.filter = `blur(${blurPx.toFixed(1)}px)`;
+
+  // Background gradient
+  const grad = ctx.createRadialGradient(W/2, H/2, 2, W/2, H/2, H*0.7);
+  grad.addColorStop(0, '#1a3a2a');
+  grad.addColorStop(1, '#0a0a14');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Shapes
+  ctx.fillStyle = '#C11E6B';
+  ctx.beginPath(); ctx.arc(W*0.2, H*0.5, 14, 0, Math.PI*2); ctx.fill();
+
+  ctx.fillStyle = '#6CB79D';
+  ctx.fillRect(W*0.4, H*0.2, 22, 22);
+
+  ctx.fillStyle = '#EBA521';
+  ctx.beginPath();
+  ctx.moveTo(W*0.65, H*0.15); ctx.lineTo(W*0.72, H*0.75); ctx.lineTo(W*0.58, H*0.75);
+  ctx.fill();
+
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 13px Heebo,sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('שלום', W*0.88, H*0.55);
+
+  ctx.restore();
+
+  // Label
+  const label = document.getElementById('preview-label');
+  if (focusPct > 85) label.textContent = '✓ ממוקד';
+  else if (focusPct > 50) label.textContent = '~ מיקוד חלקי';
+  else label.textContent = '✗ מטושטש';
+  label.style.background = focusPct > 85 ? 'rgba(0,180,80,.7)' : focusPct > 50 ? 'rgba(200,140,0,.7)' : 'rgba(200,30,30,.7)';
+}
+
+/* ── Info box ────────────────────────────────────────────────── */
+function updateInfo() {
+  const { accom, focalLen, Di, blur, focusPct } = getOptics();
+  const fMm  = (focalLen / SCALE).toFixed(1);
+  const diMm = (Di / SCALE).toFixed(1);
+  const state = accom < 0.1 ? 'רגועה לחלוטין (ראייה רחוקה)' :
+                accom < 0.4 ? 'כיווץ קל (ראייה בינונית)' :
+                accom < 0.7 ? 'כיווץ בינוני' : 'כיווץ מקסימלי (ראייה קרובה)';
+  const lensState = accom < 0.2 ? 'שטוחה ודקה' : accom < 0.6 ? 'עגולה מעט' : 'עבה ועגלגלה';
+
+  document.getElementById('info-box').innerHTML = `
+    <div class="row"><span class="lbl">מרחק עצם:</span><span class="val">${distCm} ס"מ</span></div>
+    <div class="row"><span class="lbl">מוקד עדשה (f):</span><span class="val">${fMm} מ"מ</span></div>
+    <div class="row"><span class="lbl">נקודת מיקוד (Di):</span><span class="val">${diMm} מ"מ</span></div>
+    <div class="row"><span class="lbl">אקומודציה:</span><span class="val">${Math.round(accom * 100)}%</span></div>
+    <div class="row"><span class="lbl">מצב שריר ריסני:</span><span class="val">${state}</span></div>
+    <div class="row"><span class="lbl">צורת העדשה:</span><span class="val">${lensState}</span></div>
+  `;
+
+  const pct = Math.round(focusPct);
+  document.getElementById('focus-pct').textContent = pct + '%';
+  const bar = document.getElementById('focus-bar');
+  bar.style.width = pct + '%';
+  bar.style.background = pct > 85 ? '#4ade80' : pct > 50 ? '#EBA521' : '#f87171';
+}
+
+/* ── Render all ──────────────────────────────────────────────── */
+function render() {
+  drawEye();
+  drawPreview();
+  updateInfo();
+}
+
+/* ── Event listeners ─────────────────────────────────────────── */
+document.getElementById('dist-slider').addEventListener('input', function() {
+  distCm = +this.value;
+  document.getElementById('dist-val').textContent = distCm + ' ס"מ';
+  render();
+});
+
+document.getElementById('muscle-slider').addEventListener('input', function() {
+  muscleContraction = +this.value;
+  document.getElementById('muscle-val').textContent = muscleContraction + '%';
+  render();
+});
+
+function setAutoFocus(val) {
+  autoFocus = val;
+  document.getElementById('btn-auto').classList.toggle('active', val);
+  document.getElementById('btn-manual').classList.toggle('active', !val);
+  document.getElementById('manual-ctrl').style.display = val ? 'none' : 'block';
+  render();
+}
+
+window.addEventListener('resize', render);
+render();
+</script>
+</body>
+</html>
