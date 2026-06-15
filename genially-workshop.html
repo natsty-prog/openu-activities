@@ -6,668 +6,830 @@
 <title>סדנת Genially למתחילים | פדגוגיה דיגיטלית</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --pink:#C11E6B; --pink-light:#E599B6; --pink-soft:#FBF0F5; --pink-mid:#F5D0E3;
-  --teal:#6CB79D; --teal-soft:#EEF8F4; --teal-mid:#C2E5D8;
-  --yellow:#EBA521; --yellow-soft:#FDF6E8; --yellow-mid:#F8E0A0;
-  --dark:#231F20; --white:#FFFFFF;
-  --gray-50:#F9F7F8; --gray-100:#F2EDF0; --gray-200:#E4D8DF;
-  --gray-400:#A08898; --gray-600:#6B4F5E;
-  --radius:16px;
-  --shadow:0 2px 16px rgba(193,30,107,.1),0 1px 5px rgba(193,30,107,.06);
-  --shadow-hover:0 10px 40px rgba(193,30,107,.18),0 2px 12px rgba(193,30,107,.1);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#C11E6B;--pink-light:#E599B6;--pink-soft:#FBF0F5;--pink-mid:#F5D0E3;
+  --teal:#6CB79D;--teal-soft:#EEF8F4;--teal-mid:#C2E5D8;
+  --yellow:#EBA521;--yellow-soft:#FDF6E8;--yellow-mid:#F8E0A0;
+  --purple:#7B5EA7;--purple-soft:#F3EEFF;--purple-mid:#D9CAFE;
+  --dark:#231F20;--white:#fff;
+  --gray-50:#F9F7F8;--gray-100:#F2EDF0;--gray-200:#E4D8DF;
+  --gray-400:#A08898;--gray-600:#6B4F5E;
+  --r:14px;
+  --sh:0 2px 14px rgba(193,30,107,.08),0 1px 4px rgba(193,30,107,.05);
+  --sh2:0 8px 32px rgba(193,30,107,.15),0 2px 8px rgba(193,30,107,.08);
 }
-html { scroll-behavior:smooth; }
-body { font-family:'Heebo',sans-serif; background:var(--gray-50); color:var(--dark); direction:rtl; }
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);direction:rtl;min-height:100vh}
 
-.topbar { height:4px; background:linear-gradient(90deg,var(--pink),var(--pink-light),var(--yellow),var(--teal)); }
+/* TOPBAR */
+.topbar{height:4px;background:linear-gradient(90deg,var(--pink),var(--pink-light),var(--yellow),var(--teal))}
 
-/* NAV */
-.sitenav {
-  background:var(--white);
-  border-bottom:1px solid var(--gray-200);
-  padding:0 28px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  flex-wrap:wrap;
-  position:sticky; top:0; z-index:200;
-  box-shadow:0 2px 8px rgba(193,30,107,.06);
-}
-.sitenav-brand {
-  display:flex; align-items:center; gap:10px;
-  padding:12px 0;
-  text-decoration:none;
-}
-.sitenav-brand img { width:36px; height:36px; object-fit:contain; }
-.sitenav-brand span { font-size:14px; font-weight:700; color:var(--dark); }
-.sitenav-links {
-  display:flex; align-items:center; gap:2px;
-  overflow-x:auto; scrollbar-width:none;
-}
-.sitenav-links::-webkit-scrollbar { display:none; }
-.nav-link {
-  display:flex; align-items:center; gap:6px;
-  font-size:13px; font-weight:500; color:var(--gray-600);
-  text-decoration:none;
-  padding:14px 12px;
-  border-bottom:3px solid transparent;
-  white-space:nowrap;
-  transition:color .2s, border-color .2s;
-}
-.nav-link:hover { color:var(--pink); }
-.nav-link.active { color:var(--pink); border-bottom-color:var(--pink); font-weight:700; }
-.nav-link .nl-icon { font-size:16px; }
+/* HEADER */
+.header{background:var(--white);border-bottom:1px solid var(--gray-200);padding:14px 28px;display:flex;align-items:center;gap:14px}
+.header-logo{width:44px;height:44px;object-fit:contain}
+.header-text h1{font-size:16px;font-weight:800;color:var(--dark)}
+.header-text p{font-size:12px;color:var(--gray-400);margin-top:1px}
 
-/* HERO */
-.hero {
-  background:var(--white);
-  padding:60px 32px 52px;
-  text-align:center;
-  position:relative; overflow:hidden;
-}
-.hero::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 80% 70% at 50% -10%,var(--pink-soft) 0%,transparent 65%);
-  pointer-events:none;
-}
-.hero-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
-.workshop-tag {
-  display:inline-flex; align-items:center; gap:8px;
-  background:var(--pink-soft); color:var(--pink);
-  font-size:13px; font-weight:700;
-  padding:6px 18px; border-radius:999px; border:1.5px solid var(--pink-mid);
-  margin-bottom:24px;
-}
-.workshop-tag .dot { width:7px; height:7px; border-radius:50%; background:var(--pink); animation:pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-.hero h1 { font-size:clamp(26px,6vw,46px); font-weight:900; line-height:1.15; margin-bottom:10px; }
-.hero h1 .accent { color:var(--pink); }
-.hero-sub { font-size:16px; color:var(--gray-600); line-height:1.75; margin-bottom:28px; }
+/* TABS */
+.tabs-bar{background:var(--white);border-bottom:2px solid var(--gray-200);padding:0 28px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(193,30,107,.06)}
+.tabs-inner{display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.tabs-inner::-webkit-scrollbar{display:none}
+.tab-btn{display:flex;align-items:center;gap:7px;font-family:'Heebo',sans-serif;font-size:14px;font-weight:600;color:var(--gray-400);background:none;border:none;border-bottom:3px solid transparent;padding:16px 18px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;margin-bottom:-2px}
+.tab-btn:hover{color:var(--pink)}
+.tab-btn.active{color:var(--pink);border-bottom-color:var(--pink)}
+.tab-btn .ti{font-size:18px}
 
-.date-card {
-  display:inline-flex; align-items:center; gap:12px;
-  background:var(--gray-50); border:1.5px solid var(--gray-200);
-  border-radius:14px; padding:14px 28px; margin-bottom:32px;
-}
-.dc-item { display:flex; flex-direction:column; align-items:center; }
-.dc-label { font-size:11px; font-weight:600; color:var(--gray-400); text-transform:uppercase; letter-spacing:.06em; }
-.dc-value { font-size:18px; font-weight:800; color:var(--dark); line-height:1.2; }
-.dc-sep { width:1px; height:36px; background:var(--gray-200); }
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
 
-/* INFO CARDS */
-.cards-row {
-  max-width:820px; margin:0 auto; padding:48px 24px 0;
-  display:grid; grid-template-columns:1fr 1fr; gap:16px;
-}
-@media(max-width:640px){ .cards-row { grid-template-columns:1fr; } }
-.info-card {
-  background:var(--white); border:1.5px solid var(--gray-200);
-  border-radius:var(--radius); padding:24px 28px;
-  box-shadow:var(--shadow);
-}
-.info-card .ic-tag {
-  display:inline-block; font-size:11px; font-weight:700;
-  padding:3px 10px; border-radius:999px; margin-bottom:12px;
-}
-.ic-tag-teal { background:var(--teal-soft); color:var(--teal); border:1px solid var(--teal-mid); }
-.ic-tag-pink { background:var(--pink-soft); color:var(--pink); border:1px solid var(--pink-mid); }
-.info-card h3 { font-size:18px; font-weight:800; margin-bottom:10px; line-height:1.3; }
-.info-card p  { font-size:14px; color:var(--gray-600); line-height:1.75; }
+/* ══════════════════ PAGE 1 — HOME ══════════════════ */
+.hero{background:var(--white);padding:56px 28px 48px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--gray-200)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% -10%,var(--pink-soft) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.workshop-tag{display:inline-flex;align-items:center;gap:8px;background:var(--pink-soft);color:var(--pink);font-size:12px;font-weight:700;padding:5px 16px;border-radius:999px;border:1.5px solid var(--pink-mid);margin-bottom:20px}
+.dot-pulse{width:7px;height:7px;border-radius:50%;background:var(--pink);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h2{font-size:clamp(24px,5vw,42px);font-weight:900;line-height:1.15;margin-bottom:8px}
+.hero h2 .acc{color:var(--pink)}
+.hero-sub{font-size:15px;color:var(--gray-600);margin-bottom:28px}
+.date-card{display:inline-flex;align-items:center;gap:12px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:12px;padding:12px 24px}
+.dci{display:flex;flex-direction:column;align-items:center}
+.dci label{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em}
+.dci span{font-size:17px;font-weight:800;color:var(--dark)}
+.dcs{width:1px;height:32px;background:var(--gray-200)}
 
-/* SECTION */
-.section-wrap { max-width:820px; margin:0 auto; padding:52px 24px; }
-.section-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--pink); margin-bottom:8px; }
-.section-title { font-size:24px; font-weight:800; color:var(--dark); margin-bottom:8px; }
-.section-sub   { font-size:14px; color:var(--gray-400); margin-bottom:24px; }
+.info-row{max-width:820px;margin:0 auto;padding:36px 24px 0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.info-row{grid-template-columns:1fr}}
+.icard{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--r);padding:22px 26px;box-shadow:var(--sh)}
+.ic-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px}
+.ict-teal{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid)}
+.ict-pink{background:var(--pink-soft);color:var(--pink);border:1px solid var(--pink-mid)}
+.icard h3{font-size:17px;font-weight:800;margin-bottom:8px}
+.icard p{font-size:14px;color:var(--gray-600);line-height:1.75}
 
-/* VIDEO */
-.video-card { background:var(--white); border:1.5px solid var(--gray-200); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
-.video-header { padding:16px 20px; border-bottom:1px solid var(--gray-100); display:flex; align-items:center; gap:12px; }
-.video-icon { width:38px; height:38px; border-radius:10px; background:var(--pink-soft); display:flex; align-items:center; justify-content:center; font-size:18px; }
-.video-header-text h4 { font-size:15px; font-weight:700; color:var(--dark); }
-.video-header-text p  { font-size:12px; color:var(--gray-400); }
-.video-wrap video { width:100%; display:block; max-height:460px; background:#000; }
+.sec-wrap{max-width:820px;margin:0 auto;padding:40px 24px}
+.sec-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--pink);margin-bottom:6px}
+.sec-ttl{font-size:22px;font-weight:800;margin-bottom:6px}
+.sec-sub{font-size:13px;color:var(--gray-400);margin-bottom:22px}
 
-/* CTA */
-.cta-wrap { display:flex; flex-direction:column; align-items:center; gap:12px; padding:40px 24px; }
-.cta-btn {
-  display:inline-flex; align-items:center; gap:10px;
-  background:var(--pink); color:var(--white);
-  font-family:'Heebo',sans-serif; font-size:18px; font-weight:700;
-  padding:16px 40px; border-radius:14px; text-decoration:none;
-  transition:background .2s,transform .2s,box-shadow .2s;
-  box-shadow:0 4px 20px rgba(193,30,107,.35);
-}
-.cta-btn:hover { background:#a51959; transform:translateY(-2px); box-shadow:0 8px 32px rgba(193,30,107,.45); }
-.cta-note { font-size:13px; color:var(--gray-400); }
-.cta-note a { color:var(--pink); text-decoration:none; }
+.video-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.video-hdr{padding:14px 18px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:10px}
+.video-ico{width:36px;height:36px;border-radius:9px;background:var(--pink-soft);display:flex;align-items:center;justify-content:center;font-size:17px}
+.video-hdr h4{font-size:14px;font-weight:700}
+.video-hdr p{font-size:12px;color:var(--gray-400)}
+.video-card video{width:100%;display:block;max-height:440px;background:#000}
 
-/* PORTAL CARDS */
-.portal-grid {
-  max-width:820px; margin:0 auto; padding:0 24px 52px;
-  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
-}
-@media(max-width:640px){ .portal-grid { grid-template-columns:1fr; } }
-.portal-card {
-  background:var(--white); border:1.5px solid var(--gray-200);
-  border-radius:var(--radius); padding:20px;
-  text-decoration:none; color:var(--dark);
-  display:flex; flex-direction:column; gap:10px;
-  box-shadow:var(--shadow); transition:box-shadow .2s,transform .2s;
-}
-.portal-card:hover { box-shadow:var(--shadow-hover); transform:translateY(-2px); }
-.pc-icon { font-size:28px; }
-.pc-title { font-size:15px; font-weight:700; color:var(--dark); }
-.pc-desc  { font-size:13px; color:var(--gray-400); line-height:1.5; }
-.pc-arrow { font-size:12px; color:var(--pink); font-weight:700; margin-top:auto; }
+.cta-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:36px 24px}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--pink);color:#fff;font-family:'Heebo',sans-serif;font-size:17px;font-weight:700;padding:15px 38px;border-radius:13px;text-decoration:none;box-shadow:0 4px 20px rgba(193,30,107,.35);transition:background .2s,transform .2s}
+.cta-btn:hover{background:#a51959;transform:translateY(-2px)}
+.cta-note{font-size:12px;color:var(--gray-400)}
+.cta-note a{color:var(--pink);text-decoration:none}
 
 /* CHATBOT */
-.chatbot-section { background:var(--white); border-top:1px solid var(--gray-200); }
-.chatbot-inner { max-width:820px; margin:0 auto; padding:52px 24px; }
-.chat-window {
-  border:1.5px solid var(--gray-200); border-radius:var(--radius);
-  overflow:hidden; box-shadow:var(--shadow);
-}
-.chat-topbar {
-  background:var(--pink); padding:14px 20px;
-  display:flex; align-items:center; gap:10px;
-}
-.chat-topbar .bot-avatar {
-  width:32px; height:32px; border-radius:50%;
-  background:rgba(255,255,255,.25);
-  display:flex; align-items:center; justify-content:center;
-  font-size:16px;
-}
-.chat-topbar .bot-info { flex:1; }
-.chat-topbar .bot-name { font-size:14px; font-weight:700; color:#fff; }
-.chat-topbar .bot-status { font-size:11px; color:rgba(255,255,255,.8); }
-.chat-topbar .bot-dot { width:7px; height:7px; border-radius:50%; background:#4ade80; display:inline-block; margin-left:4px; }
+.chat-section{background:var(--white);border-top:1px solid var(--gray-200)}
+.chat-inner{max-width:820px;margin:0 auto;padding:40px 24px 52px}
+.chat-win{border:1.5px solid var(--gray-200);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.chat-top{background:var(--pink);padding:13px 18px;display:flex;align-items:center;gap:10px}
+.chat-av{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:15px}
+.chat-name{font-size:14px;font-weight:700;color:#fff}
+.chat-status{font-size:11px;color:rgba(255,255,255,.8)}
+.chat-msgs{height:300px;overflow-y:auto;padding:14px;background:var(--gray-50);display:flex;flex-direction:column;gap:8px}
+.msg{display:flex;gap:7px;align-items:flex-end}
+.msg.user{flex-direction:row-reverse}
+.mav{width:26px;height:26px;border-radius:50%;background:var(--pink-soft);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.mb{max-width:78%;padding:9px 13px;border-radius:11px;font-size:13px;line-height:1.55}
+.msg.bot .mb{background:var(--white);border:1px solid var(--gray-200);color:var(--dark);border-bottom-right-radius:3px}
+.msg.user .mb{background:var(--pink);color:#fff;border-bottom-left-radius:3px}
+.chat-sugs{padding:8px 14px;background:var(--white);border-top:1px solid var(--gray-100);display:flex;flex-wrap:wrap;gap:5px}
+.sug{font-size:12px;padding:4px 11px;border-radius:999px;border:1px solid var(--gray-200);background:var(--white);color:var(--gray-600);cursor:pointer;font-family:'Heebo',sans-serif;transition:all .15s}
+.sug:hover{background:var(--pink-soft);border-color:var(--pink-mid);color:var(--pink)}
+.chat-inp-row{display:flex;gap:7px;padding:10px 14px;background:var(--white);border-top:1px solid var(--gray-100)}
+#ci{flex:1;padding:9px 13px;border:1.5px solid var(--gray-200);border-radius:9px;font-family:'Heebo',sans-serif;font-size:13px;color:var(--dark);direction:rtl;outline:none;background:var(--gray-50);transition:border-color .2s}
+#ci:focus{border-color:var(--pink);background:var(--white)}
+#cs{padding:9px 16px;background:var(--pink);color:#fff;border:none;border-radius:9px;font-size:17px;cursor:pointer;transition:background .2s}
+#cs:hover{background:#a51959}
 
-.chat-messages {
-  height:340px; overflow-y:auto; padding:16px;
-  background:var(--gray-50); display:flex; flex-direction:column; gap:10px;
-}
-.msg { display:flex; gap:8px; align-items:flex-end; }
-.msg.bot { flex-direction:row; }
-.msg.user { flex-direction:row-reverse; }
-.msg-avatar {
-  width:28px; height:28px; border-radius:50%;
-  background:var(--pink-soft); display:flex; align-items:center; justify-content:center;
-  font-size:13px; flex-shrink:0;
-}
-.msg-bubble {
-  max-width:80%; padding:10px 14px; border-radius:12px;
-  font-size:13px; line-height:1.6;
-}
-.msg.bot .msg-bubble  { background:var(--white); border:1px solid var(--gray-200); color:var(--dark); border-bottom-right-radius:4px; }
-.msg.user .msg-bubble { background:var(--pink); color:#fff; border-bottom-left-radius:4px; }
+/* ══════════════════ SHARED — GUIDE PAGES ══════════════════ */
+.guide-hero{background:var(--white);padding:40px 28px 32px;text-align:center;border-bottom:1px solid var(--gray-200);position:relative;overflow:hidden}
+.guide-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:5px 14px;border-radius:999px;margin-bottom:14px}
+.guide-hero h2{font-size:clamp(20px,4vw,32px);font-weight:900;line-height:1.2;margin-bottom:8px}
+.guide-hero p{font-size:14px;color:var(--gray-600);max-width:500px;margin:0 auto}
+.guide-search-wrap{max-width:680px;margin:24px auto 0;padding:0 20px}
+.gsbox{position:relative}
+.gsico{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:16px;pointer-events:none}
+.gs-inp{width:100%;padding:12px 42px 12px 14px;font-family:'Heebo',sans-serif;font-size:14px;border:1.5px solid var(--gray-200);border-radius:11px;background:var(--white);color:var(--dark);direction:rtl;outline:none;transition:border-color .2s}
+.chips-wrap{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:16px 20px 0;max-width:680px;margin:0 auto}
+.chip{font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);cursor:pointer;transition:all .2s;user-select:none;font-family:'Heebo',sans-serif}
+.chip:hover{border-color:var(--pink-mid);color:var(--pink)}
+.chip.active{background:var(--pink);border-color:var(--pink);color:#fff}
+.chip.ai-c{color:var(--purple);border-color:var(--purple-mid)}
+.chip.ai-c.active{background:var(--purple);border-color:var(--purple)}
+.gmain{max-width:880px;margin:28px auto;padding:0 20px 60px}
+.gpanel{border:1.5px solid var(--gray-200);border-radius:var(--r);background:var(--white);margin-bottom:12px;overflow:hidden;box-shadow:var(--sh);transition:box-shadow .2s}
+.gpanel:hover{box-shadow:var(--sh2)}
+.gph{display:flex;align-items:center;gap:11px;padding:14px 18px;cursor:pointer;user-select:none;background:var(--white);transition:background .15s}
+.gph:hover{background:var(--gray-50)}
+.gpi{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.gpl{flex:1}
+.gpen{font-size:15px;font-weight:700;color:var(--dark);line-height:1.2}
+.gphe{font-size:12px;color:var(--gray-400)}
+.gpa{font-size:19px;color:var(--gray-400);transition:transform .25s;flex-shrink:0}
+.gpa.open{transform:rotate(180deg)}
+.gpbody{border-top:1px solid var(--gray-100)}
+.gsec{padding:12px 18px;border-bottom:1px solid var(--gray-100)}
+.gsec:last-child{border-bottom:none}
+.gst{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:9px}
+.gitems{display:flex;flex-direction:column;gap:7px}
+.gitem{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:9px;transition:background .15s}
+.gitem:hover{background:var(--gray-50)}
+.gibox{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px}
+.giname{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:2px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.gidesc{font-size:12px;color:var(--gray-600);line-height:1.6}
+.ib{display:inline-block;font-size:10px;font-weight:600;padding:2px 6px;border-radius:999px;vertical-align:middle}
+.ibn{background:var(--teal-soft);color:#0F6E56;border:1px solid var(--teal-mid)}
+.iba{background:var(--purple-soft);color:var(--purple);border:1px solid var(--purple-mid)}
+.ibt{background:var(--yellow-soft);color:#854F0B;border:1px solid var(--yellow-mid)}
+.gnr{text-align:center;padding:48px 20px;color:var(--gray-400);display:none}
+.gnr span{font-size:32px;display:block;margin-bottom:8px}
 
-.chat-suggestions {
-  padding:10px 16px; background:var(--white);
-  border-top:1px solid var(--gray-100);
-  display:flex; flex-wrap:wrap; gap:6px;
-}
-.sug-chip {
-  font-size:12px; padding:5px 12px;
-  border-radius:999px; border:1px solid var(--gray-200);
-  background:var(--white); color:var(--gray-600);
-  cursor:pointer; transition:all .15s; font-family:'Heebo',sans-serif;
-}
-.sug-chip:hover { background:var(--pink-soft); border-color:var(--pink-mid); color:var(--pink); }
-
-.chat-input-row {
-  display:flex; gap:8px; padding:12px 16px;
-  background:var(--white); border-top:1px solid var(--gray-100);
-}
-#chat-input {
-  flex:1; padding:10px 14px;
-  border:1.5px solid var(--gray-200); border-radius:10px;
-  font-family:'Heebo',sans-serif; font-size:14px; color:var(--dark);
-  direction:rtl; outline:none; background:var(--gray-50);
-  transition:border-color .2s;
-}
-#chat-input:focus { border-color:var(--pink); background:var(--white); }
-#chat-send {
-  padding:10px 18px; background:var(--pink); color:#fff;
-  border:none; border-radius:10px; font-size:18px; cursor:pointer;
-  transition:background .2s;
-}
-#chat-send:hover { background:#a51959; }
-
-/* DIVIDER */
-.divider { height:1px; background:var(--gray-200); max-width:820px; margin:0 auto; }
+/* ══════════════════ TEMPLATES ══════════════════ */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:11px;margin-bottom:32px}
+.how-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh)}
+.how-num{width:26px;height:26px;border-radius:50%;background:var(--pink);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.how-card h4{font-size:13px;font-weight:700;margin-bottom:4px}
+.how-card p{font-size:12px;color:var(--gray-600);line-height:1.5}
+.tips-box{background:var(--pink-soft);border:1.5px solid var(--pink-mid);border-radius:var(--r);padding:16px 20px;margin-bottom:28px}
+.tips-box h4{font-size:14px;font-weight:800;color:var(--pink);margin-bottom:8px}
+.tips-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.tips-list li{font-size:13px;color:var(--gray-600);line-height:1.55;display:flex;gap:7px}
+.tips-list li::before{content:'✦';color:var(--pink);flex-shrink:0}
+.tcat{margin-bottom:32px}
+.tcat-hdr{display:flex;align-items:center;gap:9px;margin-bottom:14px;padding-bottom:9px;border-bottom:1.5px solid var(--gray-200)}
+.tcat-icon{font-size:22px}
+.tcat-title{font-size:16px;font-weight:800}
+.tcat-cnt{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--gray-100);color:var(--gray-400)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.tc{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:box-shadow .2s,transform .2s}
+.tc:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.tc-thumb{height:96px;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative}
+.tc-tags{position:absolute;top:7px;right:7px;display:flex;gap:3px;flex-wrap:wrap}
+.tt{font-size:10px;font-weight:700;padding:2px 6px;border-radius:999px}
+.tt-edu{background:#EEF8F4;color:#0F6E56}
+.tt-free{background:var(--pink-soft);color:var(--pink)}
+.tt-ai{background:var(--purple-soft);color:var(--purple)}
+.tt-new{background:var(--yellow-soft);color:#854F0B}
+.tc-body{padding:12px 14px}
+.tc-name{font-size:13px;font-weight:700;margin-bottom:3px}
+.tc-desc{font-size:11px;color:var(--gray-600);line-height:1.5;margin-bottom:8px}
+.tc-meta{display:flex;align-items:center;justify-content:space-between}
+.tc-use{font-size:11px;font-weight:600;color:var(--pink)}
+.tc-lvl{font-size:11px;color:var(--gray-400)}
 
 /* FOOTER */
-.footer {
-  background:var(--white); border-top:1px solid var(--gray-200);
-  padding:24px 32px; text-align:center;
-  font-size:13px; color:var(--gray-600); line-height:1.8;
-}
-.footer img { width:32px; vertical-align:middle; margin-left:8px; }
-.footer strong { color:var(--dark); }
-.footer a { color:var(--pink); text-decoration:none; }
-.footer a:hover { text-decoration:underline; }
+.footer{background:var(--white);border-top:1px solid var(--gray-200);padding:22px 28px;text-align:center;font-size:12px;color:var(--gray-600)}
+.footer img{width:28px;vertical-align:middle;margin-left:6px}
+.footer strong{color:var(--dark)}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--gray-200);max-width:820px;margin:0 auto}
 </style>
 </head>
 <body>
 
 <div class="topbar"></div>
 
-<!-- NAV -->
-<nav class="sitenav">
-  <a class="sitenav-brand" href="genially-workshop.html">
-    <img src="logo.png" alt="לוגו">
-    <span>סדנת Genially</span>
-  </a>
-  <div class="sitenav-links">
-    <a class="nav-link active" href="genially-workshop.html">
-      <span class="nl-icon">🏠</span> דף הבית
-    </a>
-    <a class="nav-link" href="genially-editor-guide.html">
-      <span class="nl-icon">🖥️</span> ממשק העריכה
-    </a>
-    <a class="nav-link" href="genially-panel-guide.html">
-      <span class="nl-icon">🗂️</span> פאנל הניהול
-    </a>
-    <a class="nav-link" href="genially-templates.html">
-      <span class="nl-icon">📋</span> תבניות
-    </a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="workshop-tag">
-      <span class="dot"></span>
-      ברוכים הבאים לסדנה
-    </div>
-    <h1>סדנת <span class="accent">Genially</span><br>למתחילים</h1>
-    <p class="hero-sub">מתוכן טקסטואלי לחוויה אינטראקטיבית</p>
-    <div class="date-card">
-      <div class="dc-item">
-        <span class="dc-label">יום</span>
-        <span class="dc-value">שלישי</span>
-      </div>
-      <div class="dc-sep"></div>
-      <div class="dc-item">
-        <span class="dc-label">תאריך</span>
-        <span class="dc-value">16.6.2026</span>
-      </div>
-      <div class="dc-sep"></div>
-      <div class="dc-item">
-        <span class="dc-label">שעות</span>
-        <span class="dc-value">14:00–15:30</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INFO CARDS -->
-<div class="cards-row">
-  <div class="info-card">
-    <span class="ic-tag ic-tag-teal">על הסדנה</span>
-    <h3>Genially — מה זה ולמה זה כדאי?</h3>
-    <p>כלי ה-Genially מאפשר להפוך מצגות, תרשימים ומסמכים לחומרי למידה אינטראקטיביים המעודדים למידה פעילה. בסדנה נערוך היכרות מעשית עם הממשק, נלמד לעבוד עם תבניות וניצור שכבות מידע. בסיום המפגש תצאו עם כלי אפקטיבי להגברת מעורבות הסטודנטים בחומר הנלמד, לשימוש במהלך המפגשים ולהטמעה באתר הקורס.</p>
-  </div>
-  <div class="info-card">
-    <span class="ic-tag ic-tag-pink">על המנחה</span>
-    <h3>נטלי צפתי</h3>
-    <p>מהמחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית באו"פ, עוסקת באיתור ובהטמעת כלים ופתרונות טכנולוגיים עבור סביבת הלמידה, ובעלת ניסיון רב בבניית אתרי קורסים, הדרכות וסדנאות בתחום.</p>
+<div class="header">
+  <img src="logo.png" alt="לוגו" class="header-logo">
+  <div class="header-text">
+    <h1>סדנת Genially למתחילים</h1>
+    <p>המחלקה לפדגוגיה דיגיטלית · האוניברסיטה הפתוחה</p>
   </div>
 </div>
 
-<!-- PORTAL LINKS -->
-<div class="section-wrap" style="padding-bottom:0">
-  <div class="section-label">חומרי הסדנה</div>
-  <div class="section-title">מה תמצאו כאן?</div>
-</div>
-<div class="portal-grid">
-  <a class="portal-card" href="genially-editor-guide.html">
-    <div class="pc-icon">🖥️</div>
-    <div class="pc-title">ממשק העריכה</div>
-    <div class="pc-desc">כל הכפתורים, הפאנלים והאפשרויות במסך העריכה — עם חיפוש ופילטור</div>
-    <div class="pc-arrow">עברו למדריך ←</div>
-  </a>
-  <a class="portal-card" href="genially-panel-guide.html">
-    <div class="pc-icon">🗂️</div>
-    <div class="pc-title">פאנל הניהול</div>
-    <div class="pc-desc">מסך הבית, איך יוצרים יצירה חדשה, מאיפה מנהלים ומשתפים</div>
-    <div class="pc-arrow">עברו למדריך ←</div>
-  </a>
-  <a class="portal-card" href="genially-templates.html">
-    <div class="pc-icon">📋</div>
-    <div class="pc-title">תבניות</div>
-    <div class="pc-desc">כל קטגוריות התבניות, המלצות לחינוך ואיך לבחור נכון</div>
-    <div class="pc-arrow">עברו למדריך ←</div>
-  </a>
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('home',this)">🏠 דף הבית</button>
+    <button class="tab-btn" onclick="showTab('editor',this)">🖥️ ממשק העריכה</button>
+    <button class="tab-btn" onclick="showTab('panel',this)">🗂️ פאנל הניהול</button>
+    <button class="tab-btn" onclick="showTab('templates',this)">📋 תבניות</button>
+  </div>
 </div>
 
-<div class="divider" style="margin:0 auto 0;"></div>
+<!-- ═══════════════════════════════════ TAB 1: HOME ═══════════════════════════════════ -->
+<div id="tab-home" class="page active">
 
-<!-- VIDEO -->
-<div class="section-wrap">
-  <div class="section-label">לפני שמתחילים</div>
-  <div class="section-title">כיצד נרשמים לג'ניאלי?</div>
-  <div class="section-sub">צפו בסרטון הקצר ורשמו את עצמכם לפני המפגש</div>
-  <div class="video-card">
-    <div class="video-header">
-      <div class="video-icon">🎬</div>
-      <div class="video-header-text">
-        <h4>הרשמה ל-Genially — מדריך קצר</h4>
-        <p>מומלץ לצפות לפני הסדנה</p>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="workshop-tag"><span class="dot-pulse"></span>ברוכים הבאים לסדנה</div>
+      <h2>סדנת <span class="acc">Genially</span><br>למתחילים</h2>
+      <p class="hero-sub">מתוכן טקסטואלי לחוויה אינטראקטיבית</p>
+      <div class="date-card">
+        <div class="dci"><label>יום</label><span>שלישי</span></div>
+        <div class="dcs"></div>
+        <div class="dci"><label>תאריך</label><span>16.6.2026</span></div>
+        <div class="dcs"></div>
+        <div class="dci"><label>שעות</label><span>14:00–15:30</span></div>
       </div>
     </div>
-    <div class="video-wrap">
+  </div>
+
+  <div class="info-row">
+    <div class="icard">
+      <span class="ic-tag ict-teal">על הסדנה</span>
+      <h3>Genially — מה זה ולמה זה כדאי?</h3>
+      <p>כלי ה-Genially מאפשר להפוך מצגות, תרשימים ומסמכים לחומרי למידה אינטראקטיביים המעודדים למידה פעילה. בסדנה נערוך היכרות מעשית עם הממשק, נלמד לעבוד עם תבניות וניצור שכבות מידע. בסיום המפגש תצאו עם כלי אפקטיבי להגברת מעורבות הסטודנטים.</p>
+    </div>
+    <div class="icard">
+      <span class="ic-tag ict-pink">על המנחה</span>
+      <h3>נטלי צפתי</h3>
+      <p>מהמחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית באו"פ, עוסקת באיתור ובהטמעת כלים ופתרונות טכנולוגיים עבור סביבת הלמידה, ובעלת ניסיון רב בבניית אתרי קורסים, הדרכות וסדנאות בתחום.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="margin-top:36px"></div>
+
+  <div class="sec-wrap">
+    <div class="sec-lbl">לפני שמתחילים</div>
+    <div class="sec-ttl">כיצד נרשמים לג׳ניאלי?</div>
+    <div class="sec-sub">צפו בסרטון הקצר ורשמו את עצמכם לפני המפגש</div>
+    <div class="video-card">
+      <div class="video-hdr">
+        <div class="video-ico">🎬</div>
+        <div>
+          <h4>הרשמה ל-Genially — מדריך קצר</h4>
+          <p>מומלץ לצפות לפני הסדנה</p>
+        </div>
+      </div>
       <video controls preload="metadata">
         <source src="genially-signup.mp4" type="video/mp4">
-        הדפדפן שלך אינו תומך בנגן וידאו.
       </video>
     </div>
   </div>
-</div>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- CTA -->
-<div class="cta-wrap">
-  <div class="section-label" style="text-align:center">מוכנים? בואו נתחיל</div>
-  <div class="section-title" style="text-align:center;font-size:22px">כניסה לכלי Genially</div>
-  <p style="font-size:14px;color:var(--gray-400);margin-bottom:4px">לחצו להתחברות לכלי עם הפרטים שנרשמתם</p>
-  <a href="https://genially.com" target="_blank" rel="noopener" class="cta-btn">
-    כניסה ל-Genially ←
-  </a>
-  <p class="cta-note">
-    לא נרשמתם עדיין? צפו בסרטון למעלה ·
-    <a href="https://genially.com/signup" target="_blank">הרשמה חינמית</a>
-  </p>
-</div>
+  <div class="cta-wrap">
+    <div class="sec-lbl" style="text-align:center">מוכנים?</div>
+    <div class="sec-ttl" style="text-align:center;font-size:20px">כניסה לכלי Genially</div>
+    <a href="https://genially.com" target="_blank" rel="noopener" class="cta-btn">כניסה ל-Genially ←</a>
+    <p class="cta-note">לא נרשמתם עדיין? <a href="https://genially.com/signup" target="_blank">הרשמה חינמית</a></p>
+  </div>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- CHATBOT -->
-<div class="chatbot-section">
-  <div class="chatbot-inner">
-    <div class="section-label">שאלו הכל</div>
-    <div class="section-title">הבוט של הסדנה 🤖</div>
-    <div class="section-sub">שאלו כל שאלה על Genially — בעברית או באנגלית</div>
-
-    <div class="chat-window">
-      <div class="chat-topbar">
-        <div class="bot-avatar">🤖</div>
-        <div class="bot-info">
-          <div class="bot-name">Genially Bot</div>
-          <div class="bot-status"><span class="bot-dot"></span>מוכן לענות</div>
+  <div class="chat-section">
+    <div class="chat-inner">
+      <div class="sec-lbl">שאלו הכל</div>
+      <div class="sec-ttl">הבוט של הסדנה 🤖</div>
+      <div class="sec-sub">שאלו כל שאלה על Genially — בעברית או באנגלית</div>
+      <div class="chat-win">
+        <div class="chat-top">
+          <div class="chat-av">🤖</div>
+          <div>
+            <div class="chat-name">Genially Bot</div>
+            <div class="chat-status">● מוכן לענות</div>
+          </div>
         </div>
-      </div>
-
-      <div class="chat-messages" id="chat-messages">
-        <div class="msg bot">
-          <div class="msg-avatar">🤖</div>
-          <div class="msg-bubble">שלום! אני הבוט של הסדנה 👋<br>אפשר לשאול אותי כל שאלה על Genially — בעברית או באנגלית.<br>למשל: <em>״איך יוצרים מצגת עם AI?״</em> או <em>״How do I add interactivity?״</em></div>
+        <div class="chat-msgs" id="chat-msgs">
+          <div class="msg bot">
+            <div class="mav">🤖</div>
+            <div class="mb">שלום! אני הבוט של הסדנה 👋<br>שאלו אותי כל שאלה על Genially בעברית או באנגלית.<br>לדוגמה: <em>״איך יוצרים מצגת עם AI?״</em></div>
+          </div>
         </div>
-      </div>
-
-      <div class="chat-suggestions" id="chat-sugs">
-        <span class="sug-chip" onclick="askSug(this)">איך יוצרים מצגת עם AI?</span>
-        <span class="sug-chip" onclick="askSug(this)">איך מוסיפים אינטראקטיביות?</span>
-        <span class="sug-chip" onclick="askSug(this)">איך מטמיעים באתר מודל?</span>
-        <span class="sug-chip" onclick="askSug(this)">מהו גלגל המזל?</span>
-        <span class="sug-chip" onclick="askSug(this)">How do I share my Genially?</span>
-        <span class="sug-chip" onclick="askSug(this)">איך מוסיפים שמע?</span>
-        <span class="sug-chip" onclick="askSug(this)">מה ההבדל בין חינמי לתשלום?</span>
-        <span class="sug-chip" onclick="askSug(this)">איך מוסיפים וידאו?</span>
-      </div>
-
-      <div class="chat-input-row">
-        <input id="chat-input" type="text" placeholder="כתבו שאלה על Genially..." onkeydown="if(event.key==='Enter')sendMsg()" />
-        <button id="chat-send" onclick="sendMsg()">↑</button>
+        <div class="chat-sugs">
+          <span class="sug" onclick="askBot(this)">איך יוצרים מצגת עם AI?</span>
+          <span class="sug" onclick="askBot(this)">איך מוסיפים אינטראקטיביות?</span>
+          <span class="sug" onclick="askBot(this)">איך מטמיעים במודל?</span>
+          <span class="sug" onclick="askBot(this)">מהו גלגל המזל?</span>
+          <span class="sug" onclick="askBot(this)">How do I share?</span>
+          <span class="sug" onclick="askBot(this)">מה ההבדל בין חינמי לתשלום?</span>
+        </div>
+        <div class="chat-inp-row">
+          <input id="ci" type="text" placeholder="כתבו שאלה על Genially..." onkeydown="if(event.key==='Enter')sendChat()">
+          <button id="cs" onclick="sendChat()">↑</button>
+        </div>
       </div>
     </div>
   </div>
+
+</div><!-- end tab-home -->
+
+<!-- ═══════════════════════════════════ TAB 2: EDITOR ═══════════════════════════════════ -->
+<div id="tab-editor" class="page">
+  <div class="guide-hero" style="background:radial-gradient(ellipse 70% 60% at 50% 0%,var(--pink-soft) 0%,transparent 70%)">
+    <div class="guide-badge" style="background:var(--pink-soft);color:var(--pink);border:1.5px solid var(--pink-mid)">🖥️ עדכני ל-16.6.2026</div>
+    <h2>ממשק העריכה — Genially Editor</h2>
+    <p>כתבו שם פאנל או כפתור כפי שמופיע בממשק (Insert, Text, Animate...) וקבלו הסבר</p>
+    <div class="guide-search-wrap">
+      <div class="gsbox">
+        <span class="gsico">🔍</span>
+        <input class="gs-inp" id="es-inp" type="text" placeholder="חפשו פאנל, כפתור או פעולה..." oninput="filterEditor(this.value)" style="border-color:var(--pink-mid)">
+      </div>
+    </div>
+    <div class="chips-wrap" id="e-chips">
+      <span class="chip active" onclick="eChip(this,'')">הכל</span>
+      <span class="chip" onclick="eChip(this,'insert')">Insert</span>
+      <span class="chip" onclick="eChip(this,'text')">Text</span>
+      <span class="chip" onclick="eChip(this,'animate')">Animate</span>
+      <span class="chip" onclick="eChip(this,'interactivity')">Interactivity</span>
+      <span class="chip" onclick="eChip(this,'design')">Design</span>
+      <span class="chip ai-c" onclick="eChip(this,'ai')">✦ AI</span>
+      <span class="chip" onclick="eChip(this,'pages')">Pages</span>
+      <span class="chip" onclick="eChip(this,'toolbar')">סרגל עליון</span>
+      <span class="chip" onclick="eChip(this,'rightpanel')">פאנל ימני</span>
+    </div>
+  </div>
+  <div class="gmain" id="e-panels"></div>
+  <div class="gnr" id="e-nr"><span>🔍</span>לא נמצאו תוצאות. נסו מונח אחר.</div>
 </div>
 
-<!-- FOOTER -->
+<!-- ═══════════════════════════════════ TAB 3: PANEL ═══════════════════════════════════ -->
+<div id="tab-panel" class="page">
+  <div class="guide-hero" style="background:radial-gradient(ellipse 70% 60% at 50% 0%,var(--teal-soft) 0%,transparent 70%)">
+    <div class="guide-badge" style="background:var(--teal-soft);color:var(--teal);border:1.5px solid var(--teal-mid)">🗂️ פאנל הניהול</div>
+    <h2>פאנל הניהול — Dashboard</h2>
+    <p>כל מה שקורה לפני העריכה — יצירה, ניהול, שיתוף ופרסום</p>
+    <div class="guide-search-wrap">
+      <div class="gsbox">
+        <span class="gsico">🔍</span>
+        <input class="gs-inp" id="ps-inp" type="text" placeholder="חפשו כפתור, פאנל או פעולה..." oninput="filterPanel(this.value)" style="border-color:var(--teal-mid)">
+      </div>
+    </div>
+    <div class="chips-wrap" id="p-chips">
+      <span class="chip active" onclick="pChip(this,'')">הכל</span>
+      <span class="chip" onclick="pChip(this,'home')">מסך הבית</span>
+      <span class="chip" onclick="pChip(this,'create')">יצירה חדשה</span>
+      <span class="chip" onclick="pChip(this,'manage')">ניהול יצירות</span>
+      <span class="chip" onclick="pChip(this,'share')">שיתוף ופרסום</span>
+      <span class="chip" onclick="pChip(this,'account')">חשבון</span>
+    </div>
+  </div>
+  <div class="gmain" id="p-panels"></div>
+  <div class="gnr" id="p-nr"><span>🔍</span>לא נמצאו תוצאות. נסו מונח אחר.</div>
+</div>
+
+<!-- ═══════════════════════════════════ TAB 4: TEMPLATES ═══════════════════════════════════ -->
+<div id="tab-templates" class="page">
+  <div class="guide-hero" style="background:radial-gradient(ellipse 70% 60% at 50% 0%,var(--yellow-soft) 0%,transparent 70%)">
+    <div class="guide-badge" style="background:var(--yellow-soft);color:var(--yellow);border:1.5px solid var(--yellow-mid)">📋 מדריך תבניות</div>
+    <h2>מבחר התבניות</h2>
+    <p>כל הקטגוריות, המלצות לחינוך ואיך לבחור נכון</p>
+  </div>
+
+  <div class="gmain">
+    <div style="margin-bottom:28px;margin-top:4px">
+      <div class="sec-lbl">לפני שבוחרים</div>
+      <div class="sec-ttl" style="font-size:20px;margin-bottom:16px">איך בוחרים תבנית נכון?</div>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-num">1</div><h4>הגדירו את המטרה</h4><p>העברת מידע? בדיקת הבנה? מעורבות? לכל מטרה קטגוריה מתאימה.</p></div>
+        <div class="how-card"><div class="how-num">2</div><h4>בחרו את הפורמט</h4><p>מצגת לשיעור? אינפוגרפיקה? משחק? הפורמט קובע את המבנה.</p></div>
+        <div class="how-card"><div class="how-num">3</div><h4>Preview לפני בחירה</h4><p>לחצו Preview לצפייה מלאה. בדקו שמבנה התוכן מתאים לצרכיכם.</p></div>
+        <div class="how-card"><div class="how-num">4</div><h4>בחרו מבנה נכון</h4><p>קל לשנות צבעים — קשה לשנות מבנה. בחרו מבנה נכון ועצבו מחדש.</p></div>
+      </div>
+      <div class="tips-box">
+        <h4>טיפים לבחירה לחינוך</h4>
+        <ul class="tips-list">
+          <li>חפשו בתגית <strong>Education</strong> לתבניות מותאמות.</li>
+          <li>תבניות עם <em>Interactivity</em> מובנית חוסכות שעות בנייה.</li>
+          <li>אם אתם חדשים — התחילו מ-Presentation ולא מ-Infographic.</li>
+          <li>בקשו מ-AI לייצר יצירה ואז <em>החליפו</em> לתבנית שאהבתם.</li>
+        </ul>
+      </div>
+
+      <div class="chips-wrap" style="justify-content:flex-start;padding:0 0 16px">
+        <span class="chip active" onclick="tChip(this,'')">הכל</span>
+        <span class="chip" onclick="tChip(this,'presentation')">מצגות</span>
+        <span class="chip" onclick="tChip(this,'interactive')">אינטראקטיבי</span>
+        <span class="chip" onclick="tChip(this,'infographic')">אינפוגרפיקה</span>
+        <span class="chip" onclick="tChip(this,'game')">משחקים</span>
+        <span class="chip" onclick="tChip(this,'quiz')">בוחנים</span>
+        <span class="chip" onclick="tChip(this,'image')">תמונה אינטראקטיבית</span>
+        <span class="chip" onclick="tChip(this,'other')">נוספות</span>
+      </div>
+    </div>
+    <div id="t-grid"></div>
+  </div>
+</div>
+
 <footer class="footer">
   <img src="logo.png" alt="לוגו">
   <strong>המחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית, האוניברסיטה הפתוחה</strong>
 </footer>
 
 <script>
-const KB = [
-  {
-    keys:['ai','בינה','לייצר','ליצור','מצגת עם ai','איך יוצרים','create with ai','presentation ai','genially ai'],
-    ans:`ניתן ליצור מצגת שלמה עם AI ב-3 שלבים:<br>
-1. לחצו <b>+ Create</b> בלוח הבקרה.<br>
-2. בחרו <b>Generate with AI</b> (אייקון ✦).<br>
-3. הזינו נושא, בחרו מספר שקפים וסגנון — Genially תיצור הכל אוטומטית: טקסט, תמונות ואינטראקציות.<br><br>
-<b>טיפ:</b> לאחר יצירה ניתן לערוך כל אלמנט ידנית. ניתן גם לבקש מה-AI <em>לשכתב</em> טקסט קיים — לחצו על הטקסט ← ✦ AI.`
-  },
-  {
-    keys:['interactiv','אינטראקטיב','לחצן','popup','חלון','tooltip','window','hotspot','hover','click'],
-    ans:`להוספת אינטראקטיביות:<br>
-1. לחצו על האלמנט שרוצים להפוך לאינטראקטיבי.<br>
-2. בסרגל השמאלי לחצו על <b>Interactivity</b> 👆.<br>
-3. בחרו סוג: <b>Open Window</b> (חלון עם תוכן) | <b>Tooltip</b> (בועת מידע) | <b>Go to Page</b> (מעבר שקף) | <b>Open URL</b>.<br><br>
-<b>הטיפ הכי שימושי:</b> <em>Open Window</em> — לחיצה פותחת חלון עם טקסט, תמונה, סרטון, או embed. זה הפיצ'ר שהופך Genially לשונה מכל מצגת רגילה.`
-  },
-  {
-    keys:['moodle','מודל','מודלה','embed','הטמע','אתר קורס','site','lms','iframe','קוד הטמעה'],
-    ans:`להטמעה באתר מודל/קורס:<br>
-1. פרסמו את היצירה: לחצו <b>Publish</b> (☁️ בסרגל העליון).<br>
-2. לחצו <b>Share</b> ← בחרו <b>Embed</b>.<br>
-3. העתיקו את קוד ה-<b>iFrame</b>.<br>
-4. במודל: ערכו שקע HTML ← הדביקו את הקוד.<br><br>
-<b>מידות מומלצות:</b> רוחב 100%, גובה 600px למצגת רגילה.`
-  },
-  {
-    keys:['גלגל מזל','wheel','fortune','luck','spin','ספין','רנדום'],
-    ans:`גלגל המזל הוא Widget מוכן ב-Genially:<br>
-1. לחצו <b>Insert</b> ← <b>Multimedia Widget</b>.<br>
-2. חפשו <b>Wheel of Fortune</b> או <b>Lucky Wheel</b>.<br>
-3. לחצו עליו ← ערכו את הפרמטרים: מספר מקטעים, צבעים, טקסט לכל מקטע.<br><br>
-<b>שימוש בסדנה:</b> שאלות מוגרלות לפתיחת שיעור, בחירת קבוצות, בחירת נושאים לדיון.`
-  },
-  {
-    keys:['share','שתף','שיתוף','לשתף','קישור','link','publish','פרסום','פרסם'],
-    ans:`לשיתוף יצירה:<br>
-1. לחצו <b>Publish</b> (☁️) — היצירה הופכת פומבית.<br>
-2. לחצו <b>Share</b>:<br>
-   • <b>Link</b> — קישור ישיר לשיתוף<br>
-   • <b>Embed</b> — קוד iFrame לאתר/מודל<br>
-   • <b>Download PDF</b> — הורדה סטטית (Pro)<br>
-   • <b>SCORM</b> — לייבוא ל-LMS (Pro)<br><br>
-<b>הגדרות פרטיות:</b> ניתן להגדיר יצירה כ-Private (רק עם קישור) או Public.`
-  },
-  {
-    keys:['audio','שמע','הקלטה','קול','voice','sound','mp3'],
-    ans:`להוספת שמע:<br>
-<b>אפשרות 1 — שמע ישיר על אלמנט:</b><br>
-לחצו על אלמנט ← Interactivity ← <b>Audio on Click</b> ← העלו MP3/WAV.<br><br>
-<b>אפשרות 2 — שמע רקע לשקף:</b><br>
-Insert ← Audio ← בחרו קובץ ← הגדירו Auto-play ו-Loop.<br><br>
-<b>טיפ:</b> Audio on Click מעולה למילון מונחים — לחיצה על מונח → שומעים הגייה.`
-  },
-  {
-    keys:['video','וידאו','סרטון','youtube','vimeo','embed video','להוסיף סרטון'],
-    ans:`להוספת סרטון:<br>
-<b>YouTube/Vimeo:</b> Insert ← Video ← הדביקו קישור URL של הסרטון.<br>
-<b>קובץ מהמחשב:</b> Insert ← Video ← Upload ← בחרו MP4.<br><br>
-<b>הגדרות שימושיות:</b><br>
-• <em>Autoplay</em> — הפעלה אוטומטית בכניסה לשקף<br>
-• <em>Start/End time</em> — קיצוץ לחלק רלוונטי בלבד<br>
-• <em>Loop</em> — חזרה אוטומטית`
-  },
-  {
-    keys:['free','חינם','חינמי','תשלום','מחיר','price','plan','pro','premium','paid','עלות'],
-    ans:`<b>מסלול חינמי (Free):</b><br>
-✅ יצירות ללא הגבלה | ✅ כל הפיצ'רים הבסיסיים | ✅ שיתוף בקישור | ✅ הטמעה | ❌ הורדת PDF | ❌ SCORM | ❌ ללא מודעות Genially<br><br>
-<b>מסלול Education (מומלץ):</b><br>
-✅ הכל בחינמי + ✅ PDF | ✅ מצב ללא מודעות | ✅ Analytics | ✅ תמיכה מועדפת<br>
-💡 <b>לאנשי אקדמיה יש הנחות משמעותיות</b> — בדקו את מסלול Education.`
-  },
-  {
-    keys:['template','תבנית','תבניות','gallery','בחירה','לבחור','choose'],
-    ans:`לגלישה בתבניות: לחצו <b>+ Create</b> ← <b>Browse templates</b>.<br><br>
-<b>קטגוריות מרכזיות לחינוך:</b><br>
-🎓 <em>Education</em> — מצגות לשיעור, כרטיסיות, בוחנים<br>
-🎮 <em>Interactive</em> — escape room, quiz, game<br>
-📊 <em>Infographic</em> — ויזואליזציה של נתונים<br>
-📋 <em>Presentation</em> — מצגות מעוצבות<br><br>
-<b>איך לבחור?</b> חפשו לפי נושא בשורת החיפוש, לחצו Preview לראות לפני שמשתמשים. ראו עוד בדף <a href="genially-templates.html" style="color:var(--pink)">התבניות ←</a>`
-  },
-  {
-    keys:['animate','אנימציה','תנועה','transition','מעבר','entrance','fade','zoom'],
-    ans:`להוספת אנימציה:<br>
-1. לחצו על האלמנט.<br>
-2. בסרגל לחצו <b>Animate</b> 🎬.<br>
-3. בחרו <em>Entrance Animation</em>: Fade, Slide, Zoom, Bounce, Flip...<br>
-4. הגדירו <em>Delay</em> (זמן המתנה) ו-<em>Duration</em> (משך).<br><br>
-<b>סדר אנימציות:</b> לחצו <em>Timeline</em> לגרירה ושינוי סדר הופעה.<br>
-<b>מעברים בין שקפים:</b> לחצו על שקף ← Page Transition ← בחרו סגנון.`
-  },
-  {
-    keys:['register','נרשם','הרשמה','sign up','signup','account','חשבון','פרטים'],
-    ans:`להרשמה לGenially:<br>
-1. גשו ל-<a href="https://genially.com/signup" target="_blank" style="color:var(--pink)">genially.com/signup</a>.<br>
-2. הרשמו עם כתובת מייל (מומלץ: כתובת האוניברסיטה) או Google/Microsoft.<br>
-3. בחרו מסלול <b>Free</b> ← אמתו את המייל.<br><br>
-<b>טיפ:</b> אם אתם מוסד חינוכי, בדקו את מסלול Education להטבות נוספות.<br>
-צפו בסרטון ההדרכה למעלה לפרוצדורה מלאה.`
-  },
-  {
-    keys:['image','תמונה','תמונות','photo','insert image','להוסיף תמונה','unsplash','background image'],
-    ans:`להוספת תמונה:<br>
-<b>מהמחשב:</b> Insert ← Image ← Upload.<br>
-<b>ממאגר חינמי:</b> Insert ← Image ← חפשו ב-Unsplash/Pixabay (מיליוני תמונות ללא תשלום).<br>
-<b>URL ישיר:</b> Insert ← Image ← הדביקו כתובת תמונה מהאינטרנט.<br><br>
-<b>רקע לשקף:</b> Design ← Background ← Background Image.`
-  },
-  {
-    keys:['save','שמירה','autosave','שומר','saved','אוטומטי'],
-    ans:`Genially שומרת <b>אוטומטית</b> כל כמה שניות — אין צורך בלחיצת Ctrl+S.<br>
-בפינה העליונה תראו "Saved ✓" כשהשמירה הושלמה.<br><br>
-<b>Undo/Redo:</b> Ctrl+Z / Ctrl+Shift+Z (עד 50 פעולות אחורה).`
-  },
-  {
-    keys:['quiz','בוחן','שאלות','שאלון','test','exam','assessment'],
-    ans:`ב-Genially ניתן לצור בוחנים ב-2 דרכים:<br><br>
-<b>1. Widget מוכן:</b> Insert ← Multimedia Widget ← חפשו "Quiz" — בוחן עם שאלות אמריקאיות.<br>
-<b>2. בניה ידנית עם Interactivity:</b> יצירת כפתורי תשובה עם Tooltip לתשובה נכונה/שגויה וניווט לשקפים שונים לפי הבחירה.<br><br>
-<b>עם AI:</b> Insert ← Multimedia Widget ← AI Quiz Generator — הזינו נושא ו-AI יצור שאלות.`
-  },
-  {
-    keys:['copy','duplicate','שכפול','copy element','ctrl c','להעתיק','paste'],
-    ans:`<b>שכפול אלמנט:</b> בחרו ← Ctrl+D (או קליק ימני ← Duplicate).<br>
-<b>העתקה:</b> Ctrl+C ← Ctrl+V.<br>
-<b>העתקה לשקף אחר:</b> Ctrl+C ← נווטו לשקף אחר ← Ctrl+V.<br>
-<b>שכפול שקף שלם:</b> קליק ימני על שקף בפאנל ← Duplicate Page.`
-  },
-  {
-    keys:['font','גופן','פונט','hebrew','עברית','rtl','right to left','טקסט עברית'],
-    ans:`Genially תומכת ב-RTL ועברית:<br>
-1. הוסיפו Text Box.<br>
-2. בחרו גופן התומך בעברית: <b>Heebo</b>, <b>Rubik</b>, <b>Assistant</b>, <b>Frank Ruhl Libre</b> מומלצים.<br>
-3. יישור: בחרו יישור ימין (Right align) לטקסט עברי.<br><br>
-<b>שימו לב:</b> ממשק העריכה הוא LTR, אך הטקסט עצמו יכול להיות RTL.`
-  },
-  {
-    keys:['collaboration','שיתוף פעולה','team','צוות','together','collab','עריכה משותפת'],
-    ans:`<b>עריכה משותפת (Pro):</b> מסלול Team מאפשר מספר עורכים על אותה יצירה בו-זמנית.<br><br>
-<b>בחינמי:</b> ניתן לשתף יצירה לצפייה, אך לא לעריכה משותפת. כדי לתת גישת עריכה — שלחו עותק (Duplicate) לכל משתתף.`
-  },
-  {
-    keys:['undo','ctrl z','ביטול','לבטל','mistake','טעות','back'],
-    ans:`<b>ביטול (Undo):</b> Ctrl+Z (Mac: Cmd+Z)<br>
-<b>עשה מחדש (Redo):</b> Ctrl+Shift+Z<br>
-עד <b>50 פעולות</b> אחורה. לאחר סגירת הדפדפן ההיסטוריה מתאפסת.`
-  },
-  {
-    keys:['what is genially','what is','מה זה','מהו','מה הוא','genially כלי','למה genially'],
-    ans:`<b>Genially</b> הוא כלי אינטרנטי ליצירת תוכן אינטראקטיבי: מצגות, אינפוגרפיקה, תרשימים, משחקים ועוד.<br><br>
-<b>מה מייחד אותו?</b><br>
-✦ <em>שכבות מידע</em> — לחיצה על אלמנט פותחת מידע נוסף<br>
-✦ <em>אנימציות</em> — תוכן מתנועע ומושך תשומת לב<br>
-✦ <em>AI מובנה</em> — יצירת יצירות שלמות מנושא<br>
-✦ <em>Embed</em> — הטמעה קלה בכל אתר או מודל<br>
-✦ <em>חינמי</em> — ניתן להשתמש ללא תשלום`
-  },
-  {
-    keys:['page','שקף','slide','add page','להוסיף שקף','new page','delete page','reorder'],
-    ans:`<b>ניהול שקפים:</b><br>
-➕ <em>הוספה:</em> לחצו + בתחתית פאנל השקפים (ימין).<br>
-📋 <em>שכפול:</em> קליק ימני ← Duplicate Page.<br>
-🗑️ <em>מחיקה:</em> קליק ימני ← Delete (לא ניתן לבטל!).<br>
-⬍ <em>שינוי סדר:</em> גרירת שקף למיקום חדש בפאנל.<br>
-👁️ <em>הסתרה:</em> אייקון עין ← Hide Page (שקף לא יוצג בהצגה).`
-  },
-  {
-    keys:['size','resize','גודל','רוחב','גובה','width','height','canvas size','format'],
-    ans:`<b>שינוי גודל קנבס:</b> Design ← Canvas Size. אפשרויות: 16:9 (ברירת מחדל), 4:3, Vertical (מובייל 9:16), A4, Custom.<br><br>
-<b>שינוי גודל אלמנט:</b> בחרו אלמנט ← גררו ידית הפינה, או הזינו W/H בפאנל הימני.<br>
-<b>שמירת יחס:</b> לחצו על אייקון מנעול בין W ל-H.`
-  },
-  {
-    keys:['chart','graph','גרף','נתונים','data','infographic','אינפוגרף','עוגה','pie','bar'],
-    ans:`<b>הוספת גרף:</b> Insert ← Chart.<br>
-סוגים: עוגה, עמודות, קווים, פיזור, עמודות מוערמות.<br>
-הזינו נתונים ישירות בממשק — ללא Excel.<br><br>
-<b>מפה אינטראקטיבית:</b> Insert ← Interactive Map — לחיצה על אזור מציגה מידע.<br>
-<b>אינפוגרפיקה מ-AI:</b> בקשו מה-AI (✦) "Create an infographic about [נושא]".`
-  },
-  {
-    keys:['keyboard','מקלדת','shortcut','קיצור','ctrl','hotkey'],
-    ans:`<b>קיצורי מקלדת שימושיים:</b><br>
-<code>Ctrl+Z</code> — ביטול | <code>Ctrl+D</code> — שכפול<br>
-<code>Ctrl+G</code> — קיבוץ | <code>Ctrl+Shift+G</code> — פירוק קיבוץ<br>
-<code>Ctrl+C/V</code> — העתקה/הדבקה<br>
-<code>Ctrl+A</code> — בחירת הכל<br>
-<code>Ctrl+0</code> — איפוס זום | <code>Ctrl+גלגלת</code> — זום<br>
-<code>Delete</code> — מחיקת אלמנט נבחר<br>
-<code>Arrow keys</code> — הזזה עדינה של אלמנט`
-  },
+/* ── TABS ── */
+function showTab(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── CHATBOT ── */
+const KB=[
+  {k:['ai','בינה','ליצור','לייצר','create with ai','מצגת עם ai','generate'],a:`ניתן ליצור מצגת שלמה עם AI:<br>1. לחצו <b>+ Create</b> בלוח הבקרה.<br>2. בחרו <b>Generate with AI ✦</b>.<br>3. הזינו נושא, בחרו מספר שקפים וסגנון.<br><br><b>טיפ:</b> ניתן לבקש מה-AI לשכתב טקסט קיים — לחצו על טקסט ← ✦ AI.`},
+  {k:['interactiv','אינטראקטיב','לחצן','popup','חלון','tooltip','window','hotspot'],a:`להוספת אינטראקטיביות:<br>1. לחצו על האלמנט.<br>2. בסרגל: <b>Interactivity 👆</b>.<br>3. בחרו: <b>Open Window</b> (חלון עם תוכן) | <b>Tooltip</b> (בועת מידע) | <b>Go to Page</b>.<br><br><b>הטיפ:</b> Open Window הוא הפיצ'ר שהופך Genially לשונה מכל מצגת רגילה.`},
+  {k:['moodle','מודל','embed','הטמע','iFrame','אתר קורס'],a:`להטמעה במודל:<br>1. פרסמו: לחצו <b>Publish ☁️</b>.<br>2. לחצו <b>Share ← Embed</b>.<br>3. העתיקו קוד <b>iFrame</b>.<br>4. במודל: ערכו שקע HTML ← הדביקו.<br><br><b>מידות מומלצות:</b> 100% רוחב, גובה 600px.`},
+  {k:['גלגל','wheel','fortune','spin','רנדום'],a:`גלגל המזל הוא Widget:<br>1. <b>Insert ← Multimedia Widget</b>.<br>2. חפשו <b>Wheel of Fortune</b>.<br>3. ערכו מקטעים, צבעים וטקסט.<br><br><b>שימוש:</b> גרילת שאלות, בחירת קבוצות, פתיחת שיעור.`},
+  {k:['share','שתף','שיתוף','קישור','link','publish','פרסום'],a:`לשיתוף:<br>1. לחצו <b>Publish ☁️</b>.<br>2. לחצו <b>Share</b>:<br>• <b>Link</b> — קישור ישיר<br>• <b>Embed</b> — iFrame לאתר/מודל<br>• <b>PDF</b> — הורדה סטטית (Pro)<br>• <b>SCORM</b> — לייבוא ב-LMS (Pro)`},
+  {k:['free','חינם','חינמי','תשלום','מחיר','plan','pro'],a:`<b>חינמי:</b> יצירות ללא הגבלה, שיתוף, הטמעה. ללא PDF ו-SCORM.<br><b>Education:</b> הכל + PDF + ניתוח נתונים + ללא מודעות.<br><br>💡 לאנשי אקדמיה יש הנחות — בדקו מסלול Education עם מייל מוסדי.`},
+  {k:['audio','שמע','קול','sound','mp3'],a:`הוספת שמע:<br><b>על אלמנט:</b> לחצו ← Interactivity ← <b>Audio on Click</b> ← העלו MP3.<br><b>רקע:</b> Insert ← Audio ← Auto-play + Loop.<br><br><b>טיפ:</b> Audio on Click מעולה למילון מונחים קולי.`},
+  {k:['video','וידאו','סרטון','youtube','vimeo'],a:`הוספת סרטון:<br><b>YouTube/Vimeo:</b> Insert ← Video ← הדביקו URL.<br><b>קובץ:</b> Insert ← Video ← Upload.<br><b>הגדרות:</b> Autoplay, זמן התחלה/סיום, Loop.`},
+  {k:['template','תבנית','תבניות','choose','gallery'],a:`לגלישת תבניות: <b>+ Create ← Browse templates</b>.<br><b>לחינוך:</b> Education, Interactive, Quiz, Game.<br><br>לחצו <b>Preview</b> לצפייה לפני שימוש. עברו ללשונית <em>תבניות</em> לפירוט מלא.`},
+  {k:['animate','אנימציה','תנועה','transition','fade','zoom'],a:`הוספת אנימציה:<br>1. לחצו על האלמנט.<br>2. <b>Animate 🎬 ← Entrance Animation</b>.<br>3. Fade, Slide, Zoom, Bounce...<br>4. הגדירו Delay ו-Duration.<br><br><b>Timeline:</b> לגרירת סדר הופעת אלמנטים.`},
+  {k:['save','שמירה','autosave'],a:`Genially שומרת <b>אוטומטית</b> — אין צורך ב-Ctrl+S.<br>פינה עליונה: "Saved ✓"<br><b>Undo:</b> Ctrl+Z | <b>Redo:</b> Ctrl+Shift+Z (עד 50 פעולות).`},
+  {k:['what is','מה זה','מהו','למה genially'],a:`<b>Genially</b> — כלי ליצירת תוכן אינטראקטיבי: מצגות, אינפוגרפיקה, משחקים ועוד.<br><br>✦ שכבות מידע — לחיצה מציגה מידע נוסף<br>✦ אנימציות מובנות<br>✦ AI מובנה<br>✦ הטמעה בכל אתר/מודל<br>✦ חינמי`},
+  {k:['register','נרשם','הרשמה','signup','account','חשבון'],a:`הרשמה:<br>1. גשו ל-<a href="https://genially.com/signup" target="_blank" style="color:var(--pink)">genially.com/signup</a>.<br>2. הרשמו עם מייל או Google/Microsoft.<br>3. בחרו <b>Free</b> ← אמתו מייל.<br><br>צפו בסרטון ההרשמה בדף הבית.`},
+];
+function botAns(q){
+  const ql=q.toLowerCase();
+  let best=null,score=0;
+  for(const i of KB){let s=0;for(const k of i.k)if(ql.includes(k))s+=k.length;if(s>score){score=s;best=i;}}
+  return score>0?best.a:`לא מצאתי תשובה ספציפית 🤔<br>נסו לנסח אחרת, או שאלו בסדנה עצמה.<br><br>נושאים שאני מכיר: AI, אינטראקטיביות, הטמעה במודל, גלגל המזל, שיתוף, תבניות, אנימציות, שמע, וידאו.`;
+}
+function addMsg(txt,who){
+  const w=document.getElementById('chat-msgs');
+  const d=document.createElement('div');
+  d.className='msg '+who;
+  d.innerHTML=`<div class="mav">${who==='bot'?'🤖':'👤'}</div><div class="mb">${txt}</div>`;
+  w.appendChild(d);w.scrollTop=w.scrollHeight;
+}
+function sendChat(){
+  const i=document.getElementById('ci');
+  const q=i.value.trim();if(!q)return;
+  addMsg(q,'user');i.value='';
+  setTimeout(()=>addMsg(botAns(q),'bot'),300);
+}
+function askBot(el){document.getElementById('ci').value=el.textContent;sendChat();}
+
+/* ── GENERIC PANEL BUILDER ── */
+function buildPanels(data,containerId,nrId,q,chip){
+  const cont=document.getElementById(containerId);
+  const nr=document.getElementById(nrId);
+  const ql=(q||'').toLowerCase().trim();
+  const cf=(chip||'').toLowerCase().trim();
+  let html='',count=0;
+  data.forEach((panel,pi)=>{
+    if(cf&&cf!=='ai'&&panel.id!==cf)return;
+    let fs=panel.sections.map(sec=>{
+      let fi=sec.items.filter(item=>{
+        if(cf==='ai')return item.tags&&item.tags.some(t=>t.c==='iba')||panel.id==='ai';
+        if(!ql)return true;
+        return(panel.title+' '+panel.titleHe+' '+(panel.keywords||'')+' '+sec.title+' '+item.name+' '+item.desc).toLowerCase().includes(ql);
+      });
+      return{...sec,items:fi};
+    }).filter(s=>s.items.length>0);
+    if(cf==='ai'&&panel.id!=='ai'){
+      fs=panel.sections.map(sec=>{
+        let fi=sec.items.filter(i=>i.tags&&i.tags.some(t=>t.c==='iba'));
+        return{...sec,items:fi};
+      }).filter(s=>s.items.length>0);
+      if(fs.length===0)return;
+    }
+    if(fs.length===0)return;
+    count++;
+    const open=ql||cf||pi===0;
+    html+=`<div class="gpanel"><div class="gph" onclick="togP('gpb${containerId}${pi}','gpa${containerId}${pi}')">
+      <div class="gpi" style="background:${panel.iconBg}">${panel.icon}</div>
+      <div class="gpl"><div class="gpen">${panel.title}</div><div class="gphe">${panel.titleHe}</div></div>
+      <div class="gpa ${open?'open':''}" id="gpa${containerId}${pi}">▾</div>
+    </div>
+    <div class="gpbody" id="gpb${containerId}${pi}" style="display:${open?'block':'none'}">`;
+    fs.forEach(sec=>{
+      html+=`<div class="gsec"><div class="gst">${sec.title}</div><div class="gitems">`;
+      sec.items.forEach(item=>{
+        const tags=(item.tags||[]).map(t=>`<span class="ib ${t.c}">${t.t}</span>`).join('');
+        html+=`<div class="gitem"><div class="gibox" style="background:${panel.iconBg}">${item.icon}</div>
+          <div><div class="giname">${item.name} ${tags}</div><div class="gidesc">${item.desc}</div></div></div>`;
+      });
+      html+=`</div></div>`;
+    });
+    html+=`</div></div>`;
+  });
+  cont.innerHTML=html;
+  nr.style.display=count===0?'block':'none';
+}
+function togP(bId,aId){
+  const b=document.getElementById(bId),a=document.getElementById(aId);
+  if(!b)return;const open=b.style.display!=='none';
+  b.style.display=open?'none':'block';
+  if(a)a.classList.toggle('open',!open);
+}
+
+/* ── EDITOR DATA ── */
+const EDATA=[
+  {id:"insert",title:"Insert",titleHe:"הוספת אלמנטים",icon:"➕",iconBg:"#FBF0F5",keywords:"insert הוסף shape image video audio widget embed table chart map formula qr",
+   sections:[
+    {title:"אלמנטים גרפיים",items:[
+      {icon:"🔷",name:"Shapes",desc:"צורות גיאומטריות. שינוי צבע, מסגרת, גודל ושקיפות.",tags:[]},
+      {icon:"📐",name:"Lines & Arrows",desc:"קווים וחצים. עובי, סגנון (מנוקד/שבור/רצוף) וראשי חץ.",tags:[]},
+      {icon:"🌟",name:"Stickers",desc:"מדבקות וקטוריות. קטגוריות: אנשים, טבע, עסקים, חינוך.",tags:[{t:"מורחב 2025",c:"ibn"}]},
+      {icon:"🎨",name:"Illustrations",desc:"ספריית איורים: Flat, Isometric, Hand-drawn. ניתן לשנות צבעים.",tags:[]},
+    ]},
+    {title:"מדיה",items:[
+      {icon:"📷",name:"Image",desc:"העלאה מהמחשב, מ-Unsplash/Pixabay (מיליוני תמונות חינמיות), או URL. PNG, JPG, SVG, GIF.",tags:[]},
+      {icon:"🎬",name:"Video",desc:"YouTube, Vimeo, או העלאה ישירה. הגדרת זמן התחלה/סיום.",tags:[{t:"חדש",c:"ibn"}]},
+      {icon:"🔊",name:"Audio",desc:"MP3/WAV. הפעלה אוטומטית, לופ, מיקום כפתור.",tags:[]},
+      {icon:"🎮",name:"Multimedia Widget",desc:"ווידג'טים מוכנים: טיימר, סקר, גלגל מזל, ריבועי זיכרון, Flashcards.",tags:[{t:"גלגל המזל — כאן",c:"ibt"}]},
+    ]},
+    {title:"תוכן מוטמע",items:[
+      {icon:"💻",name:"Embed / iFrame",desc:"הטמעת כל תוכן: Google Maps, Padlet, Mentimeter, Kahoot, Moodle, YouTube Playlist.",tags:[]},
+      {icon:"📊",name:"Table",desc:"טבלה בממשק. עיצוב צבעי תאים, גבולות, מיזוג.",tags:[]},
+      {icon:"📈",name:"Chart",desc:"עוגה, עמודות, קווים, פיזור. הזנת נתונים ישירות.",tags:[]},
+      {icon:"🗺️",name:"Interactive Map",desc:"מפת עולם/מדינה. לחיצה על אזור מציגה מידע. תמיכה ב-CSV.",tags:[{t:"CSV — חדש",c:"ibn"}]},
+      {icon:"∑",name:"Formula (LaTeX)",desc:"נוסחאות מדעיות. עורך ויזואלי — ללא ידע LaTeX.",tags:[{t:"חדש 2025",c:"ibn"}]},
+      {icon:"▣",name:"QR Code",desc:"קוד QR לכל URL. עיצוב מותאם: צבעים ולוגו במרכז.",tags:[{t:"חדש",c:"ibn"}]},
+    ]},
+  ]},
+  {id:"text",title:"Text",titleHe:"טקסט",icon:"🔤",iconBg:"#EEF8F4",keywords:"text טקסט כתיבה פונט גופן heading body list font color effect link",
+   sections:[
+    {title:"סוגי טקסט",items:[
+      {icon:"H1",name:"Heading",desc:"כותרות H1–H3. גודל ועיצוב לפי ערכת הצבעים.",tags:[]},
+      {icon:"¶",name:"Body Text",desc:"טקסט גוף. מודגש, נטוי, קו תחתי, צבע, יישור.",tags:[]},
+      {icon:"•",name:"List",desc:"רשימה ממוספרת או עם נקודות. שינוי סגנון הנקודה.",tags:[]},
+    ]},
+    {title:"עיצוב",items:[
+      {icon:"Aa",name:"Font & Size",desc:"700+ גופני Google כולל עברית. גודל, ריווח אותיות ושורות.",tags:[]},
+      {icon:"🎨",name:"Color",desc:"מפלטת הפרויקט, HEX או RGB. ניתן לצבוע מילה בודדת.",tags:[]},
+      {icon:"✨",name:"Text Effects",desc:"צל, קו תחתי מעוצב, הדגשת רקע, Gradient על טקסט.",tags:[{t:"Gradient — חדש",c:"ibn"}]},
+      {icon:"🔗",name:"Hyperlink",desc:"קישור חיצוני (כרטיסייה חדשה) או קישור לשקף פנימי.",tags:[]},
+    ]},
+    {title:"AI לטקסט",items:[
+      {icon:"✦",name:"AI Writing Assistant",desc:"כתיבה מפרומפט, קיצור, הרחבה, שינוי טון, תרגום, תיקון שגיאות.",tags:[{t:"AI",c:"iba"},{t:"חדש 2025",c:"ibn"}]},
+    ]},
+  ]},
+  {id:"animate",title:"Animate",titleHe:"אנימציות",icon:"🎬",iconBg:"#FDF6E8",keywords:"animate אנימציה תנועה מעבר transition entrance fade slide zoom bounce",
+   sections:[
+    {title:"אנימציות כניסה",items:[
+      {icon:"▶️",name:"Entrance Animation",desc:"Fade in, Slide, Zoom, Bounce, Flip, Roll ועוד 20+ סוגים.",tags:[]},
+      {icon:"⏱️",name:"Delay & Duration",desc:"זמן המתנה לפני האנימציה ומשכה — בשניות.",tags:[]},
+      {icon:"🔢",name:"Animation Order (Timeline)",desc:"סדר הופעת אלמנטים. גרירה ב-Timeline. 'Auto order' לסידור אוטומטי.",tags:[{t:"טיפ",c:"ibt"}]},
+    ]},
+    {title:"אנימציות מתמשכות",items:[
+      {icon:"🔁",name:"Continuous",desc:"Floating, Pulse, Spin, Bounce — רץ ללא הפסקה.",tags:[]},
+      {icon:"💥",name:"Attention Seeker",desc:"Shake, Flash, Tada — חד-פעמי בטעינת השקף.",tags:[]},
+    ]},
+    {title:"מעברים",items:[
+      {icon:"↔️",name:"Page Transition",desc:"None, Fade, Slide, Zoom, Flip, Cube — לכל שקף בנפרד.",tags:[]},
+    ]},
+  ]},
+  {id:"interactivity",title:"Interactivity",titleHe:"אינטראקטיביות",icon:"👆",iconBg:"#FBF0F5",keywords:"interactivity אינטראקטיביות לחצן חלון tooltip popup hover click hotspot",
+   sections:[
+    {title:"בלחיצה (Click)",items:[
+      {icon:"🪟",name:"Open Window (Lightbox)",desc:"חלון-על עם טקסט, תמונה, סרטון, embed או יצירת Genially מוטמעת. הפיצ'ר המרכזי לשכבות מידע.",tags:[{t:"הפיצ'ר המרכזי",c:"ibt"}]},
+      {icon:"📑",name:"Go to Page",desc:"ניווט לשקף ספציפי. שימושי לתפריטים ומסלולי למידה מסועפים.",tags:[]},
+      {icon:"🌐",name:"Open URL",desc:"פתיחת קישור חיצוני בכרטיסייה חדשה, או ב-iFrame בתוך היצירה.",tags:[]},
+      {icon:"🔊",name:"Audio on Click",desc:"הפעלת שמע בלחיצה. מילון מונחים קולי, הסברים לאלמנטים.",tags:[]},
+      {icon:"▶️",name:"Play Video",desc:"פתיחת סרטון כ-popup בלחיצה.",tags:[]},
+    ]},
+    {title:"בריחוף (Hover)",items:[
+      {icon:"💬",name:"Tooltip",desc:"בועת מידע קטנה בריחוף. קל לשימוש, לא מסיח דעת.",tags:[{t:"מומלץ למתחילים",c:"ibt"}]},
+      {icon:"🔍",name:"Zoom on Hover",desc:"הגדלת האלמנט בריחוף. לתמונות וגרפים עם פרטים דקים.",tags:[]},
+    ]},
+    {title:"מתקדם",items:[
+      {icon:"⚙️",name:"Trigger Type",desc:"Click, Hover, או הפעלה אוטומטית לפי זמן.",tags:[{t:"חדש 2025",c:"ibn"}]},
+      {icon:"🎯",name:"Hotspot",desc:"אזור פעיל שקוף מעל תמונה. נקודות מידע על תמונה.",tags:[]},
+    ]},
+  ]},
+  {id:"design",title:"Design / Background",titleHe:"עיצוב ורקע",icon:"🎨",iconBg:"#EEF8F4",keywords:"design עיצוב background רקע צבע theme palette typography grid align",
+   sections:[
+    {title:"רקע השקף",items:[
+      {icon:"🟩",name:"Solid Color",desc:"צבע אחיד. פלטת הפרויקט, HEX או RGB.",tags:[]},
+      {icon:"🌄",name:"Background Image",desc:"תמונה כרקע. שקיפות, Blur, Cover/Contain/Tile.",tags:[]},
+      {icon:"🌈",name:"Pattern & Gradient",desc:"דפוסים מוכנים וגרדיאנטים עם מספר נקודות צבע.",tags:[{t:"חדש 2025",c:"ibn"}]},
+    ]},
+    {title:"ערכת עיצוב",items:[
+      {icon:"🎭",name:"Theme",desc:"פלטת צבעים + גופנים לכל היצירה. ניתן לשנות ללא נגיעה בתוכן.",tags:[]},
+      {icon:"🎨",name:"Color Palette",desc:"פלטת הפרויקט הראשית. שינוי מעדכן את כל האלמנטים עם צבעי ברירת מחדל.",tags:[{t:"התחילו מכאן",c:"ibt"}]},
+      {icon:"🔡",name:"Typography",desc:"גופני ברירת מחדל לכותרות ולגוף הטקסט.",tags:[]},
+    ]},
+    {title:"פריסה",items:[
+      {icon:"📐",name:"Grid & Guides",desc:"קווי עזר ו-Smart guides להצמדה אוטומטית בגרירה.",tags:[]},
+      {icon:"⬌",name:"Align & Distribute",desc:"יישור שמאל/ימין/מרכז/למעלה/למטה. פיזור שווה.",tags:[]},
+      {icon:"📱",name:"Canvas Size",desc:"16:9 ברירת מחדל. ניתן לשנות ל-4:3, Vertical (מובייל), A4, Custom.",tags:[]},
+    ]},
+  ]},
+  {id:"ai",title:"AI Tools ✦",titleHe:"כלי בינה מלאכותית",icon:"✦",iconBg:"#F3EEFF",keywords:"ai בינה מלאכותית generate image create translate accessibility redesign",
+   sections:[
+    {title:"יצירת יצירה שלמה",items:[
+      {icon:"✦",name:"AI Content Generator",desc:"הזינו נושא — יצירה שלמה: שקפים, טקסט, תמונות ואינטראקציות.",tags:[{t:"AI",c:"iba"},{t:"חדש 2025",c:"ibn"}]},
+      {icon:"🔄",name:"AI Redesign",desc:"שינוי עיצוב יצירה קיימת לסגנון אחר תוך שמירת התוכן.",tags:[{t:"AI",c:"iba"},{t:"חדש 2026",c:"ibn"}]},
+    ]},
+    {title:"יצירת תוכן חלקי",items:[
+      {icon:"🖼️",name:"AI Image Generator",desc:"תמונות מפרומפט טקסטואלי ישירות בממשק.",tags:[{t:"AI",c:"iba"},{t:"חדש 2025",c:"ibn"}]},
+      {icon:"✍️",name:"AI Text",desc:"טקסט לשקף מנושא קצר. בחרו טון: אקדמי, ידידותי, תמציתי.",tags:[{t:"AI",c:"iba"}]},
+      {icon:"🌐",name:"AI Translation",desc:"תרגום יצירה שלמה בלחיצה. 30+ שפות כולל עברית.",tags:[{t:"AI",c:"iba"}]},
+    ]},
+    {title:"עזרה חכמה",items:[
+      {icon:"💡",name:"Smart Suggestions",desc:"המלצות לשיפור: אינטראקציות, שאלות, פריסה.",tags:[{t:"AI",c:"iba"}]},
+      {icon:"♿",name:"Accessibility Check",desc:"ניגודיות WCAG, Alt text, סדר קריאה.",tags:[{t:"AI",c:"iba"},{t:"חדש 2025",c:"ibn"}]},
+      {icon:"✂️",name:"AI Background Remover",desc:"הסרת רקע מתמונה: בחרו תמונה ← Remove Background.",tags:[{t:"AI",c:"iba"}]},
+    ]},
+  ]},
+  {id:"pages",title:"Pages / Slides",titleHe:"שקפים",icon:"📄",iconBg:"#FDF6E8",keywords:"pages שקפים slides ניווט סדר add duplicate delete hide grid",
+   sections:[
+    {title:"ניהול שקפים",items:[
+      {icon:"➕",name:"Add Page",desc:"שקף ריק, מתבנית, או שכפול. כפתור + בתחתית פאנל השקפים.",tags:[]},
+      {icon:"📋",name:"Duplicate",desc:"שכפול עם כל האלמנטים, אנימציות ואינטראקציות. קליק ימני ← Duplicate.",tags:[]},
+      {icon:"⬍",name:"Reorder",desc:"גרירת שקפים לשינוי סדר.",tags:[]},
+      {icon:"🗑️",name:"Delete",desc:"מחיקה — לא ניתן לבטל לאחר שמירה.",tags:[{t:"שקלו לשכפל קודם",c:"ibt"}]},
+    ]},
+    {title:"תצוגה",items:[
+      {icon:"👁️",name:"Hide Page",desc:"הסתרת שקף מהצגה מבלי למחוק. אייקון עין בפאנל.",tags:[{t:"חדש",c:"ibn"}]},
+      {icon:"⊞",name:"Grid View",desc:"תצוגת כל השקפים כרשת לניהול מהיר.",tags:[]},
+    ]},
+  ]},
+  {id:"toolbar",title:"סרגל עליון",titleHe:"Top Toolbar",icon:"🔝",iconBg:"#F3EEFF",keywords:"toolbar undo redo save preview publish שמירה תצוגה מקדימה",
+   sections:[
+    {title:"פעולות",items:[
+      {icon:"↩️",name:"Undo / Redo",desc:"Ctrl+Z / Ctrl+Shift+Z. עד 50 פעולות.",tags:[]},
+      {icon:"💾",name:"Auto-Save",desc:"שמירה אוטומטית — אין צורך ב-Ctrl+S.",tags:[{t:"לא צריך Ctrl+S",c:"ibt"}]},
+      {icon:"👁️",name:"Preview",desc:"תצוגה מקדימה בכרטיסייה חדשה. בדקו אינטראקציות לפני פרסום.",tags:[{t:"הכרחי לפני פרסום",c:"ibt"}]},
+      {icon:"🚀",name:"Publish & Share",desc:"קישור לשיתוף, Embed לאתר/מודל, PDF, SCORM (Pro).",tags:[]},
+      {icon:"🔍",name:"Search & Replace",desc:"חיפוש טקסט בכל השקפים + החלפה.",tags:[{t:"חדש 2025",c:"ibn"}]},
+    ]},
+  ]},
+  {id:"rightpanel",title:"פאנל ימני",titleHe:"Right Panel",icon:"⚙️",iconBg:"#EEF8F4",keywords:"position size layer alignment שכבות מיקום גודל opacity shadow border group lock",
+   sections:[
+    {title:"מיקום וגודל",items:[
+      {icon:"📍",name:"Position (X/Y)",desc:"מיקום מדויק בפיקסלים. הזינו ערך ידני לדיוק מוחלט.",tags:[]},
+      {icon:"📐",name:"Size (W/H)",desc:"גודל האלמנט. מנעול לשמירת יחס גובה-רוחב.",tags:[]},
+      {icon:"🔄",name:"Rotation",desc:"סיבוב 0–360°.",tags:[]},
+      {icon:"↔️",name:"Flip",desc:"היפוך אופקי או אנכי.",tags:[]},
+    ]},
+    {title:"שכבות",items:[
+      {icon:"🗂️",name:"Layer Order",desc:"Bring to Front, Send to Back, Move Up/Down.",tags:[]},
+      {icon:"📦",name:"Group",desc:"Ctrl+G לקיבוץ. Ctrl+Shift+G לפירוק.",tags:[]},
+      {icon:"🔒",name:"Lock",desc:"נעילת אלמנט למניעת העברה בשוגג.",tags:[{t:"לרקעים",c:"ibt"}]},
+    ]},
+    {title:"מראה",items:[
+      {icon:"💧",name:"Opacity",desc:"שקיפות 0–100%.",tags:[]},
+      {icon:"⬜",name:"Border",desc:"צבע, עובי, סגנון (רצוף/מנוקד), רדיוס פינות.",tags:[]},
+      {icon:"🌑",name:"Shadow",desc:"כיוון X/Y, מרחק, Blur, צבע.",tags:[]},
+      {icon:"✂️",name:"Clip / Mask",desc:"חיתוך לצורה: עיגול, כוכב, לב. Custom shape.",tags:[{t:"Custom — חדש",c:"ibn"}]},
+    ]},
+  ]},
 ];
 
-function getBotAnswer(q) {
-  const ql = q.toLowerCase();
-  let best = null;
-  let bestScore = 0;
-  for (const item of KB) {
-    let score = 0;
-    for (const k of item.keys) {
-      if (ql.includes(k.toLowerCase())) score += k.length;
-    }
-    if (score > bestScore) { bestScore = score; best = item; }
-  }
-  if (best && bestScore > 0) return best.ans;
-  return `לא מצאתי תשובה ספציפית לשאלה שלך 🤔<br>נסו לנסח אחרת, או שאלו בסדנה עצמה — נטלי תשמח לענות!<br><br>כמה נושאים שאני יודע עליהם: אינטראקטיביות, AI, הרשמה, וידאו, שמע, תבניות, שיתוף, אנימציות, גלגל המזל, הטמעה במודל.`;
+let eChipVal='';
+function eChip(el,val){
+  document.querySelectorAll('#e-chips .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');eChipVal=val;
+  document.getElementById('es-inp').value='';
+  buildPanels(EDATA,'e-panels','e-nr','',val);
+}
+function filterEditor(q){buildPanels(EDATA,'e-panels','e-nr',q,eChipVal);}
+
+/* ── PANEL DATA ── */
+const PDATA=[
+  {id:"home",title:"מסך הבית",titleHe:"Home / Dashboard",icon:"🏠",iconBg:"#EEF8F4",keywords:"home בית dashboard לוח בקרה",
+   sections:[
+    {title:"אזורים ראשיים",items:[
+      {icon:"➕",name:"כפתור Create",desc:"הכפתור המרכזי. תפריט יצירה: מתבנית, מדף חלק, עם AI, ייבוא מ-PowerPoint.",tags:[{t:"מכאן מתחילים",c:"ibt"}]},
+      {icon:"📁",name:"My creations",desc:"כל היצירות. סינון לפי תאריך, שם, סוג. חיפוש לפי שם.",tags:[]},
+      {icon:"📚",name:"Templates",desc:"ספריית אלפי תבניות. סינון לפי קטגוריה, שפה, צבע.",tags:[]},
+      {icon:"🔔",name:"Notifications",desc:"התראות על שיתופים ועדכוני מערכת.",tags:[{t:"חדש 2025",c:"ibn"}]},
+    ]},
+   ]},
+  {id:"create",title:"יצירה חדשה",titleHe:"Create New",icon:"✨",iconBg:"#FBF0F5",keywords:"create חדש new blank template ai powerpoint import",
+   sections:[
+    {title:"דרכי יצירה",items:[
+      {icon:"✦",name:"Generate with AI",desc:"הזינו נושא, בחרו סגנון ומספר שקפים — יצירה שלמה אוטומטית.",tags:[{t:"AI",c:"iba"},{t:"חדש 2025",c:"ibn"}]},
+      {icon:"📋",name:"From Template",desc:"אלפי תבניות. קטגוריות: Presentation, Infographic, Quiz, Game.",tags:[]},
+      {icon:"⬜",name:"Blank",desc:"דף ריק. בחרו גודל קנבס וסגנון (Theme).",tags:[]},
+      {icon:"📤",name:"Import PowerPoint",desc:"העלו PPTX — Genially ממיר לאלמנטים עריכים.",tags:[{t:"טיפ",c:"ibt"}]},
+    ]},
+    {title:"הגדרות ראשוניות",items:[
+      {icon:"🔡",name:"Name",desc:"תנו שם לפני שמתחילים. ניתן לשנות בסרגל העליון.",tags:[]},
+      {icon:"📱",name:"Format",desc:"16:9, A4 אנכי, Vertical (מובייל), Custom. שינוי לאחר מכן יסיט אלמנטים.",tags:[]},
+      {icon:"🎨",name:"Theme",desc:"ערכת עיצוב ראשונית: צבעים + גופנים.",tags:[]},
+    ]},
+   ]},
+  {id:"manage",title:"ניהול יצירות",titleHe:"Manage",icon:"📁",iconBg:"#FDF6E8",keywords:"manage ניהול folder תיקייה duplicate archive delete rename analytics",
+   sections:[
+    {title:"פעולות על יצירה",items:[
+      {icon:"📋",name:"Duplicate",desc:"שכפול יצירה שלמה. לשמירת גרסת בסיס.",tags:[]},
+      {icon:"📦",name:"Move to folder",desc:"גרירה לתיקייה, או קליק ימני ← Move.",tags:[]},
+      {icon:"🗑️",name:"Delete",desc:"מחיקה לאשפה — שחזור אפשרי תוך 30 יום.",tags:[{t:"30 יום לשחזור",c:"ibt"}]},
+    ]},
+    {title:"ניתוח",items:[
+      {icon:"📊",name:"Analytics",desc:"צפיות, זמן ממוצע, מדינות. קליק ימני ← Analytics.",tags:[{t:"Pro",c:"ibt"}]},
+    ]},
+   ]},
+  {id:"share",title:"שיתוף ופרסום",titleHe:"Share & Publish",icon:"🚀",iconBg:"#F3EEFF",keywords:"share שיתוף publish פרסום link embed pdf scorm",
+   sections:[
+    {title:"פרסום",items:[
+      {icon:"☁️",name:"Publish",desc:"חובה לפרסם לפני שיתוף. Publish ☁️ בסרגל העליון.",tags:[{t:"חובה לפני שיתוף",c:"ibt"}]},
+      {icon:"🔒",name:"Privacy",desc:"Public | Private (רק עם קישור) | Password.",tags:[]},
+    ]},
+    {title:"דרכי שיתוף",items:[
+      {icon:"🔗",name:"Share Link",desc:"קישור ישיר לצפייה.",tags:[]},
+      {icon:"💻",name:"Embed Code",desc:"iFrame לאתר, Moodle, Blackboard. 100% רוחב × 600px גובה.",tags:[{t:"מומלץ למודל",c:"ibt"}]},
+      {icon:"📥",name:"Download PDF",desc:"כל השקפים כ-PDF סטטי. ללא אינטראקטיביות.",tags:[{t:"Pro",c:"ibt"}]},
+      {icon:"📦",name:"SCORM",desc:"ייצוא לייבוא ב-LMS עם מעקב השלמה.",tags:[{t:"Pro",c:"ibt"}]},
+    ]},
+   ]},
+  {id:"account",title:"חשבון",titleHe:"Account & Settings",icon:"⚙️",iconBg:"#EEF8F4",keywords:"account חשבון settings profile plan team brand",
+   sections:[
+    {title:"פרופיל",items:[
+      {icon:"👤",name:"Profile",desc:"שם, תמונת פרופיל, שם משתמש לדף ציבורי.",tags:[]},
+      {icon:"🔑",name:"Security",desc:"שינוי סיסמה, Google/Microsoft, אימות דו-שלבי.",tags:[]},
+    ]},
+    {title:"מסלול",items:[
+      {icon:"💳",name:"Plan & Billing",desc:"מסלול נוכחי, שדרוג, חשבוניות.",tags:[]},
+      {icon:"🎓",name:"Education Discount",desc:"הנחה לאקדמיה עם מייל מוסדי.",tags:[{t:"מומלץ לאו\"פ",c:"ibt"}]},
+    ]},
+   ]},
+];
+
+let pChipVal='';
+function pChip(el,val){
+  document.querySelectorAll('#p-chips .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');pChipVal=val;
+  document.getElementById('ps-inp').value='';
+  buildPanels(PDATA,'p-panels','p-nr','',val);
+}
+function filterPanel(q){buildPanels(PDATA,'p-panels','p-nr',q,pChipVal);}
+
+/* ── TEMPLATES DATA ── */
+const TCATS=[
+  {id:"presentation",icon:"📊",title:"Presentation — מצגות",templates:[
+    {name:"Classic Lesson",e:"📘",bg:"#EEF8F4",desc:"מצגת שיעור עם כותרת, נקודות, תמונות ותרגול.",use:"שיעור פרונטלי",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Interactive Slides",e:"🖱️",bg:"#FBF0F5",desc:"כל שקף כולל אלמנטים לחיצים עם מידע נוסף.",use:"שיעור פעיל",lvl:"בינוני",tags:["edu","free"]},
+    {name:"Timeline",e:"📅",bg:"#FDF6E8",desc:"ציר זמן אינטראקטיבי. לחיצה מציגה פרטים.",use:"היסטוריה, תהליכים",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"AI Presentation",e:"✦",bg:"#F3EEFF",desc:"Genially יוצרת מצגת שלמה מנושא שהזנתם.",use:"כל נושא",lvl:"מתחילים",tags:["ai","new"]},
+  ]},
+  {id:"interactive",icon:"👆",title:"Interactive Content — אינטראקטיבי",templates:[
+    {name:"Interactive Image",e:"🔍",bg:"#FBF0F5",desc:"תמונה עם נקודות מידע (Hotspots). מעולה לתרשימים.",use:"אנטומיה, מפה, מדע",lvl:"בינוני",tags:["edu","free"]},
+    {name:"Clickable Map",e:"🗺️",bg:"#EEF8F4",desc:"מפה עם נקודות לחיצות. כל אזור מציג מידע.",use:"גיאוגרפיה, היסטוריה",lvl:"בינוני",tags:["edu","free"]},
+    {name:"Accordion / Tabs",e:"📂",bg:"#FDF6E8",desc:"תוכן בלשוניות — לחיצה מציגה מידע מפורט.",use:"מושגים, FAQ",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Learning Path",e:"🛤️",bg:"#EEF8F4",desc:"מסלול למידה מסועף — הסטודנט בוחר מסלול.",use:"למידה מותאמת אישית",lvl:"מתקדמים",tags:["edu"]},
+  ]},
+  {id:"infographic",icon:"📈",title:"Infographic — אינפוגרפיקה",templates:[
+    {name:"Process Flow",e:"🔄",bg:"#EEF8F4",desc:"תרשים זרימה אינטראקטיבי. לחיצה על שלב — פרטים.",use:"תהליכים, שיטות",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Concept Map",e:"🧠",bg:"#F3EEFF",desc:"מפת מושגים. לחיצה — הסבר מפורט.",use:"סיכום, מושגי מפתח",lvl:"בינוני",tags:["edu","free"]},
+    {name:"Statistics",e:"📊",bg:"#FDF6E8",desc:"גרפים ונתונים. מצוין לסיכום מחקר.",use:"נתונים, מחקרים",lvl:"בינוני",tags:["free"]},
+    {name:"AI Infographic",e:"✦",bg:"#F3EEFF",desc:"AI יוצרת אינפוגרפיקה מנושא שהזנתם.",use:"כל נושא",lvl:"מתחילים",tags:["ai","new"]},
+  ]},
+  {id:"game",icon:"🎮",title:"Game — משחקים לימודיים",templates:[
+    {name:"Escape Room",e:"🔐",bg:"#FBF0F5",desc:"חדר בריחה: פתרון חידות לימודיות שלב אחר שלב.",use:"חזרה, חשיבה",lvl:"מתקדמים",tags:["edu","free"]},
+    {name:"Wheel of Fortune",e:"🎡",bg:"#FDF6E8",desc:"גלגל מזל לגרילת שאלות, קבוצות, נושאים.",use:"פתיחת שיעור, בחירה",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Memory Game",e:"🃏",bg:"#EEF8F4",desc:"משחק זיכרון. לחיצה הופכת קלף. לזיווג מושגים.",use:"אוצר מילים, מושגים",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Crossword",e:"📰",bg:"#FDF6E8",desc:"תשחץ אינטראקטיבי עם מושגי הקורס.",use:"אוצר מילים, חזרה",lvl:"מתחילים",tags:["edu","free"]},
+  ]},
+  {id:"quiz",icon:"✅",title:"Quiz & Assessment — בוחנים",templates:[
+    {name:"Multiple Choice Quiz",e:"📝",bg:"#EEF8F4",desc:"שאלות אמריקאיות עם משוב מיידי.",use:"בחינה, הכנה",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"True / False",e:"✓✗",bg:"#FDF6E8",desc:"נכון/לא נכון עם הסבר לכל תשובה.",use:"חזרה מהירה",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Formative Check",e:"🎯",bg:"#FBF0F5",desc:"5 שאלות לסוף שיעור. כרטיס יציאה דיגיטלי.",use:"סוף שיעור",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Self-Assessment",e:"🪞",bg:"#EEF8F4",desc:"הערכה עצמית עם רפלקציה.",use:"Metacognition",lvl:"בינוני",tags:["edu"]},
+  ]},
+  {id:"image",icon:"🖼️",title:"Interactive Image — תמונה אינטראקטיבית",templates:[
+    {name:"Anatomy Diagram",e:"🫀",bg:"#FBF0F5",desc:"תרשים אנטומי עם Hotspots. לחיצה — שם, תפקוד.",use:"ביולוגיה, רפואה",lvl:"בינוני",tags:["edu","free"]},
+    {name:"Historical Map",e:"🗺️",bg:"#FDF6E8",desc:"מפה היסטורית לחיצה. כל אזור — מידע על תקופה.",use:"היסטוריה",lvl:"בינוני",tags:["edu","free"]},
+    {name:"Scientific Image",e:"🔬",bg:"#EEF8F4",desc:"תמונה מדעית + הסברים. ייבאו תמונה + Hotspots.",use:"כימיה, פיזיקה",lvl:"בינוני",tags:["edu","free"]},
+  ]},
+  {id:"other",icon:"🌟",title:"תבניות נוספות",templates:[
+    {name:"Flashcards",e:"🃏",bg:"#EEF8F4",desc:"כרטיסיות שינון. לחיצה הופכת משאלה לתשובה.",use:"שינון, אוצר מילים",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Icebreaker",e:"🧊",bg:"#FBF0F5",desc:"פעילות פתיחה: שאלות, סקר, הצגה עצמית.",use:"פתיחת שיעור",lvl:"מתחילים",tags:["edu","free"]},
+    {name:"Digital Poster",e:"🖼️",bg:"#F3EEFF",desc:"כרזה דיגיטלית עם אנימציות.",use:"אירועים, הכרזות",lvl:"מתחילים",tags:["free"]},
+    {name:"Report / Portfolio",e:"📄",bg:"#FDF6E8",desc:"דוח אינטראקטיבי. שתפו כקישור במקום PDF.",use:"דוחות, פורטפוליו",lvl:"בינוני",tags:["free"]},
+  ]},
+];
+const TL={edu:"לחינוך",free:"חינמי",ai:"AI",new:"חדש"};
+const TC={edu:"tt-edu",free:"tt-free",ai:"tt-ai",new:"tt-new"};
+
+let tChipVal='';
+function tChip(el,val){
+  document.querySelectorAll('#tab-templates .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');tChipVal=val;
+  buildTemplates(val);
+}
+function buildTemplates(chip){
+  const cont=document.getElementById('t-grid');
+  const cf=chip||'';
+  let html='';
+  TCATS.forEach(cat=>{
+    if(cf&&cat.id!==cf)return;
+    const tmpl=cat.templates;
+    html+=`<div class="tcat"><div class="tcat-hdr"><span class="tcat-icon">${cat.icon}</span><span class="tcat-title">${cat.title}</span><span class="tcat-cnt">${tmpl.length}</span></div><div class="tgrid">`;
+    tmpl.forEach(t=>{
+      const tags=t.tags.map(tg=>`<span class="tt ${TC[tg]}">${TL[tg]}</span>`).join('');
+      html+=`<div class="tc"><div class="tc-thumb" style="background:${t.bg}"><span>${t.e}</span><div class="tc-tags">${tags}</div></div>
+        <div class="tc-body"><div class="tc-name">${t.name}</div><div class="tc-desc">${t.desc}</div>
+        <div class="tc-meta"><span class="tc-use">💡 ${t.use}</span><span class="tc-lvl">${t.lvl}</span></div></div></div>`;
+    });
+    html+=`</div></div>`;
+  });
+  cont.innerHTML=html;
 }
 
-function addMsg(text, who) {
-  const wrap = document.getElementById('chat-messages');
-  const d = document.createElement('div');
-  d.className = 'msg ' + who;
-  d.innerHTML = `<div class="msg-avatar">${who==='bot'?'🤖':'👤'}</div><div class="msg-bubble">${text}</div>`;
-  wrap.appendChild(d);
-  wrap.scrollTop = wrap.scrollHeight;
-}
-
-function sendMsg() {
-  const inp = document.getElementById('chat-input');
-  const q = inp.value.trim();
-  if (!q) return;
-  addMsg(q, 'user');
-  inp.value = '';
-  setTimeout(() => addMsg(getBotAnswer(q), 'bot'), 320);
-}
-
-function askSug(el) {
-  document.getElementById('chat-input').value = el.textContent;
-  sendMsg();
-}
+/* ── INIT ── */
+buildPanels(EDATA,'e-panels','e-nr','','');
+buildPanels(PDATA,'p-panels','p-nr','','');
+buildTemplates('');
 </script>
 </body>
 </html>
