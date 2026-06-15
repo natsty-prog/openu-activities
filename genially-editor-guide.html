@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מדריך ממשק העריכה — Genially | פדגוגיה דיגיטלית</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink:        #C11E6B;
+  --pink-light:  #E599B6;
+  --pink-soft:   #FBF0F5;
+  --pink-mid:    #F5D0E3;
+  --teal:        #6CB79D;
+  --teal-soft:   #EEF8F4;
+  --teal-mid:    #C2E5D8;
+  --yellow:      #EBA521;
+  --yellow-soft: #FDF6E8;
+  --yellow-mid:  #F8E0A0;
+  --purple:      #7B5EA7;
+  --purple-soft: #F3EEFF;
+  --purple-mid:  #D9CAFE;
+  --dark:        #231F20;
+  --white:       #FFFFFF;
+  --gray-50:     #F9F7F8;
+  --gray-100:    #F2EDF0;
+  --gray-200:    #E4D8DF;
+  --gray-400:    #A08898;
+  --gray-600:    #6B4F5E;
+  --radius:      14px;
+  --shadow:      0 2px 12px rgba(193,30,107,.08), 0 1px 4px rgba(193,30,107,.04);
+  --shadow-hover:0 8px 32px rgba(193,30,107,.15), 0 2px 8px rgba(193,30,107,.08);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--white);
+  color: var(--dark);
+  min-height: 100vh;
+  direction: rtl;
+}
+
+.hero {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 52px 24px 44px;
+  text-align: center;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, var(--pink-soft) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--pink-soft);
+  color: var(--pink);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--pink-mid);
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(24px, 5vw, 40px);
+  font-weight: 800;
+  color: var(--dark);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.hero h1 span { color: var(--pink); }
+.hero-sub {
+  font-size: 15px;
+  color: var(--gray-600);
+  max-width: 560px;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+}
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--gray-600);
+}
+.hero-meta span { display: flex; align-items: center; gap: 5px; }
+.hero-meta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pink-light); }
+
+.search-wrap { max-width: 700px; margin: 32px auto 0; padding: 0 20px; }
+.search-box { position: relative; display: flex; align-items: center; }
+.search-icon { position: absolute; right: 16px; color: var(--gray-400); font-size: 18px; pointer-events: none; }
+#search-input {
+  width: 100%;
+  padding: 14px 48px 14px 16px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 15px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--dark);
+  direction: rtl;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+#search-input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(193,30,107,.1); }
+#search-input::placeholder { color: var(--gray-400); }
+
+.chips-row {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center;
+  padding: 20px 20px 0;
+  max-width: 700px; margin: 0 auto;
+}
+.chip {
+  font-size: 13px; font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all .2s; user-select: none;
+}
+.chip:hover { border-color: var(--pink-light); color: var(--pink); }
+.chip.active { background: var(--pink); border-color: var(--pink); color: var(--white); }
+.chip.ai-chip { color: var(--purple); border-color: var(--purple-mid); }
+.chip.ai-chip.active { background: var(--purple); border-color: var(--purple); color: var(--white); }
+
+.main { max-width: 900px; margin: 40px auto; padding: 0 20px 60px; }
+
+.panel {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: box-shadow .2s;
+}
+.panel:hover { box-shadow: var(--shadow-hover); }
+
+.panel-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px;
+  cursor: pointer; user-select: none;
+  background: var(--white); transition: background .15s;
+}
+.panel-header:hover { background: var(--gray-50); }
+
+.ph-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.ph-label { flex: 1; }
+.ph-en { font-size: 17px; font-weight: 700; color: var(--dark); line-height: 1.2; }
+.ph-he { font-size: 13px; color: var(--gray-400); font-weight: 400; }
+.ph-badges { display: flex; gap: 6px; align-items: center; }
+.badge {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 9px; border-radius: 999px;
+}
+.badge-new { background: var(--teal-soft); color: var(--teal); border: 1px solid var(--teal-mid); }
+.badge-ai  { background: var(--purple-soft); color: var(--purple); border: 1px solid var(--purple-mid); }
+.ph-arrow { font-size: 20px; color: var(--gray-400); transition: transform .25s; flex-shrink: 0; }
+.ph-arrow.open { transform: rotate(180deg); }
+
+.panel-body { border-top: 1px solid var(--gray-100); }
+
+.section {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.section:last-child { border-bottom: none; }
+.section-title {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--gray-400); margin-bottom: 12px;
+}
+
+.items { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 12px; border-radius: 10px;
+  transition: background .15s;
+}
+.item:hover { background: var(--gray-50); }
+.item-icon-box {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0; margin-top: 1px;
+}
+.item-name {
+  font-size: 14px; font-weight: 600; color: var(--dark);
+  margin-bottom: 3px;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.item-desc { font-size: 13px; color: var(--gray-600); line-height: 1.65; }
+.inline-badge {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  padding: 2px 7px; border-radius: 999px; vertical-align: middle;
+}
+.ib-new  { background: var(--teal-soft);   color: #0F6E56; border: 1px solid var(--teal-mid); }
+.ib-ai   { background: var(--purple-soft); color: var(--purple); border: 1px solid var(--purple-mid); }
+.ib-tip  { background: var(--yellow-soft); color: #854F0B; border: 1px solid var(--yellow-mid); }
+
+#no-results { text-align: center; padding: 60px 20px; color: var(--gray-400); display: none; }
+#no-results .nr-emoji { font-size: 40px; margin-bottom: 12px; }
+#no-results p { font-size: 15px; }
+
+.footer {
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+  padding: 32px 24px; text-align: center;
+  font-size: 13px; color: var(--gray-600); line-height: 1.8;
+}
+.footer strong { color: var(--dark); }
+.footer a { color: var(--pink); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+.footer-logo {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--pink-soft); padding: 6px 14px;
+  border-radius: 999px; font-weight: 700;
+  color: var(--pink); font-size: 14px; margin-bottom: 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">✦ עדכני ל-16.6.2026</div>
+  <h1>מדריך ממשק העריכה<br><span>Genially Editor</span></h1>
+  <p class="hero-sub">כתבו שם של פאנל או כפתור כפי שהוא מופיע בממשק (לדוגמה: <strong>Insert</strong>, <strong>Text</strong>, <strong>Animate</strong>) וקבלו הסבר על כל האפשרויות</p>
+  <div class="hero-meta">
+    <span><span class="dot"></span>סדנת Genially למתחילים</span>
+    <span><span class="dot"></span>מרכזי הוראה — האוניברסיטה הפתוחה</span>
+    <span><span class="dot"></span>16.6.2026</span>
+  </div>
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input id="search-input" type="text" placeholder="חפשו פאנל, כפתור או פעולה..." oninput="filterAll(this.value)" autocomplete="off" />
+    </div>
+  </div>
+  <div class="chips-row" id="chips-row">
+    <span class="chip active" onclick="setChip(this,'')">הכל</span>
+    <span class="chip" onclick="setChip(this,'insert')">Insert</span>
+    <span class="chip" onclick="setChip(this,'text')">Text</span>
+    <span class="chip" onclick="setChip(this,'animate')">Animate</span>
+    <span class="chip" onclick="setChip(this,'interactivity')">Interactivity</span>
+    <span class="chip" onclick="setChip(this,'design')">Design</span>
+    <span class="chip ai-chip" onclick="setChip(this,'ai')">✦ AI</span>
+    <span class="chip" onclick="setChip(this,'pages')">Pages</span>
+    <span class="chip" onclick="setChip(this,'toolbar')">סרגל עליון</span>
+    <span class="chip" onclick="setChip(this,'rightpanel')">פאנל ימני</span>
+  </div>
+</div>
+
+<div class="main">
+  <div id="panels-container"></div>
+  <div id="no-results">
+    <div class="nr-emoji">🔍</div>
+    <p>לא נמצאו תוצאות. נסו מונח אחר.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">✦ פדגוגיה דיגיטלית</div><br>
+  <strong>נטלי צפתי</strong> · מחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית, האוניברסיטה הפתוחה<br>
+  <a href="https://natsty-prog.github.io/openu-activities/" target="_blank">מאגר פעילויות דיגיטליות ←</a>
+</div>
+
+<script>
+const DATA = [
+  {
+    id:"insert", title:"Insert", titleHe:"הוספת אלמנטים", icon:"➕", iconBg:"#FBF0F5", badge:"",
+    keywords:"insert הוסף add element shape image video audio widget embed table chart map formula qr",
+    sections:[
+      { title:"אלמנטים גרפיים", items:[
+        { icon:"🔷", name:"Shapes", desc:"צורות גיאומטריות — מלבן, עיגול, משולש ועשרות צורות. שינוי צבע מילוי, מסגרת, גודל ושקיפות.", tags:[] },
+        { icon:"📐", name:"Lines & Arrows", desc:"קווים וחצים לחיבור בין אלמנטים. עובי, סגנון (מנוקד/שבור/רצוף) וראשי חץ.", tags:[] },
+        { icon:"🌟", name:"Stickers", desc:"מדבקות וקטוריות ואיורים מוכנים. קטגוריות: אנשים, טבע, עסקים, חינוך ועוד.", tags:[{t:"ספרייה מורחבת 2025",c:"ib-new"}] },
+        { icon:"🎨", name:"Illustrations", desc:"ספריית איורים מקצועיים: Flat, Isometric, Hand-drawn. ניתן לשנות צבעים.", tags:[] },
+      ]},
+      { title:"מדיה", items:[
+        { icon:"📷", name:"Image", desc:"העלאה מהמחשב, ממאגר Genially (Unsplash/Pixabay) או URL. PNG, JPG, SVG, GIF.", tags:[] },
+        { icon:"🎬", name:"Video", desc:"הטמעת סרטון מ-YouTube, Vimeo, Dailymotion, או העלאה ישירה. הגדרת זמן התחלה וסיום.", tags:[{t:"חדש",c:"ib-new"}] },
+        { icon:"🔊", name:"Audio", desc:"קובץ שמע (MP3, WAV). הפעלה אוטומטית, לופ, מיקום כפתור ההפעלה.", tags:[] },
+        { icon:"🎮", name:"Multimedia Widget", desc:"ווידג'טים מוכנים: טיימר ספירה לאחור, לוח שאלות, סקר, גלגל מזל, ריבועי זיכרון, Flashcards ועוד.", tags:[{t:"גלגל המזל — כאן!",c:"ib-tip"}] },
+      ]},
+      { title:"תוכן מוטמע ונתונים", items:[
+        { icon:"💻", name:"Embed / iFrame", desc:"הטמעת כל תוכן חיצוני: Google Maps, Padlet, Mentimeter, Kahoot, Moodle, YouTube Playlist וכל אתר עם קוד Embed.", tags:[] },
+        { icon:"📊", name:"Table", desc:"טבלה בממשק. עיצוב צבעי תאים, גבולות, מיזוג תאים.", tags:[] },
+        { icon:"📈", name:"Chart", desc:"גרפים מוכנים: עוגה, עמודות, עמודות מוערמות, קווים, פיזור. הזנת נתונים ישירות.", tags:[] },
+        { icon:"🗺️", name:"Interactive Map", desc:"מפת עולם/מדינה. לחיצה על אזור מציגה מידע. תמיכה בנתוני CSV לאיכלוס אוטומטי.", tags:[{t:"CSV — חדש",c:"ib-new"}] },
+        { icon:"∑", name:"Formula (LaTeX)", desc:"נוסחאות מתמטיות/מדעיות. עורך ויזואלי חדש — אין צורך בידע LaTeX. מתאים לכל תחום מדעי.", tags:[{t:"עורך ויזואלי — חדש 2025",c:"ib-new"}] },
+        { icon:"▣", name:"QR Code", desc:"קוד QR לכל URL. עיצוב מותאם: צבעים ולוגו במרכז.", tags:[{t:"עיצוב מותאם — חדש",c:"ib-new"}] },
+      ]},
+      { title:"רשתות חברתיות", items:[
+        { icon:"📡", name:"Social Media Feed", desc:"פיד חי מ-Twitter/X, Instagram. מתעדכן אוטומטית.", tags:[] },
+        { icon:"🔗", name:"Link Button", desc:"כפתור מעוצב מוכן עם קישור. התאמת צבע, צורה וטקסט.", tags:[] },
+      ]},
+    ]
+  },
+  {
+    id:"text", title:"Text", titleHe:"טקסט", icon:"🔤", iconBg:"#EEF8F4", badge:"",
+    keywords:"text טקסט כתיבה פונט גופן heading body list font color effect link",
+    sections:[
+      { title:"סוגי טקסט", items:[
+        { icon:"H1", name:"Heading (כותרת)", desc:"כותרות H1–H3. גודל ועיצוב לפי ערכת הצבעים. לחצו 'Heading' בפאנל הטקסט.", tags:[] },
+        { icon:"¶", name:"Body Text (גוף)", desc:"טקסט גוף. עיצוב עשיר: מודגש, נטוי, קו תחתי, צבע, יישור (ימין/שמאל/מרכז/מלא).", tags:[] },
+        { icon:"•", name:"List (רשימה)", desc:"רשימה ממוספרת (1,2,3) או עם נקודות. שינוי סגנון הנקודה וצבעה.", tags:[] },
+      ]},
+      { title:"עיצוב טקסט", items:[
+        { icon:"Aa", name:"Font & Size", desc:"700+ גופני Google כולל עברית. גודל, ריווח בין אותיות (Letter spacing) ובין שורות (Line height).", tags:[] },
+        { icon:"🎨", name:"Color", desc:"צבע מפלטת הפרויקט, HEX או RGB. ניתן לצבוע מילה בודדת.", tags:[] },
+        { icon:"✨", name:"Text Effects", desc:"צל טקסט, קו תחתי מעוצב, הדגשת רקע, אפקט Gradient על טקסט.", tags:[{t:"Gradient — חדש 2025",c:"ib-new"}] },
+        { icon:"🔗", name:"Hyperlink", desc:"הפיכת טקסט לקישור חיצוני (כרטיסייה חדשה) או קישור לשקף פנימי ביצירה.", tags:[] },
+      ]},
+      { title:"AI לטקסט", items:[
+        { icon:"✦", name:"AI Writing Assistant", desc:"כתיבת טקסט מפרומפט, קיצור, הרחבה, שינוי טון (פורמלי/ידידותי/תמציתי), תרגום ותיקון שגיאות — ישירות בממשק הטקסט.", tags:[{t:"AI",c:"ib-ai"},{t:"חדש 2025",c:"ib-new"}] },
+      ]},
+    ]
+  },
+  {
+    id:"animate", title:"Animate", titleHe:"אנימציות", icon:"🎬", iconBg:"#FDF6E8", badge:"",
+    keywords:"animate אנימציה תנועה מעבר transition entrance fade slide zoom bounce",
+    sections:[
+      { title:"אנימציות כניסה", items:[
+        { icon:"▶️", name:"Entrance Animation", desc:"אנימציה בכניסת אלמנט לשקף: Fade in, Slide (מכל כיוון), Zoom, Bounce, Flip, Roll, ועוד 20+ סוגים.", tags:[] },
+        { icon:"⏱️", name:"Delay & Duration", desc:"זמן המתנה (Delay) לפני הופעת האנימציה ומשך האנימציה (Duration) בשניות.", tags:[] },
+        { icon:"🔢", name:"Animation Order (Timeline)", desc:"סדר הופעת אלמנטים בשקף. גרירה בפאנל Timeline. 'Auto order' לסידור אוטומטי לפי מיקום על הבד.", tags:[{t:"טיפ",c:"ib-tip"}] },
+        { icon:"⏯️", name:"Sequential / Together", desc:"אלמנטים מופיעים בזה אחר זה (Sequential) או יחד בו-זמנית (Together).", tags:[] },
+      ]},
+      { title:"אנימציות מתמשכות", items:[
+        { icon:"🔁", name:"Continuous Animation", desc:"אנימציה שרצה ללא הפסקה: Floating (ריחוף), Pulse (פעימה), Spin (סיבוב), Bounce. מתאים לאלמנטים שרוצים שיבלטו.", tags:[] },
+        { icon:"💥", name:"Attention Seeker", desc:"אנימציה חד-פעמית בטעינת השקף: Shake, Flash, Tada, Rubber Band.", tags:[] },
+      ]},
+      { title:"מעברים בין שקפים", items:[
+        { icon:"↔️", name:"Page Transition", desc:"אפקט מעבר בין שקפים: None, Fade, Slide, Zoom, Flip, Cube. מוגדר לכל שקף בנפרד.", tags:[] },
+      ]},
+    ]
+  },
+  {
+    id:"interactivity", title:"Interactivity", titleHe:"אינטראקטיביות", icon:"👆", iconBg:"#FBF0F5", badge:"",
+    keywords:"interactivity אינטראקטיביות לחצן קישור חלון tooltip popup window hover click hotspot",
+    sections:[
+      { title:"אינטראקציה בלחיצה (Click)", items:[
+        { icon:"🪟", name:"Open Window (Lightbox)", desc:"לחיצה פותחת חלון-על: טקסט, תמונה, סרטון, embed, או יצירת Genially מוטמעת. הפיצ'ר המרכזי לשכבות מידע.", tags:[{t:"הפיצ'ר המרכזי",c:"ib-tip"}] },
+        { icon:"📑", name:"Go to Page", desc:"ניווט לשקף ספציפי. שימושי לתפריטים, מסלולי למידה מסועפים ומשחקים.", tags:[] },
+        { icon:"🌐", name:"Open URL", desc:"פתיחת קישור חיצוני בכרטיסייה חדשה, או ב-iFrame בתוך היצירה.", tags:[] },
+        { icon:"🔊", name:"Audio on Click", desc:"הפעלת קובץ שמע בלחיצה. מילון מונחים קולי, הסברים קוליים לאלמנטים.", tags:[] },
+        { icon:"▶️", name:"Play Video", desc:"פתיחת סרטון כ-popup מעוצב בלחיצה.", tags:[] },
+      ]},
+      { title:"אינטראקציה בריחוף (Hover)", items:[
+        { icon:"💬", name:"Tooltip", desc:"בועת מידע קטנה בריחוף. קל לשימוש, לא מסיח דעת. מומלץ למידע נוסף קצר.", tags:[{t:"מומלץ למתחילים",c:"ib-tip"}] },
+        { icon:"🔍", name:"Zoom on Hover", desc:"הגדלת האלמנט בריחוף. שימושי לתמונות וגרפים עם פרטים דקים.", tags:[] },
+      ]},
+      { title:"הגדרות מתקדמות", items:[
+        { icon:"⚙️", name:"Trigger Type", desc:"בחירת אירוע: Click, Hover. הפעלה אוטומטית לפי זמן.", tags:[{t:"טריגר זמן — חדש 2025",c:"ib-new"}] },
+        { icon:"🔀", name:"Multiple Interactions", desc:"מספר אינטראקציות על אלמנט אחד — Tooltip בריחוף + חלון בלחיצה.", tags:[] },
+        { icon:"🎯", name:"Hotspot (אזור פעיל)", desc:"אזור פעיל שקוף מעל תמונה, מפה או כל אלמנט. נקודות מידע על תמונה.", tags:[] },
+      ]},
+    ]
+  },
+  {
+    id:"design", title:"Design / Background", titleHe:"עיצוב ורקע", icon:"🎨", iconBg:"#EEF8F4", badge:"",
+    keywords:"design עיצוב background רקע צבע theme palette typography grid align canvas",
+    sections:[
+      { title:"רקע השקף", items:[
+        { icon:"🟩", name:"Solid Color", desc:"צבע אחיד כרקע. מפלטת הפרויקט, HEX או RGB.", tags:[] },
+        { icon:"🌄", name:"Background Image", desc:"תמונה כרקע. שקיפות, טשטוש (Blur), גודל (Cover/Contain/Tile).", tags:[] },
+        { icon:"🌈", name:"Pattern & Gradient", desc:"דפוסים גיאומטריים מוכנים וגרדיאנטים. גרדיאנט עם מספר נקודות צבע.", tags:[{t:"חדש 2025",c:"ib-new"}] },
+        { icon:"🎬", name:"Video Background", desc:"סרטון לופ כרקע שקף. דורש מסלול Pro.", tags:[] },
+      ]},
+      { title:"ערכת עיצוב", items:[
+        { icon:"🎭", name:"Theme", desc:"ערכת עיצוב מוכנה: פלטת צבעים + גופנים לכל היצירה. ניתן לשנות ללא נגיעה בתוכן.", tags:[] },
+        { icon:"🎨", name:"Color Palette", desc:"פלטת הצבעים הראשית של הפרויקט. שינוי מעדכן את כל האלמנטים עם צבעי ברירת מחדל.", tags:[{t:"התחילו מכאן",c:"ib-tip"}] },
+        { icon:"🔡", name:"Typography Settings", desc:"גופני ברירת מחדל לכותרות ולגוף הטקסט בכל היצירה.", tags:[] },
+      ]},
+      { title:"פריסה ויישור", items:[
+        { icon:"📐", name:"Grid & Guides", desc:"קווי עזר ורשת. Smart guides — הצמדה אוטומטית בגרירה.", tags:[{t:"טיפ",c:"ib-tip"}] },
+        { icon:"⬌", name:"Align & Distribute", desc:"יישור: שמאל, ימין, מרכז, למעלה, למטה. פיזור שווה בין אלמנטים. בחרו מספר אלמנטים.", tags:[] },
+        { icon:"📱", name:"Canvas Size", desc:"16:9 ברירת מחדל (1920×1080). ניתן לשנות ל-4:3, Vertical (מובייל), A4, Custom.", tags:[] },
+      ]},
+    ]
+  },
+  {
+    id:"ai", title:"AI Tools ✦", titleHe:"כלי בינה מלאכותית", icon:"✦", iconBg:"#F3EEFF", badge:"ai",
+    keywords:"ai בינה מלאכותית generate image create auto translate accessibility redesign",
+    sections:[
+      { title:"יצירת יצירה שלמה", items:[
+        { icon:"✦", name:"AI Content Generator", desc:"הזינו נושא — Genially תייצר יצירה שלמה: שקפים, טקסט, תמונות ואינטראקציות. בחרו סגנון ומספר שקפים.", tags:[{t:"AI",c:"ib-ai"},{t:"חדש 2025",c:"ib-new"}] },
+        { icon:"🔄", name:"AI Redesign", desc:"מבקשים מה-AI לשנות עיצוב יצירה קיימת לסגנון אחר תוך שמירת התוכן.", tags:[{t:"AI",c:"ib-ai"},{t:"חדש 2026",c:"ib-new"}] },
+      ]},
+      { title:"יצירת תוכן חלקי", items:[
+        { icon:"🖼️", name:"AI Image Generator", desc:"תמונות מפרומפט טקסטואלי ישירות בממשק. סגנון ניטרלי ומקצועי לחינוך.", tags:[{t:"AI",c:"ib-ai"},{t:"חדש 2025",c:"ib-new"}] },
+        { icon:"✍️", name:"AI Text from Topic", desc:"טקסט לשקף מנושא קצר. בחרו טון: אקדמי, ידידותי, תמציתי.", tags:[{t:"AI",c:"ib-ai"}] },
+        { icon:"🌐", name:"AI Translation", desc:"תרגום יצירה שלמה לשפה אחרת בלחיצה. שומר עיצוב ואינטראקציות. 30+ שפות כולל עברית.", tags:[{t:"AI",c:"ib-ai"}] },
+      ]},
+      { title:"עזרה חכמה", items:[
+        { icon:"💡", name:"Smart Suggestions", desc:"המלצות לשיפור: אינטראקציות, שאלות לבדיקת הבנה, פריסה חזותית. אייקון נורה בפאנל הצד.", tags:[{t:"AI",c:"ib-ai"}] },
+        { icon:"♿", name:"Accessibility Check", desc:"סריקת נגישות אוטומטית: ניגודיות WCAG, Alt text לתמונות, סדר קריאה. מדווח ומציע תיקונים.", tags:[{t:"AI",c:"ib-ai"},{t:"חדש 2025",c:"ib-new"}] },
+        { icon:"✂️", name:"AI Background Remover", desc:"הסרת רקע מתמונה בלחיצה: בחרו תמונה ← Remove Background.", tags:[{t:"AI",c:"ib-ai"}] },
+      ]},
+    ]
+  },
+  {
+    id:"pages", title:"Pages / Slides", titleHe:"שקפים וניווט", icon:"📄", iconBg:"#FDF6E8", badge:"",
+    keywords:"pages שקפים slides ניווט סדר page add duplicate delete hide grid",
+    sections:[
+      { title:"ניהול שקפים", items:[
+        { icon:"➕", name:"Add Page", desc:"שקף ריק, מתבנית ספרייה, או שכפול. כפתור + בתחתית פאנל השקפים.", tags:[] },
+        { icon:"📋", name:"Duplicate Page", desc:"שכפול שקף עם כל האלמנטים, אנימציות ואינטראקציות. קליק ימני ← Duplicate.", tags:[] },
+        { icon:"⬍", name:"Reorder Pages", desc:"גרירת שקפים לשינוי סדר. ניתן לגרור מספר שקפים בו-זמנית.", tags:[] },
+        { icon:"🗑️", name:"Delete Page", desc:"מחיקת שקף. לא ניתן לבטל לאחר שמירה.", tags:[{t:"שקלו לשכפל קודם",c:"ib-tip"}] },
+      ]},
+      { title:"תצוגה", items:[
+        { icon:"📑", name:"Page Navigator", desc:"פאנל שקפים ימני. לחיצה על שם השקף לשינוי שמו.", tags:[{t:"טיפ",c:"ib-tip"}] },
+        { icon:"👁️", name:"Hide Page", desc:"הסתרת שקף מהצגה מבלי למחוק. לתוכן בהכנה. אייקון עין בפאנל.", tags:[{t:"חדש",c:"ib-new"}] },
+        { icon:"⊞", name:"Grid View", desc:"תצוגת כל השקפים כרשת לניהול מהיר. אייקון רשת בתחתית פאנל השקפים.", tags:[] },
+      ]},
+    ]
+  },
+  {
+    id:"toolbar", title:"סרגל כלים עליון", titleHe:"Top Toolbar", icon:"🔝", iconBg:"#F3EEFF", badge:"",
+    keywords:"toolbar undo redo save preview publish שמירה תצוגה מקדימה פרסום search zoom accessibility",
+    sections:[
+      { title:"פעולות בסיסיות", items:[
+        { icon:"↩️", name:"Undo / Redo", desc:"ביטול (Ctrl+Z) ועשה מחדש (Ctrl+Shift+Z). עד 50 פעולות. Mac: Cmd במקום Ctrl.", tags:[] },
+        { icon:"💾", name:"Auto-Save", desc:"Genially שומרת אוטומטית כל כמה שניות. אין כפתור שמירה ידנית.", tags:[{t:"לא צריך Ctrl+S",c:"ib-tip"}] },
+        { icon:"👁️", name:"Preview", desc:"תצוגה מקדימה בכרטיסייה חדשה כפי שתיראה למשתמש. בדקו את כל האינטראקציות לפני פרסום.", tags:[{t:"הכרחי לפני פרסום",c:"ib-tip"}] },
+        { icon:"🚀", name:"Publish & Share", desc:"פרסום ← קישור לשיתוף, קוד Embed לאתר/Moodle, הורדה כ-PDF, SCORM (Pro).", tags:[] },
+      ]},
+      { title:"כלי עריכה", items:[
+        { icon:"🔍", name:"Search & Replace", desc:"חיפוש טקסט בכל השקפים + החלפה אוטומטית.", tags:[{t:"חדש 2025",c:"ib-new"}] },
+        { icon:"🔎", name:"Zoom", desc:"Ctrl+גלגלת עכבר, או % בפינה שמאלית תחתונה. Ctrl+0 לאיפוס.", tags:[] },
+        { icon:"🌐", name:"Language", desc:"שינוי שפת ממשק Genially. כולל עברית (RTL).", tags:[] },
+        { icon:"♿", name:"Accessibility Panel", desc:"Alt text לתמונות, סדר Tab לאלמנטים, תוויות ARIA.", tags:[{t:"חדש 2025",c:"ib-new"}] },
+      ]},
+    ]
+  },
+  {
+    id:"rightpanel", title:"פאנל עיצוב ימני", titleHe:"Right Design Panel", icon:"⚙️", iconBg:"#EEF8F4", badge:"",
+    keywords:"position size layer alignment סדר שכבות מיקום גודל opacity shadow border group lock flip rotation",
+    sections:[
+      { title:"מיקום וגודל", items:[
+        { icon:"📍", name:"Position (X / Y)", desc:"מיקום מדויק בפיקסלים מפינת הבד. ניתן להזין ערך ידני.", tags:[] },
+        { icon:"📐", name:"Size (W / H)", desc:"גודל האלמנט. מנעול לשמירת יחס גובה-רוחב.", tags:[] },
+        { icon:"🔄", name:"Rotation", desc:"סיבוב 0–360 דרגות. ניתן גם לגרור את נקודת הסיבוב על הבד.", tags:[] },
+        { icon:"↔️", name:"Flip", desc:"היפוך אופקי (Flip Horizontal) או אנכי (Flip Vertical).", tags:[] },
+      ]},
+      { title:"שכבות וקיבוץ", items:[
+        { icon:"🗂️", name:"Layer Order", desc:"Bring to Front, Send to Back, Move Up/Down. גם דרך קליק ימני.", tags:[] },
+        { icon:"📦", name:"Group / Ungroup", desc:"קיבוץ אלמנטים (Ctrl+G). פירוק (Ctrl+Shift+G).", tags:[] },
+        { icon:"🔒", name:"Lock Element", desc:"נעילת אלמנט למניעת העברה בשוגג. מומלץ לרקעים ומסגרות.", tags:[{t:"טיפ לרקעים",c:"ib-tip"}] },
+      ]},
+      { title:"מראה", items:[
+        { icon:"💧", name:"Opacity", desc:"שקיפות 0–100%. לאלמנטים דקורטיביים ברקע.", tags:[] },
+        { icon:"⬜", name:"Border", desc:"מסגרת: צבע, עובי, סגנון (רצוף/מנוקד/שבור), רדיוס פינות.", tags:[] },
+        { icon:"🌑", name:"Shadow", desc:"צל: כיוון X/Y, מרחק, עמעום (Blur), צבע.", tags:[] },
+        { icon:"✂️", name:"Clip / Mask", desc:"חיתוך לצורה: עיגול, כוכב, לב. Custom shape לצורות מותאמות.", tags:[{t:"Custom — חדש 2025",c:"ib-new"}] },
+      ]},
+    ]
+  }
+];
+
+let currentChip = '';
+
+function buildPanels(q, chip) {
+  const container = document.getElementById('panels-container');
+  const noRes = document.getElementById('no-results');
+  const ql = (q||'').toLowerCase().trim();
+  const cf = (chip||'').toLowerCase().trim();
+  let html = '';
+  let count = 0;
+
+  DATA.forEach((panel, pi) => {
+    if (cf && cf !== 'ai' && panel.id !== cf) return;
+
+    let filteredSections = panel.sections.map(sec => {
+      let fi = sec.items.filter(item => {
+        if (cf === 'ai') {
+          const isAI = item.tags.some(t => t.c === 'ib-ai') || panel.id === 'ai';
+          if (!isAI) return false;
+        }
+        if (!ql) return true;
+        const searchable = (panel.title+' '+panel.titleHe+' '+panel.keywords+' '+sec.title+' '+item.name+' '+item.desc).toLowerCase();
+        return searchable.includes(ql);
+      });
+      return {...sec, items: fi};
+    }).filter(s => s.items.length > 0);
+
+    if (filteredSections.length === 0) return;
+    count++;
+
+    const open = ql || cf || pi === 0;
+    const iconColor = panel.iconBg === '#F3EEFF' ? '#7B5EA7'
+                    : panel.iconBg === '#FBF0F5' ? '#C11E6B'
+                    : panel.iconBg === '#FDF6E8' ? '#EBA521'
+                    : '#231F20';
+
+    html += `<div class="panel">
+      <div class="panel-header" onclick="togglePanel('pb${pi}','pa${pi}')">
+        <div class="ph-icon" style="background:${panel.iconBg}">${panel.icon}</div>
+        <div class="ph-label">
+          <div class="ph-en">${panel.title}</div>
+          <div class="ph-he">${panel.titleHe}</div>
+        </div>
+        <div class="ph-badges">${panel.badge==='ai'?'<span class="badge badge-ai">AI ✦</span>':''}</div>
+        <div class="ph-arrow ${open?'open':''}" id="pa${pi}">▾</div>
+      </div>
+      <div class="panel-body" id="pb${pi}" style="display:${open?'block':'none'}">`;
+
+    filteredSections.forEach(sec => {
+      html += `<div class="section"><div class="section-title">${sec.title}</div><div class="items">`;
+      sec.items.forEach(item => {
+        const tagsHtml = item.tags.map(t => `<span class="inline-badge ${t.c}">${t.t}</span>`).join('');
+        const iconFs = item.icon.length > 2 ? '12px' : '16px';
+        html += `<div class="item">
+          <div class="item-icon-box" style="background:${panel.iconBg};font-size:${iconFs};font-weight:700;color:${iconColor}">${item.icon}</div>
+          <div>
+            <div class="item-name">${item.name} ${tagsHtml}</div>
+            <div class="item-desc">${item.desc}</div>
+          </div>
+        </div>`;
+      });
+      html += `</div></div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+  noRes.style.display = count === 0 ? 'block' : 'none';
+}
+
+function togglePanel(bodyId, arrowId) {
+  const body = document.getElementById(bodyId);
+  const arrow = document.getElementById(arrowId);
+  if (!body) return;
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.classList.toggle('open', !isOpen);
+}
+
+function setChip(el, val) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentChip = val;
+  document.getElementById('search-input').value = '';
+  buildPanels('', val);
+}
+
+function filterAll(q) {
+  buildPanels(q, currentChip);
+}
+
+buildPanels('', '');
+</script>
+</body>
+</html>
