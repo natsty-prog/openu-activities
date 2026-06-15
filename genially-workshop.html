@@ -401,15 +401,17 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
         </ul>
       </div>
 
-      <div class="chips-wrap" style="justify-content:flex-start;padding:0 0 16px">
+      <div class="chips-wrap" style="justify-content:flex-start;padding:0 0 16px;flex-wrap:wrap">
         <span class="chip active" onclick="tChip(this,'')">הכל</span>
-        <span class="chip" onclick="tChip(this,'presentation')">מצגות</span>
-        <span class="chip" onclick="tChip(this,'interactive')">אינטראקטיבי</span>
-        <span class="chip" onclick="tChip(this,'infographic')">אינפוגרפיקה</span>
-        <span class="chip" onclick="tChip(this,'game')">משחקים</span>
-        <span class="chip" onclick="tChip(this,'quiz')">בוחנים</span>
-        <span class="chip" onclick="tChip(this,'image')">תמונה אינטראקטיבית</span>
-        <span class="chip" onclick="tChip(this,'other')">נוספות</span>
+        <span class="chip" onclick="tChip(this,'resourcelab')">🧪 Resource Lab</span>
+        <span class="chip" onclick="tChip(this,'game')">🎮 Games &amp; Challenges</span>
+        <span class="chip" onclick="tChip(this,'quiz')">✅ Quizzes &amp; Surveys</span>
+        <span class="chip" onclick="tChip(this,'presentation')">📊 Presentations</span>
+        <span class="chip" onclick="tChip(this,'branching')">🔀 Branching Scenarios</span>
+        <span class="chip" onclick="tChip(this,'course')">📚 Courses</span>
+        <span class="chip" onclick="tChip(this,'infographic')">📈 Infographics</span>
+        <span class="chip" onclick="tChip(this,'publishing')">📰 Digital Publishing</span>
+        <span class="chip" onclick="tChip(this,'video')">🎬 Videos</span>
       </div>
     </div>
     <div id="t-grid"></div>
@@ -958,46 +960,64 @@ function filterPanel(q){buildPanels(PDATA,'p-panels','p-nr',q,pChipVal);}
 
 /* ── TEMPLATES DATA ── */
 const TCATS=[
-  {id:"presentation",icon:"📊",title:"Presentation — מצגות",templates:[
-    {name:"Classic Lesson",e:"📘",bg:"#EEF8F4",desc:"מצגת שיעור עם כותרת, נקודות, תמונות ותרגול.",use:"שיעור פרונטלי",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Interactive Slides",e:"🖱️",bg:"#FBF0F5",desc:"כל שקף כולל אלמנטים לחיצים עם מידע נוסף.",use:"שיעור פעיל",lvl:"בינוני",tags:["edu","free"]},
-    {name:"Timeline",e:"📅",bg:"#FDF6E8",desc:"ציר זמן אינטראקטיבי. לחיצה מציגה פרטים.",use:"היסטוריה, תהליכים",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"AI Presentation",e:"✦",bg:"#F3EEFF",desc:"Genially יוצרת מצגת שלמה מנושא שהזנתם.",use:"כל נושא",lvl:"מתחילים",tags:["ai","new"]},
+  {id:"resourcelab",icon:"🧪",title:"Resource Lab — כלים אינטראקטיביים מוכנים",sub:"כלים ייחודיים של Genially — מוכנים לשימוש מיידי בשיעור",templates:[
+    {name:"Interactive Bingo",e:"🎱",bg:"#C0392B",desc:"בינגו אינטראקטיבי: הגרלת פתקיות, סימון תאים. מצוין לחזרה על חומר.",use:"חזרה פעילה, חגיגת למידה",lvl:"מתחילים",tags:["new","free"]},
+    {name:"Interactive Hangman",e:"🪢",bg:"#F5F5F0",desc:"משחק תלייה קלאסי — הקלידו אותיות וגלו את המילה. בנו עם מושגי הקורס.",use:"אוצר מילים, חזרה",lvl:"מתחילים",tags:["new","free"]},
+    {name:"Fortune Ball",e:"🎱",bg:"#1A1A2E",desc:"כדור גורל: שאלות כן/לא/אולי — מצוין לפתיחת שיחה או בדיקת ידע קל.",use:"פתיחת שיעור, אייסברייקר",lvl:"מתחילים",tags:["free"]},
+    {name:"QR Code Generator",e:"▣",bg:"#E91E8C",desc:"יצירת QR code מותאם אישית ישירות בג'ניאלי — ניתן לשלב ביצירה.",use:"ניווט מהיר, חוצה מדיה",lvl:"מתחילים",tags:["new","free"]},
+    {name:"Search Bar",e:"🔍",bg:"#F8F8F8",desc:"כרטיס חיפוש אינטראקטיבי: משתמש מקליד ומוצא תשובה. לבניית מאגר ידע.",use:"מאגר מידע, מילון מונחים",lvl:"בינוני",tags:["new","free"]},
   ]},
-  {id:"interactive",icon:"👆",title:"Interactive Content — אינטראקטיבי",templates:[
-    {name:"Interactive Image",e:"🔍",bg:"#FBF0F5",desc:"תמונה עם נקודות מידע (Hotspots). מעולה לתרשימים.",use:"אנטומיה, מפה, מדע",lvl:"בינוני",tags:["edu","free"]},
-    {name:"Clickable Map",e:"🗺️",bg:"#EEF8F4",desc:"מפה עם נקודות לחיצות. כל אזור מציג מידע.",use:"גיאוגרפיה, היסטוריה",lvl:"בינוני",tags:["edu","free"]},
-    {name:"Accordion / Tabs",e:"📂",bg:"#FDF6E8",desc:"תוכן בלשוניות — לחיצה מציגה מידע מפורט.",use:"מושגים, FAQ",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Learning Path",e:"🛤️",bg:"#EEF8F4",desc:"מסלול למידה מסועף — הסטודנט בוחר מסלול.",use:"למידה מותאמת אישית",lvl:"מתקדמים",tags:["edu"]},
+  {id:"game",icon:"🎮",title:"Games & Challenges — משחקים ואתגרים",sub:"תבניות משחק מוכנות — הכניסו תוכן והשיקו",templates:[
+    {name:"Escape Room",e:"🔐",bg:"#2C3E50",desc:"חדר בריחה: סדרת חידות לימודיות שחייבים לפתור לפי הסדר. תחושת הישג עצומה.",use:"חזרה על חומר, חשיבה ביקורתית",lvl:"מתקדמים",tags:["free"]},
+    {name:"Wheel of Fortune",e:"🎡",bg:"#E74C3C",desc:"גלגל מזל — לחיצה מגרילת שאלה, נושא או קבוצה. מהמשאבים הנצפים ביותר.",use:"גריל שאלות, חלוקה לקבוצות",lvl:"מתחילים",tags:["free"]},
+    {name:"Memory Game",e:"🃏",bg:"#16A085",desc:"משחק זיכרון: כרטיסים הפוכים — לחיצה מגלה מושג/תמונה. לזיווג מונחים.",use:"אוצר מילים, זיווג מושגים",lvl:"מתחילים",tags:["free"]},
+    {name:"Trivia / Quiz Game",e:"🏆",bg:"#8E44AD",desc:"טריוויה בפורמט משחק עם ניקוד, מוזיקה ומשוב. מרגש כמו Kahoot.",use:"חזרה תחרותית",lvl:"בינוני",tags:["free"]},
+    {name:"Crossword",e:"📰",bg:"#2980B9",desc:"תשחץ אינטראקטיבי — הקלידו את המושגים וג'ניאלי בונה את הרשת.",use:"אוצר מילים, חזרה",lvl:"מתחילים",tags:["free"]},
+    {name:"Wordle-style Game",e:"🟩",bg:"#27AE60",desc:"ניחוש מילה באנגלית/עברית בסגנון Wordle — צביעת אותיות ירוק/צהוב/אפור.",use:"אוצר מילים",lvl:"בינוני",tags:["free"]},
   ]},
-  {id:"infographic",icon:"📈",title:"Infographic — אינפוגרפיקה",templates:[
-    {name:"Process Flow",e:"🔄",bg:"#EEF8F4",desc:"תרשים זרימה אינטראקטיבי. לחיצה על שלב — פרטים.",use:"תהליכים, שיטות",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Concept Map",e:"🧠",bg:"#F3EEFF",desc:"מפת מושגים. לחיצה — הסבר מפורט.",use:"סיכום, מושגי מפתח",lvl:"בינוני",tags:["edu","free"]},
-    {name:"Statistics",e:"📊",bg:"#FDF6E8",desc:"גרפים ונתונים. מצוין לסיכום מחקר.",use:"נתונים, מחקרים",lvl:"בינוני",tags:["free"]},
-    {name:"AI Infographic",e:"✦",bg:"#F3EEFF",desc:"AI יוצרת אינפוגרפיקה מנושא שהזנתם.",use:"כל נושא",lvl:"מתחילים",tags:["ai","new"]},
+  {id:"quiz",icon:"✅",title:"Quizzes & Surveys — חידונים וסקרים",sub:"בחינות, חידונים ואיסוף דעות — עם משוב מיידי",templates:[
+    {name:"Multiple Choice Quiz",e:"📝",bg:"#EEF8F4",desc:"שאלות רב-ברירה (4 אפשרויות). משוב מיידי — נכון/לא נכון + הסבר.",use:"הכנה לבחינה, בדיקת הבנה",lvl:"מתחילים",tags:["free"]},
+    {name:"True / False",e:"✓✗",bg:"#FDF6E8",desc:"נכון / לא נכון — לחיצה מציגה הסבר מפורט. מהיר לבנייה.",use:"חזרה מהירה, חימום",lvl:"מתחילים",tags:["free"]},
+    {name:"Survey / Poll",e:"📊",bg:"#F3EEFF",desc:"סקר דעות: שאלות פתוחות ורב-ברירה. לא בודק ידע — אוסף עמדות.",use:"חקר גישות, פידבק",lvl:"מתחילים",tags:["free"]},
+    {name:"Self-Assessment",e:"🪞",bg:"#FBF0F5",desc:"הערכה עצמית — המשתמש בוחר כמה הוא בטוח בנושא. מפתח Metacognition.",use:"רפלקציה, למידה עצמית",lvl:"בינוני",tags:["free"]},
+    {name:"Exit Ticket",e:"🎫",bg:"#EEF8F4",desc:"3-5 שאלות לסוף שיעור: מה למדתי? מה עדיין לא ברור? כרטיס יציאה דיגיטלי.",use:"סיכום שיעור, אבחון",lvl:"מתחילים",tags:["free"]},
   ]},
-  {id:"game",icon:"🎮",title:"Game — משחקים לימודיים",templates:[
-    {name:"Escape Room",e:"🔐",bg:"#FBF0F5",desc:"חדר בריחה: פתרון חידות לימודיות שלב אחר שלב.",use:"חזרה, חשיבה",lvl:"מתקדמים",tags:["edu","free"]},
-    {name:"Wheel of Fortune",e:"🎡",bg:"#FDF6E8",desc:"גלגל מזל לגרילת שאלות, קבוצות, נושאים.",use:"פתיחת שיעור, בחירה",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Memory Game",e:"🃏",bg:"#EEF8F4",desc:"משחק זיכרון. לחיצה הופכת קלף. לזיווג מושגים.",use:"אוצר מילים, מושגים",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Crossword",e:"📰",bg:"#FDF6E8",desc:"תשחץ אינטראקטיבי עם מושגי הקורס.",use:"אוצר מילים, חזרה",lvl:"מתחילים",tags:["edu","free"]},
+  {id:"presentation",icon:"📊",title:"Presentations — מצגות",sub:"מצגות אינטראקטיביות — גרסה משודרגת של PowerPoint",templates:[
+    {name:"Essential Presentation",e:"📘",bg:"#EEF8F4",desc:"מצגת בסיסית ונקייה. שקפי כותרת, תוכן, תמונות וסיכום. נקודת פתיחה מומלצת.",use:"שיעור פרונטלי, הרצאה",lvl:"מתחילים",tags:["free"]},
+    {name:"Step by Step Manual",e:"📋",bg:"#F0FFF0",desc:"מדריך שלב אחר שלב: כל לחיצה מציגה את הצעד הבא. לתהליכים ונהלים.",use:"הדרכה, מדריך שימוש",lvl:"מתחילים",tags:["free"]},
+    {name:"Animate Your Content",e:"✨",bg:"#FFFDE7",desc:"תבנית עם אנימציות מובנות: אלמנטים נכנסים בסדר, מציירים את עצמם.",use:"הצגת נתונים, תהליך",lvl:"בינוני",tags:["free"]},
+    {name:"Interactive Slides",e:"🖱️",bg:"#FBF0F5",desc:"כל שקף כולל אלמנטים לחיצים (Hotspots, Tooltips, Lightbox) לחשיפת שכבות מידע.",use:"שיעור עמוק, הכשרה",lvl:"בינוני",tags:["free"]},
+    {name:"Timeline Presentation",e:"📅",bg:"#FDF6E8",desc:"ציר זמן אינטראקטיבי: לחיצה על אירוע פותחת חלון עם מידע מפורט.",use:"היסטוריה, תהליכים כרונולוגיים",lvl:"מתחילים",tags:["free"]},
+    {name:"AI Presentation ✦",e:"✦",bg:"#F3EEFF",desc:"הזינו נושא — Genially AI יוצרת מצגת שלמה עם שקפים, טקסט ותמונות בשניות.",use:"כל נושא — חיסכון בזמן",lvl:"מתחילים",tags:["ai","new"]},
   ]},
-  {id:"quiz",icon:"✅",title:"Quiz & Assessment — בוחנים",templates:[
-    {name:"Multiple Choice Quiz",e:"📝",bg:"#EEF8F4",desc:"שאלות אמריקאיות עם משוב מיידי.",use:"בחינה, הכנה",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"True / False",e:"✓✗",bg:"#FDF6E8",desc:"נכון/לא נכון עם הסבר לכל תשובה.",use:"חזרה מהירה",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Formative Check",e:"🎯",bg:"#FBF0F5",desc:"5 שאלות לסוף שיעור. כרטיס יציאה דיגיטלי.",use:"סוף שיעור",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Self-Assessment",e:"🪞",bg:"#EEF8F4",desc:"הערכה עצמית עם רפלקציה.",use:"Metacognition",lvl:"בינוני",tags:["edu"]},
+  {id:"branching",icon:"🔀",title:"Branching Scenarios — תרחישי הסתעפות",sub:"מסלולי למידה מסועפים — כל בחירה מובילה לתוצאה שונה",templates:[
+    {name:"Branching Scenario",e:"🔀",bg:"#2C3E50",desc:"תרחיש הסתעפות: הלומד מקבל החלטות וכל בחירה מובילה לתוצאה שונה. למידה מבוססת ניסיון.",use:"הכשרה מקצועית, סימולציה",lvl:"מתקדמים",tags:["free"]},
+    {name:"Basic Shapes Microsite",e:"🌐",bg:"#3498DB",desc:"אתר מיקרו-לרנינג: תפריט ניווט, דפים מרובים, מסלולי תוכן עצמאיים.",use:"מאגר ידע, onboarding",lvl:"מתקדמים",tags:["free"]},
+    {name:"Learning Path",e:"🛤️",bg:"#27AE60",desc:"מסלול למידה ויזואלי: הלומד בוחר נתיב ומתקדם לפי בחירותיו.",use:"למידה מותאמת אישית",lvl:"מתקדמים",tags:["free"]},
   ]},
-  {id:"image",icon:"🖼️",title:"Interactive Image — תמונה אינטראקטיבית",templates:[
-    {name:"Anatomy Diagram",e:"🫀",bg:"#FBF0F5",desc:"תרשים אנטומי עם Hotspots. לחיצה — שם, תפקוד.",use:"ביולוגיה, רפואה",lvl:"בינוני",tags:["edu","free"]},
-    {name:"Historical Map",e:"🗺️",bg:"#FDF6E8",desc:"מפה היסטורית לחיצה. כל אזור — מידע על תקופה.",use:"היסטוריה",lvl:"בינוני",tags:["edu","free"]},
-    {name:"Scientific Image",e:"🔬",bg:"#EEF8F4",desc:"תמונה מדעית + הסברים. ייבאו תמונה + Hotspots.",use:"כימיה, פיזיקה",lvl:"בינוני",tags:["edu","free"]},
+  {id:"course",icon:"📚",title:"Courses — קורסים",sub:"מודולי למידה שלמים — ניתן להטמיע ב-LMS",templates:[
+    {name:"Microlearning Module",e:"🚀",bg:"#F39C12",desc:"מודול קצר (5–10 דק'): מטרות, תוכן ממוקד, שאלת סיום. פורמט Microlearning.",use:"הכשרה ממוקדת, Just-in-time",lvl:"בינוני",tags:["free"]},
+    {name:"Design Learning Modules",e:"🎨",bg:"#E67E22",desc:"מודול עיצובי: תוכן, דוגמאות חזותיות, תרגול ובוחן מסכם.",use:"הכשרה מעמיקה",lvl:"מתקדמים",tags:["free"]},
+    {name:"Big Data / Data Literacy",e:"📊",bg:"#2C3E50",desc:"מודול ידע בנושאי נתונים עם ויזואליזציות, גרפים והסברים אינטראקטיביים.",use:"הכשרה בנושאי נתונים",lvl:"בינוני",tags:["free"]},
+    {name:"Onboarding Course",e:"👋",bg:"#16A085",desc:"קורס קליטה: היכרות עם מוסד/ארגון, נהלים, אנשי קשר ומשאבים.",use:"קליטת עובדים/סטודנטים",lvl:"בינוני",tags:["free"]},
   ]},
-  {id:"other",icon:"🌟",title:"תבניות נוספות",templates:[
-    {name:"Flashcards",e:"🃏",bg:"#EEF8F4",desc:"כרטיסיות שינון. לחיצה הופכת משאלה לתשובה.",use:"שינון, אוצר מילים",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Icebreaker",e:"🧊",bg:"#FBF0F5",desc:"פעילות פתיחה: שאלות, סקר, הצגה עצמית.",use:"פתיחת שיעור",lvl:"מתחילים",tags:["edu","free"]},
-    {name:"Digital Poster",e:"🖼️",bg:"#F3EEFF",desc:"כרזה דיגיטלית עם אנימציות.",use:"אירועים, הכרזות",lvl:"מתחילים",tags:["free"]},
-    {name:"Report / Portfolio",e:"📄",bg:"#FDF6E8",desc:"דוח אינטראקטיבי. שתפו כקישור במקום PDF.",use:"דוחות, פורטפוליו",lvl:"בינוני",tags:["free"]},
+  {id:"infographic",icon:"📈",title:"Infographics — אינפוגרפיקות",sub:"מידע ויזואלי — ניתוח, השוואה, תהליכים",templates:[
+    {name:"Concept Map",e:"🧠",bg:"#F3EEFF",desc:"מפת מושגים: לחיצה על כל בועה פותחת הסבר מפורט. לסיכום ומבנה ידע.",use:"סיכום מושגים, מיפוי ידע",lvl:"בינוני",tags:["free"]},
+    {name:"Process Flow / Diagram",e:"🔄",bg:"#EEF8F4",desc:"תרשים זרימה אינטראקטיבי: כל שלב לחיץ עם פרטים, חצים ואינדיקטורים.",use:"תהליכים, שיטות עבודה",lvl:"מתחילים",tags:["free"]},
+    {name:"Statistical Infographic",e:"📊",bg:"#FDF6E8",desc:"נתונים, גרפים ואחוזים עם אנימציות ו-Tooltips להסבר.",use:"הצגת מחקר, נתונים",lvl:"בינוני",tags:["free"]},
+    {name:"Comparison Infographic",e:"⚖️",bg:"#EEF8F4",desc:"השוואה: שני צדדים, יתרונות וחסרונות, טבלת השוואה אינטראקטיבית.",use:"ניתוח, קבלת החלטות",lvl:"מתחילים",tags:["free"]},
+    {name:"AI Infographic ✦",e:"✦",bg:"#F3EEFF",desc:"AI יוצרת אינפוגרפיקה שלמה מנושא שהזנתם — ויזואלי ומפורט.",use:"כל נושא",lvl:"מתחילים",tags:["ai","new"]},
+  ]},
+  {id:"publishing",icon:"📰",title:"Digital Publishing — פרסום דיגיטלי",sub:"מגזינים, כרזות ופרסומים אינטראקטיביים",templates:[
+    {name:"Digital Magazine",e:"📖",bg:"#C0392B",desc:"מגזין דיגיטלי עם דפי גלילה, תמונות גדולות, כתבות וכותרות. מרשים מאוד.",use:"ניוזלטר, פרסום מחלקתי",lvl:"בינוני",tags:["free"]},
+    {name:"Interactive Poster",e:"🎨",bg:"#8E44AD",desc:"כרזה דיגיטלית עם אנימציות, לחצנים ווידאו מוטמע.",use:"אירועים, הכרזות",lvl:"מתחילים",tags:["free"]},
+    {name:"Report / Portfolio",e:"📄",bg:"#FDF6E8",desc:"דוח אינטראקטיבי עם ניווט פנימי, גרפים, ציטוטים ותמונות. חלופה ל-PDF.",use:"דוח שנתי, פורטפוליו",lvl:"בינוני",tags:["free"]},
+    {name:"Flashcards Deck",e:"🃏",bg:"#EEF8F4",desc:"חפיסת כרטיסיות שינון: לחיצה הופכת את הכרטיס משאלה לתשובה. מצוין לחזרה.",use:"שינון, הכנה לבחינה",lvl:"מתחילים",tags:["free"]},
+  ]},
+  {id:"video",icon:"🎬",title:"Videos — יצירות עם וידאו",sub:"תבניות המשלבות וידאו כחלק מרכזי",templates:[
+    {name:"Video with Hotspots",e:"🎬",bg:"#1A1A2E",desc:"סרטון עם נקודות מידע (Hotspots) שנפתחות בנקודות זמן מסוימות בזמן הצפייה.",use:"למידה פעילה מסרטון",lvl:"בינוני",tags:["free"]},
+    {name:"Video Lesson",e:"📹",bg:"#2C3E50",desc:"שיעור וידאו: סרטון + שאלות בין פרקים + סיכום. מבנה Flipped Classroom.",use:"למידה הפוכה, שיעורי בית",lvl:"בינוני",tags:["free"]},
+    {name:"Microlearning Video",e:"🚀",bg:"#F39C12",desc:"וידאו קצר (עד 3 דק') עם טקסט מפתח ו-CTA. פורמט רשתות חברתיות.",use:"הכשרה מהירה",lvl:"מתחילים",tags:["free"]},
   ]},
 ];
 const TL={edu:"לחינוך",free:"חינמי",ai:"AI",new:"חדש"};
