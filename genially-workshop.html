@@ -425,17 +425,17 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
 
   <div class="gmain" style="max-width:760px">
 
-    <!-- PUBLISH -->
-    <div class="gpanel" style="border-color:var(--teal-mid)">
-      <div class="gph" style="cursor:default">
-        <div class="gpi" style="background:var(--teal-soft);font-size:22px">☁️</div>
+    <!-- PUBLISH accordion -->
+    <div class="gpanel">
+      <div class="gph" onclick="togP('pub-body-1','pub-arr-1')">
+        <div class="gpi" style="background:var(--teal-soft);font-size:20px">☁️</div>
         <div class="gpl">
           <div class="gpen">Publish — לפרסם את התוצר</div>
           <div class="gphe">הצעד הראשון לפני כל שיתוף</div>
         </div>
-        <div style="width:10px;height:10px;border-radius:50%;background:#22C55E;flex-shrink:0"></div>
+        <div class="gpa" id="pub-arr-1">▾</div>
       </div>
-      <div class="gpbody" style="display:block">
+      <div class="gpbody" id="pub-body-1" style="display:none">
         <div class="gsec">
           <div class="gst">מה זה עושה?</div>
           <div class="gitems">
@@ -462,26 +462,26 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
             </div>
           </div>
         </div>
-        <div class="gsec" style="background:var(--teal-soft);border-radius:0 0 var(--r) var(--r)">
+        <div class="gsec" style="background:var(--teal-soft)">
           <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#0F6E56">
-            <span style="font-size:18px">💡</span>
+            <span style="font-size:16px">💡</span>
             <span><strong>טיפ:</strong> לחצו <strong>Publish ☁️</strong> בסרגל העליון. אפשר לפרסם מחדש בכל שלב — כל שינוי שתשמרו יופיע בצפייה.</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- PRESENT -->
-    <div class="gpanel" style="border-color:var(--purple-mid)">
-      <div class="gph" style="cursor:default">
-        <div class="gpi" style="background:var(--purple-soft);font-size:22px">▶️</div>
+    <!-- PRESENT accordion -->
+    <div class="gpanel">
+      <div class="gph" onclick="togP('pub-body-2','pub-arr-2')">
+        <div class="gpi" style="background:var(--purple-soft);font-size:20px">▶️</div>
         <div class="gpl">
           <div class="gpen">Present — להציג את התוצר</div>
           <div class="gphe">מצב מסך מלא להצגה פרונטלית</div>
         </div>
-        <div style="width:10px;height:10px;border-radius:50%;background:#22C55E;flex-shrink:0"></div>
+        <div class="gpa" id="pub-arr-2">▾</div>
       </div>
-      <div class="gpbody" style="display:block">
+      <div class="gpbody" id="pub-body-2" style="display:none">
         <div class="gsec">
           <div class="gst">מה זה עושה?</div>
           <div class="gitems">
@@ -508,26 +508,26 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
             </div>
           </div>
         </div>
-        <div class="gsec" style="background:var(--purple-soft);border-radius:0 0 var(--r) var(--r)">
+        <div class="gsec" style="background:var(--purple-soft)">
           <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--purple)">
-            <span style="font-size:18px">💡</span>
+            <span style="font-size:16px">💡</span>
             <span><strong>טיפ:</strong> גשו לתוצר ← לחצו <strong>Present ▶️</strong>. לחיצה על <kbd style="background:var(--purple-mid);border-radius:4px;padding:1px 5px;font-size:11px">Esc</kbd> יוצאת ממצב הצגה.</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SHARE -->
-    <div class="gpanel" style="border-color:var(--pink-mid)">
-      <div class="gph" style="cursor:default">
-        <div class="gpi" style="background:var(--pink-soft);font-size:22px">🔗</div>
+    <!-- SHARE accordion -->
+    <div class="gpanel">
+      <div class="gph" onclick="togP('pub-body-3','pub-arr-3')">
+        <div class="gpi" style="background:var(--pink-soft);font-size:20px">🔗</div>
         <div class="gpl">
           <div class="gpen">Share — לשתף</div>
           <div class="gphe">קישור, הטמעה והרשאות</div>
         </div>
-        <div style="width:10px;height:10px;border-radius:50%;background:#22C55E;flex-shrink:0"></div>
+        <div class="gpa" id="pub-arr-3">▾</div>
       </div>
-      <div class="gpbody" style="display:block">
+      <div class="gpbody" id="pub-body-3" style="display:none">
         <div class="gsec">
           <div class="gst">אפשרויות שיתוף</div>
           <div class="gitems">
@@ -554,9 +554,9 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
             </div>
           </div>
         </div>
-        <div class="gsec" style="background:var(--pink-soft);border-radius:0 0 var(--r) var(--r)">
+        <div class="gsec" style="background:var(--pink-soft)">
           <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--pink)">
-            <span style="font-size:18px">💡</span>
+            <span style="font-size:16px">💡</span>
             <span><strong>כיצד מטמיעים במודל?</strong> לחצו Share ← Embed ← העתיקו את קוד ה-iFrame ← הדביקו בשקע HTML במודל.</span>
           </div>
         </div>
@@ -564,34 +564,43 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
     </div>
 
     <!-- SUMMARY TABLE -->
-    <div style="background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--r);overflow:hidden;margin-top:8px;box-shadow:var(--sh)">
-      <div style="padding:14px 18px;background:var(--gray-50);border-bottom:1px solid var(--gray-100);font-size:13px;font-weight:800;color:var(--dark)">📋 סיכום — מה עושה כל כפתור?</div>
-      <table style="width:100%;border-collapse:collapse;font-size:13px">
-        <thead>
-          <tr style="background:var(--gray-100)">
-            <th style="padding:10px 16px;text-align:right;font-weight:700;color:var(--gray-600);border-bottom:1px solid var(--gray-200)">כפתור</th>
-            <th style="padding:10px 16px;text-align:right;font-weight:700;color:var(--gray-600);border-bottom:1px solid var(--gray-200)">מתי משתמשים</th>
-            <th style="padding:10px 16px;text-align:right;font-weight:700;color:var(--gray-600);border-bottom:1px solid var(--gray-200)">תוצאה</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom:1px solid var(--gray-100)">
-            <td style="padding:10px 16px;font-weight:700">☁️ Publish</td>
-            <td style="padding:10px 16px;color:var(--gray-600)">לפני כל שיתוף</td>
-            <td style="padding:10px 16px;color:var(--gray-600)">מפעיל את התוצר לצפייה</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--gray-100)">
-            <td style="padding:10px 16px;font-weight:700">▶️ Present</td>
-            <td style="padding:10px 16px;color:var(--gray-600)">בשיעור, זום, מקרן</td>
-            <td style="padding:10px 16px;color:var(--gray-600)">Fullscreen ללא כפתורי עריכה</td>
-          </tr>
-          <tr>
-            <td style="padding:10px 16px;font-weight:700">🔗 Share</td>
-            <td style="padding:10px 16px;color:var(--gray-600)">לשליחה להטמעה</td>
-            <td style="padding:10px 16px;color:var(--gray-600)">קישור / Embed / הרשאות</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="gpanel" style="overflow:visible">
+      <div class="gph" onclick="togP('pub-body-4','pub-arr-4')">
+        <div class="gpi" style="background:var(--gray-100);font-size:20px">📋</div>
+        <div class="gpl">
+          <div class="gpen">סיכום — מה עושה כל כפתור?</div>
+          <div class="gphe">השוואה מהירה בין Publish, Present ו-Share</div>
+        </div>
+        <div class="gpa" id="pub-arr-4">▾</div>
+      </div>
+      <div class="gpbody" id="pub-body-4" style="display:none">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:var(--gray-100)">
+              <th style="padding:10px 16px;text-align:right;font-weight:700;color:var(--gray-600);border-bottom:1px solid var(--gray-200)">כפתור</th>
+              <th style="padding:10px 16px;text-align:right;font-weight:700;color:var(--gray-600);border-bottom:1px solid var(--gray-200)">מתי משתמשים</th>
+              <th style="padding:10px 16px;text-align:right;font-weight:700;color:var(--gray-600);border-bottom:1px solid var(--gray-200)">תוצאה</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--gray-100)">
+              <td style="padding:10px 16px;font-weight:700">☁️ Publish</td>
+              <td style="padding:10px 16px;color:var(--gray-600)">לפני כל שיתוף</td>
+              <td style="padding:10px 16px;color:var(--gray-600)">מפעיל את התוצר לצפייה</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--gray-100)">
+              <td style="padding:10px 16px;font-weight:700">▶️ Present</td>
+              <td style="padding:10px 16px;color:var(--gray-600)">בשיעור, זום, מקרן</td>
+              <td style="padding:10px 16px;color:var(--gray-600)">Fullscreen ללא כפתורי עריכה</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 16px;font-weight:700">🔗 Share</td>
+              <td style="padding:10px 16px;color:var(--gray-600)">לשליחה והטמעה</td>
+              <td style="padding:10px 16px;color:var(--gray-600)">קישור / Embed / הרשאות</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>
