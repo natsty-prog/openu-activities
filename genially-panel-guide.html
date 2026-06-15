@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פאנל הניהול — Genially | פדגוגיה דיגיטלית</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#C11E6B;--pink-light:#E599B6;--pink-soft:#FBF0F5;--pink-mid:#F5D0E3;
+  --teal:#6CB79D;--teal-soft:#EEF8F4;--teal-mid:#C2E5D8;
+  --yellow:#EBA521;--yellow-soft:#FDF6E8;--yellow-mid:#F8E0A0;
+  --purple:#7B5EA7;--purple-soft:#F3EEFF;--purple-mid:#D9CAFE;
+  --dark:#231F20;--white:#FFFFFF;
+  --gray-50:#F9F7F8;--gray-100:#F2EDF0;--gray-200:#E4D8DF;
+  --gray-400:#A08898;--gray-600:#6B4F5E;
+  --radius:14px;
+  --shadow:0 2px 14px rgba(193,30,107,.08),0 1px 4px rgba(193,30,107,.05);
+  --shadow-hover:0 8px 32px rgba(193,30,107,.15),0 2px 8px rgba(193,30,107,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);direction:rtl}
+
+.topbar{height:4px;background:linear-gradient(90deg,var(--pink),var(--pink-light),var(--yellow),var(--teal))}
+
+/* NAV */
+.sitenav{background:var(--white);border-bottom:1px solid var(--gray-200);padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(193,30,107,.06)}
+.sitenav-brand{display:flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none}
+.sitenav-brand img{width:36px;height:36px;object-fit:contain}
+.sitenav-brand span{font-size:14px;font-weight:700;color:var(--dark)}
+.sitenav-links{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+.sitenav-links::-webkit-scrollbar{display:none}
+.nav-link{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--gray-600);text-decoration:none;padding:14px 12px;border-bottom:3px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
+.nav-link:hover{color:var(--pink)}
+.nav-link.active{color:var(--pink);border-bottom-color:var(--pink);font-weight:700}
+.nl-icon{font-size:16px}
+
+/* HERO */
+.hero{background:var(--white);padding:52px 28px 44px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--gray-200)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,var(--teal-soft) 0%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:660px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--teal-soft);color:var(--teal);font-size:12px;font-weight:700;padding:5px 14px;border-radius:999px;border:1.5px solid var(--teal-mid);margin-bottom:16px}
+.hero h1{font-size:clamp(22px,5vw,38px);font-weight:900;line-height:1.2;margin-bottom:8px}
+.hero h1 .accent{color:var(--teal)}
+.hero-sub{font-size:15px;color:var(--gray-600);line-height:1.7;max-width:520px;margin:0 auto}
+
+/* SEARCH */
+.search-wrap{max-width:700px;margin:32px auto 0;padding:0 20px}
+.search-box{position:relative}
+.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:17px;pointer-events:none}
+#search-input{width:100%;padding:13px 44px 13px 14px;font-family:'Heebo',sans-serif;font-size:14px;border:1.5px solid var(--gray-200);border-radius:12px;background:var(--white);color:var(--dark);direction:rtl;outline:none;transition:border-color .2s,box-shadow .2s}
+#search-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(108,183,157,.15)}
+#search-input::placeholder{color:var(--gray-400)}
+
+/* CHIPS */
+.chips-row{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:18px 20px 0;max-width:700px;margin:0 auto}
+.chip{font-size:13px;font-weight:500;padding:5px 15px;border-radius:999px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);cursor:pointer;transition:all .2s;user-select:none;font-family:'Heebo',sans-serif}
+.chip:hover{border-color:var(--teal-mid);color:var(--teal)}
+.chip.active{background:var(--teal);border-color:var(--teal);color:var(--white)}
+
+/* MAIN */
+.main{max-width:880px;margin:36px auto;padding:0 20px 60px}
+
+/* PANEL */
+.panel{border:1.5px solid var(--gray-200);border-radius:var(--radius);background:var(--white);margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s}
+.panel:hover{box-shadow:var(--shadow-hover)}
+.panel-header{display:flex;align-items:center;gap:12px;padding:15px 20px;cursor:pointer;user-select:none;background:var(--white);transition:background .15s}
+.panel-header:hover{background:var(--gray-50)}
+.ph-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ph-label{flex:1}
+.ph-en{font-size:16px;font-weight:700;color:var(--dark);line-height:1.2}
+.ph-he{font-size:12px;color:var(--gray-400)}
+.ph-arrow{font-size:20px;color:var(--gray-400);transition:transform .25s;flex-shrink:0}
+.ph-arrow.open{transform:rotate(180deg)}
+.panel-body{border-top:1px solid var(--gray-100)}
+
+.section{padding:14px 20px;border-bottom:1px solid var(--gray-100)}
+.section:last-child{border-bottom:none}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:10px}
+.items{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border-radius:10px;transition:background .15s}
+.item:hover{background:var(--gray-50)}
+.item-icon-box{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:1px}
+.item-name{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.item-desc{font-size:13px;color:var(--gray-600);line-height:1.6}
+.ib{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;vertical-align:middle}
+.ib-new{background:var(--teal-soft);color:#0F6E56;border:1px solid var(--teal-mid)}
+.ib-ai{background:var(--purple-soft);color:var(--purple);border:1px solid var(--purple-mid)}
+.ib-tip{background:var(--yellow-soft);color:#854F0B;border:1px solid var(--yellow-mid)}
+
+#no-results{text-align:center;padding:56px 20px;color:var(--gray-400);display:none}
+#no-results .nr-emoji{font-size:36px;display:block;margin-bottom:10px}
+
+/* FOOTER */
+.footer{background:var(--white);border-top:1px solid var(--gray-200);padding:24px 32px;text-align:center;font-size:13px;color:var(--gray-600);line-height:1.8}
+.footer img{width:30px;vertical-align:middle;margin-left:8px}
+.footer strong{color:var(--dark)}
+.footer a{color:var(--pink);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<nav class="sitenav">
+  <a class="sitenav-brand" href="genially-workshop.html">
+    <img src="logo.png" alt="לוגו">
+    <span>סדנת Genially</span>
+  </a>
+  <div class="sitenav-links">
+    <a class="nav-link" href="genially-workshop.html"><span class="nl-icon">🏠</span> דף הבית</a>
+    <a class="nav-link" href="genially-editor-guide.html"><span class="nl-icon">🖥️</span> ממשק העריכה</a>
+    <a class="nav-link active" href="genially-panel-guide.html"><span class="nl-icon">🗂️</span> פאנל הניהול</a>
+    <a class="nav-link" href="genially-templates.html"><span class="nl-icon">📋</span> תבניות</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🗂️ מסך הניהול</div>
+    <h1>פאנל הניהול<br><span class="accent">Genially Dashboard</span></h1>
+    <p class="hero-sub">כל מה שקורה לפני שנכנסים לעריכה — יצירה, ניהול, שיתוף וחיפוש</p>
+  </div>
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input id="search-input" type="text" placeholder="חפשו כפתור, פאנל או פעולה..." oninput="filterAll(this.value)" autocomplete="off">
+    </div>
+  </div>
+  <div class="chips-row" id="chips-row">
+    <span class="chip active" onclick="setChip(this,'')">הכל</span>
+    <span class="chip" onclick="setChip(this,'home')">מסך הבית</span>
+    <span class="chip" onclick="setChip(this,'create')">יצירה חדשה</span>
+    <span class="chip" onclick="setChip(this,'manage')">ניהול יצירות</span>
+    <span class="chip" onclick="setChip(this,'share')">שיתוף ופרסום</span>
+    <span class="chip" onclick="setChip(this,'account')">חשבון והגדרות</span>
+  </div>
+</div>
+
+<div class="main">
+  <div id="panels-container"></div>
+  <div id="no-results"><span class="nr-emoji">🔍</span><p>לא נמצאו תוצאות. נסו מונח אחר.</p></div>
+</div>
+
+<footer class="footer">
+  <img src="logo.png" alt="לוגו">
+  <strong>המחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית, האוניברסיטה הפתוחה</strong><br>
+  <a href="genially-workshop.html">← חזרה לדף הסדנה</a>
+</footer>
+
+<script>
+const DATA=[
+  {
+    id:"home",title:"מסך הבית",titleHe:"Home / Dashboard",icon:"🏠",iconBg:"#EEF8F4",
+    keywords:"home בית dashboard לוח בקרה מסך ראשי",
+    sections:[
+      {title:"אזורים ראשיים במסך הבית",items:[
+        {icon:"➕",name:"כפתור Create",desc:'הכפתור המרכזי בפינה השמאלית העליונה. לחיצה פותחת תפריט יצירה: מתבנית, מדף חלק, עם AI, או ייבוא מ-PowerPoint.',tags:[{t:"מכאן מתחילים הכל",c:"ib-tip"}]},
+        {icon:"📁",name:"My creations",desc:"כל היצירות שלכם: אחרונות, מועדפות, ארכיון. ניתן לסנן לפי תאריך, שם, סוג. חיפוש יצירה לפי שם בשורת החיפוש.",tags:[]},
+        {icon:"👥",name:"Shared with me",desc:"יצירות ששותפו אתכם על ידי אחרים לצפייה או עריכה.",tags:[]},
+        {icon:"📚",name:"Templates",desc:"ספריית אלפי תבניות מוכנות. ניתן לסנן לפי קטגוריה, שפה, צבע וסגנון.",tags:[]},
+        {icon:"🔔",name:"Notifications",desc:"התראות על שיתופים, תגובות ועדכוני מערכת.",tags:[{t:"חדש 2025",c:"ib-new"}]},
+      ]},
+      {title:"תצוגת יצירות",items:[
+        {icon:"⊞",name:"Grid / List view",desc:"מתגים בין תצוגת רשת (תמונות מוקטנות) לתצוגת רשימה (עם פרטים כמו תאריך ומספר צפיות).",tags:[]},
+        {icon:"🔍",name:"Search bar",desc:"חיפוש יצירה לפי שם. תוצאות מיידיות תוך הקלדה.",tags:[]},
+        {icon:"⬇️",name:"Sort",desc:"מיון לפי: תאריך עדכון אחרון, שם (א-ב), תאריך יצירה.",tags:[]},
+      ]},
+    ]
+  },
+  {
+    id:"create",title:"יצירה חדשה",titleHe:"Create New",icon:"✨",iconBg:"#FBF0F5",
+    keywords:"create חדש new יצירה חדשה blank template ai powerpoint import",
+    sections:[
+      {title:"דרכי יצירה",items:[
+        {icon:"✦",name:"Generate with AI",desc:'הזינו נושא, בחרו סגנון ומספר שקפים — Genially בונה יצירה שלמה אוטומטית כולל טקסט, תמונות ואינטראקציות. הדרך המהירה ביותר להתחיל.',tags:[{t:"AI",c:"ib-ai"},{t:"חדש 2025",c:"ib-new"}]},
+        {icon:"📋",name:"From template",desc:"בחרו מאלפי תבניות מוכנות. מסנני קטגוריה: Presentation, Infographic, Quiz, Game, Interactive image ועוד. ראו דף התבניות לפירוט.",tags:[]},
+        {icon:"⬜",name:"Blank creation",desc:"התחלה מדף ריק לחלוטין. בחרו גודל קנבס וסגנון (Theme) ותתחילו לבנות.",tags:[]},
+        {icon:"📤",name:"Import from PowerPoint",desc:'העלו קובץ PPTX ← Genially ממיר כל שקף לאלמנטים עריכים. לאחר הייבוא ניתן להוסיף אינטראקטיביות ואנימציות.',tags:[{t:"טיפ",c:"ib-tip"}]},
+      ]},
+      {title:"הגדרות ראשוניות",items:[
+        {icon:"🔡",name:"Name your creation",desc:"תנו שם לפני שמתחילים. ניתן לשנות בכל עת: לחצו על השם בסרגל העליון של העורך.",tags:[]},
+        {icon:"📱",name:"Choose format",desc:"בחרו פורמט לפני היצירה: Presentation (16:9), Infographic (A4 אנכי), Social media, Custom. שינוי בדיעבד אפשרי אך יסיט אלמנטים.",tags:[]},
+        {icon:"🎨",name:"Choose theme",desc:"ערכת עיצוב ראשונית: צבעים + גופנים. ניתן לשנות בכל שלב מ-Design ← Theme.",tags:[]},
+      ]},
+    ]
+  },
+  {
+    id:"manage",title:"ניהול יצירות",titleHe:"Manage Creations",icon:"📁",iconBg:"#FDF6E8",
+    keywords:"manage ניהול folder תיקייה duplicate copy archive delete rename analytics",
+    sections:[
+      {title:"פעולות על יצירה",items:[
+        {icon:"✏️",name:"Edit",desc:"כניסה לעורך. לחצו על שם היצירה, או על אייקון העיפרון.",tags:[]},
+        {icon:"📋",name:"Duplicate",desc:"שכפול יצירה שלמה. שימושי לשמירת גרסת בסיס לפני שינויים גדולים.",tags:[]},
+        {icon:"✏️",name:"Rename",desc:"שינוי שם: קליק ימני ← Rename, או לחיצה על השם בעורך.",tags:[]},
+        {icon:"📦",name:"Move to folder",desc:"ניתן לארגן יצירות בתיקיות. גרירה לתיקייה, או קליק ימני ← Move.",tags:[]},
+        {icon:"🗄️",name:"Archive",desc:"העברה לארכיון — הסתרה מהתצוגה הראשית ללא מחיקה.",tags:[]},
+        {icon:"🗑️",name:"Delete",desc:"מחיקה לצמיתות. הועבר לאשפה — ניתן לשחזר תוך 30 יום.",tags:[{t:"שחזור אפשרי 30 יום",c:"ib-tip"}]},
+      ]},
+      {title:"תיקיות וארגון",items:[
+        {icon:"📁",name:"Create folder",desc:"לחצו + New folder בלוח הבקרה. ניתן לשנות שם, צבע ואייקון.",tags:[]},
+        {icon:"🔍",name:"Search across all",desc:"שורת החיפוש הכללית מחפשת בכל היצירות, כולל בתיקיות.",tags:[]},
+      ]},
+      {title:"ניתוח נתונים",items:[
+        {icon:"📊",name:"Analytics",desc:"סטטיסטיקות לכל יצירה: מספר צפיות, זמן ממוצע, מדינות גישה. גישה: קליק ימני ← Analytics.",tags:[{t:"מסלול Pro",c:"ib-tip"}]},
+        {icon:"👁️",name:"View count",desc:"מספר הצפיות מוצג ישירות על כרטיס היצירה בתצוגת הרשת.",tags:[]},
+      ]},
+    ]
+  },
+  {
+    id:"share",title:"שיתוף ופרסום",titleHe:"Share & Publish",icon:"🚀",iconBg:"#F3EEFF",
+    keywords:"share שיתוף publish פרסום link קישור embed הטמעה pdf scorm download",
+    sections:[
+      {title:"פרסום",items:[
+        {icon:"☁️",name:"Publish",desc:"לפני שיתוף יש לפרסם. לחצו Publish (☁️) בסרגל העליון. יצירה לא מפורסמת לא תיפתח בקישור.",tags:[{t:"חובה לפני שיתוף",c:"ib-tip"}]},
+        {icon:"🔒",name:"Privacy settings",desc:"Public — גלוי לכולם ב-Genially | Private — רק עם קישור ישיר | Password — מוגן בסיסמה.",tags:[]},
+      ]},
+      {title:"דרכי שיתוף",items:[
+        {icon:"🔗",name:"Share link",desc:"קישור ישיר לצפייה. ניתן להגביל לצפייה בלבד או לאפשר הורדה.",tags:[]},
+        {icon:"💻",name:"Embed code",desc:"קוד iFrame להטמעה באתר, Moodle, Blackboard או כל CMS. גודל מומלץ: 100% × 600px.",tags:[{t:"מומלץ למודל",c:"ib-tip"}]},
+        {icon:"📧",name:"Share via email",desc:"שליחת קישור ישירות למייל — מתוך ממשק Genially.",tags:[]},
+        {icon:"📥",name:"Download PDF",desc:"הורדת כל השקפים כ-PDF סטטי. ללא אינטראקטיביות.",tags:[{t:"Pro בלבד",c:"ib-tip"}]},
+        {icon:"📦",name:"SCORM export",desc:"ייצוא כחבילת SCORM לייבוא ב-LMS (מודל, Canvas). כולל מעקב השלמה.",tags:[{t:"Pro בלבד",c:"ib-tip"}]},
+        {icon:"🖨️",name:"Print",desc:"הדפסת השקפים. ניתן לבחור שקפים ספציפיים.",tags:[]},
+      ]},
+      {title:"שיתוף לעריכה",items:[
+        {icon:"👥",name:"Invite collaborators",desc:"שתפו יצירה לעריכה עם חברי צוות. כל אחד צריך חשבון Genially.",tags:[{t:"Pro / Team",c:"ib-tip"}]},
+        {icon:"💬",name:"Comments",desc:"הוספת תגובות על שקפים ספציפיים לסקירת עמיתים.",tags:[{t:"Pro",c:"ib-tip"}]},
+      ]},
+    ]
+  },
+  {
+    id:"account",title:"חשבון והגדרות",titleHe:"Account & Settings",icon:"⚙️",iconBg:"#EEF8F4",
+    keywords:"account חשבון settings הגדרות profile פרופיל plan מסלול team brand",
+    sections:[
+      {title:"פרופיל",items:[
+        {icon:"👤",name:"Profile",desc:"שם מוצג, תמונת פרופיל, שם משתמש לדף הציבורי.",tags:[]},
+        {icon:"🌐",name:"Public profile",desc:"כל יצירה שמוגדרת כ-Public מופיעה בדף הציבורי שלכם. ניתן לכוונן מה מוצג.",tags:[]},
+        {icon:"🔑",name:"Password & security",desc:"שינוי סיסמה, חיבור חשבון Google/Microsoft, אימות דו-שלבי.",tags:[]},
+      ]},
+      {title:"מסלול ותשלום",items:[
+        {icon:"💳",name:"Plan & billing",desc:"צפייה במסלול הנוכחי, שדרוג, ניהול תשלומים וחשבוניות.",tags:[]},
+        {icon:"🎓",name:"Education discount",desc:"אנשי אקדמיה זכאים להנחות. אמתו כתובת מייל מוסדית לקבלת הנחה.",tags:[{t:"ממולץ לאו\"פ",c:"ib-tip"}]},
+      ]},
+      {title:"Brand Kit",items:[
+        {icon:"🎨",name:"Brand colors",desc:"הגדירו פלטת צבעים ארגונית שתופיע כברירת מחדל בכל היצירות.",tags:[{t:"Pro",c:"ib-tip"}]},
+        {icon:"🔡",name:"Brand fonts",desc:"העלאת גופנים ארגוניים מותאמים (TTF, OTF).",tags:[{t:"Pro",c:"ib-tip"}]},
+        {icon:"🖼️",name:"Brand logo",desc:"לוגו שמוצג אוטומטית בפינת כל יצירה.",tags:[{t:"Pro",c:"ib-tip"}]},
+      ]},
+    ]
+  },
+];
+
+let currentChip='';
+function buildPanels(q,chip){
+  const cont=document.getElementById('panels-container');
+  const noRes=document.getElementById('no-results');
+  const ql=(q||'').toLowerCase().trim();
+  const cf=(chip||'').toLowerCase().trim();
+  let html='';let count=0;
+  DATA.forEach((panel,pi)=>{
+    if(cf&&panel.id!==cf)return;
+    let fs=panel.sections.map(sec=>{
+      let fi=sec.items.filter(item=>{
+        if(!ql)return true;
+        return (panel.title+' '+panel.titleHe+' '+panel.keywords+' '+sec.title+' '+item.name+' '+item.desc).toLowerCase().includes(ql);
+      });
+      return{...sec,items:fi};
+    }).filter(s=>s.items.length>0);
+    if(fs.length===0)return;
+    count++;
+    const open=ql||cf||pi===0;
+    html+=`<div class="panel"><div class="panel-header" onclick="tog('pb${pi}','pa${pi}')">
+      <div class="ph-icon" style="background:${panel.iconBg}">${panel.icon}</div>
+      <div class="ph-label"><div class="ph-en">${panel.title}</div><div class="ph-he">${panel.titleHe}</div></div>
+      <div class="ph-arrow ${open?'open':''}" id="pa${pi}">▾</div>
+    </div>
+    <div class="panel-body" id="pb${pi}" style="display:${open?'block':'none'}">`;
+    fs.forEach(sec=>{
+      html+=`<div class="section"><div class="section-title">${sec.title}</div><div class="items">`;
+      sec.items.forEach(item=>{
+        const tags=item.tags.map(t=>`<span class="ib ${t.c}">${t.t}</span>`).join('');
+        html+=`<div class="item"><div class="item-icon-box" style="background:${panel.iconBg}">${item.icon}</div>
+          <div><div class="item-name">${item.name} ${tags}</div><div class="item-desc">${item.desc}</div></div></div>`;
+      });
+      html+=`</div></div>`;
+    });
+    html+=`</div></div>`;
+  });
+  cont.innerHTML=html;
+  noRes.style.display=count===0?'block':'none';
+}
+function tog(bId,aId){
+  const b=document.getElementById(bId),a=document.getElementById(aId);
+  if(!b)return;
+  const open=b.style.display!=='none';
+  b.style.display=open?'none':'block';
+  if(a)a.classList.toggle('open',!open);
+}
+function setChip(el,val){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  currentChip=val;
+  document.getElementById('search-input').value='';
+  buildPanels('',val);
+}
+function filterAll(q){buildPanels(q,currentChip);}
+buildPanels('','');
+</script>
+</body>
+</html>

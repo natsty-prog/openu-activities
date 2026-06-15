@@ -6,6 +6,17 @@
 <title>מדריך ממשק העריכה — Genially | פדגוגיה דיגיטלית</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+.topbar{height:4px;background:linear-gradient(90deg,#C11E6B,#E599B6,#EBA521,#6CB79D)}
+.sitenav{background:#fff;border-bottom:1px solid #E4D8DF;padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(193,30,107,.06)}
+.sitenav-brand{display:flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none}
+.sitenav-brand img{width:36px;height:36px;object-fit:contain}
+.sitenav-brand span{font-size:14px;font-weight:700;color:#231F20}
+.sitenav-links{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+.sitenav-links::-webkit-scrollbar{display:none}
+.nav-link{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:#6B4F5E;text-decoration:none;padding:14px 12px;border-bottom:3px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
+.nav-link:hover{color:#C11E6B}
+.nav-link.active{color:#C11E6B;border-bottom-color:#C11E6B;font-weight:700}
+</style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -238,6 +249,21 @@ body {
 </style>
 </head>
 <body>
+
+<div class="topbar"></div>
+
+<nav class="sitenav">
+  <a class="sitenav-brand" href="genially-workshop.html">
+    <img src="logo.png" alt="לוגו">
+    <span>סדנת Genially</span>
+  </a>
+  <div class="sitenav-links">
+    <a class="nav-link" href="genially-workshop.html"><span>🏠</span> דף הבית</a>
+    <a class="nav-link active" href="genially-editor-guide.html"><span>🖥️</span> ממשק העריכה</a>
+    <a class="nav-link" href="genially-panel-guide.html"><span>🗂️</span> פאנל הניהול</a>
+    <a class="nav-link" href="genially-templates.html"><span>📋</span> תבניות</a>
+  </div>
+</nav>
 
 <div class="hero">
   <div class="hero-badge">✦ עדכני ל-16.6.2026</div>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תבניות Genially | פדגוגיה דיגיטלית</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#C11E6B;--pink-light:#E599B6;--pink-soft:#FBF0F5;--pink-mid:#F5D0E3;
+  --teal:#6CB79D;--teal-soft:#EEF8F4;--teal-mid:#C2E5D8;
+  --yellow:#EBA521;--yellow-soft:#FDF6E8;--yellow-mid:#F8E0A0;
+  --purple:#7B5EA7;--purple-soft:#F3EEFF;--purple-mid:#D9CAFE;
+  --dark:#231F20;--white:#FFFFFF;
+  --gray-50:#F9F7F8;--gray-100:#F2EDF0;--gray-200:#E4D8DF;
+  --gray-400:#A08898;--gray-600:#6B4F5E;
+  --radius:14px;
+  --shadow:0 2px 14px rgba(193,30,107,.08),0 1px 4px rgba(193,30,107,.05);
+  --shadow-hover:0 8px 32px rgba(193,30,107,.15),0 2px 8px rgba(193,30,107,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);direction:rtl}
+
+.topbar{height:4px;background:linear-gradient(90deg,var(--pink),var(--pink-light),var(--yellow),var(--teal))}
+
+/* NAV */
+.sitenav{background:var(--white);border-bottom:1px solid var(--gray-200);padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(193,30,107,.06)}
+.sitenav-brand{display:flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none}
+.sitenav-brand img{width:36px;height:36px;object-fit:contain}
+.sitenav-brand span{font-size:14px;font-weight:700;color:var(--dark)}
+.sitenav-links{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+.sitenav-links::-webkit-scrollbar{display:none}
+.nav-link{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--gray-600);text-decoration:none;padding:14px 12px;border-bottom:3px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
+.nav-link:hover{color:var(--pink)}
+.nav-link.active{color:var(--pink);border-bottom-color:var(--pink);font-weight:700}
+.nl-icon{font-size:16px}
+
+/* HERO */
+.hero{background:var(--white);padding:52px 28px 44px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--gray-200)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,var(--yellow-soft) 0%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--yellow-soft);color:var(--yellow);font-size:12px;font-weight:700;padding:5px 14px;border-radius:999px;border:1.5px solid var(--yellow-mid);margin-bottom:16px}
+.hero h1{font-size:clamp(22px,5vw,38px);font-weight:900;line-height:1.2;margin-bottom:8px}
+.hero h1 .accent{color:var(--yellow)}
+.hero-sub{font-size:15px;color:var(--gray-600);line-height:1.7;max-width:520px;margin:0 auto}
+
+/* HOW TO CHOOSE */
+.how-section{max-width:880px;margin:0 auto;padding:44px 24px 0}
+.how-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--pink);margin-bottom:8px}
+.how-h2{font-size:22px;font-weight:800;margin-bottom:20px}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:40px}
+.how-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+.how-num{width:28px;height:28px;border-radius:50%;background:var(--pink);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.how-card h4{font-size:14px;font-weight:700;margin-bottom:5px}
+.how-card p{font-size:13px;color:var(--gray-600);line-height:1.55}
+
+/* CHIPS */
+.chips-section{max-width:880px;margin:0 auto;padding:0 24px 24px}
+.chips-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);margin-bottom:10px}
+.chips-row{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-size:13px;font-weight:500;padding:6px 16px;border-radius:999px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);cursor:pointer;transition:all .2s;user-select:none;font-family:'Heebo',sans-serif}
+.chip:hover{border-color:var(--pink-mid);color:var(--pink)}
+.chip.active{background:var(--pink);border-color:var(--pink);color:var(--white)}
+
+/* SEARCH */
+.search-section{max-width:880px;margin:0 auto;padding:0 24px 28px}
+.search-box{position:relative;max-width:460px}
+.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:17px;pointer-events:none}
+#search-input{width:100%;padding:11px 42px 11px 14px;font-family:'Heebo',sans-serif;font-size:14px;border:1.5px solid var(--gray-200);border-radius:10px;background:var(--white);color:var(--dark);direction:rtl;outline:none;transition:border-color .2s}
+#search-input:focus{border-color:var(--yellow)}
+#search-input::placeholder{color:var(--gray-400)}
+
+/* TEMPLATE CARDS GRID */
+.main{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.cat-section{margin-bottom:40px}
+.cat-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:10px;border-bottom:1.5px solid var(--gray-200)}
+.cat-icon{font-size:24px}
+.cat-title{font-size:18px;font-weight:800;color:var(--dark)}
+.cat-count{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--gray-100);color:var(--gray-400)}
+.tmpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.tmpl-card{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s}
+.tmpl-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.tmpl-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:42px;position:relative}
+.tmpl-thumb-tags{position:absolute;top:8px;right:8px;display:flex;gap:4px;flex-wrap:wrap}
+.tt{font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
+.tt-edu{background:#EEF8F4;color:#0F6E56}
+.tt-free{background:#FBF0F5;color:var(--pink)}
+.tt-ai{background:#F3EEFF;color:#7B5EA7}
+.tt-new{background:#FDF6E8;color:#854F0B}
+.tmpl-body{padding:14px 16px}
+.tmpl-name{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.tmpl-desc{font-size:12px;color:var(--gray-600);line-height:1.55;margin-bottom:10px}
+.tmpl-meta{display:flex;align-items:center;justify-content:space-between}
+.tmpl-use{font-size:11px;font-weight:600;color:var(--pink)}
+.tmpl-level{font-size:11px;color:var(--gray-400)}
+
+/* TIPS BOX */
+.tips-box{background:var(--pink-soft);border:1.5px solid var(--pink-mid);border-radius:var(--radius);padding:20px 24px;margin-bottom:36px;max-width:880px;margin-left:auto;margin-right:auto}
+.tips-box h4{font-size:15px;font-weight:800;color:var(--pink);margin-bottom:10px}
+.tips-list{display:flex;flex-direction:column;gap:7px}
+.tips-list li{font-size:13px;color:var(--gray-600);line-height:1.6;display:flex;gap:8px}
+.tips-list li::before{content:'✦';color:var(--pink);flex-shrink:0;margin-top:1px}
+
+#no-results{text-align:center;padding:56px 20px;color:var(--gray-400);display:none}
+#no-results .nr-emoji{font-size:36px;display:block;margin-bottom:10px}
+
+.footer{background:var(--white);border-top:1px solid var(--gray-200);padding:24px 32px;text-align:center;font-size:13px;color:var(--gray-600);line-height:1.8}
+.footer img{width:30px;vertical-align:middle;margin-left:8px}
+.footer strong{color:var(--dark)}
+.footer a{color:var(--pink);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<nav class="sitenav">
+  <a class="sitenav-brand" href="genially-workshop.html">
+    <img src="logo.png" alt="לוגו">
+    <span>סדנת Genially</span>
+  </a>
+  <div class="sitenav-links">
+    <a class="nav-link" href="genially-workshop.html"><span class="nl-icon">🏠</span> דף הבית</a>
+    <a class="nav-link" href="genially-editor-guide.html"><span class="nl-icon">🖥️</span> ממשק העריכה</a>
+    <a class="nav-link" href="genially-panel-guide.html"><span class="nl-icon">🗂️</span> פאנל הניהול</a>
+    <a class="nav-link active" href="genially-templates.html"><span class="nl-icon">📋</span> תבניות</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">📋 מדריך תבניות</div>
+    <h1>מבחר <span class="accent">התבניות</span><br>וכיצד לבחור נכון</h1>
+    <p class="hero-sub">כל קטגוריות התבניות, המלצות לחינוך ומה מתאים לכל מטרה</p>
+  </div>
+</div>
+
+<!-- HOW TO CHOOSE -->
+<div class="how-section">
+  <div class="how-title">לפני שבוחרים</div>
+  <div class="how-h2">איך בוחרים תבנית נכון?</div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">1</div>
+      <h4>הגדירו את המטרה</h4>
+      <p>האם אתם רוצים להעביר מידע? לבדוק הבנה? לעורר מעורבות? לכל מטרה יש קטגוריה מתאימה.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">2</div>
+      <h4>בחרו את הפורמט</h4>
+      <p>מצגת לשיעור? אינפוגרפיקה להדפסה? משחק לסיום שיעור? הפורמט קובע את המבנה.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">3</div>
+      <h4>Preview לפני בחירה</h4>
+      <p>לחצו על תבנית ← Preview לצפייה מלאה לפני עריכה. בדקו שמבנה התוכן מתאים לצרכיכם.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">4</div>
+      <h4>אל תתפשרו על עיצוב</h4>
+      <p>קל לשנות צבעים ופונטים — קשה לשנות מבנה. בחרו תבנית עם המבנה הנכון, ועצבו מחדש.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div style="max-width:880px;margin:0 auto;padding:0 24px 24px">
+  <div class="tips-box">
+    <h4>טיפים לבחירת תבנית לחינוך</h4>
+    <ul class="tips-list">
+      <li>חפשו בתגית <strong>Education</strong> לתבניות מותאמות ללמידה.</li>
+      <li>תבניות עם הרבה <em>Interactivity</em> בנויות מראש — חסכו שעות בניה.</li>
+      <li>תבניות <em>Interactive Image</em> מצוינות לתרשימים אנטומיים, מפות ותמונות מורכבות.</li>
+      <li>אם אתם חדשים — התחילו מ<strong>Presentation</strong> ולא מ-Infographic (פחות מורכב).</li>
+      <li>בקשו מ-AI לצור יצירה ואז <em>החליפו</em> את הסגנון לתבנית שאהבתם.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="chips-section">
+  <div class="chips-label">סנן לפי קטגוריה</div>
+  <div class="chips-row" id="chips-row">
+    <span class="chip active" onclick="setChip(this,'')">הכל</span>
+    <span class="chip" onclick="setChip(this,'presentation')">מצגות</span>
+    <span class="chip" onclick="setChip(this,'interactive')">אינטראקטיבי</span>
+    <span class="chip" onclick="setChip(this,'infographic')">אינפוגרפיקה</span>
+    <span class="chip" onclick="setChip(this,'game')">משחקים</span>
+    <span class="chip" onclick="setChip(this,'quiz')">בוחנים</span>
+    <span class="chip" onclick="setChip(this,'image')">תמונה אינטראקטיבית</span>
+    <span class="chip" onclick="setChip(this,'video')">וידאו אינטראקטיבי</span>
+    <span class="chip" onclick="setChip(this,'other')">נוספות</span>
+  </div>
+</div>
+
+<div class="search-section">
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input id="search-input" type="text" placeholder="חפשו לפי שם, שימוש, או מילת מפתח..." oninput="filterAll(this.value)" autocomplete="off">
+  </div>
+</div>
+
+<div class="main" id="main-container"></div>
+<div id="no-results" style="max-width:880px;margin:0 auto;padding:0 24px 60px;text-align:center;display:none">
+  <span style="font-size:36px;display:block;margin-bottom:10px">🔍</span>
+  <p style="color:var(--gray-400)">לא נמצאו תוצאות. נסו מונח אחר.</p>
+</div>
+
+<footer class="footer">
+  <img src="logo.png" alt="לוגו">
+  <strong>המחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית, האוניברסיטה הפתוחה</strong><br>
+  <a href="genially-workshop.html">← חזרה לדף הסדנה</a>
+</footer>
+
+<script>
+const CATS=[
+  {
+    id:"presentation",icon:"📊",title:"Presentation — מצגות",
+    desc:"תבניות למצגת שיעור קלאסית עם שקפים, אנימציות ואינטראקטיביות",
+    templates:[
+      {name:"Classic Lesson",emoji:"📘",thumb:"#EEF8F4",desc:"מצגת לשיעור עם כותרת, נקודות מרכזיות, תמונות ותרגול. פשוטה וברורה.",use:"שיעור פרונטלי",level:"מתחילים",tags:["edu","free"]},
+      {name:"Interactive Slides",emoji:"🖱️",thumb:"#FBF0F5",desc:"כל שקף כולל אלמנטים לחיצים עם מידע נוסף. המרצה מציג, הסטודנטים לוחצים.",use:"שיעור פעיל",level:"בינוני",tags:["edu","free"]},
+      {name:"Timeline",emoji:"📅",thumb:"#FDF6E8",desc:"ציר זמן אינטראקטיבי — לחיצה על תאריך מציגה פרטים. מצוין להיסטוריה, פיתוח, תהליכים.",use:"ציר זמן, תהליכים",level:"מתחילים",tags:["edu","free"]},
+      {name:"Comparison",emoji:"⚖️",thumb:"#F3EEFF",desc:"השוואה ויזואלית בין שתי גישות, תיאוריות או תקופות. קל לעריכה.",use:"השוואות, ניתוח",level:"מתחילים",tags:["edu","free"]},
+      {name:"Lesson with Quiz",emoji:"📝",thumb:"#EEF8F4",desc:"מצגת שיעור שמסתיימת בבוחן 5 שאלות. הסטודנטים רואים תגובה מידית.",use:"שיעור + הערכה",level:"בינוני",tags:["edu","free"]},
+      {name:"AI Presentation",emoji:"✦",thumb:"#F3EEFF",desc:"Genially יוצרת מצגת שלמה מנושא שהזנתם — עם תמונות, טקסט ועיצוב.",use:"כל נושא",level:"מתחילים",tags:["ai","new"]},
+    ]
+  },
+  {
+    id:"interactive",icon:"👆",title:"Interactive Content — תוכן אינטראקטיבי",
+    desc:"יצירות עם לחיצות, חלונות מידע וניווט לא-ליניארי",
+    templates:[
+      {name:"Interactive Image",emoji:"🔍",thumb:"#FBF0F5",desc:"תמונה עם נקודות מידע (Hotspots). לחיצה על כל נקודה — חלון עם הסבר, תמונה או סרטון.",use:"תרשים אנטומי, מפה, תמונה מדעית",level:"בינוני",tags:["edu","free"]},
+      {name:"Clickable Map",emoji:"🗺️",thumb:"#EEF8F4",desc:"מפה עולמית או אזורית עם נקודות לחיצות. כל מדינה/אזור מציג מידע.",use:"גיאוגרפיה, היסטוריה עולמית",level:"בינוני",tags:["edu","free"]},
+      {name:"Accordion / Tabs",emoji:"📂",thumb:"#FDF6E8",desc:"תוכן מסורגל בלשוניות — לוחצים על נושא ומקבלים מידע מפורט. מצוין לארגון חומר רב.",use:"מושגים, שאלות נפוצות",level:"מתחילים",tags:["edu","free"]},
+      {name:"Storytelling",emoji:"📖",thumb:"#F3EEFF",desc:"סיפור אינטראקטיבי עם ניווט ולא-ליניארי. המשתמש בוחר את המסלול.",use:"תרחישים, חשיבה ביקורתית",level:"מתקדמים",tags:["edu"]},
+      {name:"Virtual Tour",emoji:"🏛️",thumb:"#FBF0F5",desc:"סיור וירטואלי בחלל, מבנה, מוזיאון. לחיצה מנווטת בין חדרים.",use:"סיורים וירטואליים",level:"מתקדמים",tags:["edu"]},
+    ]
+  },
+  {
+    id:"infographic",icon:"📈",title:"Infographic — אינפוגרפיקה",
+    desc:"ויזואליזציה של נתונים, תהליכים וסיכומים",
+    templates:[
+      {name:"Process Flow",emoji:"🔄",thumb:"#EEF8F4",desc:"תרשים זרימה עם שלבים אינטראקטיביים. לחיצה על שלב מציגה פרטים.",use:"תהליכים, שיטות עבודה",level:"מתחילים",tags:["edu","free"]},
+      {name:"Statistics",emoji:"📊",thumb:"#FDF6E8",desc:"אינפוגרפיקה עם גרפים, נתונים ומספרים. מצוין לסיכום מחקר.",use:"מחקרים, נתונים",level:"בינוני",tags:["free"]},
+      {name:"Concept Map",emoji:"🧠",thumb:"#F3EEFF",desc:"מפת מושגים אינטראקטיבית. לחיצה על מושג — הסבר מפורט.",use:"סיכום, מושגי מפתח",level:"בינוני",tags:["edu","free"]},
+      {name:"Comparison Table",emoji:"📋",thumb:"#FBF0F5",desc:"טבלת השוואה ויזואלית בין 3-4 אפשרויות עם הדגשת יתרונות.",use:"השוואות, דיאגרמת ון",level:"מתחילים",tags:["free"]},
+      {name:"AI Infographic",emoji:"✦",thumb:"#F3EEFF",desc:"Genially AI יוצרת אינפוגרפיקה מנושא שהזנתם.",use:"כל נושא",level:"מתחילים",tags:["ai","new"]},
+    ]
+  },
+  {
+    id:"game",icon:"🎮",title:"Game — משחקים לימודיים",
+    desc:"משחקים שמשלבים תחרות, כיף ולמידה פעילה",
+    templates:[
+      {name:"Escape Room",emoji:"🔐",thumb:"#FBF0F5",desc:"חדר בריחה: הסטודנטים פותרים חידות כדי 'לצאת'. כל שלב = שאלה לימודית.",use:"חזרה לקראת מבחן, חשיבה",level:"מתקדמים",tags:["edu","free"]},
+      {name:"Wheel of Fortune",emoji:"🎡",thumb:"#FDF6E8",desc:"גלגל מזל לגרילת שאלות, קבוצות, נושאים. אינטראקטיבי ומהנה לכיתה.",use:"פתיחת שיעור, בחירת קבוצות",level:"מתחילים",tags:["edu","free"]},
+      {name:"Memory Game",emoji:"🃏",thumb:"#EEF8F4",desc:"משחק זיכרון (קלפים). לחיצה הופכת קלף. מצוין לזיווג מושגים-הגדרות.",use:"אוצר מילים, מושגים",level:"מתחילים",tags:["edu","free"]},
+      {name:"Hotspot Game",emoji:"🎯",thumb:"#F3EEFF",desc:"מצאו את אלמנט מוסתר בתמונה. מצוין לזיהוי איברים, חלקים, מיקומים.",use:"ביולוגיה, גיאוגרפיה",level:"בינוני",tags:["edu"]},
+      {name:"Trivia Board",emoji:"🏆",thumb:"#FBF0F5",desc:"לוח טריוויה קבוצתי. קטגוריות ורמות קושי. הצגה בכיתה עם ניקוד.",use:"חזרה, תחרות קבוצתית",level:"בינוני",tags:["edu"]},
+      {name:"Crossword",emoji:"📰",thumb:"#FDF6E8",desc:"תשחץ אינטראקטיבי עם מושגי הקורס. ניתן לשנות מילים בקלות.",use:"אוצר מילים, חזרה",level:"מתחילים",tags:["edu","free"]},
+    ]
+  },
+  {
+    id:"quiz",icon:"✅",title:"Quiz & Assessment — בוחנים",
+    desc:"הערכה אינטראקטיבית עם משוב מיידי",
+    templates:[
+      {name:"Multiple Choice Quiz",emoji:"📝",thumb:"#EEF8F4",desc:"שאלות אמריקאיות עם 4 אפשרויות. משוב מיידי לכל תשובה. ניתן לייצא ל-SCORM.",use:"בחינה, הכנה למבחן",level:"מתחילים",tags:["edu","free"]},
+      {name:"True / False",emoji:"✓✗",thumb:"#FDF6E8",desc:"שאלות נכון/לא נכון עם הסבר לאחר כל תשובה.",use:"חזרה מהירה",level:"מתחילים",tags:["edu","free"]},
+      {name:"Formative Check",emoji:"🎯",thumb:"#FBF0F5",desc:"5 שאלות ספציפיות לוודא הבנה בסוף שיעור. כרטיס יציאה דיגיטלי.",use:"סוף שיעור, כרטיס יציאה",level:"מתחילים",tags:["edu","free"]},
+      {name:"Drag & Drop",emoji:"🔀",thumb:"#F3EEFF",desc:"גרירת מושגים לקטגוריות נכונות. אינטראקטיבי ומאתגר.",use:"מיון, סיווג",level:"בינוני",tags:["edu"]},
+      {name:"Self-Assessment",emoji:"🪞",thumb:"#EEF8F4",desc:"הערכה עצמית עם רפלקציה. הסטודנט מדרג את הבנתו ומציין שאלות פתוחות.",use:"רפלקציה, metacognition",level:"בינוני",tags:["edu"]},
+    ]
+  },
+  {
+    id:"image",icon:"🖼️",title:"Interactive Image — תמונה אינטראקטיבית",
+    desc:"תמונה + נקודות מידע לחיצות — מצוין לתרשימים ומפות",
+    templates:[
+      {name:"Anatomy Diagram",emoji:"🫀",thumb:"#FBF0F5",desc:"תרשים אנטומי עם Hotspots. לחיצה על כל איבר — שם, תפקוד, מידע מפורט.",use:"ביולוגיה, רפואה",level:"בינוני",tags:["edu","free"]},
+      {name:"Scientific Image",emoji:"🔬",thumb:"#EEF8F4",desc:"תמונה מיקרוסקופית / מדעית עם הסברים. ייבאו תמונה + הוסיפו Hotspots.",use:"כימיה, פיזיקה, ביולוגיה",level:"בינוני",tags:["edu","free"]},
+      {name:"Historical Map",emoji:"🗺️",thumb:"#FDF6E8",desc:"מפה היסטורית לחיצה. כל אזור מציג מידע על תקופה, אירוע, ממלכה.",use:"היסטוריה, גיאוגרפיה",level:"בינוני",tags:["edu","free"]},
+      {name:"Architecture Blueprint",emoji:"🏗️",thumb:"#F3EEFF",desc:"תוכנית בניין/מנגנון עם Hotspots. לחיצה על חלק מציגה תפקוד.",use:"הנדסה, ארכיטקטורה",level:"בינוני",tags:["edu"]},
+    ]
+  },
+  {
+    id:"video",icon:"🎬",title:"Interactive Video — וידאו אינטראקטיבי",
+    desc:"שילוב וידאו עם שאלות ועצירות אינטראקטיביות",
+    templates:[
+      {name:"Video + Questions",emoji:"▶️",thumb:"#FBF0F5",desc:"סרטון YouTube עם שאלות שמופיעות בנקודות מסוימות. הסטודנט חייב לענות להמשיך.",use:"למידה הפוכה, Flipped Classroom",level:"בינוני",tags:["edu","free"]},
+      {name:"Video Gallery",emoji:"🎞️",thumb:"#EEF8F4",desc:"גלריית סרטונים אינטראקטיבית. כל כרטיס = נושא, לחיצה מפעילה סרטון.",use:"ספריית משאבים",level:"מתחילים",tags:["free"]},
+      {name:"Explainer Video",emoji:"🎥",thumb:"#FDF6E8",desc:"סרטון הסבר עם נקודות מידע לצד. לחיצה מציגה מידע נוסף מבלי לעצור הסרטון.",use:"הדרכה, הסבר מורכב",level:"מתקדמים",tags:["edu"]},
+    ]
+  },
+  {
+    id:"other",icon:"🌟",title:"תבניות נוספות",
+    desc:"כרטיסיות שינון, דוחות, לוחות מחוון ועוד",
+    templates:[
+      {name:"Flashcards",emoji:"🃏",thumb:"#EEF8F4",desc:"כרטיסיות שינון דיגיטליות: לחיצה הופכת כרטיסייה מ'שאלה' ל'תשובה'. מעולה לטרמינולוגיה.",use:"שינון, אוצר מילים",level:"מתחילים",tags:["edu","free"]},
+      {name:"Digital Poster",emoji:"🖼️",thumb:"#F3EEFF",desc:"כרזה דיגיטלית עם אנימציות. ניתן לשתף ברשתות חברתיות.",use:"אירועים, הכרזות",level:"מתחילים",tags:["free"]},
+      {name:"Report / Portfolio",emoji:"📄",thumb:"#FBF0F5",desc:"דוח אינטראקטיבי עם תרשימים ונתונים. ניתן לשתף כקישור במקום PDF.",use:"דוחות, פורטפוליו סטודנטים",level:"בינוני",tags:["free"]},
+      {name:"Learning Path",emoji:"🛤️",thumb:"#FDF6E8",desc:"מסלול למידה מסועף — הסטודנט בוחר מסלול בהתאם לידע הקודם. לחיצות מנווטות בין שקפים.",use:"למידה מותאמת אישית",level:"מתקדמים",tags:["edu"]},
+      {name:"Icebreaker",emoji:"🧊",thumb:"#EEF8F4",desc:"פעילות פתיחה אינטראקטיבית לתחילת שיעור — שאלות, סקר, הצגה עצמית.",use:"פתיחת שיעור, הכרות",level:"מתחילים",tags:["edu","free"]},
+    ]
+  }
+];
+
+const TAG_LABELS={edu:"לחינוך",free:"חינמי",ai:"AI",new:"חדש"};
+const TAG_CLASSES={edu:"tt-edu",free:"tt-free",ai:"tt-ai",new:"tt-new"};
+
+let currentChip='';
+
+function buildAll(q,chip){
+  const cont=document.getElementById('main-container');
+  const noRes=document.getElementById('no-results');
+  const ql=(q||'').toLowerCase().trim();
+  const cf=(chip||'').toLowerCase().trim();
+  let html='';let count=0;
+
+  CATS.forEach(cat=>{
+    if(cf&&cat.id!==cf)return;
+    const filtered=cat.templates.filter(t=>{
+      if(!ql)return true;
+      return (cat.title+' '+cat.desc+' '+t.name+' '+t.desc+' '+t.use).toLowerCase().includes(ql);
+    });
+    if(filtered.length===0)return;
+    count+=filtered.length;
+    html+=`<div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">${cat.icon}</span>
+        <span class="cat-title">${cat.title}</span>
+        <span class="cat-count">${filtered.length} תבניות</span>
+      </div>
+      <div class="tmpl-grid">`;
+    filtered.forEach(t=>{
+      const tagsHtml=t.tags.map(tg=>`<span class="tt ${TAG_CLASSES[tg]}">${TAG_LABELS[tg]}</span>`).join('');
+      html+=`<div class="tmpl-card">
+        <div class="tmpl-thumb" style="background:${t.thumb}">
+          <span>${t.emoji}</span>
+          <div class="tmpl-thumb-tags">${tagsHtml}</div>
+        </div>
+        <div class="tmpl-body">
+          <div class="tmpl-name">${t.name}</div>
+          <div class="tmpl-desc">${t.desc}</div>
+          <div class="tmpl-meta">
+            <span class="tmpl-use">💡 ${t.use}</span>
+            <span class="tmpl-level">${t.level}</span>
+          </div>
+        </div>
+      </div>`;
+    });
+    html+=`</div></div>`;
+  });
+
+  cont.innerHTML=html;
+  noRes.style.display=count===0?'block':'none';
+}
+
+function setChip(el,val){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  currentChip=val;
+  document.getElementById('search-input').value='';
+  buildAll('',val);
+}
+function filterAll(q){buildAll(q,currentChip);}
+buildAll('','');
+</script>
+</body>
+</html>

@@ -8,314 +8,275 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --pink: #C11E6B; --pink-light: #E599B6; --pink-soft: #FBF0F5; --pink-mid: #F5D0E3;
-  --teal: #6CB79D; --teal-soft: #EEF8F4; --teal-mid: #C2E5D8;
-  --yellow: #EBA521; --yellow-soft: #FDF6E8; --yellow-mid: #F8E0A0;
-  --dark: #231F20; --white: #FFFFFF;
-  --gray-50: #F9F7F8; --gray-100: #F2EDF0; --gray-200: #E4D8DF;
-  --gray-400: #A08898; --gray-600: #6B4F5E;
-  --radius: 16px;
-  --shadow: 0 2px 16px rgba(193,30,107,.1), 0 1px 5px rgba(193,30,107,.06);
-  --shadow-hover: 0 10px 40px rgba(193,30,107,.18), 0 2px 12px rgba(193,30,107,.1);
+  --pink:#C11E6B; --pink-light:#E599B6; --pink-soft:#FBF0F5; --pink-mid:#F5D0E3;
+  --teal:#6CB79D; --teal-soft:#EEF8F4; --teal-mid:#C2E5D8;
+  --yellow:#EBA521; --yellow-soft:#FDF6E8; --yellow-mid:#F8E0A0;
+  --dark:#231F20; --white:#FFFFFF;
+  --gray-50:#F9F7F8; --gray-100:#F2EDF0; --gray-200:#E4D8DF;
+  --gray-400:#A08898; --gray-600:#6B4F5E;
+  --radius:16px;
+  --shadow:0 2px 16px rgba(193,30,107,.1),0 1px 5px rgba(193,30,107,.06);
+  --shadow-hover:0 10px 40px rgba(193,30,107,.18),0 2px 12px rgba(193,30,107,.1);
 }
-html { scroll-behavior: smooth; }
-body { font-family: 'Heebo', sans-serif; background: var(--gray-50); color: var(--dark); direction: rtl; }
+html { scroll-behavior:smooth; }
+body { font-family:'Heebo',sans-serif; background:var(--gray-50); color:var(--dark); direction:rtl; }
 
-/* ─── TOP BAR ─── */
-.topbar {
-  height: 4px;
-  background: linear-gradient(90deg, var(--pink), var(--pink-light), var(--yellow), var(--teal));
-}
+.topbar { height:4px; background:linear-gradient(90deg,var(--pink),var(--pink-light),var(--yellow),var(--teal)); }
 
-/* ─── HEADER ─── */
-.header {
-  background: var(--white);
-  border-bottom: 1px solid var(--gray-200);
-  padding: 20px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+/* NAV */
+.sitenav {
+  background:var(--white);
+  border-bottom:1px solid var(--gray-200);
+  padding:0 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  position:sticky; top:0; z-index:200;
+  box-shadow:0 2px 8px rgba(193,30,107,.06);
 }
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.sitenav-brand {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 0;
+  text-decoration:none;
 }
-.header-logo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
+.sitenav-brand img { width:36px; height:36px; object-fit:contain; }
+.sitenav-brand span { font-size:14px; font-weight:700; color:var(--dark); }
+.sitenav-links {
+  display:flex; align-items:center; gap:2px;
+  overflow-x:auto; scrollbar-width:none;
 }
-.header-text h2 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--dark);
-  line-height: 1.2;
+.sitenav-links::-webkit-scrollbar { display:none; }
+.nav-link {
+  display:flex; align-items:center; gap:6px;
+  font-size:13px; font-weight:500; color:var(--gray-600);
+  text-decoration:none;
+  padding:14px 12px;
+  border-bottom:3px solid transparent;
+  white-space:nowrap;
+  transition:color .2s, border-color .2s;
 }
-.header-text p {
-  font-size: 12px;
-  color: var(--gray-400);
-  margin-top: 2px;
-}
-.header-nav a {
-  font-size: 13px;
-  color: var(--gray-600);
-  text-decoration: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  transition: background .15s;
-}
-.header-nav a:hover { background: var(--pink-soft); color: var(--pink); }
+.nav-link:hover { color:var(--pink); }
+.nav-link.active { color:var(--pink); border-bottom-color:var(--pink); font-weight:700; }
+.nav-link .nl-icon { font-size:16px; }
 
-/* ─── HERO ─── */
+/* HERO */
 .hero {
-  background: var(--white);
-  padding: 64px 32px 56px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  background:var(--white);
+  padding:60px 32px 52px;
+  text-align:center;
+  position:relative; overflow:hidden;
 }
 .hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 80% 70% at 50% -10%, var(--pink-soft) 0%, transparent 65%);
-  pointer-events: none;
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 70% at 50% -10%,var(--pink-soft) 0%,transparent 65%);
+  pointer-events:none;
 }
-.hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
-
+.hero-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
 .workshop-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--pink-soft);
-  color: var(--pink);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 6px 18px;
-  border-radius: 999px;
-  border: 1.5px solid var(--pink-mid);
-  margin-bottom: 24px;
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--pink-soft); color:var(--pink);
+  font-size:13px; font-weight:700;
+  padding:6px 18px; border-radius:999px; border:1.5px solid var(--pink-mid);
+  margin-bottom:24px;
 }
-.workshop-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pink); animation: pulse 2s infinite; }
+.workshop-tag .dot { width:7px; height:7px; border-radius:50%; background:var(--pink); animation:pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-
-.hero h1 {
-  font-size: clamp(28px, 6vw, 48px);
-  font-weight: 900;
-  line-height: 1.15;
-  color: var(--dark);
-  margin-bottom: 12px;
-}
-.hero h1 .accent { color: var(--pink); }
-
-.hero-sub {
-  font-size: 16px;
-  color: var(--gray-600);
-  line-height: 1.75;
-  margin-bottom: 32px;
-}
+.hero h1 { font-size:clamp(26px,6vw,46px); font-weight:900; line-height:1.15; margin-bottom:10px; }
+.hero h1 .accent { color:var(--pink); }
+.hero-sub { font-size:16px; color:var(--gray-600); line-height:1.75; margin-bottom:28px; }
 
 .date-card {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--gray-50);
-  border: 1.5px solid var(--gray-200);
-  border-radius: 14px;
-  padding: 14px 28px;
-  margin-bottom: 36px;
+  display:inline-flex; align-items:center; gap:12px;
+  background:var(--gray-50); border:1.5px solid var(--gray-200);
+  border-radius:14px; padding:14px 28px; margin-bottom:32px;
 }
-.date-card .dc-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.date-card .dc-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--gray-400);
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
-.date-card .dc-value {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.2;
-}
-.date-card .dc-sep {
-  width: 1px;
-  height: 36px;
-  background: var(--gray-200);
-}
+.dc-item { display:flex; flex-direction:column; align-items:center; }
+.dc-label { font-size:11px; font-weight:600; color:var(--gray-400); text-transform:uppercase; letter-spacing:.06em; }
+.dc-value { font-size:18px; font-weight:800; color:var(--dark); line-height:1.2; }
+.dc-sep { width:1px; height:36px; background:var(--gray-200); }
 
-.hero-desc {
-  background: var(--white);
-  border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 28px 32px;
-  text-align: right;
-  max-width: 680px;
-  margin: 0 auto;
-  box-shadow: var(--shadow);
+/* INFO CARDS */
+.cards-row {
+  max-width:820px; margin:0 auto; padding:48px 24px 0;
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
 }
-.hero-desc .desc-tag {
-  display: inline-block;
-  background: var(--teal-soft);
-  color: var(--teal);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--teal-mid);
-  margin-bottom: 12px;
+@media(max-width:640px){ .cards-row { grid-template-columns:1fr; } }
+.info-card {
+  background:var(--white); border:1.5px solid var(--gray-200);
+  border-radius:var(--radius); padding:24px 28px;
+  box-shadow:var(--shadow);
 }
-.hero-desc h3 {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--dark);
-  margin-bottom: 10px;
-  line-height: 1.3;
+.info-card .ic-tag {
+  display:inline-block; font-size:11px; font-weight:700;
+  padding:3px 10px; border-radius:999px; margin-bottom:12px;
 }
-.hero-desc p {
-  font-size: 15px;
-  color: var(--gray-600);
-  line-height: 1.8;
-}
+.ic-tag-teal { background:var(--teal-soft); color:var(--teal); border:1px solid var(--teal-mid); }
+.ic-tag-pink { background:var(--pink-soft); color:var(--pink); border:1px solid var(--pink-mid); }
+.info-card h3 { font-size:18px; font-weight:800; margin-bottom:10px; line-height:1.3; }
+.info-card p  { font-size:14px; color:var(--gray-600); line-height:1.75; }
 
-/* ─── SECTION ─── */
-.section-wrap {
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 60px 24px;
-}
-.section-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--pink);
-  margin-bottom: 8px;
-}
-.section-title {
-  font-size: 26px;
-  font-weight: 800;
-  color: var(--dark);
-  margin-bottom: 8px;
-}
-.section-sub {
-  font-size: 14px;
-  color: var(--gray-400);
-  margin-bottom: 28px;
-}
+/* SECTION */
+.section-wrap { max-width:820px; margin:0 auto; padding:52px 24px; }
+.section-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--pink); margin-bottom:8px; }
+.section-title { font-size:24px; font-weight:800; color:var(--dark); margin-bottom:8px; }
+.section-sub   { font-size:14px; color:var(--gray-400); margin-bottom:24px; }
 
-/* ─── VIDEO ─── */
-.video-card {
-  background: var(--white);
-  border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-.video-header {
-  padding: 18px 24px;
-  border-bottom: 1px solid var(--gray-100);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.video-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  background: var(--pink-soft);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-}
-.video-header-text h4 { font-size: 16px; font-weight: 700; color: var(--dark); }
-.video-header-text p  { font-size: 13px; color: var(--gray-400); }
-.video-wrap {
-  position: relative;
-  width: 100%;
-  background: #000;
-}
-.video-wrap video {
-  width: 100%;
-  display: block;
-  max-height: 480px;
-}
+/* VIDEO */
+.video-card { background:var(--white); border:1.5px solid var(--gray-200); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+.video-header { padding:16px 20px; border-bottom:1px solid var(--gray-100); display:flex; align-items:center; gap:12px; }
+.video-icon { width:38px; height:38px; border-radius:10px; background:var(--pink-soft); display:flex; align-items:center; justify-content:center; font-size:18px; }
+.video-header-text h4 { font-size:15px; font-weight:700; color:var(--dark); }
+.video-header-text p  { font-size:12px; color:var(--gray-400); }
+.video-wrap video { width:100%; display:block; max-height:460px; background:#000; }
 
-/* ─── CTA BUTTON ─── */
-.cta-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 40px 24px 60px;
-}
+/* CTA */
+.cta-wrap { display:flex; flex-direction:column; align-items:center; gap:12px; padding:40px 24px; }
 .cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--pink);
-  color: var(--white);
-  font-family: 'Heebo', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  padding: 16px 40px;
-  border-radius: 14px;
-  text-decoration: none;
-  transition: background .2s, transform .2s, box-shadow .2s;
-  box-shadow: 0 4px 20px rgba(193,30,107,.35);
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--pink); color:var(--white);
+  font-family:'Heebo',sans-serif; font-size:18px; font-weight:700;
+  padding:16px 40px; border-radius:14px; text-decoration:none;
+  transition:background .2s,transform .2s,box-shadow .2s;
+  box-shadow:0 4px 20px rgba(193,30,107,.35);
 }
-.cta-btn:hover {
-  background: #a51959;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(193,30,107,.45);
+.cta-btn:hover { background:#a51959; transform:translateY(-2px); box-shadow:0 8px 32px rgba(193,30,107,.45); }
+.cta-note { font-size:13px; color:var(--gray-400); }
+.cta-note a { color:var(--pink); text-decoration:none; }
+
+/* PORTAL CARDS */
+.portal-grid {
+  max-width:820px; margin:0 auto; padding:0 24px 52px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
 }
-.cta-btn .btn-arrow { font-size: 22px; }
-.cta-note { font-size: 13px; color: var(--gray-400); }
-.cta-note a { color: var(--pink); text-decoration: none; }
-.cta-note a:hover { text-decoration: underline; }
+@media(max-width:640px){ .portal-grid { grid-template-columns:1fr; } }
+.portal-card {
+  background:var(--white); border:1.5px solid var(--gray-200);
+  border-radius:var(--radius); padding:20px;
+  text-decoration:none; color:var(--dark);
+  display:flex; flex-direction:column; gap:10px;
+  box-shadow:var(--shadow); transition:box-shadow .2s,transform .2s;
+}
+.portal-card:hover { box-shadow:var(--shadow-hover); transform:translateY(-2px); }
+.pc-icon { font-size:28px; }
+.pc-title { font-size:15px; font-weight:700; color:var(--dark); }
+.pc-desc  { font-size:13px; color:var(--gray-400); line-height:1.5; }
+.pc-arrow { font-size:12px; color:var(--pink); font-weight:700; margin-top:auto; }
 
-/* ─── DIVIDER ─── */
-.divider { height: 1px; background: var(--gray-200); max-width: 820px; margin: 0 auto; }
+/* CHATBOT */
+.chatbot-section { background:var(--white); border-top:1px solid var(--gray-200); }
+.chatbot-inner { max-width:820px; margin:0 auto; padding:52px 24px; }
+.chat-window {
+  border:1.5px solid var(--gray-200); border-radius:var(--radius);
+  overflow:hidden; box-shadow:var(--shadow);
+}
+.chat-topbar {
+  background:var(--pink); padding:14px 20px;
+  display:flex; align-items:center; gap:10px;
+}
+.chat-topbar .bot-avatar {
+  width:32px; height:32px; border-radius:50%;
+  background:rgba(255,255,255,.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px;
+}
+.chat-topbar .bot-info { flex:1; }
+.chat-topbar .bot-name { font-size:14px; font-weight:700; color:#fff; }
+.chat-topbar .bot-status { font-size:11px; color:rgba(255,255,255,.8); }
+.chat-topbar .bot-dot { width:7px; height:7px; border-radius:50%; background:#4ade80; display:inline-block; margin-left:4px; }
 
-/* ─── FOOTER ─── */
+.chat-messages {
+  height:340px; overflow-y:auto; padding:16px;
+  background:var(--gray-50); display:flex; flex-direction:column; gap:10px;
+}
+.msg { display:flex; gap:8px; align-items:flex-end; }
+.msg.bot { flex-direction:row; }
+.msg.user { flex-direction:row-reverse; }
+.msg-avatar {
+  width:28px; height:28px; border-radius:50%;
+  background:var(--pink-soft); display:flex; align-items:center; justify-content:center;
+  font-size:13px; flex-shrink:0;
+}
+.msg-bubble {
+  max-width:80%; padding:10px 14px; border-radius:12px;
+  font-size:13px; line-height:1.6;
+}
+.msg.bot .msg-bubble  { background:var(--white); border:1px solid var(--gray-200); color:var(--dark); border-bottom-right-radius:4px; }
+.msg.user .msg-bubble { background:var(--pink); color:#fff; border-bottom-left-radius:4px; }
+
+.chat-suggestions {
+  padding:10px 16px; background:var(--white);
+  border-top:1px solid var(--gray-100);
+  display:flex; flex-wrap:wrap; gap:6px;
+}
+.sug-chip {
+  font-size:12px; padding:5px 12px;
+  border-radius:999px; border:1px solid var(--gray-200);
+  background:var(--white); color:var(--gray-600);
+  cursor:pointer; transition:all .15s; font-family:'Heebo',sans-serif;
+}
+.sug-chip:hover { background:var(--pink-soft); border-color:var(--pink-mid); color:var(--pink); }
+
+.chat-input-row {
+  display:flex; gap:8px; padding:12px 16px;
+  background:var(--white); border-top:1px solid var(--gray-100);
+}
+#chat-input {
+  flex:1; padding:10px 14px;
+  border:1.5px solid var(--gray-200); border-radius:10px;
+  font-family:'Heebo',sans-serif; font-size:14px; color:var(--dark);
+  direction:rtl; outline:none; background:var(--gray-50);
+  transition:border-color .2s;
+}
+#chat-input:focus { border-color:var(--pink); background:var(--white); }
+#chat-send {
+  padding:10px 18px; background:var(--pink); color:#fff;
+  border:none; border-radius:10px; font-size:18px; cursor:pointer;
+  transition:background .2s;
+}
+#chat-send:hover { background:#a51959; }
+
+/* DIVIDER */
+.divider { height:1px; background:var(--gray-200); max-width:820px; margin:0 auto; }
+
+/* FOOTER */
 .footer {
-  background: var(--white);
-  border-top: 1px solid var(--gray-200);
-  padding: 28px 32px;
-  text-align: center;
-  font-size: 13px;
-  color: var(--gray-600);
-  line-height: 1.8;
+  background:var(--white); border-top:1px solid var(--gray-200);
+  padding:24px 32px; text-align:center;
+  font-size:13px; color:var(--gray-600); line-height:1.8;
 }
-.footer img { width: 36px; vertical-align: middle; margin-left: 8px; }
-.footer strong { color: var(--dark); }
-.footer a { color: var(--pink); text-decoration: none; }
-.footer a:hover { text-decoration: underline; }
+.footer img { width:32px; vertical-align:middle; margin-left:8px; }
+.footer strong { color:var(--dark); }
+.footer a { color:var(--pink); text-decoration:none; }
+.footer a:hover { text-decoration:underline; }
 </style>
 </head>
 <body>
 
 <div class="topbar"></div>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-brand">
-    <img src="logo.png" alt="לוגו פדגוגיה דיגיטלית" class="header-logo">
-    <div class="header-text">
-      <h2>המחלקה לפדגוגיה דיגיטלית</h2>
-      <p>האוניברסיטה הפתוחה</p>
-    </div>
+<!-- NAV -->
+<nav class="sitenav">
+  <a class="sitenav-brand" href="genially-workshop.html">
+    <img src="logo.png" alt="לוגו">
+    <span>סדנת Genially</span>
+  </a>
+  <div class="sitenav-links">
+    <a class="nav-link active" href="genially-workshop.html">
+      <span class="nl-icon">🏠</span> דף הבית
+    </a>
+    <a class="nav-link" href="genially-editor-guide.html">
+      <span class="nl-icon">🖥️</span> ממשק העריכה
+    </a>
+    <a class="nav-link" href="genially-panel-guide.html">
+      <span class="nl-icon">🗂️</span> פאנל הניהול
+    </a>
+    <a class="nav-link" href="genially-templates.html">
+      <span class="nl-icon">📋</span> תבניות
+    </a>
   </div>
-  <nav class="header-nav">
-    <a href="genially-editor-guide.html">מדריך ממשק העריכה ←</a>
-  </nav>
-</header>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
@@ -324,10 +285,8 @@ body { font-family: 'Heebo', sans-serif; background: var(--gray-50); color: var(
       <span class="dot"></span>
       ברוכים הבאים לסדנה
     </div>
-
     <h1>סדנת <span class="accent">Genially</span><br>למתחילים</h1>
     <p class="hero-sub">מתוכן טקסטואלי לחוויה אינטראקטיבית</p>
-
     <div class="date-card">
       <div class="dc-item">
         <span class="dc-label">יום</span>
@@ -344,39 +303,66 @@ body { font-family: 'Heebo', sans-serif; background: var(--gray-50); color: var(
         <span class="dc-value">14:00–15:30</span>
       </div>
     </div>
-
-    <div class="hero-desc">
-      <span class="desc-tag">על הסדנה</span>
-      <h3>Genially — מה זה ולמה זה כדאי?</h3>
-      <p>כלי ה-Genially מאפשר להפוך מצגות, תרשימים ומסמכים לחומרי למידה אינטראקטיביים המעודדים למידה פעילה. בסדנה נערוך היכרות מעשית עם הממשק, נלמד לעבוד עם תבניות וניצור שכבות מידע. בסיום המפגש תצאו עם כלי אפקטיבי להגברת מעורבות הסטודנטים בחומר הנלמד, לשימוש במהלך המפגשים ולהטמעה באתר הקורס.</p>
-    </div>
-
-    <div class="hero-desc" style="margin-top:16px">
-      <span class="desc-tag" style="background:var(--pink-soft);color:var(--pink);border-color:var(--pink-mid)">על המנחה</span>
-      <h3>נטלי צפתי</h3>
-      <p>מהמחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית באו"פ, עוסקת באיתור ובהטמעת כלים ופתרונות טכנולוגיים עבור סביבת הלמידה, ובעלת ניסיון רב בבניית אתרי קורסים, הדרכות וסדנאות בתחום.</p>
-    </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- INFO CARDS -->
+<div class="cards-row">
+  <div class="info-card">
+    <span class="ic-tag ic-tag-teal">על הסדנה</span>
+    <h3>Genially — מה זה ולמה זה כדאי?</h3>
+    <p>כלי ה-Genially מאפשר להפוך מצגות, תרשימים ומסמכים לחומרי למידה אינטראקטיביים המעודדים למידה פעילה. בסדנה נערוך היכרות מעשית עם הממשק, נלמד לעבוד עם תבניות וניצור שכבות מידע. בסיום המפגש תצאו עם כלי אפקטיבי להגברת מעורבות הסטודנטים בחומר הנלמד, לשימוש במהלך המפגשים ולהטמעה באתר הקורס.</p>
+  </div>
+  <div class="info-card">
+    <span class="ic-tag ic-tag-pink">על המנחה</span>
+    <h3>נטלי צפתי</h3>
+    <p>מהמחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית באו"פ, עוסקת באיתור ובהטמעת כלים ופתרונות טכנולוגיים עבור סביבת הלמידה, ובעלת ניסיון רב בבניית אתרי קורסים, הדרכות וסדנאות בתחום.</p>
+  </div>
+</div>
 
-<!-- VIDEO SECTION -->
+<!-- PORTAL LINKS -->
+<div class="section-wrap" style="padding-bottom:0">
+  <div class="section-label">חומרי הסדנה</div>
+  <div class="section-title">מה תמצאו כאן?</div>
+</div>
+<div class="portal-grid">
+  <a class="portal-card" href="genially-editor-guide.html">
+    <div class="pc-icon">🖥️</div>
+    <div class="pc-title">ממשק העריכה</div>
+    <div class="pc-desc">כל הכפתורים, הפאנלים והאפשרויות במסך העריכה — עם חיפוש ופילטור</div>
+    <div class="pc-arrow">עברו למדריך ←</div>
+  </a>
+  <a class="portal-card" href="genially-panel-guide.html">
+    <div class="pc-icon">🗂️</div>
+    <div class="pc-title">פאנל הניהול</div>
+    <div class="pc-desc">מסך הבית, איך יוצרים יצירה חדשה, מאיפה מנהלים ומשתפים</div>
+    <div class="pc-arrow">עברו למדריך ←</div>
+  </a>
+  <a class="portal-card" href="genially-templates.html">
+    <div class="pc-icon">📋</div>
+    <div class="pc-title">תבניות</div>
+    <div class="pc-desc">כל קטגוריות התבניות, המלצות לחינוך ואיך לבחור נכון</div>
+    <div class="pc-arrow">עברו למדריך ←</div>
+  </a>
+</div>
+
+<div class="divider" style="margin:0 auto 0;"></div>
+
+<!-- VIDEO -->
 <div class="section-wrap">
   <div class="section-label">לפני שמתחילים</div>
   <div class="section-title">כיצד נרשמים לג'ניאלי?</div>
-  <div class="section-sub">צפו בסרטון הקצר ורשמו את עצמכם לכלי לפני המפגש</div>
-
+  <div class="section-sub">צפו בסרטון הקצר ורשמו את עצמכם לפני המפגש</div>
   <div class="video-card">
     <div class="video-header">
       <div class="video-icon">🎬</div>
       <div class="video-header-text">
-        <h4>הרשמה לGenially — מדריך קצר</h4>
-        <p>כ-2 דקות · מומלץ לצפות לפני הסדנה</p>
+        <h4>הרשמה ל-Genially — מדריך קצר</h4>
+        <p>מומלץ לצפות לפני הסדנה</p>
       </div>
     </div>
     <div class="video-wrap">
-      <video controls preload="metadata" poster="">
+      <video controls preload="metadata">
         <source src="genially-signup.mp4" type="video/mp4">
         הדפדפן שלך אינו תומך בנגן וידאו.
       </video>
@@ -389,26 +375,299 @@ body { font-family: 'Heebo', sans-serif; background: var(--gray-50); color: var(
 <!-- CTA -->
 <div class="cta-wrap">
   <div class="section-label" style="text-align:center">מוכנים? בואו נתחיל</div>
-  <div class="section-title" style="text-align:center">כניסה לכלי Genially</div>
-  <p style="font-size:14px;color:var(--gray-400);margin-bottom:8px">לחצו להתחברות לכלי עם הפרטים שנרשמתם</p>
-
+  <div class="section-title" style="text-align:center;font-size:22px">כניסה לכלי Genially</div>
+  <p style="font-size:14px;color:var(--gray-400);margin-bottom:4px">לחצו להתחברות לכלי עם הפרטים שנרשמתם</p>
   <a href="https://genially.com" target="_blank" rel="noopener" class="cta-btn">
-    כניסה ל-Genially
-    <span class="btn-arrow">←</span>
+    כניסה ל-Genially ←
   </a>
-
   <p class="cta-note">
     לא נרשמתם עדיין? צפו בסרטון למעלה ·
     <a href="https://genially.com/signup" target="_blank">הרשמה חינמית</a>
   </p>
 </div>
 
+<div class="divider"></div>
+
+<!-- CHATBOT -->
+<div class="chatbot-section">
+  <div class="chatbot-inner">
+    <div class="section-label">שאלו הכל</div>
+    <div class="section-title">הבוט של הסדנה 🤖</div>
+    <div class="section-sub">שאלו כל שאלה על Genially — בעברית או באנגלית</div>
+
+    <div class="chat-window">
+      <div class="chat-topbar">
+        <div class="bot-avatar">🤖</div>
+        <div class="bot-info">
+          <div class="bot-name">Genially Bot</div>
+          <div class="bot-status"><span class="bot-dot"></span>מוכן לענות</div>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chat-messages">
+        <div class="msg bot">
+          <div class="msg-avatar">🤖</div>
+          <div class="msg-bubble">שלום! אני הבוט של הסדנה 👋<br>אפשר לשאול אותי כל שאלה על Genially — בעברית או באנגלית.<br>למשל: <em>״איך יוצרים מצגת עם AI?״</em> או <em>״How do I add interactivity?״</em></div>
+        </div>
+      </div>
+
+      <div class="chat-suggestions" id="chat-sugs">
+        <span class="sug-chip" onclick="askSug(this)">איך יוצרים מצגת עם AI?</span>
+        <span class="sug-chip" onclick="askSug(this)">איך מוסיפים אינטראקטיביות?</span>
+        <span class="sug-chip" onclick="askSug(this)">איך מטמיעים באתר מודל?</span>
+        <span class="sug-chip" onclick="askSug(this)">מהו גלגל המזל?</span>
+        <span class="sug-chip" onclick="askSug(this)">How do I share my Genially?</span>
+        <span class="sug-chip" onclick="askSug(this)">איך מוסיפים שמע?</span>
+        <span class="sug-chip" onclick="askSug(this)">מה ההבדל בין חינמי לתשלום?</span>
+        <span class="sug-chip" onclick="askSug(this)">איך מוסיפים וידאו?</span>
+      </div>
+
+      <div class="chat-input-row">
+        <input id="chat-input" type="text" placeholder="כתבו שאלה על Genially..." onkeydown="if(event.key==='Enter')sendMsg()" />
+        <button id="chat-send" onclick="sendMsg()">↑</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="footer">
   <img src="logo.png" alt="לוגו">
-  <strong>המחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית, האוניברסיטה הפתוחה</strong><br>
-  <a href="genially-editor-guide.html">מדריך ממשק העריכה של Genially ←</a>
+  <strong>המחלקה לעיצוב ולתכנון פדגוגיה דיגיטלית, האוניברסיטה הפתוחה</strong>
 </footer>
 
+<script>
+const KB = [
+  {
+    keys:['ai','בינה','לייצר','ליצור','מצגת עם ai','איך יוצרים','create with ai','presentation ai','genially ai'],
+    ans:`ניתן ליצור מצגת שלמה עם AI ב-3 שלבים:<br>
+1. לחצו <b>+ Create</b> בלוח הבקרה.<br>
+2. בחרו <b>Generate with AI</b> (אייקון ✦).<br>
+3. הזינו נושא, בחרו מספר שקפים וסגנון — Genially תיצור הכל אוטומטית: טקסט, תמונות ואינטראקציות.<br><br>
+<b>טיפ:</b> לאחר יצירה ניתן לערוך כל אלמנט ידנית. ניתן גם לבקש מה-AI <em>לשכתב</em> טקסט קיים — לחצו על הטקסט ← ✦ AI.`
+  },
+  {
+    keys:['interactiv','אינטראקטיב','לחצן','popup','חלון','tooltip','window','hotspot','hover','click'],
+    ans:`להוספת אינטראקטיביות:<br>
+1. לחצו על האלמנט שרוצים להפוך לאינטראקטיבי.<br>
+2. בסרגל השמאלי לחצו על <b>Interactivity</b> 👆.<br>
+3. בחרו סוג: <b>Open Window</b> (חלון עם תוכן) | <b>Tooltip</b> (בועת מידע) | <b>Go to Page</b> (מעבר שקף) | <b>Open URL</b>.<br><br>
+<b>הטיפ הכי שימושי:</b> <em>Open Window</em> — לחיצה פותחת חלון עם טקסט, תמונה, סרטון, או embed. זה הפיצ'ר שהופך Genially לשונה מכל מצגת רגילה.`
+  },
+  {
+    keys:['moodle','מודל','מודלה','embed','הטמע','אתר קורס','site','lms','iframe','קוד הטמעה'],
+    ans:`להטמעה באתר מודל/קורס:<br>
+1. פרסמו את היצירה: לחצו <b>Publish</b> (☁️ בסרגל העליון).<br>
+2. לחצו <b>Share</b> ← בחרו <b>Embed</b>.<br>
+3. העתיקו את קוד ה-<b>iFrame</b>.<br>
+4. במודל: ערכו שקע HTML ← הדביקו את הקוד.<br><br>
+<b>מידות מומלצות:</b> רוחב 100%, גובה 600px למצגת רגילה.`
+  },
+  {
+    keys:['גלגל מזל','wheel','fortune','luck','spin','ספין','רנדום'],
+    ans:`גלגל המזל הוא Widget מוכן ב-Genially:<br>
+1. לחצו <b>Insert</b> ← <b>Multimedia Widget</b>.<br>
+2. חפשו <b>Wheel of Fortune</b> או <b>Lucky Wheel</b>.<br>
+3. לחצו עליו ← ערכו את הפרמטרים: מספר מקטעים, צבעים, טקסט לכל מקטע.<br><br>
+<b>שימוש בסדנה:</b> שאלות מוגרלות לפתיחת שיעור, בחירת קבוצות, בחירת נושאים לדיון.`
+  },
+  {
+    keys:['share','שתף','שיתוף','לשתף','קישור','link','publish','פרסום','פרסם'],
+    ans:`לשיתוף יצירה:<br>
+1. לחצו <b>Publish</b> (☁️) — היצירה הופכת פומבית.<br>
+2. לחצו <b>Share</b>:<br>
+   • <b>Link</b> — קישור ישיר לשיתוף<br>
+   • <b>Embed</b> — קוד iFrame לאתר/מודל<br>
+   • <b>Download PDF</b> — הורדה סטטית (Pro)<br>
+   • <b>SCORM</b> — לייבוא ל-LMS (Pro)<br><br>
+<b>הגדרות פרטיות:</b> ניתן להגדיר יצירה כ-Private (רק עם קישור) או Public.`
+  },
+  {
+    keys:['audio','שמע','הקלטה','קול','voice','sound','mp3'],
+    ans:`להוספת שמע:<br>
+<b>אפשרות 1 — שמע ישיר על אלמנט:</b><br>
+לחצו על אלמנט ← Interactivity ← <b>Audio on Click</b> ← העלו MP3/WAV.<br><br>
+<b>אפשרות 2 — שמע רקע לשקף:</b><br>
+Insert ← Audio ← בחרו קובץ ← הגדירו Auto-play ו-Loop.<br><br>
+<b>טיפ:</b> Audio on Click מעולה למילון מונחים — לחיצה על מונח → שומעים הגייה.`
+  },
+  {
+    keys:['video','וידאו','סרטון','youtube','vimeo','embed video','להוסיף סרטון'],
+    ans:`להוספת סרטון:<br>
+<b>YouTube/Vimeo:</b> Insert ← Video ← הדביקו קישור URL של הסרטון.<br>
+<b>קובץ מהמחשב:</b> Insert ← Video ← Upload ← בחרו MP4.<br><br>
+<b>הגדרות שימושיות:</b><br>
+• <em>Autoplay</em> — הפעלה אוטומטית בכניסה לשקף<br>
+• <em>Start/End time</em> — קיצוץ לחלק רלוונטי בלבד<br>
+• <em>Loop</em> — חזרה אוטומטית`
+  },
+  {
+    keys:['free','חינם','חינמי','תשלום','מחיר','price','plan','pro','premium','paid','עלות'],
+    ans:`<b>מסלול חינמי (Free):</b><br>
+✅ יצירות ללא הגבלה | ✅ כל הפיצ'רים הבסיסיים | ✅ שיתוף בקישור | ✅ הטמעה | ❌ הורדת PDF | ❌ SCORM | ❌ ללא מודעות Genially<br><br>
+<b>מסלול Education (מומלץ):</b><br>
+✅ הכל בחינמי + ✅ PDF | ✅ מצב ללא מודעות | ✅ Analytics | ✅ תמיכה מועדפת<br>
+💡 <b>לאנשי אקדמיה יש הנחות משמעותיות</b> — בדקו את מסלול Education.`
+  },
+  {
+    keys:['template','תבנית','תבניות','gallery','בחירה','לבחור','choose'],
+    ans:`לגלישה בתבניות: לחצו <b>+ Create</b> ← <b>Browse templates</b>.<br><br>
+<b>קטגוריות מרכזיות לחינוך:</b><br>
+🎓 <em>Education</em> — מצגות לשיעור, כרטיסיות, בוחנים<br>
+🎮 <em>Interactive</em> — escape room, quiz, game<br>
+📊 <em>Infographic</em> — ויזואליזציה של נתונים<br>
+📋 <em>Presentation</em> — מצגות מעוצבות<br><br>
+<b>איך לבחור?</b> חפשו לפי נושא בשורת החיפוש, לחצו Preview לראות לפני שמשתמשים. ראו עוד בדף <a href="genially-templates.html" style="color:var(--pink)">התבניות ←</a>`
+  },
+  {
+    keys:['animate','אנימציה','תנועה','transition','מעבר','entrance','fade','zoom'],
+    ans:`להוספת אנימציה:<br>
+1. לחצו על האלמנט.<br>
+2. בסרגל לחצו <b>Animate</b> 🎬.<br>
+3. בחרו <em>Entrance Animation</em>: Fade, Slide, Zoom, Bounce, Flip...<br>
+4. הגדירו <em>Delay</em> (זמן המתנה) ו-<em>Duration</em> (משך).<br><br>
+<b>סדר אנימציות:</b> לחצו <em>Timeline</em> לגרירה ושינוי סדר הופעה.<br>
+<b>מעברים בין שקפים:</b> לחצו על שקף ← Page Transition ← בחרו סגנון.`
+  },
+  {
+    keys:['register','נרשם','הרשמה','sign up','signup','account','חשבון','פרטים'],
+    ans:`להרשמה לGenially:<br>
+1. גשו ל-<a href="https://genially.com/signup" target="_blank" style="color:var(--pink)">genially.com/signup</a>.<br>
+2. הרשמו עם כתובת מייל (מומלץ: כתובת האוניברסיטה) או Google/Microsoft.<br>
+3. בחרו מסלול <b>Free</b> ← אמתו את המייל.<br><br>
+<b>טיפ:</b> אם אתם מוסד חינוכי, בדקו את מסלול Education להטבות נוספות.<br>
+צפו בסרטון ההדרכה למעלה לפרוצדורה מלאה.`
+  },
+  {
+    keys:['image','תמונה','תמונות','photo','insert image','להוסיף תמונה','unsplash','background image'],
+    ans:`להוספת תמונה:<br>
+<b>מהמחשב:</b> Insert ← Image ← Upload.<br>
+<b>ממאגר חינמי:</b> Insert ← Image ← חפשו ב-Unsplash/Pixabay (מיליוני תמונות ללא תשלום).<br>
+<b>URL ישיר:</b> Insert ← Image ← הדביקו כתובת תמונה מהאינטרנט.<br><br>
+<b>רקע לשקף:</b> Design ← Background ← Background Image.`
+  },
+  {
+    keys:['save','שמירה','autosave','שומר','saved','אוטומטי'],
+    ans:`Genially שומרת <b>אוטומטית</b> כל כמה שניות — אין צורך בלחיצת Ctrl+S.<br>
+בפינה העליונה תראו "Saved ✓" כשהשמירה הושלמה.<br><br>
+<b>Undo/Redo:</b> Ctrl+Z / Ctrl+Shift+Z (עד 50 פעולות אחורה).`
+  },
+  {
+    keys:['quiz','בוחן','שאלות','שאלון','test','exam','assessment'],
+    ans:`ב-Genially ניתן לצור בוחנים ב-2 דרכים:<br><br>
+<b>1. Widget מוכן:</b> Insert ← Multimedia Widget ← חפשו "Quiz" — בוחן עם שאלות אמריקאיות.<br>
+<b>2. בניה ידנית עם Interactivity:</b> יצירת כפתורי תשובה עם Tooltip לתשובה נכונה/שגויה וניווט לשקפים שונים לפי הבחירה.<br><br>
+<b>עם AI:</b> Insert ← Multimedia Widget ← AI Quiz Generator — הזינו נושא ו-AI יצור שאלות.`
+  },
+  {
+    keys:['copy','duplicate','שכפול','copy element','ctrl c','להעתיק','paste'],
+    ans:`<b>שכפול אלמנט:</b> בחרו ← Ctrl+D (או קליק ימני ← Duplicate).<br>
+<b>העתקה:</b> Ctrl+C ← Ctrl+V.<br>
+<b>העתקה לשקף אחר:</b> Ctrl+C ← נווטו לשקף אחר ← Ctrl+V.<br>
+<b>שכפול שקף שלם:</b> קליק ימני על שקף בפאנל ← Duplicate Page.`
+  },
+  {
+    keys:['font','גופן','פונט','hebrew','עברית','rtl','right to left','טקסט עברית'],
+    ans:`Genially תומכת ב-RTL ועברית:<br>
+1. הוסיפו Text Box.<br>
+2. בחרו גופן התומך בעברית: <b>Heebo</b>, <b>Rubik</b>, <b>Assistant</b>, <b>Frank Ruhl Libre</b> מומלצים.<br>
+3. יישור: בחרו יישור ימין (Right align) לטקסט עברי.<br><br>
+<b>שימו לב:</b> ממשק העריכה הוא LTR, אך הטקסט עצמו יכול להיות RTL.`
+  },
+  {
+    keys:['collaboration','שיתוף פעולה','team','צוות','together','collab','עריכה משותפת'],
+    ans:`<b>עריכה משותפת (Pro):</b> מסלול Team מאפשר מספר עורכים על אותה יצירה בו-זמנית.<br><br>
+<b>בחינמי:</b> ניתן לשתף יצירה לצפייה, אך לא לעריכה משותפת. כדי לתת גישת עריכה — שלחו עותק (Duplicate) לכל משתתף.`
+  },
+  {
+    keys:['undo','ctrl z','ביטול','לבטל','mistake','טעות','back'],
+    ans:`<b>ביטול (Undo):</b> Ctrl+Z (Mac: Cmd+Z)<br>
+<b>עשה מחדש (Redo):</b> Ctrl+Shift+Z<br>
+עד <b>50 פעולות</b> אחורה. לאחר סגירת הדפדפן ההיסטוריה מתאפסת.`
+  },
+  {
+    keys:['what is genially','what is','מה זה','מהו','מה הוא','genially כלי','למה genially'],
+    ans:`<b>Genially</b> הוא כלי אינטרנטי ליצירת תוכן אינטראקטיבי: מצגות, אינפוגרפיקה, תרשימים, משחקים ועוד.<br><br>
+<b>מה מייחד אותו?</b><br>
+✦ <em>שכבות מידע</em> — לחיצה על אלמנט פותחת מידע נוסף<br>
+✦ <em>אנימציות</em> — תוכן מתנועע ומושך תשומת לב<br>
+✦ <em>AI מובנה</em> — יצירת יצירות שלמות מנושא<br>
+✦ <em>Embed</em> — הטמעה קלה בכל אתר או מודל<br>
+✦ <em>חינמי</em> — ניתן להשתמש ללא תשלום`
+  },
+  {
+    keys:['page','שקף','slide','add page','להוסיף שקף','new page','delete page','reorder'],
+    ans:`<b>ניהול שקפים:</b><br>
+➕ <em>הוספה:</em> לחצו + בתחתית פאנל השקפים (ימין).<br>
+📋 <em>שכפול:</em> קליק ימני ← Duplicate Page.<br>
+🗑️ <em>מחיקה:</em> קליק ימני ← Delete (לא ניתן לבטל!).<br>
+⬍ <em>שינוי סדר:</em> גרירת שקף למיקום חדש בפאנל.<br>
+👁️ <em>הסתרה:</em> אייקון עין ← Hide Page (שקף לא יוצג בהצגה).`
+  },
+  {
+    keys:['size','resize','גודל','רוחב','גובה','width','height','canvas size','format'],
+    ans:`<b>שינוי גודל קנבס:</b> Design ← Canvas Size. אפשרויות: 16:9 (ברירת מחדל), 4:3, Vertical (מובייל 9:16), A4, Custom.<br><br>
+<b>שינוי גודל אלמנט:</b> בחרו אלמנט ← גררו ידית הפינה, או הזינו W/H בפאנל הימני.<br>
+<b>שמירת יחס:</b> לחצו על אייקון מנעול בין W ל-H.`
+  },
+  {
+    keys:['chart','graph','גרף','נתונים','data','infographic','אינפוגרף','עוגה','pie','bar'],
+    ans:`<b>הוספת גרף:</b> Insert ← Chart.<br>
+סוגים: עוגה, עמודות, קווים, פיזור, עמודות מוערמות.<br>
+הזינו נתונים ישירות בממשק — ללא Excel.<br><br>
+<b>מפה אינטראקטיבית:</b> Insert ← Interactive Map — לחיצה על אזור מציגה מידע.<br>
+<b>אינפוגרפיקה מ-AI:</b> בקשו מה-AI (✦) "Create an infographic about [נושא]".`
+  },
+  {
+    keys:['keyboard','מקלדת','shortcut','קיצור','ctrl','hotkey'],
+    ans:`<b>קיצורי מקלדת שימושיים:</b><br>
+<code>Ctrl+Z</code> — ביטול | <code>Ctrl+D</code> — שכפול<br>
+<code>Ctrl+G</code> — קיבוץ | <code>Ctrl+Shift+G</code> — פירוק קיבוץ<br>
+<code>Ctrl+C/V</code> — העתקה/הדבקה<br>
+<code>Ctrl+A</code> — בחירת הכל<br>
+<code>Ctrl+0</code> — איפוס זום | <code>Ctrl+גלגלת</code> — זום<br>
+<code>Delete</code> — מחיקת אלמנט נבחר<br>
+<code>Arrow keys</code> — הזזה עדינה של אלמנט`
+  },
+];
+
+function getBotAnswer(q) {
+  const ql = q.toLowerCase();
+  let best = null;
+  let bestScore = 0;
+  for (const item of KB) {
+    let score = 0;
+    for (const k of item.keys) {
+      if (ql.includes(k.toLowerCase())) score += k.length;
+    }
+    if (score > bestScore) { bestScore = score; best = item; }
+  }
+  if (best && bestScore > 0) return best.ans;
+  return `לא מצאתי תשובה ספציפית לשאלה שלך 🤔<br>נסו לנסח אחרת, או שאלו בסדנה עצמה — נטלי תשמח לענות!<br><br>כמה נושאים שאני יודע עליהם: אינטראקטיביות, AI, הרשמה, וידאו, שמע, תבניות, שיתוף, אנימציות, גלגל המזל, הטמעה במודל.`;
+}
+
+function addMsg(text, who) {
+  const wrap = document.getElementById('chat-messages');
+  const d = document.createElement('div');
+  d.className = 'msg ' + who;
+  d.innerHTML = `<div class="msg-avatar">${who==='bot'?'🤖':'👤'}</div><div class="msg-bubble">${text}</div>`;
+  wrap.appendChild(d);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+function sendMsg() {
+  const inp = document.getElementById('chat-input');
+  const q = inp.value.trim();
+  if (!q) return;
+  addMsg(q, 'user');
+  inp.value = '';
+  setTimeout(() => addMsg(getBotAnswer(q), 'bot'), 320);
+}
+
+function askSug(el) {
+  document.getElementById('chat-input').value = el.textContent;
+  sendMsg();
+}
+</script>
 </body>
 </html>
