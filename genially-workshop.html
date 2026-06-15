@@ -212,7 +212,7 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
   <div class="tabs-inner">
     <button class="tab-btn active" onclick="showTab('home',this)">🏠 דף הבית</button>
     <button class="tab-btn" onclick="showTab('editor',this)">🖥️ ממשק העריכה</button>
-    <button class="tab-btn" onclick="showTab('panel',this)">🗂️ פאנל הניהול</button>
+    <button class="tab-btn" onclick="showTab('panel',this)">🗂️ הסרגל הצדדי</button>
     <button class="tab-btn" onclick="showTab('templates',this)">📋 תבניות</button>
     <button class="tab-btn" onclick="showTab('publish',this)">🚀 פרסום ושיתוף</button>
   </div>
@@ -349,9 +349,9 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
 <!-- ═══════════════════════════════════ TAB 3: PANEL ═══════════════════════════════════ -->
 <div id="tab-panel" class="page">
   <div class="guide-hero" style="background:radial-gradient(ellipse 70% 60% at 50% 0%,var(--teal-soft) 0%,transparent 70%)">
-    <div class="guide-badge" style="background:var(--teal-soft);color:var(--teal);border:1.5px solid var(--teal-mid)">🗂️ פאנל הניהול</div>
-    <h2>פאנל הניהול — Dashboard</h2>
-    <p>כל מה שקורה לפני העריכה — יצירה, ניהול, שיתוף ופרסום</p>
+    <div class="guide-badge" style="background:var(--teal-soft);color:var(--teal);border:1.5px solid var(--teal-mid)">🗂️ הסרגל הצדדי</div>
+    <h2>הסרגל הצדדי של Genially</h2>
+    <p>6 הכפתורים בסרגל השמאלי — ניווט בין כל אזורי הממשק</p>
     <div class="guide-search-wrap">
       <div class="gsbox">
         <span class="gsico">🔍</span>
@@ -360,11 +360,12 @@ body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--dark);
     </div>
     <div class="chips-wrap" id="p-chips">
       <span class="chip active" onclick="pChip(this,'')">הכל</span>
-      <span class="chip" onclick="pChip(this,'home')">מסך הבית</span>
-      <span class="chip" onclick="pChip(this,'create')">יצירה חדשה</span>
-      <span class="chip" onclick="pChip(this,'manage')">ניהול יצירות</span>
-      <span class="chip" onclick="pChip(this,'share')">שיתוף ופרסום</span>
-      <span class="chip" onclick="pChip(this,'account')">חשבון</span>
+      <span class="chip" onclick="pChip(this,'home')">🏠 Home</span>
+      <span class="chip" onclick="pChip(this,'content')">📁 Content</span>
+      <span class="chip" onclick="pChip(this,'templates')">🖼️ Templates</span>
+      <span class="chip" onclick="pChip(this,'community')">🌐 Community</span>
+      <span class="chip" onclick="pChip(this,'activity')">📊 Activity</span>
+      <span class="chip" onclick="pChip(this,'brand')">🎨 Brand Kit</span>
     </div>
   </div>
   <div class="gmain" id="p-panels"></div>
@@ -868,62 +869,70 @@ function filterEditor(q){buildPanels(EDATA,'e-panels','e-nr',q,eChipVal);}
 
 /* ── PANEL DATA ── */
 const PDATA=[
-  {id:"home",title:"מסך הבית",titleHe:"Home / Dashboard",icon:"🏠",iconBg:"#EEF8F4",keywords:"home בית dashboard לוח בקרה",
+  {id:"home",title:"Home — דף הבית",titleHe:"עמוד הכניסה לאחר ההתחברות",icon:"🏠",iconBg:"#EEF8F4",keywords:"home בית dashboard create recent",
    sections:[
-    {title:"אזורים ראשיים",items:[
-      {icon:"➕",name:"כפתור Create",desc:"הכפתור המרכזי. תפריט יצירה: מתבנית, מדף חלק, עם AI, ייבוא מ-PowerPoint.",tags:[{t:"מכאן מתחילים",c:"ibt"}]},
-      {icon:"📁",name:"My creations",desc:"כל היצירות. סינון לפי תאריך, שם, סוג. חיפוש לפי שם.",tags:[]},
-      {icon:"📚",name:"Templates",desc:"ספריית אלפי תבניות. סינון לפי קטגוריה, שפה, צבע.",tags:[]},
-      {icon:"🔔",name:"Notifications",desc:"התראות על שיתופים ועדכוני מערכת.",tags:[{t:"חדש 2025",c:"ibn"}]},
+    {title:"מה מוצג כאן?",items:[
+      {icon:"📌",name:"יצירות אחרונות",desc:"כרטיסיות של היצירות שעבדתם עליהן לאחרונה — לחיצה כפולה פותחת את העריכה.",tags:[]},
+      {icon:"➕",name:"כפתור Create (+ New genially)",desc:"הכפתור הכחול הראשי ליצירת תוצר חדש — מכאן מתחילים תמיד.",tags:[{t:"מכאן מתחילים",c:"ibt"}]},
+    ]},
+    {title:"אפשרויות יצירה בלחיצה על Create",items:[
+      {icon:"✦",name:"Generate with AI",desc:"הזינו נושא — Genially יוצרת מצגת שלמה אוטומטית עם שקפים, טקסט ותמונות.",tags:[{t:"AI",c:"iba"}]},
+      {icon:"📋",name:"From a template",desc:"בחרו תבנית מוכנה מספריית אלפי תבניות.",tags:[]},
+      {icon:"⬜",name:"Blank genially",desc:"קנבס ריק — כשרוצים לבנות מאפס.",tags:[]},
+      {icon:"📤",name:"Import PowerPoint",desc:"העלו קובץ PPTX — Genially ממיר את השקפים לאלמנטים עריכים.",tags:[]},
     ]},
    ]},
-  {id:"create",title:"יצירה חדשה",titleHe:"Create New",icon:"✨",iconBg:"#FBF0F5",keywords:"create חדש new blank template ai powerpoint import",
+  {id:"content",title:"Content — התוכן שלי",titleHe:"כל היצירות שיצרתם",icon:"📁",iconBg:"#FBF0F5",keywords:"content תוכן יצירות folder תיקייה duplicate delete rename search",
    sections:[
-    {title:"דרכי יצירה",items:[
-      {icon:"✦",name:"Generate with AI",desc:"הזינו נושא, בחרו סגנון ומספר שקפים — יצירה שלמה אוטומטית.",tags:[{t:"AI",c:"iba"},{t:"חדש 2025",c:"ibn"}]},
-      {icon:"📋",name:"From Template",desc:"אלפי תבניות. קטגוריות: Presentation, Infographic, Quiz, Game.",tags:[]},
-      {icon:"⬜",name:"Blank",desc:"דף ריק. בחרו גודל קנבס וסגנון (Theme).",tags:[]},
-      {icon:"📤",name:"Import PowerPoint",desc:"העלו PPTX — Genially ממיר לאלמנטים עריכים.",tags:[{t:"טיפ",c:"ibt"}]},
+    {title:"מה מוצג כאן?",items:[
+      {icon:"🗂️",name:"כל היצירות שלי",desc:"רשימה או רשת של כל הגנאיליים שיצרתם — כולל טיוטות ופרסומים.",tags:[]},
+      {icon:"📂",name:"תיקיות",desc:"ניתן לארגן יצירות בתיקיות — לחצו ← New folder.",tags:[]},
+      {icon:"🔍",name:"חיפוש",desc:"שדה חיפוש בחלק העליון לאיתור יצירה לפי שם.",tags:[]},
     ]},
-    {title:"הגדרות ראשוניות",items:[
-      {icon:"🔡",name:"Name",desc:"תנו שם לפני שמתחילים. ניתן לשנות בסרגל העליון.",tags:[]},
-      {icon:"📱",name:"Format",desc:"16:9, A4 אנכי, Vertical (מובייל), Custom. שינוי לאחר מכן יסיט אלמנטים.",tags:[]},
-      {icon:"🎨",name:"Theme",desc:"ערכת עיצוב ראשונית: צבעים + גופנים.",tags:[]},
+    {title:"פעולות על יצירה (קליק ימני)",items:[
+      {icon:"✏️",name:"Rename",desc:"שינוי שם היצירה.",tags:[]},
+      {icon:"📋",name:"Duplicate",desc:"שכפול היצירה — שימושי ליצירת גרסה נוספת.",tags:[]},
+      {icon:"📦",name:"Move",desc:"העברה לתיקייה.",tags:[]},
+      {icon:"📊",name:"Analytics",desc:"סטטיסטיקות: מספר צפיות, זמן ממוצע, מדינות.",tags:[{t:"Pro",c:"ibt"}]},
+      {icon:"🗑️",name:"Delete",desc:"מחיקה — ניתן לשחזר תוך 30 יום.",tags:[{t:"שחזור 30 יום",c:"ibt"}]},
     ]},
    ]},
-  {id:"manage",title:"ניהול יצירות",titleHe:"Manage",icon:"📁",iconBg:"#FDF6E8",keywords:"manage ניהול folder תיקייה duplicate archive delete rename analytics",
+  {id:"templates",title:"Templates — תבניות",titleHe:"ספריית התבניות המוכנות",icon:"🖼️",iconBg:"#FDF6E8",keywords:"templates תבניות gallery browse categories presentation infographic quiz game",
    sections:[
-    {title:"פעולות על יצירה",items:[
-      {icon:"📋",name:"Duplicate",desc:"שכפול יצירה שלמה. לשמירת גרסת בסיס.",tags:[]},
-      {icon:"📦",name:"Move to folder",desc:"גרירה לתיקייה, או קליק ימני ← Move.",tags:[]},
-      {icon:"🗑️",name:"Delete",desc:"מחיקה לאשפה — שחזור אפשרי תוך 30 יום.",tags:[{t:"30 יום לשחזור",c:"ibt"}]},
+    {title:"מה מוצג כאן?",items:[
+      {icon:"🔍",name:"חיפוש תבניות",desc:"שדה חיפוש לפי נושא, מילת מפתח או שם תבנית.",tags:[]},
+      {icon:"🏷️",name:"סינון לפי קטגוריה",desc:"Presentation, Infographic, Interactive Image, Quiz, Game, Escape Room ועוד.",tags:[]},
+      {icon:"👁️",name:"Preview לפני שימוש",desc:"לחצו Preview לצפייה מלאה לפני שבוחרים תבנית.",tags:[{t:"חשוב",c:"ibt"}]},
     ]},
-    {title:"ניתוח",items:[
-      {icon:"📊",name:"Analytics",desc:"צפיות, זמן ממוצע, מדינות. קליק ימני ← Analytics.",tags:[{t:"Pro",c:"ibt"}]},
+    {title:"שימוש בתבנית",items:[
+      {icon:"✅",name:"Use this template",desc:"הכפתור הירוק — פותח עותק עריך של התבנית.",tags:[]},
+      {icon:"💡",name:"טיפ",desc:"קל לשנות צבעים וטקסט — קשה לשנות מבנה. בחרו תבנית עם המבנה הנכון.",tags:[]},
     ]},
    ]},
-  {id:"share",title:"שיתוף ופרסום",titleHe:"Share & Publish",icon:"🚀",iconBg:"#F3EEFF",keywords:"share שיתוף publish פרסום link embed pdf scorm",
+  {id:"community",title:"Community — קהילה",titleHe:"יצירות ציבוריות של משתמשים אחרים",icon:"🌐",iconBg:"#F3EEFF",keywords:"community קהילה explore גלה inspiration השראה public",
    sections:[
-    {title:"פרסום",items:[
-      {icon:"☁️",name:"Publish",desc:"חובה לפרסם לפני שיתוף. Publish ☁️ בסרגל העליון.",tags:[{t:"חובה לפני שיתוף",c:"ibt"}]},
-      {icon:"🔒",name:"Privacy",desc:"Public | Private (רק עם קישור) | Password.",tags:[]},
-    ]},
-    {title:"דרכי שיתוף",items:[
-      {icon:"🔗",name:"Share Link",desc:"קישור ישיר לצפייה.",tags:[]},
-      {icon:"💻",name:"Embed Code",desc:"iFrame לאתר, Moodle, Blackboard. 100% רוחב × 600px גובה.",tags:[{t:"מומלץ למודל",c:"ibt"}]},
-      {icon:"📥",name:"Download PDF",desc:"כל השקפים כ-PDF סטטי. ללא אינטראקטיביות.",tags:[{t:"Pro",c:"ibt"}]},
-      {icon:"📦",name:"SCORM",desc:"ייצוא לייבוא ב-LMS עם מעקב השלמה.",tags:[{t:"Pro",c:"ibt"}]},
+    {title:"מה מוצג כאן?",items:[
+      {icon:"🌍",name:"גלריה ציבורית",desc:"יצירות שמשתמשים אחרים בחרו לפרסם לקהל הרחב.",tags:[]},
+      {icon:"🔍",name:"חיפוש והשראה",desc:"חפשו לפי נושא לקבלת השראה לפרויקט הבא.",tags:[]},
+      {icon:"📋",name:"Use as template",desc:"אפשר להשתמש ביצירות ציבוריות כתבנית — לחצו ← Use.",tags:[]},
     ]},
    ]},
-  {id:"account",title:"חשבון",titleHe:"Account & Settings",icon:"⚙️",iconBg:"#EEF8F4",keywords:"account חשבון settings profile plan team brand",
+  {id:"activity",title:"Activity — פעילות",titleHe:"מרכז ההתראות והפעילות",icon:"📊",iconBg:"#EEF8F4",keywords:"activity פעילות notifications התראות history",
    sections:[
-    {title:"פרופיל",items:[
-      {icon:"👤",name:"Profile",desc:"שם, תמונת פרופיל, שם משתמש לדף ציבורי.",tags:[]},
-      {icon:"🔑",name:"Security",desc:"שינוי סיסמה, Google/Microsoft, אימות דו-שלבי.",tags:[]},
+    {title:"מה מוצג כאן?",items:[
+      {icon:"🔔",name:"התראות",desc:"עדכונים על יצירות ששותפו איתכם, הערות, ושינויים של עמיתים.",tags:[]},
+      {icon:"📋",name:"היסטוריית פעילות",desc:"יומן פעולות: מי ערך, מתי, איזו יצירה.",tags:[]},
     ]},
-    {title:"מסלול",items:[
-      {icon:"💳",name:"Plan & Billing",desc:"מסלול נוכחי, שדרוג, חשבוניות.",tags:[]},
-      {icon:"🎓",name:"Education Discount",desc:"הנחה לאקדמיה עם מייל מוסדי.",tags:[{t:"מומלץ לאו\"פ",c:"ibt"}]},
+   ]},
+  {id:"brand",title:"Brand Kit — ערכת מיתוג",titleHe:"צבעים, גופנים ולוגו ארגוניים",icon:"🎨",iconBg:"#FBF0F5",keywords:"brand kit מיתוג צבעים גופנים לוגו colors fonts logo",
+   sections:[
+    {title:"מה מוצג כאן?",items:[
+      {icon:"🎨",name:"פלטת צבעים ארגונית",desc:"הגדירו את הצבעים הרשמיים של המוסד — יופיעו בכל יצירה חדשה.",tags:[{t:"Pro",c:"ibt"}]},
+      {icon:"🔡",name:"גופנים ארגוניים",desc:"העלו גופנים מותאמים אישית שישמשו ברחבי כל היצירות.",tags:[{t:"Pro",c:"ibt"}]},
+      {icon:"🖼️",name:"לוגו",desc:"העלו לוגו שיוצב אוטומטית ביצירות חדשות.",tags:[{t:"Pro",c:"ibt"}]},
+    ]},
+    {title:"טיפ לאו\"פ",items:[
+      {icon:"💡",name:"מיתוג אחיד",desc:"Brand Kit מבטיח שכל היצירות של הצוות נראות אחיד. מומלץ להגדיר עם מייל מוסדי.",tags:[]},
     ]},
    ]},
 ];
