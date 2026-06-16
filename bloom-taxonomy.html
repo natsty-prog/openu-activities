@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>טקסונומיית בלום | Genially Interactive Infographic</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#C11E6B;--teal:#6CB79D;--yellow:#EBA521;--purple:#7B5EA7;
+  --orange:#E8722A;--blue:#2F7EC7;--green:#27A86A;
+  --dark:#231F20;--white:#fff;
+  --gray-50:#F9F7F8;--gray-100:#F2EDF0;--gray-200:#E4D8DF;--gray-400:#A08898;
+}
+html,body{height:100%;font-family:'Heebo',sans-serif;background:#1a0a12;color:var(--dark);direction:rtl}
+
+/* ── STAGE (Genially full-canvas feel) ── */
+.stage{
+  min-height:100vh;
+  background:linear-gradient(145deg,#1a0a12 0%,#0d1a24 50%,#0a1a14 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:32px 20px;position:relative;overflow:hidden;
+}
+.stage::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 40% at 50% 20%,rgba(193,30,107,.18) 0%,transparent 60%),
+             radial-gradient(ellipse 40% 30% at 80% 80%,rgba(108,183,157,.12) 0%,transparent 50%);
+  pointer-events:none;
+}
+
+/* ── HEADER ── */
+.page-header{text-align:center;margin-bottom:36px;position:relative;z-index:1}
+.page-header .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(193,30,107,.2);
+  border:1px solid rgba(193,30,107,.4);border-radius:20px;padding:5px 14px;
+  font-size:12px;font-weight:700;color:#E599B6;letter-spacing:.5px;margin-bottom:12px}
+.page-header h1{font-size:clamp(22px,4vw,36px);font-weight:900;color:var(--white);line-height:1.2}
+.page-header h1 span{color:#E599B6}
+.page-header p{font-size:14px;color:rgba(255,255,255,.55);margin-top:8px}
+
+/* ── PYRAMID CONTAINER ── */
+.pyramid-wrap{position:relative;z-index:1;width:100%;max-width:680px}
+
+/* ── PYRAMID ROWS ── */
+.pyramid{display:flex;flex-direction:column;align-items:center;gap:4px}
+
+.p-row{
+  display:flex;align-items:center;cursor:pointer;
+  border-radius:10px;transition:transform .18s,filter .18s;
+  position:relative;width:var(--w);
+  background:var(--clr);
+  padding:0 20px;
+  height:56px;
+  justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.35);
+}
+.p-row:hover{transform:scaleX(1.03) translateY(-2px);filter:brightness(1.15)}
+.p-row::before{content:'';position:absolute;inset:0;border-radius:10px;
+  background:linear-gradient(180deg,rgba(255,255,255,.12) 0%,transparent 100%);pointer-events:none}
+
+.p-label{
+  display:flex;align-items:center;gap:10px;
+  color:var(--white);font-weight:800;font-size:clamp(13px,2.5vw,16px);
+  white-space:nowrap;
+}
+.p-level{
+  font-size:10px;font-weight:600;opacity:.75;
+  background:rgba(0,0,0,.25);border-radius:10px;padding:2px 8px;
+}
+.p-icon{font-size:22px;flex-shrink:0}
+.p-arrow{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:var(--white);transition:background .2s;
+}
+.p-row:hover .p-arrow{background:rgba(255,255,255,.4)}
+
+/* widths descending top→bottom */
+.p-row:nth-child(1){--w:22%}
+.p-row:nth-child(2){--w:35%}
+.p-row:nth-child(3){--w:49%}
+.p-row:nth-child(4){--w:63%}
+.p-row:nth-child(5){--w:77%}
+.p-row:nth-child(6){--w:91%}
+
+/* ── HINT ── */
+.hint{text-align:center;margin-top:18px;font-size:12px;color:rgba(255,255,255,.38);
+  display:flex;align-items:center;justify-content:center;gap:6px;position:relative;z-index:1}
+
+/* ── MODAL OVERLAY ── */
+.overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(10,5,18,.75);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.overlay.open{display:flex}
+
+/* ── MODAL CARD ── */
+.modal{
+  background:var(--white);border-radius:20px;max-width:560px;width:100%;
+  box-shadow:0 24px 80px rgba(0,0,0,.5);
+  overflow:hidden;animation:popIn .22s ease;
+  position:relative;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+
+.modal-top{padding:24px 24px 18px;border-bottom:1px solid var(--gray-100)}
+.modal-color-bar{height:5px;border-radius:5px 5px 0 0;margin:-24px -24px 16px}
+.modal-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;margin-bottom:10px;
+}
+.modal-title{font-size:22px;font-weight:900;color:var(--dark)}
+.modal-sub{font-size:13px;color:var(--gray-400);margin-top:4px;font-weight:500}
+
+.modal-body{padding:20px 24px 24px}
+
+/* VERBS */
+.verbs-title{font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.verbs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.verb{
+  border-radius:20px;padding:5px 13px;font-size:13px;font-weight:600;
+  background:var(--vbg);color:var(--vclr);
+}
+
+/* EXAMPLES */
+.examples-title{font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.examples{display:flex;flex-direction:column;gap:8px}
+.ex-item{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 12px;
+  background:var(--gray-50);border-radius:10px;font-size:13px;
+}
+.ex-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.ex-text{color:var(--dark);line-height:1.5}
+
+/* CLOSE */
+.modal-close{
+  position:absolute;top:14px;left:14px;
+  width:30px;height:30px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--gray-100);color:var(--gray-400);font-size:14px;
+  display:flex;align-items:center;justify-content:center;transition:background .15s;
+}
+.modal-close:hover{background:var(--gray-200)}
+
+/* ── FOOTER ── */
+.page-footer{
+  position:relative;z-index:1;margin-top:28px;text-align:center;
+  font-size:11px;color:rgba(255,255,255,.3);
+}
+
+@media(max-width:480px){
+  .p-row{height:48px;padding:0 12px}
+  .p-icon{font-size:17px}
+  .p-row:nth-child(1){--w:32%}
+  .p-row:nth-child(2){--w:46%}
+  .p-row:nth-child(3){--w:60%}
+  .p-row:nth-child(4){--w:74%}
+  .p-row:nth-child(5){--w:88%}
+  .p-row:nth-child(6){--w:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="badge">🎓 Interactive Infographic</div>
+    <h1>טקסונומיית <span>בלום</span></h1>
+    <p>לחצו על כל רמה לקבלת הגדרה, פעלים ודוגמאות הוראה</p>
+  </div>
+
+  <!-- PYRAMID -->
+  <div class="pyramid-wrap">
+    <div class="pyramid">
+
+      <div class="p-row" style="--clr:#C11E6B" onclick="openModal('create')">
+        <div class="p-label">
+          <span class="p-icon">🌟</span>
+          <span>יצירה</span>
+          <span class="p-level">Create</span>
+        </div>
+        <span class="p-arrow">↗</span>
+      </div>
+
+      <div class="p-row" style="--clr:#8B3FA8" onclick="openModal('evaluate')">
+        <div class="p-label">
+          <span class="p-icon">⚖️</span>
+          <span>הערכה</span>
+          <span class="p-level">Evaluate</span>
+        </div>
+        <span class="p-arrow">↗</span>
+      </div>
+
+      <div class="p-row" style="--clr:#2F7EC7" onclick="openModal('analyze')">
+        <div class="p-label">
+          <span class="p-icon">🔬</span>
+          <span>ניתוח</span>
+          <span class="p-level">Analyze</span>
+        </div>
+        <span class="p-arrow">↗</span>
+      </div>
+
+      <div class="p-row" style="--clr:#27A86A" onclick="openModal('apply')">
+        <div class="p-label">
+          <span class="p-icon">🛠️</span>
+          <span>יישום</span>
+          <span class="p-level">Apply</span>
+        </div>
+        <span class="p-arrow">↗</span>
+      </div>
+
+      <div class="p-row" style="--clr:#E8722A" onclick="openModal('understand')">
+        <div class="p-label">
+          <span class="p-icon">💡</span>
+          <span>הבנה</span>
+          <span class="p-level">Understand</span>
+        </div>
+        <span class="p-arrow">↗</span>
+      </div>
+
+      <div class="p-row" style="--clr:#6CB79D" onclick="openModal('remember')">
+        <div class="p-label">
+          <span class="p-icon">🧠</span>
+          <span>זכירה</span>
+          <span class="p-level">Remember</span>
+        </div>
+        <span class="p-arrow">↗</span>
+      </div>
+
+    </div>
+    <div class="hint">👆 לחצו על כל רמה לפרטים</div>
+  </div>
+
+  <div class="page-footer">טקסונומיית בלום המתוקנת — Anderson & Krathwohl, 2001</div>
+</div>
+
+<!-- MODAL OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeIfBg(event)">
+  <div class="modal" id="modal">
+    <div class="modal-color-bar" id="mbar"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge" id="mbadge"></div>
+      <div class="modal-title" id="mtitle"></div>
+      <div class="modal-sub" id="msub"></div>
+    </div>
+    <div class="modal-body">
+      <div class="verbs-title">פעלים מנחים</div>
+      <div class="verbs" id="mverbs"></div>
+      <div class="examples-title">דוגמאות הוראה</div>
+      <div class="examples" id="mexamples"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  remember: {
+    title: "זכירה — Remember",
+    sub: "שליפת מידע מהזיכרון לטווח ארוך",
+    color: "#6CB79D",
+    soft: "#EEF8F4",
+    icon: "🧠",
+    level: "רמה 1 — הבסיס",
+    verbs: ["זהה","שנה","ציין","מנה","הגדר","רשום","הכר","זכור","חזור"],
+    examples: [
+      {icon:"📖", text:"אנגלית — תרגום רשימת מילים חדשות"},
+      {icon:"🔢", text:"מתמטיקה — שינון נוסחאות ויחסים"},
+      {icon:"🧬", text:"מדעי הטבע — שמות האיברים בתא"},
+      {icon:"📚", text:"כל תחום — מבחן זיהוי מושגי יסוד"},
+    ]
+  },
+  understand: {
+    title: "הבנה — Understand",
+    sub: "פרשנות, הסבר ועיצוב מחדש של מידע",
+    color: "#E8722A",
+    soft: "#FFF3EC",
+    icon: "💡",
+    level: "רמה 2",
+    verbs: ["הסבר","סכם","פרש","הבדל","המחש","תאר","סווג","השווה"],
+    examples: [
+      {icon:"📝", text:"פסיכולוגיה — תיאור מנגנון ההגנה בלשון הסטודנט"},
+      {icon:"💬", text:"אנגלית — כתיבת פסקת סיכום לטקסט"},
+      {icon:"📊", text:"מדעי המחשב — הסבר איך אלגוריתם עובד בשפה פשוטה"},
+      {icon:"📖", text:"ספרייה — השוואה בין שתי מקורות מידע"},
+    ]
+  },
+  apply: {
+    title: "יישום — Apply",
+    sub: "שימוש בידע בהקשרים חדשים",
+    color: "#27A86A",
+    soft: "#EEF9F4",
+    icon: "🛠️",
+    level: "רמה 3",
+    verbs: ["השתמש","פתור","הדגם","חשב","בצע","יישם","בנה","הפעל"],
+    examples: [
+      {icon:"📐", text:"מתמטיקה — פתרון בעיה חדשה עם נוסחה שנלמדה"},
+      {icon:"🧪", text:"מדעי הטבע — ביצוע ניסוי לפי נוהל"},
+      {icon:"💻", text:"מדעי המחשב — כתיבת קוד לפי דפוס שלמדו"},
+      {icon:"🗣️", text:"אנגלית — ניהול שיחה עם מבנה תחבירי חדש"},
+    ]
+  },
+  analyze: {
+    title: "ניתוח — Analyze",
+    sub: "פירוק לחלקים וזיהוי יחסים",
+    color: "#2F7EC7",
+    soft: "#EEF4FF",
+    icon: "🔬",
+    level: "רמה 4",
+    verbs: ["בחן","פרק","ניתח","בדוק","השווה","הבחן","הסק","שאל"],
+    examples: [
+      {icon:"🧩", text:"פסיכולוגיה — ניתוח מקרה קליני לפי תיאוריה"},
+      {icon:"📊", text:"חינוך — ניתוח נתוני הישגים של כיתה"},
+      {icon:"📜", text:"אנגלית — ניתוח טיעון בטקסט שכנוע"},
+      {icon:"🔢", text:"מתמטיקה — בחינת הנחות יסוד בהוכחה"},
+    ]
+  },
+  evaluate: {
+    title: "הערכה — Evaluate",
+    sub: "שיפוט על בסיס קריטריונים ועדויות",
+    color: "#8B3FA8",
+    soft: "#F5EEFF",
+    icon: "⚖️",
+    level: "רמה 5",
+    verbs: ["שפוט","הצדק","הוכח","ביקר","הגן","העריך","בחר","הדרג"],
+    examples: [
+      {icon:"📰", text:"ספרייה — הערכת אמינות מקור מידע"},
+      {icon:"🧬", text:"מדעי הטבע — שיפוט שיטת מחקר"},
+      {icon:"💼", text:"ייעוץ — הערכת יעילות התערבות"},
+      {icon:"📚", text:"חינוך — ביקורת עמיתים על עבודה כתובה"},
+    ]
+  },
+  create: {
+    title: "יצירה — Create",
+    sub: "בניית דבר חדש ומשמעותי",
+    color: "#C11E6B",
+    soft: "#FBF0F5",
+    icon: "🌟",
+    level: "רמה 6 — הגבוה ביותר",
+    verbs: ["עצב","בנה","צור","המציא","הרכב","תכנן","פתח","הצע"],
+    examples: [
+      {icon:"🎨", text:"אנגלית — כתיבת סיפור מקורי עם מבנה שנלמד"},
+      {icon:"🔬", text:"מדעי הטבע — תכנון ניסוי מחקרי עצמאי"},
+      {icon:"💻", text:"מדעי המחשב — פיתוח פרויקט תוכנה מקורי"},
+      {icon:"📋", text:"חינוך — עיצוב פעילות הוראה חדשה"},
+    ]
+  }
+};
+
+function openModal(key) {
+  const d = DATA[key];
+  document.getElementById('mbar').style.background = d.color;
+  document.getElementById('mbadge').textContent = d.icon + ' ' + d.level;
+  document.getElementById('mbadge').style.background = d.soft;
+  document.getElementById('mbadge').style.color = d.color;
+  document.getElementById('mtitle').textContent = d.title;
+  document.getElementById('msub').textContent = d.sub;
+
+  const verbsHtml = d.verbs.map(v =>
+    `<span class="verb" style="--vbg:${d.soft};--vclr:${d.color}">${v}</span>`
+  ).join('');
+  document.getElementById('mverbs').innerHTML = verbsHtml;
+
+  const exHtml = d.examples.map(e =>
+    `<div class="ex-item"><span class="ex-icon">${e.icon}</span><span class="ex-text">${e.text}</span></div>`
+  ).join('');
+  document.getElementById('mexamples').innerHTML = exHtml;
+
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeIfBg(e) {
+  if (e.target === document.getElementById('overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
