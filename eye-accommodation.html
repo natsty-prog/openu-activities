@@ -3,492 +3,508 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>אקומודציה — מנגנון המיקוד האוטומטי של העין</title>
+<title>מנגנון האקומודציה במערכת הראייה</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
-  :root {
-    --bg:#F9F7F8; --s:#fff; --b:#DDD5DA;
-    --pink:#C11E6B; --pink-light:#FBF0F5; --pink-mid:#F5D0E3;
-    --teal:#6CB79D; --teal-light:#EEF8F4;
-    --yellow:#EBA521; --yellow-light:#FDF6E8;
-    --dark:#231F20; --muted:#A08898; --radius:14px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    min-height: 100vh;
+    direction: rtl;
   }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--dark); font-family:'Heebo',sans-serif; min-height:100vh; padding:20px 16px; }
-  header { text-align:center; margin-bottom:20px; }
-  header h1 { font-size:1.45rem; font-weight:800; color:var(--dark); margin-bottom:4px; }
-  header p { color:var(--muted); font-size:0.83rem; }
 
-  .main-layout { display:grid; grid-template-columns:1fr 300px; gap:18px; max-width:980px; margin:0 auto; }
-  .panel { background:var(--s); border:1px solid var(--b); border-radius:var(--radius); padding:18px; }
+  /* Header */
+  header.app-header {
+    background: #1e3a8a;
+    color: #fff;
+    padding: 26px 28px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.12);
+  }
+  header.app-header h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  header.app-header p {
+    color: #bfdbfe;
+    margin-top: 8px;
+    font-size: 0.88rem;
+    max-width: 760px;
+    line-height: 1.6;
+  }
 
-  /* Eye canvas */
-  #eye-canvas { display:block; width:100%; border-radius:10px; background:#0a0a14; }
+  /* Main grid */
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 22px;
+  }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
 
-  /* Controls */
-  .ctrl-section { margin-bottom:16px; }
-  .ctrl-label { font-size:0.72rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
-  .ctrl-label span { font-size:0.82rem; font-weight:800; color:var(--pink); letter-spacing:0; }
-  input[type=range] { width:100%; accent-color:var(--pink); cursor:pointer; }
+  .panel {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    border: 1px solid #e2e8f0;
+    padding: 22px;
+  }
 
-  .toggle-row { display:flex; gap:10px; margin-bottom:16px; }
-  .tog-btn { flex:1; padding:10px; border-radius:10px; border:1.5px solid var(--b); background:var(--bg); font-family:'Heebo',sans-serif; font-size:0.82rem; font-weight:700; color:var(--muted); cursor:pointer; transition:all .18s; }
-  .tog-btn.active { border-color:var(--teal); background:var(--teal-light); color:#2a7a60; }
+  /* Controls panel */
+  .controls-panel { display: flex; flex-direction: column; gap: 22px; }
+  .panel-head {
+    display: flex; align-items: center; gap: 9px;
+    border-bottom: 1px solid #e2e8f0; padding-bottom: 14px;
+  }
+  .panel-head h2 { font-size: 1.15rem; font-weight: 800; }
 
-  /* Info box */
-  .info-box { background:var(--pink-light); border:1px solid var(--pink-mid); border-radius:10px; padding:14px; font-size:0.78rem; line-height:1.7; color:#5a0f2a; margin-bottom:14px; }
-  .info-box .row { display:flex; justify-content:space-between; margin-bottom:3px; }
-  .info-box .val { font-weight:800; color:var(--pink); }
-  .info-box .lbl { color:var(--muted); }
+  .ctrl-group { display: flex; flex-direction: column; gap: 8px; }
+  .ctrl-row { display: flex; justify-content: space-between; align-items: center; }
+  .ctrl-label { font-weight: 600; font-size: 0.85rem; color: #334155; }
+  .ctrl-badge { font-size: 0.72rem; background: #f1f5f9; padding: 3px 9px; border-radius: 6px; color: #475569; font-weight: 600; }
 
-  /* Blur preview */
-  .preview-wrap { background:#111; border-radius:10px; overflow:hidden; position:relative; }
-  .preview-wrap canvas { display:block; width:100%; }
-  .preview-label { position:absolute; top:8px; right:10px; font-size:0.66rem; font-weight:700; background:rgba(0,0,0,.6); color:#fff; padding:3px 8px; border-radius:20px; }
+  input[type=range] {
+    width: 100%; height: 7px;
+    border-radius: 8px;
+    appearance: none;
+    cursor: pointer;
+    direction: ltr;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    appearance: none; width: 18px; height: 18px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--thumb, #2563eb); cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  }
+  #dist-slider { background: #bfdbfe; }
+  #dist-slider { --thumb: #2563eb; }
+  #muscle-slider { background: #fecaca; }
+  #muscle-slider { --thumb: #ef4444; }
 
-  /* Focus bar */
-  .focus-bar-wrap { margin-bottom:16px; }
-  .focus-bar-label { font-size:0.72rem; font-weight:700; color:var(--muted); margin-bottom:5px; display:flex; justify-content:space-between; }
-  .focus-bar-track { height:12px; background:var(--b); border-radius:20px; overflow:hidden; }
-  .focus-bar-fill { height:100%; border-radius:20px; transition:width .2s, background .2s; }
+  .ctrl-minmax { display: flex; justify-content: space-between; font-size: 0.7rem; color: #94a3b8; font-weight: 600; }
 
-  /* Anatomy labels */
-  .anatomy-note { font-size:0.7rem; color:var(--muted); line-height:1.6; margin-top:10px; }
-  .anatomy-note span { display:inline-block; width:10px; height:10px; border-radius:2px; margin-left:4px; vertical-align:middle; }
+  .mode-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 9px; }
+  .mode-row { display: flex; justify-content: space-between; align-items: center; }
+  .mode-label { font-weight: 600; font-size: 0.85rem; color: #334155; }
 
-  @media(max-width:680px){ .main-layout{grid-template-columns:1fr;} }
+  .toggle-switch {
+    position: relative; width: 44px; height: 24px; border-radius: 20px;
+    background: #cbd5e1; cursor: pointer; border: none; transition: background .2s;
+    flex-shrink: 0;
+  }
+  .toggle-switch.on { background: #2563eb; }
+  .toggle-knob {
+    position: absolute; top: 3px; right: 3px; width: 18px; height: 18px;
+    border-radius: 50%; background: #fff; transition: transform .2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+  .toggle-switch.on .toggle-knob { transform: translateX(-20px); }
+  .mode-desc { font-size: 0.74rem; color: #64748b; line-height: 1.5; }
+
+  .manual-wrap { transition: opacity .2s; }
+  .manual-wrap.disabled { opacity: .45; pointer-events: none; }
+
+  .status-box { margin-top: auto; background: #eff6ff; border: 1px solid #dbeafe; border-radius: 12px; padding: 16px 17px; font-size: 0.83rem; line-height: 1.75; color: #1e3a8a; }
+  .status-box h3 { font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; font-size: 0.85rem; }
+  .status-box ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .status-box li::before { content: '• '; }
+  .status-box strong { font-weight: 700; }
+
+  /* Visualizer */
+  .viz-col { display: flex; flex-direction: column; gap: 16px; }
+  .viz-panel { background: #fff; border-radius: 18px; border: 1px solid #e2e8f0; overflow: hidden; position: relative; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  svg#eye-svg { display: block; width: 100%; height: auto; background: #0F172A; }
+
+  .viz-overlay {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(0,0,0,.6); color: #fff; padding: 8px 16px;
+    border-radius: 10px; backdrop-filter: blur(4px);
+    display: flex; align-items: center; gap: 10px; font-size: 0.78rem; font-weight: 600;
+  }
+  .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .status-dot.focused { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+  .status-dot.blurred { background: #ef4444; }
+
+  /* Subjective panel */
+  .subj-panel { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px; flex-wrap: wrap; }
+  .subj-text h3 { font-size: 1.02rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .subj-text p { font-size: 0.82rem; color: #64748b; line-height: 1.65; max-width: 460px; }
+  .subj-view {
+    width: 128px; height: 128px; background: #f1f5f9; border-radius: 14px;
+    border: 1px solid #e2e8f0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; position: relative; overflow: hidden; flex-shrink: 0;
+  }
+  .subj-icon { color: #10b981; transition: filter .25s, transform .25s; }
+  .subj-blur-label { position: absolute; bottom: 7px; font-size: 9px; color: #94a3b8; font-family: monospace; }
 </style>
 </head>
 <body>
-<header>
-  <h1>👁️ אקומודציה — מנגנון המיקוד האוטומטי של העין</h1>
-  <p>ביולוגיה ואופטיקה | הזז את הסליידר לשינוי מרחק העצם וצפה כיצד העין מתמקדת</p>
+
+<header class="app-header">
+  <h1>👁️ מנגנון האקומודציה במערכת הראייה</h1>
+  <p>סימולציה הממחישה כיצד העין האנושית משנה את כוח השבירה של העדשה כדי למקד עצמים במרחקים שונים על הרשתית.</p>
 </header>
 
-<div class="main-layout">
-  <!-- Left: eye diagram -->
-  <div class="panel">
-    <canvas id="eye-canvas" height="320"></canvas>
-    <div class="anatomy-note">
-      <span style="background:#aaf0d1"></span>קרנית &nbsp;
-      <span style="background:#7dd3fc"></span>עדשה &nbsp;
-      <span style="background:#fb923c"></span>שריר ריסני &nbsp;
-      <span style="background:#a78bfa"></span>סיבי תלייה &nbsp;
-      <span style="background:#f9a8d4"></span>רשתית &nbsp;
-      <span style="background:#fde68a"></span>פוביאה
+<main>
+  <!-- Controls -->
+  <div class="panel controls-panel">
+    <div class="panel-head">
+      <span>⚙️</span>
+      <h2>לוח בקרה</h2>
+    </div>
+
+    <div class="ctrl-group">
+      <div class="ctrl-row">
+        <span class="ctrl-label">מרחק העצם (Target Distance)</span>
+        <span class="ctrl-badge" id="dist-tag">בינוני</span>
+      </div>
+      <input type="range" id="dist-slider" min="0" max="100" value="100">
+      <div class="ctrl-minmax"><span>קרוב</span><span>רחוק (אינסוף)</span></div>
+    </div>
+
+    <div class="mode-box">
+      <div class="mode-row">
+        <span class="mode-label">מצב אקומודציה</span>
+        <button class="toggle-switch on" id="autofocus-toggle"><span class="toggle-knob"></span></button>
+      </div>
+      <p class="mode-desc" id="mode-desc">מופעל (העין מתאימה את עצמה אוטומטית למרחק).</p>
+    </div>
+
+    <div class="manual-wrap disabled" id="manual-wrap">
+      <div class="ctrl-group">
+        <div class="ctrl-row">
+          <span class="ctrl-label">כיווץ השריר הריסני (Ciliary Muscle)</span>
+          <span class="ctrl-badge" id="muscle-tag">0%</span>
+        </div>
+        <input type="range" id="muscle-slider" min="0" max="100" value="0">
+        <div class="ctrl-minmax"><span>רפוי</span><span>מכווץ מקסימום</span></div>
+      </div>
+    </div>
+
+    <div class="status-box">
+      <h3>ℹ️ מצב פיזיולוגי נוכחי:</h3>
+      <ul id="status-list"></ul>
     </div>
   </div>
 
-  <!-- Right: controls + info -->
-  <div>
-    <!-- Distance slider -->
-    <div class="panel" style="margin-bottom:14px">
-      <div class="ctrl-section">
-        <div class="ctrl-label">מרחק העצם <span id="dist-val">50 ס"מ</span></div>
-        <input type="range" id="dist-slider" min="10" max="600" value="50" step="5">
-        <div style="display:flex;justify-content:space-between;font-size:0.66rem;color:var(--muted);margin-top:3px">
-          <span>קרוב מאוד (10 ס"מ)</span><span>רחוק (600 ס"מ)</span>
-        </div>
-      </div>
+  <!-- Visualizer -->
+  <div class="viz-col">
+    <div class="viz-panel">
+      <svg id="eye-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="eyeBg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1E293B" />
+            <stop offset="100%" stop-color="#0F172A" />
+          </radialGradient>
+          <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.4"/>
+            <stop offset="50%" stop-color="#BAE6FD" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.4"/>
+          </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#eyeBg)" />
+        <line x1="0" y1="200" x2="800" y2="200" stroke="#334155" stroke-width="1" stroke-dasharray="10,10" />
 
-      <!-- Auto-focus toggle -->
-      <div class="toggle-row">
-        <button class="tog-btn active" id="btn-auto" onclick="setAutoFocus(true)">⚡ מיקוד אוטומטי</button>
-        <button class="tog-btn" id="btn-manual" onclick="setAutoFocus(false)">🖐 שליטה ידנית</button>
-      </div>
+        <path d="M 550 50 A 150 150 0 0 1 750 200 A 150 150 0 0 1 550 350" fill="#1E293B" stroke="#F43F5E" stroke-width="4" />
+        <text x="760" y="160" fill="#F43F5E" font-size="12" writing-mode="tb" text-anchor="middle">רשתית (Retina)</text>
 
-      <!-- Manual muscle slider (hidden when auto) -->
-      <div id="manual-ctrl" style="display:none">
-        <div class="ctrl-label">כיווץ השריר הריסני <span id="muscle-val">0%</span></div>
-        <input type="range" id="muscle-slider" min="0" max="100" value="0" step="1">
-        <div style="display:flex;justify-content:space-between;font-size:0.66rem;color:var(--muted);margin-top:3px">
-          <span>רפוי (ראייה רחוקה)</span><span>כווץ (ראייה קרובה)</span>
-        </div>
+        <circle cx="750" cy="200" r="6" fill="#FBBF24" opacity="0.9" />
+        <text x="762" y="215" fill="#FBBF24" font-size="11">מקולה / גומה</text>
+
+        <path d="M 490 100 Q 430 200 490 300" fill="transparent" stroke="#E2E8F0" stroke-width="3" opacity="0.6"/>
+        <text x="440" y="90" fill="#E2E8F0" font-size="12">קרנית (Cornea)</text>
+
+        <g id="rays-group"></g>
+
+        <g id="object-group"></g>
+
+        <path id="muscle-top" fill="#EF4444" />
+        <text x="490" y="70" fill="#EF4444" font-size="12">שריר ריסני</text>
+        <path id="muscle-bottom" fill="#EF4444" />
+
+        <g id="zonules-group"></g>
+        <text x="565" y="130" fill="#94A3B8" font-size="10">סיבי תלייה</text>
+
+        <ellipse id="lens-ellipse" cx="550" cy="200" fill="url(#lensGrad)" stroke="#0EA5E9" stroke-width="2" />
+        <text x="535" y="280" fill="#38BDF8" font-size="12">עדשה</text>
+
+        <circle id="focal-point" r="4" fill="#FBBF24" />
+      </svg>
+
+      <div class="viz-overlay">
+        <div class="status-dot" id="status-dot"></div>
+        <span id="status-text"></span>
       </div>
     </div>
 
-    <!-- Info box -->
-    <div class="panel" style="margin-bottom:14px">
-      <div style="font-size:0.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">מצב העין כעת</div>
-      <div class="info-box" id="info-box"></div>
-
-      <!-- Focus quality bar -->
-      <div class="focus-bar-wrap">
-        <div class="focus-bar-label"><span>איכות המיקוד</span><span id="focus-pct">—</span></div>
-        <div class="focus-bar-track"><div class="focus-bar-fill" id="focus-bar" style="width:0%;background:var(--teal)"></div></div>
+    <!-- Subjective view -->
+    <div class="panel subj-panel">
+      <div class="subj-text">
+        <h3>☀️ איך העצם נראה בפועל?</h3>
+        <p>כאשר נקודת המוקד (הפוקוס) נופלת בדיוק על הרשתית, התמונה חדה. סטייה מהרשתית גורמת לטשטוש. עין בריאה משנה את קמירות העדשה כדי לשמור על חדות למרחקים שונים.</p>
       </div>
-    </div>
-
-    <!-- Blur preview -->
-    <div class="panel">
-      <div style="font-size:0.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">מה העין רואה</div>
-      <div class="preview-wrap">
-        <canvas id="preview-canvas" height="90"></canvas>
-        <div class="preview-label" id="preview-label">ממוקד</div>
+      <div class="subj-view">
+        <div class="subj-icon" id="subj-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="2" x2="5" y2="22" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <line x1="19" y1="12" x2="19" y2="22" />
+          </svg>
+        </div>
+        <div class="subj-blur-label" id="blur-label">Blur: 0.0px</div>
       </div>
     </div>
   </div>
-</div>
+</main>
 
 <script>
-/* ── Physics constants ─────────────────────────────────────── */
-const SCALE = 10;          // px per mm
-const RETINA_D = 170;      // px  (17 mm, lens→retina)
-const F_FAR  = 170;        // px  focal length when relaxed  (17 mm)
-const F_NEAR = 145;        // px  focal length when fully contracted (14.5 mm)
-
-/* ── State ─────────────────────────────────────────────────── */
-let distCm   = 50;
+/* ── State ──────────────────────────────────────────────── */
+let objectDistance = 100;     // 0 (near) .. 100 (far)
+let muscleContraction = 0;    // 0 (relaxed) .. 100 (contracted)
 let autoFocus = true;
-let muscleContraction = 0;   // 0–1
 
-/* ── Derived optics ─────────────────────────────────────────── */
-function getOptics() {
-  const Do = distCm * 10 * SCALE;   // object distance in px
-  let accom, focalLen;
+/* ── Constants ──────────────────────────────────────────── */
+const LENS_X = 550, LENS_Y = 200, RETINA_X = 750;
+
+/* ── DOM refs ───────────────────────────────────────────── */
+const distSlider   = document.getElementById('dist-slider');
+const muscleSlider  = document.getElementById('muscle-slider');
+const afToggle      = document.getElementById('autofocus-toggle');
+const manualWrap    = document.getElementById('manual-wrap');
+const distTag       = document.getElementById('dist-tag');
+const muscleTag      = document.getElementById('muscle-tag');
+const modeDesc       = document.getElementById('mode-desc');
+const statusList     = document.getElementById('status-list');
+
+/* ── Compute & render ───────────────────────────────────── */
+function compute() {
+  const objX = 450 - (objectDistance / 100) * 400;
+  const doDist = LENS_X - objX;
+
+  const basePower = 0.007;
+  const maxAddPower = 0.015 - 0.007;
 
   if (autoFocus) {
-    const fReq = Do * RETINA_D / (Do + RETINA_D);
-    accom = Math.max(0, Math.min(1, (F_FAR - fReq) / (F_FAR - F_NEAR)));
-    focalLen = fReq;
-  } else {
-    accom = muscleContraction / 100;
-    focalLen = F_FAR - accom * (F_FAR - F_NEAR);
+    const requiredMuscle = ((1 / doDist - 0.002) / 0.008) * 100;
+    muscleContraction = Math.max(0, Math.min(100, requiredMuscle));
   }
 
-  const Di = focalLen * Do / (Do - focalLen);
-  const blur = Math.abs(Di - RETINA_D);          // px of defocus
-  const focusPct = Math.max(0, 100 - blur * 3);  // quality 0-100
+  const currentPower = basePower + (muscleContraction / 100) * maxAddPower;
 
-  return { Do, accom, focalLen, Di, blur, focusPct };
+  let diDist;
+  const oneOverDi = currentPower - (1 / doDist);
+  diDist = oneOverDi <= 0 ? 10000 : 1 / oneOverDi;
+
+  const focalX = LENS_X + diDist;
+  const focalY = LENS_Y + 40;
+
+  const blurAmount = Math.min(Math.abs(focalX - RETINA_X) / 10, 15);
+  const isFocused = blurAmount < 1.5;
+
+  const lensWidth  = 20 + (muscleContraction / 100) * 20;
+  const lensHeight = 120 - (muscleContraction / 100) * 20;
+
+  const muscleYTopBase = 90, muscleYBottomBase = 310;
+  const muscleShift = (muscleContraction / 100) * 15;
+  const muscleYTop    = muscleYTopBase + muscleShift;
+  const muscleYBottom = muscleYBottomBase - muscleShift;
+
+  return { objX, doDist, focalX, focalY, blurAmount, isFocused, lensWidth, lensHeight, muscleYTop, muscleYBottom };
 }
 
-/* ── Eye SVG drawing on canvas ──────────────────────────────── */
-const eyeCanvas = document.getElementById('eye-canvas');
-const eyeCtx    = eyeCanvas.getContext('2d');
+function renderRays(focalX, focalY, lensHeight) {
+  const group = document.getElementById('rays-group');
+  group.innerHTML = '';
+  const objectTopY = LENS_Y - 40;
+  const objX = computeState.objX;
+  const objectTopX = objX - 10;
 
-function drawEye() {
-  const W = eyeCanvas.width  = eyeCanvas.offsetWidth;
-  const H = eyeCanvas.height = 320;
-  const ctx = eyeCtx;
+  const rays = [
+    { startY: objectTopY, lensH: LENS_Y - lensHeight * 0.4 },
+    { startY: objectTopY, lensH: LENS_Y },
+    { startY: objectTopY, lensH: LENS_Y + lensHeight * 0.4 },
+  ];
 
-  ctx.fillStyle = '#0a0a14';
-  ctx.fillRect(0, 0, W, H);
+  rays.forEach(ray => {
+    const ns = 'http://www.w3.org/2000/svg';
+    const l1 = document.createElementNS(ns, 'line');
+    l1.setAttribute('x1', objectTopX); l1.setAttribute('y1', ray.startY);
+    l1.setAttribute('x2', LENS_X); l1.setAttribute('y2', ray.lensH);
+    l1.setAttribute('stroke', '#FBBF24'); l1.setAttribute('stroke-width', '2'); l1.setAttribute('opacity', '0.6');
+    group.appendChild(l1);
 
-  const { accom, focalLen, Di, blur } = getOptics();
+    const l2 = document.createElementNS(ns, 'line');
+    l2.setAttribute('x1', LENS_X); l2.setAttribute('y1', ray.lensH);
+    l2.setAttribute('x2', focalX); l2.setAttribute('y2', focalY);
+    l2.setAttribute('stroke', '#FBBF24'); l2.setAttribute('stroke-width', '2'); l2.setAttribute('opacity', '0.6');
+    group.appendChild(l2);
 
-  /* Eye geometry */
-  const EYE_R  = H * 0.38;
-  const CX     = W * 0.52;
-  const CY     = H * 0.5;
-  const LENS_X = CX - EYE_R * 0.12;
-
-  /* ── Sclera / vitreous ── */
-  ctx.save();
-  ctx.beginPath();
-  ctx.ellipse(CX, CY, EYE_R * 1.05, EYE_R, 0, 0, Math.PI * 2);
-  ctx.fillStyle = '#1a1a2e';
-  ctx.fill();
-  ctx.strokeStyle = '#334';
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-  ctx.restore();
-
-  /* ── Retina arc (right wall) ── */
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(CX, CY, EYE_R * 0.98, -Math.PI * 0.55, Math.PI * 0.55);
-  ctx.strokeStyle = '#f9a8d4';
-  ctx.lineWidth = 5;
-  ctx.stroke();
-  ctx.restore();
-
-  /* ── Fovea (small bright spot) ── */
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(CX + EYE_R * 0.9, CY, 5, 0, Math.PI * 2);
-  ctx.fillStyle = '#fde68a';
-  ctx.fill();
-  ctx.restore();
-
-  /* ── Optic nerve ── */
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(CX + EYE_R * 0.9, CY + 22);
-  ctx.lineTo(CX + EYE_R * 0.9, CY + 55);
-  ctx.strokeStyle = '#fde68a88';
-  ctx.lineWidth = 8;
-  ctx.stroke();
-  ctx.restore();
-
-  /* ── Cornea (left arc) ── */
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(CX - EYE_R + 6, CY, EYE_R * 0.28, -Math.PI * 0.5, Math.PI * 0.5);
-  ctx.strokeStyle = '#aaf0d1';
-  ctx.lineWidth = 4;
-  ctx.stroke();
-  ctx.restore();
-
-  /* ── Ciliary muscle (ring around lens) ── */
-  const muscleW = 14 + accom * 10;   // contracts → thicker radially
-  const muscleR = 34 - accom * 8;    // contracts → smaller ring radius
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(LENS_X, CY, muscleR + muscleW / 2, 0, Math.PI * 2);
-  ctx.strokeStyle = `rgba(251,146,60,${0.55 + accom * 0.4})`;
-  ctx.lineWidth = muscleW;
-  ctx.stroke();
-  ctx.restore();
-
-  /* ── Zonule fibers (4 per side) ── */
-  const lensHalfH = 18 + accom * 10;  // lens half-height when contracted
-  for (let s = -1; s <= 1; s += 2) {
-    for (let i = 0; i < 4; i++) {
-      const angle = (i / 3 - 0.5) * Math.PI * 0.7;
-      const mx = LENS_X + Math.cos(angle) * (muscleR - 2) * s * 0;
-      const zx0 = LENS_X + Math.cos(angle) * muscleR * (s < 0 ? -1 : 1);
-      const zy0 = CY    + Math.sin(angle) * muscleR;
-      const zx1 = LENS_X;
-      const zy1 = CY + s * lensHalfH * (i / 3 - 0.5 + 0.5);
-      // simplified: radial fibers from muscle ring to lens edge
-      const frac = i / 3;
-      const fy = CY + s * lensHalfH * (frac - 0.5) * 1.5;
-      const fx = LENS_X + (s < 0 ? -2 : 2);
-      const tx = LENS_X + s * (muscleR - 4) * 0; // same x, different y source
-
-      // just draw short radial line from lens edge to muscle
-      const ang2 = (frac - 0.5) * 1.2;
-      const lx_edge = LENS_X + Math.sin(ang2) * 0;
-      const ly_edge = CY + s * lensHalfH * frac;
-      const mRad = muscleR - muscleW / 2 + 3;
-      const mx2 = LENS_X + Math.cos(ang2 + (s > 0 ? 0.8 : -0.8)) * mRad * 0.7;
-      const my2 = CY    + Math.sin(ang2 + (s > 0 ? 0.8 : -0.8)) * mRad;
-
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(LENS_X + Math.sin(ang2) * 4, CY + s * lensHalfH * frac);
-      ctx.lineTo(LENS_X + Math.sin(ang2) * (mRad * 0.5), CY + s * mRad * 0.55 * frac);
-      ctx.strokeStyle = `rgba(167,139,250,${0.5 + accom * 0.2})`;
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-      ctx.restore();
+    if (focalX < RETINA_X) {
+      const y2 = focalY + ((ray.lensH - focalY) / (LENS_X - focalX)) * (RETINA_X - focalX) * -1;
+      const l3 = document.createElementNS(ns, 'line');
+      l3.setAttribute('x1', focalX); l3.setAttribute('y1', focalY);
+      l3.setAttribute('x2', RETINA_X); l3.setAttribute('y2', y2);
+      l3.setAttribute('stroke', '#FBBF24'); l3.setAttribute('stroke-width', '2'); l3.setAttribute('opacity', '0.2'); l3.setAttribute('stroke-dasharray', '4');
+      group.appendChild(l3);
     }
-  }
+  });
+}
 
-  /* ── Lens (biconvex, thicker when contracted) ── */
-  const lensW = 8 + accom * 10;   // half-width
-  const lensH = lensHalfH;
-  ctx.save();
-  ctx.beginPath();
-  // biconvex using bezier
-  ctx.moveTo(LENS_X, CY - lensH);
-  ctx.bezierCurveTo(LENS_X + lensW * 1.5, CY - lensH * 0.5, LENS_X + lensW * 1.5, CY + lensH * 0.5, LENS_X, CY + lensH);
-  ctx.bezierCurveTo(LENS_X - lensW * 1.5, CY + lensH * 0.5, LENS_X - lensW * 1.5, CY - lensH * 0.5, LENS_X, CY - lensH);
-  const lGrad = ctx.createLinearGradient(LENS_X - lensW, 0, LENS_X + lensW, 0);
-  lGrad.addColorStop(0, 'rgba(125,211,252,0.15)');
-  lGrad.addColorStop(0.5, 'rgba(125,211,252,0.55)');
-  lGrad.addColorStop(1, 'rgba(125,211,252,0.15)');
-  ctx.fillStyle = lGrad;
-  ctx.fill();
-  ctx.strokeStyle = '#7dd3fc';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.restore();
+function renderObject(objX) {
+  const group = document.getElementById('object-group');
+  group.innerHTML = '';
+  const ns = 'http://www.w3.org/2000/svg';
+  const g = document.createElementNS(ns, 'g');
+  g.setAttribute('transform', `translate(${objX}, ${LENS_Y})`);
 
-  /* ── Ray tracing ── */
-  const Do = distCm * 10 * SCALE;   // huge, so we show incoming as parallel-ish
-  const imgX = LENS_X + Di;
-
-  // Object position (left of canvas)
-  const objX = 30;
-  const objY = CY;
-
-  // 3 rays: through optical axis (center), through top of lens, through bottom
-  const rayOffsets = [0, lensH * 0.6, -lensH * 0.6];
-  const rayColors  = ['#fbbf24', '#f472b6', '#34d399'];
-
-  rayOffsets.forEach((off, ri) => {
-    const r1x = objX, r1y = CY;  // all rays start from object tip at CY (simplify)
-    const r2x = LENS_X, r2y = CY + off;  // hits lens at offset
-    const r3x = imgX,   r3y = CY;  // converge at image (or would)
-
-    // Incoming ray
-    ctx.save();
-    ctx.beginPath();
-    ctx.moveTo(r1x, r1y);
-    ctx.lineTo(r2x, r2y);
-    ctx.strokeStyle = rayColors[ri] + 'cc';
-    ctx.lineWidth = 1.3;
-    ctx.setLineDash([4, 3]);
-    ctx.stroke();
-    ctx.restore();
-
-    // Refracted ray (through image point, then to retina)
-    ctx.save();
-    ctx.beginPath();
-    ctx.moveTo(r2x, r2y);
-    // ray goes toward image point
-    if (imgX < CX + EYE_R * 0.92) {
-      ctx.lineTo(r3x, r3y);
-    } else {
-      // image beyond retina — ray diverges before retina
-      const frac = (CX + EYE_R * 0.9 - r2x) / (r3x - r2x + 0.001);
-      ctx.lineTo(r2x + (r3x - r2x) * frac, r2y + (r3y - r2y) * frac);
-    }
-    ctx.strokeStyle = rayColors[ri];
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([]);
-    ctx.stroke();
-    ctx.restore();
+  const parts = [
+    { x1:-10, y1:0,   x2:-10, y2:-40 },
+    { x1:-10, y1:-20, x2:10,  y2:-20 },
+    { x1:10,  y1:-20, x2:10,  y2:0   },
+  ];
+  parts.forEach(p => {
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', p.x1); line.setAttribute('y1', p.y1);
+    line.setAttribute('x2', p.x2); line.setAttribute('y2', p.y2);
+    line.setAttribute('stroke', '#10B981'); line.setAttribute('stroke-width', '4'); line.setAttribute('stroke-linecap', 'round');
+    g.appendChild(line);
   });
 
-  /* ── Image point marker ── */
-  const retX = CX + EYE_R * 0.9;
-  const clampedImgX = Math.min(imgX, retX + 30);
-  const onRetina = Math.abs(imgX - retX) < 6;
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(Math.min(imgX, retX), CY, 5, 0, Math.PI * 2);
-  ctx.fillStyle = onRetina ? '#4ade80' : '#f87171';
-  ctx.fill();
-  ctx.restore();
+  const text = document.createElementNS(ns, 'text');
+  text.setAttribute('x', '0'); text.setAttribute('y', '20');
+  text.setAttribute('fill', '#10B981'); text.setAttribute('font-size', '12'); text.setAttribute('text-anchor', 'middle');
+  text.textContent = 'עצם';
+  g.appendChild(text);
 
-  /* ── Object arrow ── */
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(30, CY + 18);
-  ctx.lineTo(30, CY - 18);
-  ctx.strokeStyle = '#fbbf24';
-  ctx.lineWidth = 2.5;
-  ctx.stroke();
-  ctx.fillStyle = '#fbbf24';
-  ctx.beginPath();
-  ctx.moveTo(30, CY - 18);
-  ctx.lineTo(27, CY - 10);
-  ctx.lineTo(33, CY - 10);
-  ctx.fill();
-  ctx.restore();
-
-  /* ── Labels ── */
-  ctx.font = '11px Heebo,sans-serif';
-  ctx.fillStyle = '#fde68a88';
-  ctx.textAlign = 'left';
-  ctx.fillText('רשתית', retX + 6, CY - EYE_R * 0.3);
-  ctx.fillStyle = '#aaf0d188';
-  ctx.fillText('קרנית', CX - EYE_R + 10, CY - EYE_R * 0.4);
-  ctx.fillStyle = '#7dd3fc88';
-  ctx.fillText('עדשה', LENS_X + 14, CY - lensH - 6);
+  group.appendChild(g);
 }
 
-/* ── Preview canvas (blur simulation) ──────────────────────── */
-const prevCanvas = document.getElementById('preview-canvas');
-const prevCtx    = prevCanvas.getContext('2d');
+function renderZonules(lensHeight, muscleYTop, muscleYBottom) {
+  const group = document.getElementById('zonules-group');
+  group.innerHTML = '';
+  const ns = 'http://www.w3.org/2000/svg';
+  const numZonules = 8;
+  const isSlack = muscleContraction > 50;
 
-function drawPreview() {
-  const { blur, focusPct } = getOptics();
-  const W = prevCanvas.width  = prevCanvas.offsetWidth;
-  const H = prevCanvas.height = 90;
-  const ctx = prevCtx;
-
-  ctx.fillStyle = '#111';
-  ctx.fillRect(0, 0, W, H);
-
-  const blurPx = Math.min(blur * 0.18, 16);
-
-  // Draw a simple scene: circle + text
-  ctx.save();
-  if (blurPx > 0.5) ctx.filter = `blur(${blurPx.toFixed(1)}px)`;
-
-  // Background gradient
-  const grad = ctx.createRadialGradient(W/2, H/2, 2, W/2, H/2, H*0.7);
-  grad.addColorStop(0, '#1a3a2a');
-  grad.addColorStop(1, '#0a0a14');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
-
-  // Shapes
-  ctx.fillStyle = '#C11E6B';
-  ctx.beginPath(); ctx.arc(W*0.2, H*0.5, 14, 0, Math.PI*2); ctx.fill();
-
-  ctx.fillStyle = '#6CB79D';
-  ctx.fillRect(W*0.4, H*0.2, 22, 22);
-
-  ctx.fillStyle = '#EBA521';
-  ctx.beginPath();
-  ctx.moveTo(W*0.65, H*0.15); ctx.lineTo(W*0.72, H*0.75); ctx.lineTo(W*0.58, H*0.75);
-  ctx.fill();
-
-  ctx.fillStyle = '#fff';
-  ctx.font = 'bold 13px Heebo,sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('שלום', W*0.88, H*0.55);
-
-  ctx.restore();
-
-  // Label
-  const label = document.getElementById('preview-label');
-  if (focusPct > 85) label.textContent = '✓ ממוקד';
-  else if (focusPct > 50) label.textContent = '~ מיקוד חלקי';
-  else label.textContent = '✗ מטושטש';
-  label.style.background = focusPct > 85 ? 'rgba(0,180,80,.7)' : focusPct > 50 ? 'rgba(200,140,0,.7)' : 'rgba(200,30,30,.7)';
+  for (let i = 0; i < numZonules; i++) {
+    const yL = LENS_Y - lensHeight / 2 + (i * 5);
+    if (isSlack) {
+      const path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', `M ${LENS_X - 10} ${yL} Q ${LENS_X - 5} ${muscleYTop + 10} ${LENS_X} ${muscleYTop}`);
+      path.setAttribute('fill', 'transparent'); path.setAttribute('stroke', '#94A3B8'); path.setAttribute('stroke-width', '1'); path.setAttribute('opacity', '0.8');
+      group.appendChild(path);
+    } else {
+      const line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', LENS_X); line.setAttribute('y1', yL);
+      line.setAttribute('x2', LENS_X); line.setAttribute('y2', muscleYTop);
+      line.setAttribute('stroke', '#94A3B8'); line.setAttribute('stroke-width', '1.5'); line.setAttribute('opacity', '0.8');
+      group.appendChild(line);
+    }
+  }
+  for (let i = 0; i < numZonules; i++) {
+    const yL = LENS_Y + lensHeight / 2 - (i * 5);
+    if (isSlack) {
+      const path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', `M ${LENS_X - 10} ${yL} Q ${LENS_X - 5} ${muscleYBottom - 10} ${LENS_X} ${muscleYBottom}`);
+      path.setAttribute('fill', 'transparent'); path.setAttribute('stroke', '#94A3B8'); path.setAttribute('stroke-width', '1'); path.setAttribute('opacity', '0.8');
+      group.appendChild(path);
+    } else {
+      const line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', LENS_X); line.setAttribute('y1', yL);
+      line.setAttribute('x2', LENS_X); line.setAttribute('y2', muscleYBottom);
+      line.setAttribute('stroke', '#94A3B8'); line.setAttribute('stroke-width', '1.5'); line.setAttribute('opacity', '0.8');
+      group.appendChild(line);
+    }
+  }
 }
 
-/* ── Info box ────────────────────────────────────────────────── */
-function updateInfo() {
-  const { accom, focalLen, Di, blur, focusPct } = getOptics();
-  const fMm  = (focalLen / SCALE).toFixed(1);
-  const diMm = (Di / SCALE).toFixed(1);
-  const state = accom < 0.1 ? 'רגועה לחלוטין (ראייה רחוקה)' :
-                accom < 0.4 ? 'כיווץ קל (ראייה בינונית)' :
-                accom < 0.7 ? 'כיווץ בינוני' : 'כיווץ מקסימלי (ראייה קרובה)';
-  const lensState = accom < 0.2 ? 'שטוחה ודקה' : accom < 0.6 ? 'עגולה מעט' : 'עבה ועגלגלה';
+let computeState = {};
 
-  document.getElementById('info-box').innerHTML = `
-    <div class="row"><span class="lbl">מרחק עצם:</span><span class="val">${distCm} ס"מ</span></div>
-    <div class="row"><span class="lbl">מוקד עדשה (f):</span><span class="val">${fMm} מ"מ</span></div>
-    <div class="row"><span class="lbl">נקודת מיקוד (Di):</span><span class="val">${diMm} מ"מ</span></div>
-    <div class="row"><span class="lbl">אקומודציה:</span><span class="val">${Math.round(accom * 100)}%</span></div>
-    <div class="row"><span class="lbl">מצב שריר ריסני:</span><span class="val">${state}</span></div>
-    <div class="row"><span class="lbl">צורת העדשה:</span><span class="val">${lensState}</span></div>
-  `;
-
-  const pct = Math.round(focusPct);
-  document.getElementById('focus-pct').textContent = pct + '%';
-  const bar = document.getElementById('focus-bar');
-  bar.style.width = pct + '%';
-  bar.style.background = pct > 85 ? '#4ade80' : pct > 50 ? '#EBA521' : '#f87171';
-}
-
-/* ── Render all ──────────────────────────────────────────────── */
 function render() {
-  drawEye();
-  drawPreview();
-  updateInfo();
+  const s = compute();
+  computeState = s;
+
+  /* Object & rays */
+  renderObject(s.objX);
+  renderRays(s.focalX, s.focalY, s.lensHeight);
+
+  /* Ciliary muscle */
+  document.getElementById('muscle-top').setAttribute('d', `M ${LENS_X - 40} 50 L ${LENS_X + 20} 50 L ${LENS_X} ${s.muscleYTop} Z`);
+  document.getElementById('muscle-bottom').setAttribute('d', `M ${LENS_X - 40} 350 L ${LENS_X + 20} 350 L ${LENS_X} ${s.muscleYBottom} Z`);
+
+  /* Zonules */
+  renderZonules(s.lensHeight, s.muscleYTop, s.muscleYBottom);
+
+  /* Lens */
+  const lensEl = document.getElementById('lens-ellipse');
+  lensEl.setAttribute('rx', s.lensWidth / 2);
+  lensEl.setAttribute('ry', s.lensHeight / 2);
+
+  /* Focal point */
+  const focalEl = document.getElementById('focal-point');
+  if (s.focalX <= 800) {
+    focalEl.setAttribute('cx', s.focalX);
+    focalEl.setAttribute('cy', s.focalY);
+    focalEl.style.display = '';
+    focalEl.style.opacity = s.isFocused ? '1' : '0.6';
+  } else {
+    focalEl.style.display = 'none';
+  }
+
+  /* Overlay status */
+  const dot = document.getElementById('status-dot');
+  const text = document.getElementById('status-text');
+  dot.className = 'status-dot ' + (s.isFocused ? 'focused' : 'blurred');
+  if (s.isFocused) text.textContent = 'התמונה ממוקדת על הרשתית';
+  else if (s.focalX > RETINA_X) text.textContent = 'התמונה ממוקדת מאחורי הרשתית (מטושטש)';
+  else text.textContent = 'התמונה ממוקדת לפני הרשתית (מטושטש)';
+
+  /* Subjective view */
+  document.getElementById('subj-icon').style.filter = `blur(${s.blurAmount}px)`;
+  document.getElementById('subj-icon').style.transform = `scale(${1 + (100 - objectDistance) / 150})`;
+  document.getElementById('blur-label').textContent = `Blur: ${s.blurAmount.toFixed(1)}px`;
+
+  /* Controls UI */
+  distTag.textContent = objectDistance < 30 ? 'קרוב' : objectDistance > 70 ? 'רחוק' : 'בינוני';
+  muscleTag.textContent = muscleContraction.toFixed(0) + '%';
+  if (autoFocus) muscleSlider.value = muscleContraction;
+
+  /* Status box */
+  statusList.innerHTML = `
+    <li><strong>שריר ריסני:</strong> ${muscleContraction > 50 ? 'מכווץ (טבעת השריר קטנה)' : 'רפוי (טבעת השריר גדולה)'}</li>
+    <li><strong>סיבי תלייה (Zonules):</strong> ${muscleContraction > 50 ? 'רפויים' : 'מתוחים'}</li>
+    <li><strong>עדשה:</strong> ${muscleContraction > 50 ? 'עבה וקמורה' : 'שטוחה יחסית'}</li>
+    <li><strong>כוח שבירה:</strong> ${muscleContraction > 50 ? 'גבוה' : 'נמוך'}</li>
+  `;
 }
 
-/* ── Event listeners ─────────────────────────────────────────── */
-document.getElementById('dist-slider').addEventListener('input', function() {
-  distCm = +this.value;
-  document.getElementById('dist-val').textContent = distCm + ' ס"מ';
+/* ── Events ─────────────────────────────────────────────── */
+distSlider.addEventListener('input', () => {
+  objectDistance = Number(distSlider.value);
   render();
 });
 
-document.getElementById('muscle-slider').addEventListener('input', function() {
-  muscleContraction = +this.value;
-  document.getElementById('muscle-val').textContent = muscleContraction + '%';
+muscleSlider.addEventListener('input', () => {
+  if (autoFocus) return;
+  muscleContraction = Number(muscleSlider.value);
   render();
 });
 
-function setAutoFocus(val) {
-  autoFocus = val;
-  document.getElementById('btn-auto').classList.toggle('active', val);
-  document.getElementById('btn-manual').classList.toggle('active', !val);
-  document.getElementById('manual-ctrl').style.display = val ? 'none' : 'block';
+afToggle.addEventListener('click', () => {
+  autoFocus = !autoFocus;
+  afToggle.classList.toggle('on', autoFocus);
+  manualWrap.classList.toggle('disabled', autoFocus);
+  modeDesc.textContent = autoFocus
+    ? 'מופעל (העין מתאימה את עצמה אוטומטית למרחק).'
+    : 'כבוי (שליטה ידנית על השריר הריסני).';
   render();
-}
+});
 
-window.addEventListener('resize', render);
 render();
 </script>
 </body>
