@@ -161,9 +161,8 @@
           <h1>מאגר פעילויות דיגיטליות</h1>
         </div>
       </div>
-      <div class="header-badge">הדגמה 2026</div>
     </div>
-    <p class="header-desc">פעילויות לימודיות אינטראקטיביות שפותחו לשילוב בקורסים. כל פעילות מסווגת לפי תחום דעת, סוג האינטראקציה וגורם הפיתוח.</p>
+    <p class="header-desc">פעילויות לימודיות אינטראקטיביות שפותחו לשילוב בקורסים. כל הפעילויות מסווגות לפי תחום דעת, סוג האינטראקציה וגורם הפיתוח.</p>
     <div class="stats-bar">
       <div class="stat-pill"><span class="num" id="count-all">0</span><span class="lbl">פעילויות<br>סה"כ</span></div>
       <div class="stat-pill"><span class="num">6</span><span class="lbl">תחומי<br>דעת</span></div>
@@ -180,8 +179,7 @@
     <button class="filter-btn" data-filter="type" data-val="sim">סימולציה <span class="filter-count" id="fc-sim">0</span></button>
     <button class="filter-btn" data-filter="type" data-val="db">🗄 בסיס נתונים <span class="filter-count" id="fc-db">0</span></button>
     <div class="filter-sep"></div>
-    <button class="filter-btn" data-filter="dept" data-val="all">כל התחומים</button>
-    <button class="filter-btn" data-filter="dept" data-val="cs">💻 מתמטיקה ומחשב</button>
+<button class="filter-btn" data-filter="dept" data-val="cs">💻 מתמטיקה ומחשב</button>
     <button class="filter-btn" data-filter="dept" data-val="sci">🔬 מדעי הטבע</button>
     <button class="filter-btn" data-filter="dept" data-val="edu">🧠 חינוך ופסיכולוגיה</button>
     <button class="filter-btn" data-filter="dept" data-val="lit">📚 ספרות ולשון</button>
@@ -671,7 +669,6 @@ function renderActiveChips() {
 function clearDept() {
   activeDept = 'all';
   document.querySelectorAll('.filter-btn[data-filter="dept"]').forEach(b => b.classList.remove('active'));
-  document.querySelector('.filter-btn[data-filter="dept"][data-val="all"]').classList.add('active');
   applyFilters();
 }
 
