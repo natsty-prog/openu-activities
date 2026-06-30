@@ -156,19 +156,7 @@
   <div class="header-inner">
     <div class="header-top">
       <div class="logo-area">
-        <!-- לוגו מחלקת פדגוגיה דיגיטלית – האוניברסיטה הפתוחה -->
-        <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Pink group — top center (chevron + diamond) -->
-          <polygon points="29,2 37,14 29,20 21,14" fill="#E599B6"/>
-          <polygon points="21,14 29,2 37,14" fill="#C11E6B"/>
-          <polygon points="17,22 29,22 41,22 37,32 21,32" fill="#C11E6B" opacity=".85"/>
-          <!-- Teal group — bottom left (L-shape) -->
-          <rect x="3"  y="35" width="19" height="11" rx="2" fill="#6CB79D"/>
-          <rect x="3"  y="46" width="13" height="10" rx="2" fill="#6CB79D" opacity=".7"/>
-          <!-- Yellow group — bottom right (L-shape mirrored) -->
-          <rect x="36" y="35" width="19" height="11" rx="2" fill="#EBA521"/>
-          <rect x="42" y="46" width="13" height="10" rx="2" fill="#EBA521" opacity=".7"/>
-        </svg>
+        <img src="logo.png" height="62" alt="לוגו מחלקת פדגוגיה דיגיטלית">
         <div class="header-titles">
           <h1>מאגר פעילויות דיגיטליות</h1>
           <p>מחלקת פדגוגיה דיגיטלית | האוניברסיטה הפתוחה</p>
@@ -180,8 +168,6 @@
     <div class="stats-bar">
       <div class="stat-pill"><span class="num" id="count-all">0</span><span class="lbl">פעילויות<br>סה"כ</span></div>
       <div class="stat-pill"><span class="num">6</span><span class="lbl">תחומי<br>דעת</span></div>
-      <div class="stat-pill"><span class="num">100%</span><span class="lbl">ניתנות<br>להטמעה</span></div>
-      <div class="stat-pill"><span class="num">∞</span><span class="lbl">שימושים<br>אפשריים</span></div>
     </div>
   </div>
 </header>
@@ -258,7 +244,7 @@ const DEPT = {
 /* ─── ACTIVITIES ───────────────────────────────────────── */
 const activities = [
 
-  { id:'ai-survey', icon:'📊', type:'simple', dept:'cs',
+  { id:'ai-survey', icon:'📊', type:'simple', dept:'cs', subdept:'בינה מלאכותית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
     title:'עמדות סטודנטים כלפי בינה מלאכותית',
     desc:'סקר אינטראקטיבי לגילוי עמדות, חששות ותקוות בנוגע ל-AI — עם פידבק ויזואלי מיידי ופרופיל אישי.',
@@ -278,7 +264,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לשימוש בכיתה:</strong> הפעל בתחילת קורס AI כדי לאסוף עמדות ראשוניות ולעורר דיון.' },
 
-  { id:'word-game', icon:'🎮', type:'simple', dept:'cs',
+  { id:'word-game', icon:'🎮', type:'simple', dept:'cs', subdept:'בינה מלאכותית',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
     title:'גרירת מושגים: מילון עולם ה-AI',
     desc:'משחק גמיפיקציה לשינון מושגי ליבה בבינה מלאכותית — גרור כל מושג להגדרה הנכונה שלו.',
@@ -298,7 +284,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>מתאים לשיעור:</strong> תרגול אחרי הסבר מושגים — עוזר לחיזוק זיכרון דרך משחק.' },
 
-  { id:'gallery-ai', icon:'🖼️', type:'info', dept:'cs',
+  { id:'gallery-ai', icon:'🖼️', type:'info', dept:'cs', subdept:'בינה מלאכותית',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
     title:'גלריה ויזואלית: תחומי הבינה המלאכותית',
     desc:'מסע ויזואלי בתחומי ה-AI — Computer Vision, NLP, Robotics, Generative AI — עם תמונות והסברים לכל תחום.',
@@ -318,7 +304,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לשיעור מבוא:</strong> השתמש כנקודת פתיחה להכרת תחומי ה-AI.' },
 
-  { id:'ai-bricks', icon:'🧱', type:'info', dept:'cs',
+  { id:'ai-bricks', icon:'🧱', type:'info', dept:'cs', subdept:'בינה מלאכותית',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
     title:'מושגי יסוד בבינה המלאכותית',
     desc:'8 מושגי ליבה של AI — Data, Model, Training, Bias ועוד — מוצגים כ"אבני בניין" שאפשר ללחוץ עליהן ולחקור.',
@@ -338,7 +324,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס מבוא:</strong> מתאים כרצף לימוד מובנה — מהמושגים הבסיסיים לתמונה המלאה.' },
 
-  { id:'gemini', icon:'🤖', type:'sim', dept:'cs',
+  { id:'gemini', icon:'🤖', type:'sim', dept:'cs', subdept:'בינה מלאכותית',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
     title:'שיחה עם מודל שפה: ניסוי ב-AI גנרטיבי',
     desc:'סביבת ניסוי עם Gemini — שואלים, בוחנים תשובות, מזהים הטיות ומלמדים ניסוח פרומפטים יעילים.',
@@ -379,7 +365,7 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס אלגוריתמים:</strong> הכי טוב להריץ BFS ו-DFS על אותו גרף ולהשוות את הסדר.' },
 
-  { id:'eye-accommodation', icon:'👁️', type:'sim', dept:'sci',
+  { id:'eye-accommodation', icon:'👁️', type:'sim', dept:'sci', subdept:'ביולוגיה',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
     title:'אקומודציה: מנגנון המיקוד האוטומטי של העין',
     desc:'סימולציה של מנגנון האקומודציה — העדשה משנה צורה, השריר הריסני מתכווץ, וקרני אור מתכנסות על הרשתית. כולל מיקוד אוטומטי ושליטה ידנית.',
@@ -586,7 +572,8 @@ const activities = [
 /* ─── RENDER ──────────────────────────────────────────── */
 function deptBadge(a) {
   const d = DEPT[a.dept] || DEPT.general;
-  return `<span class="dept-badge ${d.cls}">${d.icon} ${d.label}</span>`;
+  const label = a.subdept || d.label;
+  return `<span class="dept-badge ${d.cls}">${d.icon} ${label}</span>`;
 }
 
 function buildGrid() {
