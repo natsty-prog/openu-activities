@@ -11,76 +11,95 @@
     --brand-teal:#6CB79D; --brand-teal-light:#D4EDE5; --brand-teal-soft:#EEF8F4;
     --brand-yellow:#EBA521; --brand-yellow-light:#F8E5B8; --brand-yellow-soft:#FDF6E8;
     --brand-dark:#231F20; --brand-white:#FFFFFF; --brand-pink-pale:#E599B6;
-    --gray-50:#F9F7F8; --gray-100:#F0ECEe; --gray-200:#DDD5DA;
+    --gray-50:#F9F7F8; --gray-100:#F0ECEE; --gray-200:#DDD5DA;
     --gray-400:#A08898; --gray-600:#6B4F5E; --gray-800:#3A2230; --gray-900:#231F20;
     --radius-card:16px;
-    --shadow-card:0 2px 14px rgba(193,30,107,.08),0 1px 4px rgba(193,30,107,.05);
-    --shadow-hover:0 8px 36px rgba(193,30,107,.16),0 2px 10px rgba(193,30,107,.10);
+    --shadow-card:0 2px 14px rgba(193,30,107,.07),0 1px 4px rgba(193,30,107,.04);
+    --shadow-hover:0 8px 36px rgba(193,30,107,.16),0 2px 10px rgba(193,30,107,.09);
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Heebo',sans-serif;background:var(--gray-50);color:var(--gray-900);min-height:100vh;direction:rtl;font-size:16px;}
 
-  /* Header */
+  /* ── Header ── */
   .header{background:#fff;color:var(--gray-900);padding:0;position:relative;overflow:hidden;border-bottom:1px solid var(--gray-200);}
   .header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--brand-pink),var(--brand-pink-pale),var(--brand-yellow),var(--brand-teal));}
-  .header-inner{max-width:1280px;margin:0 auto;padding:44px 36px 36px;position:relative;z-index:1;}
-  .header-top{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px;}
-  .logo-area{display:flex;align-items:center;gap:18px;}
-  .logo-mark svg{width:52px;height:52px;}
-  .header-titles h1{font-size:24px;font-weight:800;line-height:1.2;letter-spacing:-.3px;color:var(--gray-900);}
-  .header-titles p{font-size:14px;font-weight:400;color:var(--gray-400);margin-top:3px;}
-  .header-badge{background:var(--brand-pink-soft);color:var(--brand-pink);border:1.5px solid var(--brand-pink-light);border-radius:20px;padding:7px 18px;font-size:14px;font-weight:700;white-space:nowrap;}
-  .header-desc{font-size:15px;color:var(--gray-600);line-height:1.7;max-width:680px;margin-bottom:28px;}
-  .stats-bar{display:flex;gap:14px;flex-wrap:wrap;}
-  .stat-pill{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:14px;padding:12px 22px;display:flex;align-items:center;gap:12px;}
-  .stat-pill .num{font-size:26px;font-weight:800;line-height:1;color:var(--brand-pink);}
-  .stat-pill .lbl{font-size:13px;color:var(--gray-400);line-height:1.35;}
+  .header-inner{max-width:1280px;margin:0 auto;padding:38px 36px 32px;position:relative;z-index:1;}
+  .header-top{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:22px;}
+  .logo-area{display:flex;align-items:center;gap:16px;}
+  .header-titles h1{font-size:22px;font-weight:800;line-height:1.2;letter-spacing:-.3px;color:var(--gray-900);}
+  .header-titles p{font-size:13px;font-weight:400;color:var(--gray-400);margin-top:3px;}
+  .header-badge{background:var(--brand-pink-soft);color:var(--brand-pink);border:1.5px solid var(--brand-pink-light);border-radius:20px;padding:6px 16px;font-size:13px;font-weight:700;white-space:nowrap;}
+  .header-desc{font-size:14px;color:var(--gray-600);line-height:1.7;max-width:680px;margin-bottom:24px;}
+  .stats-bar{display:flex;gap:12px;flex-wrap:wrap;}
+  .stat-pill{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:13px;padding:10px 20px;display:flex;align-items:center;gap:12px;}
+  .stat-pill .num{font-size:24px;font-weight:800;line-height:1;color:var(--brand-pink);}
+  .stat-pill .lbl{font-size:12px;color:var(--gray-400);line-height:1.35;}
 
-  /* Filter bar */
-  .filter-wrap{background:#fff;border-bottom:1px solid var(--gray-200);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(193,30,107,.06);}
-  .filter-inner{max-width:1280px;margin:0 auto;padding:0 36px;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none;}
+  /* ── Filter bar ── */
+  .filter-wrap{background:#fff;border-bottom:1px solid var(--gray-200);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(193,30,107,.05);}
+  .filter-inner{max-width:1280px;margin:0 auto;padding:0 36px;display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none;}
   .filter-inner::-webkit-scrollbar{display:none;}
-  .filter-btn{border:none;background:none;cursor:pointer;font-family:'Heebo',sans-serif;font-size:14px;font-weight:500;color:var(--gray-600);padding:14px 16px;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;display:flex;align-items:center;gap:6px;}
+  .filter-btn{border:none;background:none;cursor:pointer;font-family:'Heebo',sans-serif;font-size:13px;font-weight:500;color:var(--gray-600);padding:13px 14px;white-space:nowrap;border-bottom:3px solid transparent;transition:all .18s;display:flex;align-items:center;gap:5px;}
   .filter-btn:hover{color:var(--brand-pink);}
   .filter-btn.active{color:var(--brand-pink);border-bottom-color:var(--brand-pink);font-weight:700;}
-  .filter-count{background:var(--brand-pink-soft);color:var(--brand-pink);border-radius:10px;padding:1px 8px;font-size:12px;font-weight:700;}
+  .filter-count{background:var(--brand-pink-soft);color:var(--brand-pink);border-radius:10px;padding:1px 7px;font-size:11px;font-weight:700;}
   .filter-btn.active .filter-count{background:var(--brand-pink);color:#fff;}
-  .filter-sep{width:1px;height:24px;background:var(--gray-200);margin:0 4px;flex-shrink:0;align-self:center;}
+  .filter-sep{width:1px;height:22px;background:var(--gray-200);margin:0 4px;flex-shrink:0;align-self:center;}
+  .filter-group-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);padding:0 8px;white-space:nowrap;align-self:center;}
 
-  /* Search */
+  /* ── Search ── */
   .search-wrap{padding:10px 36px;background:#fff;border-bottom:1px solid var(--gray-200);}
-  .search-inner{max-width:1280px;margin:0 auto;}
-  .search-input{width:100%;max-width:420px;padding:9px 14px 9px 36px;border:1.5px solid var(--gray-200);border-radius:20px;font-family:'Heebo',sans-serif;font-size:14px;color:var(--gray-900);outline:none;transition:border-color .18s;background:var(--gray-50);}
+  .search-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+  .search-input{width:100%;max-width:400px;padding:9px 14px;border:1.5px solid var(--gray-200);border-radius:20px;font-family:'Heebo',sans-serif;font-size:14px;color:var(--gray-900);outline:none;transition:border-color .18s;background:var(--gray-50);}
   .search-input:focus{border-color:var(--brand-pink);}
+  .active-filters{display:flex;gap:6px;flex-wrap:wrap;}
+  .active-chip{background:var(--brand-pink-soft);color:var(--brand-pink);border:1px solid var(--brand-pink-light);border-radius:20px;padding:4px 10px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;}
+  .active-chip button{background:none;border:none;cursor:pointer;color:var(--brand-pink);font-size:14px;line-height:1;padding:0;}
 
-  /* Main */
-  .main{max-width:1280px;margin:0 auto;padding:36px;}
-  .results-label{font-size:13px;color:var(--gray-400);margin-bottom:20px;}
+  /* ── Main ── */
+  .main{max-width:1280px;margin:0 auto;padding:32px 36px;}
+  .results-label{font-size:12px;color:var(--gray-400);margin-bottom:18px;}
   .results-label span{color:var(--brand-pink);font-weight:700;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(318px,1fr));gap:20px;}
 
-  /* Cards */
+  /* ── Cards ── */
   .card{background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card);border:1px solid var(--gray-200);display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s;overflow:hidden;}
   .card:hover{box-shadow:var(--shadow-hover);transform:translateY(-3px);}
-  .card-stripe{height:5px;flex-shrink:0;}
-  .card-body{padding:22px 22px 16px;flex:1;display:flex;flex-direction:column;gap:13px;}
+  .card-stripe{height:4px;flex-shrink:0;}
+  .card-body{padding:20px 20px 14px;flex:1;display:flex;flex-direction:column;gap:11px;}
   .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-  .card-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
-  .tag-group{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start;}
-  .tag{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:4px 11px;font-size:12px;font-weight:700;white-space:nowrap;}
-  .tag-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-  .tag-info{background:#EEF8F4;color:#3A8A70;} .tag-dot-info{background:var(--brand-teal);}
+  .card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;}
+  .tag-group{display:flex;gap:5px;flex-wrap:wrap;align-items:flex-start;}
+  .tag{display:inline-flex;align-items:center;gap:4px;border-radius:20px;padding:3px 10px;font-size:11.5px;font-weight:700;white-space:nowrap;}
+  .tag-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+  .tag-info{background:#EEF8F4;color:#2D7A60;} .tag-dot-info{background:var(--brand-teal);}
   .tag-simple{background:var(--brand-pink-soft);color:var(--brand-pink);} .tag-dot-simple{background:var(--brand-pink);}
-  .tag-sim{background:var(--brand-yellow-soft);color:#9A6B00;} .tag-dot-sim{background:var(--brand-yellow);}
-  .tag-db{background:#FDF0F5;color:#8B1450;} .tag-dot-db{background:#C11E6B;}
-  .card-title{font-size:17px;font-weight:700;line-height:1.35;color:var(--gray-900);}
-  .card-desc{font-size:14px;color:var(--gray-600);line-height:1.6;flex:1;}
-  .dept-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--gray-400);background:var(--gray-100);border-radius:8px;padding:3px 9px;}
+  .tag-sim{background:var(--brand-yellow-soft);color:#8A5E00;} .tag-dot-sim{background:var(--brand-yellow);}
+  .tag-db{background:#F0E8FA;color:#6B21A8;} .tag-dot-db{background:#9333EA;}
+  .card-title{font-size:16px;font-weight:700;line-height:1.35;color:var(--gray-900);}
+  .card-desc{font-size:13.5px;color:var(--gray-600);line-height:1.6;flex:1;}
+
+  /* Dept badge — colored by dept */
+  .dept-badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;border-radius:8px;padding:4px 10px;border:1px solid;}
+  .dept-lit    {color:#9A1555;background:#FBF0F5;border-color:#F5D0E3;}
+  .dept-sci    {color:#1A6B4A;background:#EEF8F4;border-color:#C2E8D8;}
+  .dept-edu    {color:#1D4ED8;background:#EFF6FF;border-color:#BFDBFE;}
+  .dept-socio  {color:#9A3412;background:#FFF7ED;border-color:#FED7AA;}
+  .dept-econ   {color:#854D0E;background:#FEFCE8;border-color:#FDE68A;}
+  .dept-cs     {color:#5B21B6;background:#F5F3FF;border-color:#DDD6FE;}
+  .dept-general{color:#6B4F5E;background:#F9F7F8;border-color:#DDD5DA;}
+
   .card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--gray-100);margin-top:auto;}
-  .meta-badge{font-size:12px;font-weight:500;color:var(--gray-400);background:var(--gray-100);border-radius:8px;padding:3px 9px;}
-  .meta-badge.highlight{color:var(--brand-teal);background:var(--brand-teal-soft);}
-  .card-footer{padding:0 22px 20px;display:flex;gap:8px;align-items:center;}
-  .btn-open{flex:1;text-align:center;border:none;cursor:pointer;font-family:'Heebo',sans-serif;font-size:14px;font-weight:700;color:#fff;background:var(--brand-pink);border-radius:11px;padding:11px;text-decoration:none;transition:background .2s;}
+
+  /* Credit line */
+  .credit-line{font-size:10.5px;color:var(--gray-400);display:flex;align-items:center;gap:4px;margin-top:4px;}
+  .credit-line.dept-credit{color:var(--brand-pink);font-weight:600;}
+
+  /* DB badge */
+  .db-badge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;color:#6B21A8;background:#F0E8FA;border:1px solid #DDD6FE;border-radius:20px;padding:2px 8px;}
+
+  .card-footer{padding:0 20px 18px;display:flex;gap:8px;align-items:center;}
+  .btn-open{flex:1;text-align:center;border:none;cursor:pointer;font-family:'Heebo',sans-serif;font-size:13.5px;font-weight:700;color:#fff;background:var(--brand-pink);border-radius:10px;padding:10px;text-decoration:none;transition:background .18s;display:block;}
   .btn-open:hover{background:#9A1555;}
   .btn-teal{background:var(--brand-teal);} .btn-teal:hover{background:#4A967E;}
   .btn-yellow{background:var(--brand-yellow);} .btn-yellow:hover{background:#C08000;}
@@ -90,45 +109,45 @@
   .stripe-yellow{background:linear-gradient(90deg,var(--brand-yellow),#F5C860);}
   .stripe-dark{background:linear-gradient(90deg,var(--brand-dark),#4A3545);}
   .icon-pink{background:var(--brand-pink-soft);} .icon-teal{background:var(--brand-teal-soft);}
-  .icon-yellow{background:var(--brand-yellow-soft);} .icon-dark{background:#F0ECEe;}
+  .icon-yellow{background:var(--brand-yellow-soft);} .icon-dark{background:#F0ECEE;}
 
-  /* Prompt button */
-  .prompt-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:8px 12px;border-radius:11px;border:1.5px solid var(--gray-200);background:var(--gray-50);color:var(--gray-400);cursor:pointer;font-family:'Heebo',sans-serif;transition:all .18s;white-space:nowrap;}
+  .prompt-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:7px 11px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-50);color:var(--gray-400);cursor:pointer;font-family:'Heebo',sans-serif;transition:all .18s;white-space:nowrap;}
   .prompt-btn:hover{background:#fff8e6;border-color:#f0c040;color:#b07800;}
 
   .card.hidden{display:none;}
   .no-results{text-align:center;padding:60px 20px;color:var(--gray-400);display:none;}
   .no-results.show{display:block;}
 
-  /* Modal */
+  /* ── Modal ── */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(35,31,32,.6);backdrop-filter:blur(4px);z-index:1000;align-items:center;justify-content:center;padding:20px;}
   .modal-overlay.open{display:flex;}
   .modal{background:#fff;border-radius:20px;max-width:660px;width:100%;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.18);animation:modalIn .22s cubic-bezier(.34,1.3,.64,1);}
   @keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
-  .modal-header{padding:22px 24px 16px;border-bottom:1px solid var(--gray-200);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .modal-header{padding:20px 22px 14px;border-bottom:1px solid var(--gray-200);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
   .modal-header-left{display:flex;align-items:center;gap:12px;}
-  .modal-header-icon{width:44px;height:44px;border-radius:11px;background:var(--brand-pink-soft);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
-  .modal-title{font-size:1.05rem;font-weight:800;color:var(--gray-900);margin-bottom:2px;}
-  .modal-sub{font-size:0.72rem;color:var(--gray-400);}
-  .modal-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--gray-200);background:var(--gray-50);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--gray-400);flex-shrink:0;transition:all .15s;}
+  .modal-header-icon{width:42px;height:42px;border-radius:10px;background:var(--brand-pink-soft);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+  .modal-title{font-size:1rem;font-weight:800;color:var(--gray-900);margin-bottom:2px;}
+  .modal-sub{font-size:0.7rem;color:var(--gray-400);}
+  .modal-close{width:30px;height:30px;border-radius:8px;border:1px solid var(--gray-200);background:var(--gray-50);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--gray-400);flex-shrink:0;transition:all .15s;}
   .modal-close:hover{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark);}
-  .modal-body{padding:20px 24px 24px;overflow-y:auto;flex:1;}
-  .modal-label{font-size:0.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .modal-body{padding:18px 22px 22px;overflow-y:auto;flex:1;}
+  .modal-label{font-size:0.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
   .modal-label::after{content:'';flex:1;height:1px;background:var(--gray-200);}
-  .prompt-box{background:#1e2329;color:#a8d8a8;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.8;padding:18px 20px;border-radius:10px;white-space:pre-wrap;word-break:break-word;position:relative;}
-  .copy-btn{position:absolute;top:10px;left:10px;background:#2d3440;color:#7d8590;border:1px solid #3d4450;border-radius:6px;padding:4px 10px;font-size:0.68rem;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;transition:all .15s;}
+  .prompt-box{background:#1e2329;color:#a8d8a8;font-family:'Courier New',monospace;font-size:0.78rem;line-height:1.8;padding:16px 18px;border-radius:10px;white-space:pre-wrap;word-break:break-word;position:relative;}
+  .copy-btn{position:absolute;top:10px;left:10px;background:#2d3440;color:#7d8590;border:1px solid #3d4450;border-radius:6px;padding:4px 10px;font-size:0.67rem;font-family:'Heebo',sans-serif;font-weight:700;cursor:pointer;transition:all .15s;}
   .copy-btn:hover,.copy-btn.copied{background:var(--brand-pink);color:#fff;border-color:var(--brand-pink);}
-  .modal-tip{margin-top:12px;background:var(--brand-teal-soft);border:1px solid var(--brand-teal-light);border-radius:8px;padding:12px 14px;font-size:0.78rem;color:#1a5e40;line-height:1.6;}
+  .modal-tip{margin-top:10px;background:var(--brand-teal-soft);border:1px solid var(--brand-teal-light);border-radius:8px;padding:11px 13px;font-size:0.76rem;color:#1a5e40;line-height:1.6;}
 
-  /* Legend */
-  .legend{margin-top:44px;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-card);padding:24px 28px;}
-  .legend h3{font-size:15px;font-weight:700;margin-bottom:16px;color:var(--gray-800);}
-  .legend-items{display:flex;flex-wrap:wrap;gap:14px;}
-  .legend-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gray-600);}
-  .legend-swatch{width:30px;height:10px;border-radius:5px;flex-shrink:0;}
-  .footer{text-align:center;padding:28px;color:var(--gray-400);font-size:13px;border-top:1px solid var(--gray-200);margin-top:8px;}
+  /* ── Footer ── */
+  .footer{text-align:center;padding:24px;color:var(--gray-400);font-size:12px;border-top:1px solid var(--gray-200);margin-top:8px;}
 
-  @media(max-width:640px){.header-inner{padding:26px 18px 22px;}.header-top{flex-direction:column;align-items:flex-start;}.main{padding:22px 18px;}.filter-inner{padding:0 18px;}.grid{grid-template-columns:1fr;}.search-wrap{padding:10px 18px;}}
+  @media(max-width:640px){
+    .header-inner{padding:24px 18px 20px;}
+    .header-top{flex-direction:column;align-items:flex-start;}
+    .main{padding:20px 18px;}
+    .filter-inner,.search-wrap{padding-right:18px;padding-left:18px;}
+    .grid{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
@@ -137,23 +156,30 @@
   <div class="header-inner">
     <div class="header-top">
       <div class="logo-area">
-        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-          <rect width="52" height="52" rx="13" fill="#2D2428"/>
-          <polygon points="26,8 34,20 26,26 18,20" fill="#C11E6B"/>
-          <polygon points="16,24 26,26 22,38 12,36" fill="#6CB79D"/>
-          <polygon points="36,24 26,26 30,38 40,36" fill="#EBA521"/>
+        <!-- לוגו מחלקת פדגוגיה דיגיטלית – האוניברסיטה הפתוחה -->
+        <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Pink group — top center (chevron + diamond) -->
+          <polygon points="29,2 37,14 29,20 21,14" fill="#E599B6"/>
+          <polygon points="21,14 29,2 37,14" fill="#C11E6B"/>
+          <polygon points="17,22 29,22 41,22 37,32 21,32" fill="#C11E6B" opacity=".85"/>
+          <!-- Teal group — bottom left (L-shape) -->
+          <rect x="3"  y="35" width="19" height="11" rx="2" fill="#6CB79D"/>
+          <rect x="3"  y="46" width="13" height="10" rx="2" fill="#6CB79D" opacity=".7"/>
+          <!-- Yellow group — bottom right (L-shape mirrored) -->
+          <rect x="36" y="35" width="19" height="11" rx="2" fill="#EBA521"/>
+          <rect x="42" y="46" width="13" height="10" rx="2" fill="#EBA521" opacity=".7"/>
         </svg>
         <div class="header-titles">
           <h1>מאגר פעילויות דיגיטליות</h1>
           <p>מחלקת פדגוגיה דיגיטלית | האוניברסיטה הפתוחה</p>
         </div>
       </div>
-      <div class="header-badge">2026</div>
+      <div class="header-badge">הדגמה 2026</div>
     </div>
-    <p class="header-desc">פעילויות לימודיות אינטראקטיביות שפותחו לשילוב בקורסים. כל פעילות מסווגת לפי סוג הטכנולוגיה, סוג האינטראקציה ומחלקה אקדמית.</p>
+    <p class="header-desc">פעילויות לימודיות אינטראקטיביות שפותחו לשילוב בקורסים — מוכנות להטמעה ב-Moodle ובכל פלטפורמת למידה. כל פעילות מסווגת לפי תחום דעת, סוג האינטראקציה וגורם הפיתוח.</p>
     <div class="stats-bar">
-      <div class="stat-pill"><span class="num" id="count-all">16</span><span class="lbl">פעילויות<br>סה״כ</span></div>
-      <div class="stat-pill"><span class="num">6</span><span class="lbl">מחלקות<br>אקדמיות</span></div>
+      <div class="stat-pill"><span class="num" id="count-all">0</span><span class="lbl">פעילויות<br>סה"כ</span></div>
+      <div class="stat-pill"><span class="num">6</span><span class="lbl">תחומי<br>דעת</span></div>
       <div class="stat-pill"><span class="num">100%</span><span class="lbl">ניתנות<br>להטמעה</span></div>
       <div class="stat-pill"><span class="num">∞</span><span class="lbl">שימושים<br>אפשריים</span></div>
     </div>
@@ -163,36 +189,38 @@
 <!-- Filter bar -->
 <div class="filter-wrap">
   <div class="filter-inner" id="filter-bar">
-    <button class="filter-btn active" data-filter="type" data-val="all">הכל <span class="filter-count" id="fc-all">16</span></button>
+    <button class="filter-btn active" data-filter="type" data-val="all">הכל <span class="filter-count" id="fc-all">0</span></button>
     <button class="filter-btn" data-filter="type" data-val="info">אינפורמטיבי <span class="filter-count" id="fc-info">0</span></button>
-    <button class="filter-btn" data-filter="type" data-val="simple">אינטראקטיבי פשוט <span class="filter-count" id="fc-simple">0</span></button>
+    <button class="filter-btn" data-filter="type" data-val="simple">אינטראקטיבי <span class="filter-count" id="fc-simple">0</span></button>
     <button class="filter-btn" data-filter="type" data-val="sim">סימולציה <span class="filter-count" id="fc-sim">0</span></button>
+    <button class="filter-btn" data-filter="type" data-val="db">🗄 בסיס נתונים <span class="filter-count" id="fc-db">0</span></button>
     <div class="filter-sep"></div>
-    <button class="filter-btn" data-filter="dept" data-val="lit">📚 ספרות ולשון</button>
+    <button class="filter-btn" data-filter="dept" data-val="all">כל התחומים</button>
+    <button class="filter-btn" data-filter="dept" data-val="cs">💻 מתמטיקה ומחשב</button>
     <button class="filter-btn" data-filter="dept" data-val="sci">🔬 מדעי הטבע</button>
     <button class="filter-btn" data-filter="dept" data-val="edu">🧠 חינוך ופסיכולוגיה</button>
+    <button class="filter-btn" data-filter="dept" data-val="lit">📚 ספרות ולשון</button>
     <button class="filter-btn" data-filter="dept" data-val="socio">🌍 סוציולוגיה</button>
     <button class="filter-btn" data-filter="dept" data-val="econ">📈 ניהול וכלכלה</button>
-    <button class="filter-btn" data-filter="dept" data-val="cs">💻 מתמטיקה ומחשב</button>
-    <button class="filter-btn" data-filter="dept" data-val="general">🌐 כללי</button>
+    <button class="filter-btn" data-filter="dept" data-val="general">🌐 כלי פדגוגי</button>
   </div>
 </div>
 
 <div class="search-wrap">
   <div class="search-inner">
     <input type="text" class="search-input" id="search-input" placeholder="🔍  חפש פעילות, נושא או מילת מפתח..." oninput="applyFilters()">
+    <div class="active-filters" id="active-filters"></div>
   </div>
 </div>
 
 <main class="main">
-  <div class="results-label"><span id="visible-count">16</span> פעילויות מוצגות</div>
+  <div class="results-label"><span id="visible-count">0</span> פעילויות מוצגות</div>
   <div class="grid" id="grid"></div>
   <div class="no-results" id="no-results">
     <div style="font-size:2.5rem;margin-bottom:12px">🔍</div>
     <div style="font-size:1rem;font-weight:700;margin-bottom:6px;color:#3A2230">לא נמצאו פעילויות</div>
     <div>נסי לשנות פילטר או למחוק את החיפוש</div>
   </div>
-
 </main>
 
 <footer class="footer">מחלקת פדגוגיה דיגיטלית | האוניברסיטה הפתוחה | כל הפעילויות מיועדות להטמעה בקורסי מודל</footer>
@@ -216,12 +244,28 @@
 </div>
 
 <script>
+/* ─── DEPT META ────────────────────────────────────────── */
+const DEPT = {
+  cs:      { label:'מתמטיקה ומחשב',   cls:'dept-cs',      icon:'💻' },
+  sci:     { label:'מדעי הטבע',        cls:'dept-sci',     icon:'🔬' },
+  edu:     { label:'חינוך ופסיכולוגיה',cls:'dept-edu',     icon:'🧠' },
+  lit:     { label:'ספרות ולשון',      cls:'dept-lit',     icon:'📚' },
+  socio:   { label:'סוציולוגיה',       cls:'dept-socio',   icon:'🌍' },
+  econ:    { label:'ניהול וכלכלה',     cls:'dept-econ',    icon:'📈' },
+  general: { label:'כלי פדגוגי',       cls:'dept-general', icon:'🌐' },
+};
+
+/* ─── ACTIVITIES ───────────────────────────────────────── */
 const activities = [
-  { id:'ai-survey', icon:'📊', type:'simple', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
+
+  { id:'ai-survey', icon:'📊', type:'simple', dept:'cs',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'עמדות סטודנטים כלפי בינה מלאכותית', desc:'סקר אינטראקטיבי לגילוי עמדות, חששות ותקוות בנוגע ל-AI — עם פידבק ויזואלי מיידי ופרופיל אישי.',
-    url:'https://natsty-prog.github.io/ai-survey/', meta:[],
-    tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
+    title:'עמדות סטודנטים כלפי בינה מלאכותית',
+    desc:'סקר אינטראקטיבי לגילוי עמדות, חששות ותקוות בנוגע ל-AI — עם פידבק ויזואלי מיידי ופרופיל אישי.',
+    url:'https://natsty-prog.github.io/ai-survey/',
+    tags:[{cls:'tag-simple',txt:'אינטראקטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
     prompt:`צור סקר אינטראקטיבי על נושא הבינה המלאכותית לסטודנטים.
 
 הסקר יכלול:
@@ -234,11 +278,14 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לשימוש בכיתה:</strong> הפעל בתחילת קורס AI כדי לאסוף עמדות ראשוניות ולעורר דיון.' },
 
-  { id:'word-game', icon:'🎮', type:'simple', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
+  { id:'word-game', icon:'🎮', type:'simple', dept:'cs',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'גרירת מושגים: מילון עולם ה-AI', desc:'משחק גמיפיקציה לשינון מושגי ליבה בבינה מלאכותית — גרור כל מושג להגדרה הנכונה שלו.',
-    url:'https://natsty-prog.github.io/game-ai/', meta:[],
-    tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
+    title:'גרירת מושגים: מילון עולם ה-AI',
+    desc:'משחק גמיפיקציה לשינון מושגי ליבה בבינה מלאכותית — גרור כל מושג להגדרה הנכונה שלו.',
+    url:'https://natsty-prog.github.io/game-ai/',
+    tags:[{cls:'tag-simple',txt:'אינטראקטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
     prompt:`צור משחק גרירת מילים (Drag & Drop) לתרגול מושגי בינה מלאכותית.
 
 המשחק יכלול:
@@ -251,11 +298,14 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>מתאים לשיעור:</strong> תרגול אחרי הסבר מושגים — עוזר לחיזוק זיכרון דרך משחק.' },
 
-  { id:'gallery-ai', icon:'🖼️', type:'info', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
+  { id:'gallery-ai', icon:'🖼️', type:'info', dept:'cs',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'גלריה ויזואלית: תחומי הבינה המלאכותית', desc:'מסע ויזואלי בתחומי ה-AI — Computer Vision, NLP, Robotics, Generative AI — עם תמונות והסברים לכל תחום.',
-    url:'https://digitallearningopenu.github.io/gallery-AI', meta:[],
+    title:'גלריה ויזואלית: תחומי הבינה המלאכותית',
+    desc:'מסע ויזואלי בתחומי ה-AI — Computer Vision, NLP, Robotics, Generative AI — עם תמונות והסברים לכל תחום.',
+    url:'https://digitallearningopenu.github.io/gallery-AI',
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
     prompt:`צור גלריה ויזואלית אינטראקטיבית לעולם הבינה המלאכותית.
 
 הגלריה תכלול:
@@ -268,29 +318,14 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לשיעור מבוא:</strong> השתמש כנקודת פתיחה להכרת תחומי ה-AI.' },
 
-  { id:'voting', icon:'🗳️', type:'simple', dept:'general', deptLabel:'פדגוגיה דיגיטלית',
-    stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'הצבעה כיתתית: שאלה לפתיחת דיון', desc:'כלי מעורבות להצגת שאלה פרובוקטיבית — הסטודנטים מצביעים ורואים את תוצאות הכיתה בזמן אמת.',
-    url:'https://natsty-prog.github.io/voting-app/', meta:[],
-    tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
-    prompt:`צור אפליקציית הצבעה אינטראקטיבית לשימוש בכיתה.
-
-האפליקציה תכלול:
-- שאלת הצבעה עם 2-5 אפשרויות
-- תצוגת תוצאות בזמן אמת (עוגה + עמודות)
-- ספירת קולות
-- אפשרות לאפס ולשנות שאלה
-- עיצוב מודרני וברור
-
-שפה: עברית, HTML אחד עצמאי.`,
-    tip:'<strong>לפתיחת שיעור:</strong> הצג שאלה פרובוקטיבית ואסוף דעות לפני הדיון.' },
-
-
-  { id:'ai-bricks', icon:'🧱', type:'info', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
+  { id:'ai-bricks', icon:'🧱', type:'info', dept:'cs',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'מושגי יסוד בבינה המלאכותית', desc:'8 מושגי ליבה של AI — Data, Model, Training, Bias ועוד — מוצגים כ"אבני בניין" שאפשר ללחוץ עליהן ולחקור.',
-    url:'https://digitallearningopenu.github.io/AI-Foundations-Bricks/', meta:[],
+    title:'מושגי יסוד בבינה המלאכותית',
+    desc:'8 מושגי ליבה של AI — Data, Model, Training, Bias ועוד — מוצגים כ"אבני בניין" שאפשר ללחוץ עליהן ולחקור.',
+    url:'https://digitallearningopenu.github.io/AI-Foundations-Bricks/',
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
     prompt:`צור מצגת ויזואלית אינטראקטיבית על יסודות ה-AI כ"אבני בניין".
 
 המצגת תכלול:
@@ -303,29 +338,14 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס מבוא:</strong> מתאים כרצף לימוד מובנה — מהמושגים הבסיסיים לתמונה המלאה.' },
 
-  { id:'ny-map', icon:'🗺️', type:'info', dept:'lit', deptLabel:'ספרות עברית',
-    stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'מרחב עירוני ונרטיב: ניו יורק ברומן העברי', desc:'מפה אינטראקטיבית של ניו יורק עם מסלולי דמויות ספרותיות — לחקור את הקשר בין מקום, נרטיב וזהות.',
-    url:'https://natsty-prog.github.io/ny-literary-map/', meta:[],
-    tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
-    prompt:`צור מפה ספרותית אינטראקטיבית של ניו יורק.
-
-המפה תכלול:
-- מפת Leaflet.js של ניו יורק
-- נקודות עניין לפי דמויות ספרותיות (Herman, Yadviga, Tamara, Peshels)
-- מסלולים צבעוניים לפי דמות
-- Sidebar עם מידע על כל POI
-- אזורים גיאוגרפיים (שכונות)
-- חיפוש וסינון לפי דמות
-
-שפה: עברית, HTML עם Leaflet.js.`,
-    tip:'<strong>לקורס ספרות:</strong> מתאים לניתוח מרחב ותרבות — "איפה מתרחשת העלילה ולמה?"' },
-
-  { id:'gemini', icon:'🤖', type:'sim', dept:'general', deptLabel:'מדעי המחשב | בינה מלאכותית',
+  { id:'gemini', icon:'🤖', type:'sim', dept:'cs',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
-    title:'שיחה עם מודל שפה: ניסוי ב-AI גנרטיבי', desc:'סביבת ניסוי עם Gemini — שואלים, בוחנים תשובות, מזהים הטיות ומלמדים ניסוח פרומפטים יעילים.',
-    url:'https://gemini.google.com/share/66961465be3f', meta:[],
+    title:'שיחה עם מודל שפה: ניסוי ב-AI גנרטיבי',
+    desc:'סביבת ניסוי עם Gemini — שואלים, בוחנים תשובות, מזהים הטיות ומלמדים ניסוח פרומפטים יעילים.',
+    url:'https://gemini.google.com/share/66961465be3f',
     tags:[{cls:'tag-sim',txt:'סימולציה'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
     prompt:`צור סביבת ניסוי אינטראקטיבית ל-Gemini AI בהקשר לימודי.
 
 הסביבה תכלול:
@@ -338,81 +358,63 @@ const activities = [
 שפה: עברית, שילוב עם Gemini API.`,
     tip:'<strong>לקורס על AI:</strong> מאפשר ניסוי ישיר עם מודל שפה — לצפות, לשאול ולהסיק מסקנות.' },
 
-  { id:'eye-accommodation', icon:'👁️', type:'sim', dept:'edu', deptLabel:'ביולוגיה | ראייה',
+  { id:'cs-graph', icon:'🕸️', type:'sim', dept:'cs',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
-    title:'אקומודציה: מנגנון המיקוד האוטומטי של העין', desc:'סימולציה אינטראקטיבית של מנגנון האקומודציה — כיצד העדשה משנה צורתה, השריר הריסני מתכווץ, וקרני אור מתכנסות על הרשתית. כולל מצב מיקוד אוטומטי ושליטה ידנית.',
-    url:'eye-accommodation.html', meta:[],
+    title:'חציית גרפים בפעולה: BFS ו-DFS',
+    desc:'אנימציה צעד-צעד של שני אלגוריתמי חציית גרפים — ראה בדיוק כיצד Queue מנחה BFS ו-Stack מנחה DFS.',
+    url:'cs-graph-traverse.html',
     tags:[{cls:'tag-sim',txt:'סימולציה'}],
-    prompt:`צור סימולציה אינטראקטיבית של מנגנון האקומודציה (Accommodation) של העין האנושית. הסימולציה תהיה קובץ HTML/CSS/JS עצמאי, ללא ספריות חיצוניות, בעברית מלאה.
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
+    prompt:`צור ויזואליזציה אינטראקטיבית של אלגוריתמי חציית גרפים.
+
+הפעילות תכלול:
+- גרף עם 9 צמתים וקשתות
+- הפעלת BFS ו-DFS בנפרד
+- אנימציה צעד-צעד: צבעים לפי מצב (לא נבדק/בתור/נוכחי/הושלם)
+- יומן פעולות חי בצד
+- הסבר: BFS = Queue, DFS = Stack
+- שליטה במהירות האנימציה
+
+שפה: עברית, HTML אחד עצמאי.`,
+    tip:'<strong>לקורס אלגוריתמים:</strong> הכי טוב להריץ BFS ו-DFS על אותו גרף ולהשוות את הסדר.' },
+
+  { id:'eye-accommodation', icon:'👁️', type:'sim', dept:'sci',
+    stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
+    title:'אקומודציה: מנגנון המיקוד האוטומטי של העין',
+    desc:'סימולציה של מנגנון האקומודציה — העדשה משנה צורה, השריר הריסני מתכווץ, וקרני אור מתכנסות על הרשתית. כולל מיקוד אוטומטי ושליטה ידנית.',
+    url:'eye-accommodation.html',
+    tags:[{cls:'tag-sim',txt:'סימולציה'}],
+    hasDB:false,
+    credit:'ד"ר שמרית עוז | קורס: תאי עצב: מבוא לנוירוביולוגיה (20308)',
+    prompt:`צור סימולציה אינטראקטיבית של מנגנון האקומודציה (Accommodation) של העין האנושית. קובץ HTML/CSS/JS עצמאי, ללא ספריות חיצוניות, בעברית מלאה.
 
 רכיבים ויזואליים:
-- חתך רוחב של העין: קרנית (cornea), עדשה (lens), שריר ריסני (ciliary muscle), סיבי תלייה (zonules), רשתית (retina), פוביאה (fovea)
-- העדשה משנה צורה — עבה ועגלגלה לראייה קרובה, שטוחה ודקה לראייה רחוקה
-- השריר הריסני מוצג כטבעת — מתכווץ = עבה יותר, קטן יותר
-- סיבי תלייה מחברים שריר לעדשה
+- חתך רוחב של העין: קרנית, עדשה, שריר ריסני, סיבי תלייה, רשתית, פוביאה
+- העדשה משנה צורה — עבה לראייה קרובה, שטוחה לרחוקה
+- השריר הריסני כטבעת — מתכווץ/מרחיב
 
 בקרות:
 - סליידר מרחק עצם (10–600 ס"מ)
-- כפתור מיקוד אוטומטי / שליטה ידנית
-- בשליטה ידנית — סליידר לכיווץ השריר (0%–100%)
+- מיקוד אוטומטי / שליטה ידנית
+- סליידר כיווץ השריר (0%–100%)
 
-פיזיקה ואופטיקה:
+פיזיקה:
 - משוואת עדשה דקה: 1/f = 1/Do + 1/Di
-- SCALE = 10 px/mm; מרחק עדשה-רשתית = 170 px (17 מ"מ)
-- F_FAR = 170 px (רגועה), F_NEAR = 145 px (כיווץ מלא)
-- במצב אוטומטי: f_req = Do×170/(Do+170), אקומודציה = (F_FAR−f_req)/(F_FAR−F_NEAR)
-- ציור 3 קרני אור עם עקיפה בעדשה — מתכנסות בנקודת Di
-- אינדיקטור: נקודה ירוקה = מיקוד על הרשתית, אדומה = מחוץ לרשתית
+- 3 קרני אור עם עקיפה בעדשה
+- אינדיקטור: ירוק = ממוקד, אדום = מטושטש
 
-תצוגות נוספות:
-- תיבת מידע: מרחק עצם, אורך מוקד, Di, % אקומודציה, מצב שריר, צורת עדשה
-- סרגל איכות מיקוד (0–100%)
-- תצוגת "מה העין רואה" — אובייקטים עם blur לפי חוסר המיקוד
+עיצוב: צבעי האוניברסיטה הפתוחה, RTL עברית, Heebo font, responsive.`,
+    tip:'<strong>לקורס נוירוביולוגיה ואופטיקה:</strong> ממחיש ויזואלית את מנגנון האקומודציה.' },
 
-עיצוב: צבעי האוניברסיטה הפתוחה (#C11E6B, #6CB79D, #EBA521), RTL עברית, Heebo font, responsive.`,
-    tip:'<strong>לקורסי ביולוגיה ואופטיקה:</strong> מציג בצורה ויזואלית כיצד העין מתמקדת, כולל הפיזיקה של האקומודציה.' },
-
-  { id:'bouma', icon:'👁️', type:'simple', dept:'edu', deptLabel:'חינוך ופסיכולוגיה',
-    stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'אפקט הצפיפות החזותית: חוק בואמה', desc:'הדגמה אינטראקטיבית של מגבלות הראייה הפריפראלית — שנה צפיפות וגלה כיצד המוח מתקשה לזהות אלמנטים צמודים.',
-    url:'https://telem.openu.ac.il/multimedia/icw/c10966/book/boumas_law_interactive_crowding_illustration_html_js.html', meta:[],
-    tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
-    prompt:`צור הדגמה אינטראקטיבית של חוק בואמה (Bouma's Law) לפסיכולוגיה קוגניטיבית.
-
-הפעילות תכלול:
-- רשת של אלמנטים ויזואליים (אותיות/צורות)
-- סליידר לשינוי מרווח (Spacing)
-- הדגשה ויזואלית של אפקט ה-Crowding
-- הסבר על ראייה פריפראלית
-- ניסוי: כמה אלמנטים אפשר לזהות בהבזק?
-
-שפה: עברית, HTML אחד עצמאי.`,
-    tip:'<strong>לקורס פסיכולוגיה קוגניטיבית:</strong> ממחיש כיצד ראיית הפריפריה מוגבלת בצפיפות.' },
-
-
-  { id:'lit-poem', icon:'📖', type:'simple', dept:'lit', deptLabel:'ספרות עברית',
-    stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'זיהוי אמצעים ספרותיים בשירה העברית', desc:'בחר שורה מביאליק, רחל או לאה גולדברג, סמן אמצעים ספרותיים וקבל סיכום אישי של מה שגילית.',
-    url:'lit-poem-analysis.html', meta:['HTML עצמאי','iframe ידידותי'],
-    tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
-    prompt:`צור פעילות ניתוח שירה אינטראקטיבית לספרות עברית.
-
-הפעילות תכלול:
-- 3 שירים קנוניים: ביאליק, רחל, לאה גולדברג
-- לחיצה על שורה לבחירתה
-- רשימת אמצעים ספרותיים לסימון: אנפורה, ניגוד, מטאפורה, דימוי, הקבלה, שאלה רטורית...
-- כפתור "הוסף סימון" לשורה + אמצעי
-- סיכום: כמה פעמים זיהית כל אמצעי
-- ממשק נקי בעברית
-
-שפה: עברית, HTML אחד עצמאי.`,
-    tip:'<strong>לקורס ספרות:</strong> מוביל הכרה עצמאית של אמצעים ספרותיים לפני הדיון בכיתה.' },
-
-  { id:'science-periodic', icon:'⚗️', type:'info', dept:'sci', deptLabel:'כימיה',
+  { id:'science-periodic', icon:'⚗️', type:'info', dept:'sci',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'חקירת היסודות הכימיים: מחזור אינטראקטיבי', desc:'לחץ על כל יסוד לגילוי מסה אטומית, קונפיגורציה אלקטרונית ונקודות רתיחה/התכה. סינון לפי קטגוריה.',
-    url:'science-periodic.html', meta:['HTML עצמאי','Canvas + SVG'],
+    title:'חקירת היסודות הכימיים: מחזור אינטראקטיבי',
+    desc:'לחץ על כל יסוד לגילוי מסה אטומית, קונפיגורציה אלקטרונית ונקודות רתיחה/התכה. סינון לפי קטגוריה.',
+    url:'science-periodic.html',
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
     prompt:`צור מחזור יסודות אינטראקטיבי לכימיה.
 
 הפעילות תכלול:
@@ -425,11 +427,34 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס כימיה:</strong> מחליף גיליון נייר — מאפשר חיפוש, סינון ולמידה עצמאית.' },
 
-  { id:'psych-vark', icon:'🧠', type:'simple', dept:'edu', deptLabel:'פסיכולוגיה חינוכית',
+  { id:'bouma', icon:'👁️', type:'simple', dept:'edu',
     stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
-    title:'גילוי סגנון הלמידה האישי: מודל VARK', desc:'12 שאלות לגילוי אם אתה לומד ויזואלי, שמיעתי, קורא/כותב או קינסתטי — עם פרופיל למידה מפורט.',
-    url:'psych-learning-styles.html', meta:['HTML עצמאי','iframe ידידותי'],
-    tags:[{cls:'tag-simple',txt:'אינטראקטיבי פשוט'}],
+    title:'אפקט הצפיפות החזותית: חוק בואמה',
+    desc:'הדגמה אינטראקטיבית של מגבלות הראייה הפריפראלית — שנה צפיפות וגלה כיצד המוח מתקשה לזהות אלמנטים צמודים.',
+    url:'https://telem.openu.ac.il/multimedia/icw/c10966/book/boumas_law_interactive_crowding_illustration_html_js.html',
+    tags:[{cls:'tag-simple',txt:'אינטראקטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
+    prompt:`צור הדגמה אינטראקטיבית של חוק בואמה (Bouma's Law) לפסיכולוגיה קוגניטיבית.
+
+הפעילות תכלול:
+- רשת של אלמנטים ויזואליים (אותיות/צורות)
+- סליידר לשינוי מרווח (Spacing)
+- הדגשה ויזואלית של אפקט ה-Crowding
+- הסבר על ראייה פריפראלית
+- ניסוי: כמה אלמנטים אפשר לזהות בהבזק?
+
+שפה: עברית, HTML אחד עצמאי.`,
+    tip:'<strong>לקורס פסיכולוגיה קוגניטיבית:</strong> ממחיש כיצד ראיית הפריפריה מוגבלת בצפיפות.' },
+
+  { id:'psych-vark', icon:'🧠', type:'simple', dept:'edu',
+    stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
+    title:'גילוי סגנון הלמידה האישי: מודל VARK',
+    desc:'12 שאלות לגילוי אם אתה לומד ויזואלי, שמיעתי, קורא/כותב או קינסתטי — עם פרופיל למידה מפורט.',
+    url:'psych-learning-styles.html',
+    tags:[{cls:'tag-simple',txt:'אינטראקטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
     prompt:`צור חידון סגנונות למידה על בסיס מודל VARK.
 
 החידון יכלול:
@@ -442,66 +467,139 @@ const activities = [
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס פסיכולוגיה חינוכית:</strong> נקודת פתיחה לדיון על למידה מותאמת אישית.' },
 
-  { id:'econ-npv', icon:'📈', type:'simple', dept:'econ', deptLabel:'כלכלה וניהול',
-    stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
-    title:'הערכת כדאיות השקעה: NPV, ROI ו-Payback', desc:'הזן השקעה ותזרימי מזומנים — קבל ערך נוכחי נקי, תשואה על השקעה ותקופת החזר עם גרף ומסקנה.',
-    url:'econ-npv.html', meta:['HTML עצמאי','חישוב חי'],
-    tags:[{cls:'tag-sim',txt:'סימולציה'}],
-    prompt:`צור מחשבון פיננסי אינטראקטיבי להערכת כדאיות השקעה.
+  { id:'ny-map', icon:'🗺️', type:'info', dept:'lit',
+    stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
+    title:'מרחב עירוני ונרטיב: ניו יורק ברומן העברי',
+    desc:'מפה אינטראקטיבית של ניו יורק עם מסלולי דמויות ספרותיות — לחקור את הקשר בין מקום, נרטיב וזהות.',
+    url:'https://natsty-prog.github.io/ny-literary-map/',
+    tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
+    prompt:`צור מפה ספרותית אינטראקטיבית של ניו יורק.
 
-המחשבון יכלול:
-- 3 לשוניות: NPV, ROI, Payback Period
-- קלטים: השקעה, שיעור היוון, תזרימי מזומנים לפי שנה
-- חישוב IRR (שיעור תשואה פנימי)
-- גרף עמודות של תזרים מזומנים
-- verdict: השקעה כדאית / לא כדאית
-- גרף Payback מצטבר
+המפה תכלול:
+- מפת Leaflet.js של ניו יורק
+- נקודות עניין לפי דמויות ספרותיות
+- מסלולים צבעוניים לפי דמות
+- Sidebar עם מידע על כל POI
+- חיפוש וסינון לפי דמות
+
+שפה: עברית, HTML עם Leaflet.js.`,
+    tip:'<strong>לקורס ספרות:</strong> מתאים לניתוח מרחב ותרבות — "איפה מתרחשת העלילה ולמה?"' },
+
+  { id:'lit-poem', icon:'📖', type:'simple', dept:'lit',
+    stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
+    title:'זיהוי אמצעים ספרותיים בשירה העברית',
+    desc:'בחר שורה מביאליק, רחל או לאה גולדברג, סמן אמצעים ספרותיים וקבל סיכום אישי של מה שגילית.',
+    url:'lit-poem-analysis.html',
+    tags:[{cls:'tag-simple',txt:'אינטראקטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
+    prompt:`צור פעילות ניתוח שירה אינטראקטיבית לספרות עברית.
+
+הפעילות תכלול:
+- 3 שירים קנוניים: ביאליק, רחל, לאה גולדברג
+- לחיצה על שורה לבחירתה
+- רשימת אמצעים ספרותיים לסימון: אנפורה, ניגוד, מטאפורה, דימוי, הקבלה, שאלה רטורית...
+- סיכום: כמה פעמים זיהית כל אמצעי
 
 שפה: עברית, HTML אחד עצמאי.`,
-    tip:'<strong>לקורס מימון:</strong> מאפשר "ניסוי" — שינוי פרמטרים ורישום ההשפעה על NPV.' },
+    tip:'<strong>לקורס ספרות:</strong> מוביל הכרה עצמאית של אמצעים ספרותיים לפני הדיון בכיתה.' },
 
-  { id:'socio-data', icon:'📊', type:'info', dept:'socio', deptLabel:'סוציולוגיה',
+  { id:'socio-data', icon:'📊', type:'info', dept:'socio',
     stripe:'stripe-teal', iconBg:'icon-teal', btnClass:'btn-teal',
-    title:'נתונים חברתיים בישראל: אי-שוויון, אמון ואוכלוסייה', desc:'ויזואליזציה של 4 מערכי נתונים — השכלה↔שכר, מקדם ג\'יני, פירמידת גיל, ואמון ציבורי במוסדות.',
-    url:'socio-data-viz.html', meta:['HTML עצמאי','Canvas'],
+    title:'נתונים חברתיים בישראל: אי-שוויון, אמון ואוכלוסייה',
+    desc:'ויזואליזציה של 4 מערכי נתונים — השכלה↔שכר, מקדם ג\'יני, פירמידת גיל, ואמון ציבורי במוסדות.',
+    url:'socio-data-viz.html',
     tags:[{cls:'tag-info',txt:'אינפורמטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
     prompt:`צור ויזואליזציה של נתונים חברתיים לסוציולוגיה.
 
 הפעילות תכלול:
 - 4 מערכי נתונים: השכלה↔שכר, מקדם ג'יני לאורך זמן, הרכב אוכלוסייה, אמון במוסדות
 - בחירת תרשים: עמודות, קו, עוגה
 - תובנות ומסקנות לכל נתון
-- ממצאים סטטיסטיים מרכזיים
-- עיצוב נקי בצבעי האו"פ
 
 שפה: עברית, HTML אחד עצמאי.`,
     tip:'<strong>לקורס סוציולוגיה:</strong> מאפשר קריאת נתונים, הסקת מסקנות ודיון בגורמים.' },
 
-  { id:'cs-graph', icon:'🕸️', type:'sim', dept:'cs', deptLabel:'מדעי המחשב',
+  { id:'econ-npv', icon:'📈', type:'simple', dept:'econ',
     stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
-    title:'חציית גרפים בפעולה: BFS ו-DFS', desc:'אנימציה צעד-צעד של שני אלגוריתמי חציית גרפים — ראה בדיוק כיצד Queue מנחה BFS ו-Stack מנחה DFS.',
-    url:'cs-graph-traverse.html', meta:['HTML עצמאי','Canvas'],
-    tags:[{cls:'tag-sim',txt:'סימולציה'}],
-    prompt:`צור ויזואליזציה אינטראקטיבית של אלגוריתמי חציית גרפים.
+    title:'הערכת כדאיות השקעה: NPV, ROI ו-Payback',
+    desc:'הזן השקעה ותזרימי מזומנים — קבל ערך נוכחי נקי, תשואה על השקעה ותקופת החזר עם גרף ומסקנה.',
+    url:'econ-npv.html',
+    tags:[{cls:'tag-simple',txt:'אינטראקטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
+    prompt:`צור מחשבון פיננסי אינטראקטיבי להערכת כדאיות השקעה.
 
-הפעילות תכלול:
-- גרף עם 9 צמתים וקשתות
-- הפעלת BFS ו-DFS בנפרד
-- אנימציה צעד-צעד: צבעים לפי מצב (לא נבדק/בתור/נוכחי/הושלם)
-- יומן פעולות חי בצד
-- הסבר: BFS = Queue, DFS = Stack
-- שליטה במהירות האנימציה
+המחשבון יכלול:
+- 3 לשוניות: NPV, ROI, Payback Period
+- קלטים: השקעה, שיעור היוון, תזרימי מזומנים לפי שנה
+- גרף עמודות של תזרים מזומנים
+- verdict: השקעה כדאית / לא כדאית
 
 שפה: עברית, HTML אחד עצמאי.`,
-    tip:'<strong>לקורס אלגוריתמים:</strong> הכי טוב להריץ BFS ו-DFS על אותו גרף ולהשוות את הסדר.' }
+    tip:'<strong>לקורס מימון:</strong> מאפשר "ניסוי" — שינוי פרמטרים ורישום ההשפעה על NPV.' },
+
+  { id:'investments-app', icon:'💰', type:'sim', dept:'econ',
+    stripe:'stripe-yellow', iconBg:'icon-yellow', btnClass:'btn-yellow',
+    title:'אפליקציה לניהול תיק השקעות וניירות ערך',
+    desc:'אפליקציה לימודית אינטראקטיבית לניהול ומעקב אחרי תיק השקעות — פותחה בכלי No-Code (Base44) עם מסד נתונים אמיתי.',
+    url:'https://openu13047.base44.app/',
+    tags:[{cls:'tag-sim',txt:'סימולציה'},{cls:'tag-db',txt:'בסיס נתונים'}],
+    hasDB:true,
+    credit:'גיל בן יהודה | קורס: השקעות וניירות ערך (13047)',
+    prompt:`צור אפליקציה לימודית לניהול תיק השקעות וניירות ערך.
+
+האפליקציה תכלול:
+- ניהול תיק השקעות: הוספה ומחיקה של ניירות ערך
+- מעקב אחרי ביצועים (תשואה, סיכון)
+- גרפים ותצוגות ויזואליות
+- לוח מחוונים לסטודנטים
+- מסד נתונים אמיתי לשמירת נתונים
+
+כלי: Base44 (פיתוח No-Code עם Database).`,
+    tip:'<strong>לקורס השקעות וניירות ערך:</strong> מאפשר ניסוי מעשי בניהול תיק השקעות ללא סיכון אמיתי.' },
+
+  { id:'voting', icon:'🗳️', type:'simple', dept:'general',
+    stripe:'stripe-pink', iconBg:'icon-pink', btnClass:'',
+    title:'הצבעה כיתתית: שאלה לפתיחת דיון',
+    desc:'כלי מעורבות להצגת שאלה פרובוקטיבית — הסטודנטים מצביעים ורואים את תוצאות הכיתה בזמן אמת.',
+    url:'https://natsty-prog.github.io/voting-app/',
+    tags:[{cls:'tag-simple',txt:'אינטראקטיבי'}],
+    hasDB:false,
+    credit:'מחלקת פדגוגיה דיגיטלית',
+    prompt:`צור אפליקציית הצבעה אינטראקטיבית לשימוש בכיתה.
+
+האפליקציה תכלול:
+- שאלת הצבעה עם 2-5 אפשרויות
+- תצוגת תוצאות (עוגה + עמודות)
+- ספירת קולות
+- אפשרות לאפס ולשנות שאלה
+
+שפה: עברית, HTML אחד עצמאי.`,
+    tip:'<strong>לפתיחת שיעור:</strong> הצג שאלה פרובוקטיבית ואסוף דעות לפני הדיון.' },
 ];
 
-let activeType = 'all', activeDept = 'all', searchQ = '';
+/* ─── RENDER ──────────────────────────────────────────── */
+function deptBadge(a) {
+  const d = DEPT[a.dept] || DEPT.general;
+  return `<span class="dept-badge ${d.cls}">${d.icon} ${d.label}</span>`;
+}
 
 function buildGrid() {
   const grid = document.getElementById('grid');
-  grid.innerHTML = activities.map(a => `
-    <div class="card" id="card-${a.id}" data-type="${a.type}" data-dept="${a.dept}" data-search="${(a.title+' '+a.desc+' '+a.deptLabel).toLowerCase()}">
+  grid.innerHTML = activities.map(a => {
+    const isExternal = a.credit !== 'מחלקת פדגוגיה דיגיטלית';
+    const dbBadge = a.hasDB ? `<span class="db-badge">🗄 בסיס נתונים</span>` : '';
+    return `
+    <div class="card" id="card-${a.id}"
+         data-type="${a.type}"
+         data-dept="${a.dept}"
+         data-db="${a.hasDB ? '1' : '0'}"
+         data-search="${(a.title+' '+a.desc+' '+a.credit+' '+(DEPT[a.dept]||DEPT.general).label).toLowerCase()}">
       <div class="card-stripe ${a.stripe}"></div>
       <div class="card-body">
         <div class="card-top">
@@ -513,72 +611,126 @@ function buildGrid() {
         <div class="card-title">${a.title}</div>
         <div class="card-desc">${a.desc}</div>
         <div class="card-meta">
-          <span class="dept-badge">🏛️ ${a.deptLabel}</span>
+          ${deptBadge(a)}
+          ${dbBadge}
+        </div>
+        <div class="credit-line ${isExternal ? 'dept-credit' : ''}">
+          ${isExternal ? '👤' : '🏛️'} ${a.credit}
         </div>
       </div>
       <div class="card-footer">
         <a href="${a.url}" target="_blank" class="btn-open ${a.btnClass}">פתח פעילות ←</a>
         <button class="prompt-btn" onclick="openPrompt('${a.id}')">✦ פרומפט</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
+/* ─── COUNTS ──────────────────────────────────────────── */
 function updateCounts() {
-  const types = {all:0,info:0,simple:0,sim:0,db:0};
-  activities.forEach(a => { types.all++; types[a.type]++; });
-  ['all','info','simple','sim','db'].forEach(t => {
-    const el=document.getElementById('fc-'+t); if(el) el.textContent=types[t];
+  const types = {all:0, info:0, simple:0, sim:0, db:0};
+  activities.forEach(a => {
+    types.all++;
+    types[a.type] = (types[a.type]||0) + 1;
+    if (a.hasDB) types.db++;
   });
   document.getElementById('count-all').textContent = types.all;
+  ['all','info','simple','sim','db'].forEach(t => {
+    const el = document.getElementById('fc-'+t);
+    if (el) el.textContent = types[t]||0;
+  });
+  document.getElementById('visible-count').textContent = types.all;
 }
+
+/* ─── FILTERS ─────────────────────────────────────────── */
+let activeType = 'all', activeDept = 'all', searchQ = '';
 
 function applyFilters() {
-  searchQ = document.getElementById('search-input').value.toLowerCase();
-  let vis=0;
+  searchQ = document.getElementById('search-input').value.toLowerCase().trim();
+  let vis = 0;
+
   activities.forEach(a => {
-    const el=document.getElementById('card-'+a.id);
-    if(!el) return;
-    const matchType = activeType==='all' || a.type===activeType;
-    const matchDept = activeDept==='all' || a.dept===activeDept;
-    const matchSearch = !searchQ || a.title.toLowerCase().includes(searchQ) || a.desc.toLowerCase().includes(searchQ) || a.deptLabel.includes(searchQ);
+    const el = document.getElementById('card-'+a.id);
+    if (!el) return;
+
+    const matchType =
+      activeType === 'all' ? true :
+      activeType === 'db'  ? a.hasDB :
+      a.type === activeType;
+
+    const matchDept = activeDept === 'all' || a.dept === activeDept;
+
+    const searchTarget = el.dataset.search;
+    const matchSearch = !searchQ || searchTarget.includes(searchQ);
+
     const show = matchType && matchDept && matchSearch;
-    el.style.display = show?'flex':'none';
-    if(show) vis++;
+    el.style.display = show ? 'flex' : 'none';
+    if (show) vis++;
   });
+
   document.getElementById('visible-count').textContent = vis;
-  document.getElementById('no-results').classList.toggle('show', vis===0);
+  document.getElementById('no-results').classList.toggle('show', vis === 0);
+  renderActiveChips();
 }
 
+function renderActiveChips() {
+  const wrap = document.getElementById('active-filters');
+  const chips = [];
+  if (activeDept !== 'all') {
+    const d = DEPT[activeDept] || DEPT.general;
+    chips.push(`<div class="active-chip">${d.icon} ${d.label} <button onclick="clearDept()">×</button></div>`);
+  }
+  wrap.innerHTML = chips.join('');
+}
+function clearDept() {
+  activeDept = 'all';
+  document.querySelectorAll('.filter-btn[data-filter="dept"]').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-filter="dept"][data-val="all"]').classList.add('active');
+  applyFilters();
+}
+
+/* ─── INIT ────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  buildGrid(); updateCounts();
+  buildGrid();
+  updateCounts();
+
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter, val = btn.dataset.val;
-      document.querySelectorAll(`.filter-btn[data-filter="${filter}"]`).forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll(`.filter-btn[data-filter="${filter}"]`).forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      if(filter==='type') activeType=val;
-      else if(filter==='dept'){ activeDept=val; }
+      if (filter === 'type') activeType = val;
+      else if (filter === 'dept') activeDept = val;
       applyFilters();
     });
   });
 });
 
+/* ─── MODAL ───────────────────────────────────────────── */
 function openPrompt(id) {
-  const a=activities.find(x=>x.id===id); if(!a) return;
-  document.getElementById('m-icon').textContent=a.icon;
-  document.getElementById('m-title').textContent=a.title;
-  document.getElementById('m-sub').textContent=a.deptLabel+' — '+a.tags[0].txt;
-  document.getElementById('m-prompt').textContent=a.prompt;
-  document.getElementById('m-tip').innerHTML=a.tip;
-  document.getElementById('copy-btn').textContent='העתק';
+  const a = activities.find(x => x.id === id);
+  if (!a) return;
+  const d = DEPT[a.dept] || DEPT.general;
+  document.getElementById('m-icon').textContent = a.icon;
+  document.getElementById('m-title').textContent = a.title;
+  document.getElementById('m-sub').textContent = d.icon + ' ' + d.label + ' — ' + a.tags[0].txt;
+  document.getElementById('m-prompt').textContent = a.prompt;
+  document.getElementById('m-tip').innerHTML = a.tip;
+  document.getElementById('copy-btn').textContent = 'העתק';
   document.getElementById('copy-btn').classList.remove('copied');
   document.getElementById('modal-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
 }
-function closeModal(e){ if(e.target===document.getElementById('modal-overlay')) closeModalDirect(); }
-function closeModalDirect(){ document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
-function copyPrompt(){ navigator.clipboard.writeText(document.getElementById('m-prompt').textContent).then(()=>{ const b=document.getElementById('copy-btn'); b.textContent='✓ הועתק!'; b.classList.add('copied'); setTimeout(()=>{ b.textContent='העתק'; b.classList.remove('copied'); },2000); }); }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModalDirect(); });
+function closeModal(e) { if (e.target === document.getElementById('modal-overlay')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+function copyPrompt() {
+  navigator.clipboard.writeText(document.getElementById('m-prompt').textContent).then(() => {
+    const b = document.getElementById('copy-btn');
+    b.textContent = '✓ הועתק!'; b.classList.add('copied');
+    setTimeout(() => { b.textContent = 'העתק'; b.classList.remove('copied'); }, 2000);
+  });
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 </script>
 </body>
 </html>
